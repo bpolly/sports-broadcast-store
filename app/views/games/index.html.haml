@@ -1,0 +1,5 @@
+%h1 Games
+%ul
+  - @games.each do |game|
+    %li= game.home_team
+%h2= @fetched_game
