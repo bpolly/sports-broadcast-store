@@ -4,7 +4,7 @@ class GamesController < ApplicationController
     response = HTTParty.get('https://www.stattleship.com/baseball/mlb/games',
       headers: {
         "Content-Type" => 'application/json',
-        "Authorization" => "Token token=0413bf8f3527a64deb568be0f8ad1fe0",
+        "Authorization" => "Token token=#{ENV["STATTLESHIP_ACCESS_TOKEN"]}",
         "Accept" => "application/vnd.stattleship.com; version=1",
         "team_id" => "mlb-kc"})
     puts response
