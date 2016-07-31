@@ -7,6 +7,12 @@
   %b League:
   = @team.league
 
+%p
+  %b Nicknames
+  %ul
+    - @team.nicknames.map(&:name).each do |nick|
+      %li= nick
+
 = link_to 'Edit', edit_team_path(@team)
 \|
 = link_to 'Back', teams_path

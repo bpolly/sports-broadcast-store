@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
   root 'games#index'
   get '/scrape', to: 'games#do_scraping'
+
+  resources :teams do
+    resources :nicknames
+  end
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

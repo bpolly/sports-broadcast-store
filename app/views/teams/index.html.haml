@@ -1,23 +1,98 @@
-%h1 Listing teams
+.text-center
+  %h1 Teams
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th League
-      %th
-      %th
-      %th
+.col-md-12
+  .col-md-3
+    .text-center
+      %h3 NBA
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Name
+          %th League
+          %th
+          %th
+          %th
 
-  %tbody
-    - @teams.each do |team|
-      %tr
-        %td= team.name
-        %td= team.league
-        %td= link_to 'Show', team
-        %td= link_to 'Edit', edit_team_path(team)
-        %td= link_to 'Destroy', team, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %tbody
+        - Team.nba.each do |team|
+          %tr
+            %td= team.name
+            %td= team.league
+            %td= link_to 'Show', team
+            %td= link_to 'Edit', edit_team_path(team)
+            %td= link_to 'Destroy', team, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
+    %br
+
+  .col-md-3
+    .text-center
+      %h3 NFL
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Name
+          %th League
+          %th
+          %th
+          %th
+
+      %tbody
+        - Team.nfl.each do |team|
+          %tr
+            %td= team.name
+            %td= team.league
+            %td= link_to 'Show', team
+            %td= link_to 'Edit', edit_team_path(team)
+            %td= link_to 'Destroy', team, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+    %br
+
+
+  .col-md-3
+    .text-center
+      %h3 MLB
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Name
+          %th League
+          %th
+          %th
+          %th
+
+      %tbody
+        - Team.mlb.each do |team|
+          %tr
+            %td= team.name
+            %td= team.league
+            %td= link_to 'Show', team
+            %td= link_to 'Edit', edit_team_path(team)
+            %td= link_to 'Destroy', team, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+    %br
+
+  .col-md-3
+    .text-center
+      %h3 NHL
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Name
+          %th League
+          %th
+          %th
+          %th
+
+      %tbody
+        - Team.nhl.each do |team|
+          %tr
+            %td= team.name
+            %td= team.league
+            %td= link_to 'Show', team
+            %td= link_to 'Edit', edit_team_path(team)
+            %td= link_to 'Destroy', team, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+    %br
 
 = link_to 'New Team', new_team_path
