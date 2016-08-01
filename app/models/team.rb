@@ -14,4 +14,19 @@ class Team < ActiveRecord::Base
     Nickname.joins(:team).where(name: nickname).where(:teams => { :league => league }).map {|n| n.team}
     #Nickname.includes(:team).where(name: nickname).map {|n| n.team}
   end
+
+  def sport
+    case(self.slug[0..2])
+    when "mlb"
+      "baseball"
+    when "nhl"
+      "hockey"
+    when "nba"
+      "basketball"
+    when "nfl"
+      "football"
+    else
+      "unknown"
+    end
+  end
 end

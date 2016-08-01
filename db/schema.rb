@@ -11,23 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729122421) do
+ActiveRecord::Schema.define(version: 20160801134714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
-    t.integer  "home_team"
-    t.integer  "away_team"
+    t.integer  "home_team_id"
+    t.integer  "away_team_id"
     t.datetime "date"
     t.string   "tv_networks"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
-  add_index "games", ["away_team"], name: "index_games_on_away_team", using: :btree
+  add_index "games", ["away_team_id"], name: "index_games_on_away_team_id", using: :btree
   add_index "games", ["date"], name: "index_games_on_date", using: :btree
-  add_index "games", ["home_team"], name: "index_games_on_home_team", using: :btree
+  add_index "games", ["home_team_id"], name: "index_games_on_home_team_id", using: :btree
 
   create_table "nicknames", force: :cascade do |t|
     t.string   "name"
