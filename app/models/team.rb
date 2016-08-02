@@ -1,9 +1,14 @@
 class Team < ActiveRecord::Base
   has_many :nicknames
+  has_many :games
   LEAGUES = ["nba","nfl", "mlb", "nhl"]
 
   [:mlb, :nfl, :nhl, :nba].each do |league|
     scope league, -> { where(league: league) }
+  end
+
+  def games
+    Game.where("home_team_id = ? OR away_team_id = ?", self.id, self.id)
   end
 
   def self.find_teams_given_nickname(nickname)
