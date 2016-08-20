@@ -3,6 +3,7 @@ class Team < ActiveRecord::Base
   has_many :games
   LEAGUES = ["nba","nfl", "mlb", "nhl"]
 
+  # Team.mlb, Team.nfl,...
   [:mlb, :nfl, :nhl, :nba].each do |league|
     scope league, -> { where(league: league) }
   end
@@ -15,7 +16,7 @@ class Team < ActiveRecord::Base
     Nickname.includes(:team).where(name: nickname).map {|n| n.team}
   end
 
-  def self.find_teams_given_nickname(nickname, league)
+  def self.find_teams_given_nickname_and_league(nickname, league)
     Nickname.joins(:team).where(name: nickname).where(:teams => { :league => league }).map {|n| n.team}
     #Nickname.includes(:team).where(name: nickname).map {|n| n.team}
   end
