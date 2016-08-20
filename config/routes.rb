@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   root 'games#index'
   get '/scrape/:league', to: 'games#scrape'
-  post '/test_params', to: 'games#retrieve_given_params'
+  post '/games', to: 'games#retrieve_given_params'
 
   resources :teams do
     resources :nicknames

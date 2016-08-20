@@ -21,12 +21,12 @@ bos = Team.create(name: "boston red sox", slug: "mlb-bos", league: league)
 end
 
 chc = Team.create(name: "chicago cubs", slug: "mlb-chc", league: league)
-["chicago cubs", "cubs"].each do |nick|
+["chicago cubs", "cubs", "chicago"].each do |nick|
   chc.nicknames.create(name: nick)
 end
 
 chw = Team.create(name: "chicago white sox", slug: "mlb-chw", league: league)
-["chicago white sox", "white sox"].each do |nick|
+["chicago white sox", "white sox", "chicago"].each do |nick|
   chw.nicknames.create(name: nick)
 end
 
