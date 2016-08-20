@@ -71,14 +71,14 @@ ind = Team.create(name: "indiana pacers", slug: "nba-ind", league: league)
 end
 
 
-lac = Team.create(name: "la clippers", slug: "nba-lac", league: league)
-["la clippers","los angeles clippers", "clippers", "clips"].each do |nick|
+lac = Team.create(name: "los angeles clippers", slug: "nba-lac", league: league)
+["los angeles clippers","los angeles clippers", "clippers", "clips", "la", "la clippers"].each do |nick|
   lac.nicknames.create(name: nick)
 end
 
 
-lal = Team.create(name: "la lakers", slug: "nba-lal", league: league)
-["la lakers", "lakers", "los angeles lakers"].each do |nick|
+lal = Team.create(name: "los angeles lakers", slug: "nba-lal", league: league)
+["los angeles lakers", "lakers", "los angeles lakers", "la", "la clippers"].each do |nick|
   lal.nicknames.create(name: nick)
 end
 

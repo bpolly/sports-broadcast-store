@@ -66,7 +66,7 @@ laa = Team.create(name: "los angeles angels", slug: "mlb-laa", league: league)
 end
 
 la = Team.create(name: "los angeles dodgers", slug: "mlb-la", league: league)
-["los angeles dodgers", "dodgers"].each do |nick|
+["los angeles dodgers", "dodgers", "los angeles", "la", "la dodgers"].each do |nick|
   la.nicknames.create(name: nick)
 end
 
