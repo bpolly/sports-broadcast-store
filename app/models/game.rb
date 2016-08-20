@@ -16,4 +16,8 @@ class Game < ActiveRecord::Base
   def teams
     [home_team, away_team]
   end
+
+  def attributes
+    super.merge({home_team: home_team.name, away_team: away_team.name})
+  end
 end
