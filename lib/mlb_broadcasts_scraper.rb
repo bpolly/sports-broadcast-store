@@ -37,8 +37,8 @@ class MlbBroadcastsScraper
           tv_networks = cols[3].text
 
           date  = ( date_string ? Date.parse(date_string) : nil )
-          time = ( (time) ? Time.parse(time_string) : nil )
-          time = time - timezone_offset if time
+          time = ( (time_string) ? Time.parse(time_string) : nil )
+          time = time - timezone_offset.hours if time
 
           if(time == nil || time == "TBD")
             date_time = DateTime.new(date.year, date.month, date.day).utc.beginning_of_day
@@ -50,6 +50,8 @@ class MlbBroadcastsScraper
           if(target_game)
             updated_tv_networks = target_game.tv_networks ? (target_game.tv_networks.to_s + ", " + tv_networks) : tv_networks
             target_game.update_attributes(tv_networks: updated_tv_networks)
+          else
+            byebug
           end # if target_game
         end # if cols
       end # dates.each
