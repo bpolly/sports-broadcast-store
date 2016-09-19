@@ -37,7 +37,8 @@ class Scraper
         new_game.away_team_id = away_team.id
 
         new_game.league = @league
-        new_game.date = DateTime.parse(game["started_at"])
+        new_game.date = DateTime.parse(game["started_at"]).utc
+        #byebug
         new_game.save
       end
     end # games.each
@@ -46,7 +47,7 @@ class Scraper
   private
 
   def api_url
-    "https://www.stattleship.com/#{@sport}/#{@league}/games?since=today&per_page=40"
+    "https://api.stattleship.com/#{@sport}/#{@league}/games?since=today&per_page=40"
   end # api_url
 
   def get_sport(league)
