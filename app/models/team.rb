@@ -13,11 +13,11 @@ class Team < ActiveRecord::Base
   end
 
   def self.find_teams_given_nickname(nickname)
-    Nickname.includes(:team).where(name: nickname).map {|n| n.team}
+    Nickname.includes(:team).where(name: nickname).map {|n| n.team}.compact
   end
 
   def self.find_teams_given_nickname_and_league(nickname, league)
-    Nickname.joins(:team).where(name: nickname).where(:teams => { :league => league }).map {|n| n.team}
+    Nickname.joins(:team).where(name: nickname).where(:teams => { :league => league }).map {|n| n.team}.compact
     #Nickname.includes(:team).where(name: nickname).map {|n| n.team}
   end
 
