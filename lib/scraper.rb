@@ -29,8 +29,8 @@ class Scraper
 
       away_team_label = /([0-9a-zA-Z ]*)vs([0-9a-zA-Z ]*)/.match(game["label"])[1].strip.downcase
       home_team_label = /([0-9a-zA-Z ]*)vs([0-9a-zA-Z ]*)/.match(game["label"])[2].strip.downcase
-      away_team = Nickname.includes(:team).where(name: away_team_label).map(&:team).first
-      home_team = Nickname.includes(:team).where(name: home_team_label).map(&:team).first
+      away_team = Nickname.includes(:team).where(teams: { league: @league }).where(name: away_team_label).map(&:team).first
+      home_team = Nickname.includes(:team).where(teams: { league: @league }).where(name: home_team_label).map(&:team).first
       #byebug
 
       if(home_team && away_team)

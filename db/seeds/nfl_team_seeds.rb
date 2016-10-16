@@ -5,7 +5,7 @@ ari = Team.create(name: "arizona cardinals", slug: "nfl-ari", league: league, sc
   ari.nicknames.create(name: nick)
 end
 
-atl = Team.create(name: "atlanta falcons", slug: "nfl-atl", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-atlanta-hawks-football-schedule.php")
+atl = Team.create(name: "atlanta falcons", slug: "nfl-atl", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-atlanta-falcons-football-schedule.php")
 ["atlanta falcons", "atlanta", "falcons"].each do |nick|
   atl.nicknames.create(name: nick)
 end
@@ -130,7 +130,7 @@ sd = Team.create(name: "san diego chargers", slug: "nfl-sd", league: league, sch
   sd.nicknames.create(name: nick)
 end
 
-sf = Team.create(name: "san francisco 49ers", slug: "nfl-sf", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-san-fransisco-49ers-football-schedule.php")
+sf = Team.create(name: "san francisco 49ers", slug: "nfl-sf", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-san-francisco-49ers-football-schedule.php")
 ["san francisco 49ers", "san francisco", "49ers"].each do |nick|
   sf.nicknames.create(name: nick)
 end
