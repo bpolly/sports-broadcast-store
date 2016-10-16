@@ -17,8 +17,8 @@ bk = Team.create(name: "brooklyn nets", slug: "nba-bk", league: league, schedule
 end
 
 
-cha = Team.create(name: "charlotte bobcats", slug: "nba-cha", league: league, schedule_url: "http://www.nba.com/bobcats/schedule")
-["charlotte bobcats", "charlotte", "bobcats"].each do |nick|
+cha = Team.create(name: "charlotte hornets", slug: "nba-cha", league: league, schedule_url: "http://www.nba.com/hornets/schedule")
+["charlotte hornets", "charlotte", "hornets"].each do |nick|
   cha.nicknames.create(name: nick)
 end
 
@@ -107,8 +107,8 @@ min = Team.create(name: "minnesota timberwolves", slug: "nba-min", league: leagu
 end
 
 
-no = Team.create(name: "new orleans hornets", slug: "nba-no", league: league, schedule_url: "http://www.nba.com/hornets/schedule")
-["new orleans hornets", "orleans", "hornets"].each do |nick|
+no = Team.create(name: "new orleans pelicans", slug: "nba-no", league: league, schedule_url: "http://www.nba.com/pelicans/schedule")
+["new orleans pelicans", "orleans", "pelicans"].each do |nick|
   no.nicknames.create(name: nick)
 end
 
@@ -132,7 +132,7 @@ end
 
 
 phi = Team.create(name: "philadelphia sixers", slug: "nba-phi", league: league, schedule_url: "http://www.nba.com/sixers/schedule")
-["philadelphia sixers","philadelphia", "seventy sixers", "sixers"].each do |nick|
+["philadelphia sixers","philadelphia", "seventy sixers", "sixers", "76ers"].each do |nick|
   phi.nicknames.create(name: nick)
 end
 
@@ -144,7 +144,7 @@ end
 
 
 por = Team.create(name: "portland trail blazers", slug: "nba-por", league: league, schedule_url: "http://www.nba.com/blazers/schedule")
-["portland trail blazers", "portland", "trail", "blazers", "fourth seed"].each do |nick|
+["portland trail blazers", "portland", "trail blazers", "blazers", "fourth seed"].each do |nick|
   por.nicknames.create(name: nick)
 end
 

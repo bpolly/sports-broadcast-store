@@ -27,10 +27,11 @@ class Scraper
     games.each do |game|
       new_game = Game.new
 
-      away_team_label = /([a-zA-Z ]*)vs([a-zA-Z ]*)/.match(game["label"])[1].strip.downcase
-      home_team_label = /([a-zA-Z ]*)vs([a-zA-Z ]*)/.match(game["label"])[2].strip.downcase
+      away_team_label = /([0-9a-zA-Z ]*)vs([0-9a-zA-Z ]*)/.match(game["label"])[1].strip.downcase
+      home_team_label = /([0-9a-zA-Z ]*)vs([0-9a-zA-Z ]*)/.match(game["label"])[2].strip.downcase
       away_team = Nickname.includes(:team).where(name: away_team_label).map(&:team).first
       home_team = Nickname.includes(:team).where(name: home_team_label).map(&:team).first
+      #byebug
 
       if(home_team && away_team)
         new_game.home_team_id = home_team.id
@@ -39,7 +40,9 @@ class Scraper
         new_game.league = @league
         new_game.date = DateTime.parse(game["started_at"]).utc
         #byebug
-        new_game.save
+        new_game.save if !game_exists?(new_game)
+      else
+          byebug
       end
     end # games.each
   end # save_games
@@ -61,5 +64,13 @@ class Scraper
     when "nhl"
       "hockey"
     end
+  end
+
+  def game_exists?(game)
+    Game
+    .where(home_team_id: game.home_team_id)
+    .where(date: game.date)
+    .where(away_team_id: game.away_team_id)
+    .count > 0
   end
 end

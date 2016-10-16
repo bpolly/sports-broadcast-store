@@ -1,17 +1,17 @@
-class MlbBroadcastsScraper
+class NbaBroadcastsScraper
   require 'open-uri'
   require 'watir'
 
   def do_teams
-    Team.nba.all.each do |team|
+    Team.nba[0..1].each do |team|
       #file = File.open("public/indians_sched.htm")
       doc = Nokogiri::HTML(open(team.schedule_url))
       #byebug
       #time_header = doc.css("#bcast_timecol").text
       #timezone = /\(([^)]+)\)/.match(time_header)[1]
       season_text = doc.css(".season_title").text[0..-8]
-      year1 = season_text[0..3]&.to_i
-      year2 = year1[0..1]+season_text[-2..-1]&.to_i
+      year1 = (season_text[0..3])&.to_i
+      year2 = ((year1.to_s[0..1])+(season_text[-2..-1])).to_i
 
 
 
@@ -25,11 +25,24 @@ class MlbBroadcastsScraper
         # col 5 - WTAM 1100, WMMS 100.7, Indians Radio Network
         opposing_team = row.css("img").first.attr("alt")
         time_string = row.css(".event_time").children.first.text
-        timezone = row.css(".event_time").css("small").text
+        timezone = row.css(".event_time").css("small").text.downcase
         date_string = row.css(".date").children.last.text.strip
         tv_networks = []
         row.css(".schedule__tv").children.each do |ch|
           tv_networks << ch.text.strip
+        end
+
+        timezone_offset = case (timezone)
+        when "et", "edt"
+          4
+        when "ct", "cdt"
+          5
+        when "mst", "mdt"
+          6
+        when "pt", "pdt"
+          7
+        else
+          0
         end
 
         time_parser = case (timezone)
@@ -39,7 +52,7 @@ class MlbBroadcastsScraper
           ActiveSupport::TimeZone["America/Chicago"]
         when "mst", "mdt"
           ActiveSupport::TimeZone["America/Denver"]
-        when "pt", "edt"
+        when "pt", "pdt"
           ActiveSupport::TimeZone["America/Los_Angeles"]
         else
           0
@@ -52,6 +65,7 @@ class MlbBroadcastsScraper
         time = time ? time.utc + 1.hour : nil
         #time = time - timezone_offset.hours if time
 
+        byebug
         if(time == nil || time == "TBD")
           #date_time = DateTime.new(date.year, date.month, date.day).utc.beginning_of_day
           date_time = DateTime.new(date.year, date.month, date.day)
