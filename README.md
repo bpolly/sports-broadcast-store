@@ -1,10 +1,15 @@
 # sports-broadcast-store
 Database + API for Sports Game Broadcasts
 
-###
-All dates/times are in GMT
+## Usage
+```Rails
+Scraper.new("nfl").scrape
+NflBroadcastsScraper.new.do_teams
+```
 
-## TO-DO
-- Seed networks
-- Scrape schedules to get broadcast listings
-- Associate networks/games
+###
+All dates/times are in UTC
+
+### Credits
+- Stattleship.com (for game info)
+- fbschedules.com (for NFL TV networks)
