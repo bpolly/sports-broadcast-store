@@ -3,7 +3,7 @@ class MlbBroadcastsScraper
   require 'watir'
 
   def do_teams
-    Team.mlb.all.each do |team|
+    Team.mlb.each do |team|
       #file = File.open("public/indians_sched.htm")
       doc = Nokogiri::HTML(open(team.schedule_url))
       #byebug
@@ -52,19 +52,20 @@ class MlbBroadcastsScraper
 
           date  = ( date_string ? Date.parse(date_string) : nil )
           time = ( (time_string) ? time_parser.parse(time_string) : nil )
-          time = time ? time.utc + 1.hour : nil
+          time = time ? time.utc : nil
           #time = time - timezone_offset.hours if time
 
           if(time == nil || time == "TBD")
             #date_time = DateTime.new(date.year, date.month, date.day).utc.beginning_of_day
             date_time = DateTime.new(date.year, date.month, date.day)
-            target_game = Game.with_date_no_time(date_time).with_team(team).first
+            target_game = Game.with_date_no_time(date_time).with_team(team).with_league("mlb").first
           else
             day_difference = time.day - (time - timezone_offset.hours).day
             date = date + day_difference.days
             date_time = DateTime.new(date.year, date.month, date.day, time.try(:hour), time.try(:min), time.try(:sec))
-            target_game = Game.with_date(date_time).with_team(team).first
+            target_game = Game.with_date(date_time).with_team(team).with_league("mlb").first
           end
+          #byebug
           if(target_game)
             #updated_tv_networks = target_game.tv_networks ? (target_game.tv_networks.to_s + ", " + tv_networks) : tv_networks
             updated_tv_networks = construct_tv_networks(target_game, tv_networks)
