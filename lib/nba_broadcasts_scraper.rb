@@ -4,7 +4,7 @@ class NbaBroadcastsScraper
 
   def do_teams
     rejected_teams = Team.excluded_teams_from_scraper
-    Team.nba[18..-1].each do |team|
+    Team.nba.each do |team|
       #file = File.open("public/indians_sched.htm")
       doc = Nokogiri::HTML(open(team.schedule_url))
       #byebug
