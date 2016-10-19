@@ -2,6 +2,8 @@ class Team < ActiveRecord::Base
   has_many :nicknames
   has_many :games
   LEAGUES = ["nba","nfl", "mlb", "nhl"]
+  validates :name, presence: true, uniqueness: true
+  validates :league, presence: true
 
   # Team.mlb, Team.nfl,...
   [:mlb, :nfl, :nhl, :nba].each do |league|

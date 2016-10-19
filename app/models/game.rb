@@ -1,6 +1,8 @@
 class Game < ActiveRecord::Base
   belongs_to :away_team, class_name: 'Team', foreign_key: 'away_team_id'
   belongs_to :home_team, class_name: 'Team', foreign_key: 'home_team_id'
+  validates :home_team, presence: true
+  validates :away_team, presence: true
 
   # Team.mlb, Team.nfl,...
   [:mlb, :nfl, :nhl, :nba].each do |league|
@@ -21,7 +23,4 @@ class Game < ActiveRecord::Base
     [home_team, away_team]
   end
 
-  def find_games_given_date
-
-  end
 end
