@@ -15,7 +15,7 @@ class Game < ActiveRecord::Base
 
   scope :with_date_no_time, ->(date) { where(date: date.utc.beginning_of_day+5.hours...date.utc.beginning_of_day+1.day+5.hours) if date.present?}
   scope :with_league, ->(league) { where(league: league.downcase) if league.present?}
-  scope :with_network, ->(network) { where(network: network.downcase) if network.present?}
+  scope :with_network, ->(network) { where(tv_networks: network.downcase) if network.present?}
 
   def teams
     [home_team, away_team]

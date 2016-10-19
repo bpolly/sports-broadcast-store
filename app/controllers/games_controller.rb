@@ -25,8 +25,8 @@ class GamesController < ApplicationController
 
     #byebug
 
-    team1 = ( team1_string ? Team.find_teams_given_nickname(team1_string) : nil )
-    team2 = ( team2_string ? Team.find_teams_given_nickname(team2_string) : nil )
+    team1 = ( team1_string ? Team.find_given_nickname(team1_string) : nil )
+    team2 = ( team2_string ? Team.find_given_nickname(team2_string) : nil )
     date = case date_string
     when DAYS.include?(date_string.strip.downcase)
       Date.today + get_day_difference(day)&.days
