@@ -79,8 +79,8 @@ class MlbBroadcastsScraper
   end # def scrape MLB team schedules
 
   def construct_tv_networks(target_game, new_networks)
-    existing_networks = target_game.tv_networks ? target_game.tv_networks.split(",") : []
-    new_tv_networks = new_networks.split(",").compact
+    existing_networks = target_game.tv_networks ? target_game.tv_networks.split(",").map(&:strip) : []
+    new_tv_networks = new_networks.split("/").map(&:strip)
     new_tv_networks.each do |network|
       if(network && network.length > 1)
         network = network.strip

@@ -31,6 +31,9 @@ gem 'normalize-rails'
 gem 'httparty'
 gem 'awesome_print', :require => 'ap'
 
+gem 'simple_form'
+gem 'bootstrap', '~> 4.0.0.alpha4'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

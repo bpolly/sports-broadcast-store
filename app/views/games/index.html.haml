@@ -1,5 +1,13 @@
 %h1 Games
-%ul
-  - @games.each do |game|
-    %li= game.home_team
-%h2= @fetched_game
+-# %ul
+-#   - @games.each do |game|
+-#     %li= game.home_team
+//%h2= @fetched_game
+
+= simple_form_for :game, url: games_path do |f|
+  = f.input :team1, as: :string
+  = f.input :team2, as: :string
+  = f.input :network, as: :string
+  = f.input :league, as: :string
+  = f.input :date, as: :string
+  = f.submit

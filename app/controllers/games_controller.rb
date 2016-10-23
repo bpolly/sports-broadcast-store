@@ -15,30 +15,36 @@ class GamesController < ApplicationController
   end # do_scraping
 
   def retrieve_given_params
-    team1_string = params[:team1]
-    team2_string = params[:team2]
-    network = params[:network]
-    league = params[:league]
-    date_string = params[:date]
-    time_string = params[:time]
-    time_zone = params[:time_zone]
+    #byebug
+    team1_string = params[:team1] # || params[:game][:team1]
+    team2_string = params[:team2] # || params[:game][:team2]
+    network = params[:network] # || params[:game][:network]
+    league = params[:league] # || params[:game][:league]
+    date_string = params[:date] # || params[:game][:date]
+    time_string = params[:time] # || params[:game][:time]
+    time_zone = params[:time_zone] # || params[:game][:time_zone]
+
+    #byebug
 
     #byebug
 
     team1 = ( team1_string ? Team.find_given_nickname(team1_string) : nil )
     team2 = ( team2_string ? Team.find_given_nickname(team2_string) : nil )
-    date = case date_string
-    when DAYS.include?(date_string.strip.downcase)
-      Date.today + get_day_difference(day)&.days
-    when "today"
-      Date.today
-    when "tomorrow"
-      Date.today + 1
-    when nil, ""
-      nil
-    else
-      puts date_string
-      Date.parse(date_string) if date_string
+
+    if(date_string)
+      date = case date_string
+      when DAYS.include?(date_string&.strip&.downcase)
+        Date.today + get_day_difference(day)&.days
+      when "today"
+        Date.today
+      when "tomorrow"
+        Date.today + 1
+      when nil, ""
+        nil
+      else
+        puts date_string
+        Date.parse(date_string) if date_string
+      end
     end
     #byebug
     #date  = ( date_string ? Date.parse(date_string) : nil )
@@ -51,7 +57,7 @@ class GamesController < ApplicationController
       games = Game.with_teams(team1).with_teams(team2).with_network(network).with_date(date).with_league(league)
     end
     #render :json => games
-    render :json => games
+    render :json => games.sort_by(&:date)
   end
 
   def get_day_difference(day)
