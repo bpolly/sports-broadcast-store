@@ -40,7 +40,7 @@ class GamesController < ApplicationController
       when "tomorrow"
         Date.today + 1
       when nil, ""
-        nil
+        Date.today # default to today
       else
         puts date_string
         Date.parse(date_string) if date_string
