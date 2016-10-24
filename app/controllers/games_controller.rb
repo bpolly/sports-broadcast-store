@@ -28,8 +28,8 @@ class GamesController < ApplicationController
 
     #byebug
 
-    team1 = ( team1_string ? Team.find_given_nickname(team1_string) : nil )
-    team2 = ( team2_string ? Team.find_given_nickname(team2_string) : nil )
+    team1 = ( team1_string ? Team.find_given_nickname(team1_string.downcase) : nil )
+    team2 = ( team2_string ? Team.find_given_nickname(team2_string.downcase) : nil )
 
     if(date_string)
       date = case date_string
