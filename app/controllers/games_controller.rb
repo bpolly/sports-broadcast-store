@@ -31,11 +31,12 @@ class GamesController < ApplicationController
     team1 = ( team1_string ? Team.find_given_nickname(team1_string.downcase) : nil )
     team2 = ( team2_string ? Team.find_given_nickname(team2_string.downcase) : nil )
 
-    if(date_string)
+    #byebug
+    if(date_string && date_string.length > 0)
       date = case date_string
       when DAYS.include?(date_string&.strip&.downcase)
         Date.today + get_day_difference(day)&.days
-      when "today"
+      when "today", "tonight"
         Date.today
       when "tomorrow"
         Date.today + 1
@@ -50,14 +51,17 @@ class GamesController < ApplicationController
     #date  = ( date_string ? Date.parse(date_string) : nil )
     time = ( time_string ? Time.parse(time_string) : nil )
     date_time = DateTime.new(date.year, date.month, date.day, time.hour, time.min, time.sec) if(date && time)
-
-    if(date && !time)
-      games = Game.with_teams(team1).with_teams(team2).with_network(network).with_date_no_time(date).with_league(league)
+    #byebug
+    if(!date && !time)
+      games = Game.with_teams(team1).with_teams(team2).with_network(network).with_league(league).where("date > ?", Date.today - 5.hours).sort_by(&:date)[0...1]
+    elsif(date && !time)
+      games = Game.with_teams(team1).with_teams(team2).with_network(network).with_date_no_time(date).with_league(league).where("date > ?", Date.today - 5.hours).sort_by(&:date)[0...5]
     else
-      games = Game.with_teams(team1).with_teams(team2).with_network(network).with_date(date).with_league(league)
+      games = Game.with_teams(team1).with_teams(team2).with_network(network).with_date(date).with_league(league).where("date > ?", Date.today - 5.hours).sort_by(&:date)[0...5]
     end
     #render :json => games
-    render :json => games[0..10].sort_by(&:date)
+    #byebug
+    render :json => games
   end
 
   def get_day_difference(day)
