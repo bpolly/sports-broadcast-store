@@ -57,7 +57,7 @@ class GamesController < ApplicationController
       games = Game.with_teams(team1).with_teams(team2).with_network(network).with_date(date).with_league(league)
     end
     #render :json => games
-    render :json => games.sort_by(&:date)
+    render :json => games[0..10].sort_by(&:date)
   end
 
   def get_day_difference(day)
