@@ -37,9 +37,9 @@ class GamesController < ApplicationController
       when DAYS.include?(date_string&.strip&.downcase)
         Date.today + get_day_difference(day)&.days
       when "today", "tonight"
-        Date.today
+        Date.parse(Time.now.utc.to_s)
       when "tomorrow"
-        Date.today + 1
+        Date.parse(Time.now.utc.to_s) + 1
       when nil, ""
         Date.today # default to today
       else

@@ -15,7 +15,7 @@ class Game < ActiveRecord::Base
   scope :with_date, ->(date) { where("date >= ? AND date <= ? OR date = ?", date - 1.hour, date + 1.hour, date) if date.present?}
   #scope :with_date, ->(date) { where("date.in_time_zone('Eastern Time (US & Canada)') = ? OR date.in_time_zone('Eastern Time (US & Canada)') = ? OR date.in_time_zone('Eastern Time (US & Canada)') = ?", date - 1.hour, date, date + 1.hour) if date.present?}
 
-  scope :with_date_no_time, ->(date) { where(date: date.beginning_of_day+5.hours...date.beginning_of_day+1.day+5.hours) if date.present?}
+  scope :with_date_no_time, ->(date) { where(date: date.beginning_of_day-5.hours...date.beginning_of_day+1.day-5.hours) if date.present?}
   scope :with_league, ->(league) { where(league: league.downcase) if league.present?}
   scope :with_network, ->(network) { where(tv_networks: network.downcase) if network.present?}
 
