@@ -15,7 +15,6 @@ class GamesController < ApplicationController
   end # do_scraping
 
   def retrieve_given_params
-    #byebug
     team1_string = params[:team1] # || params[:game][:team1]
     team2_string = params[:team2] # || params[:game][:team2]
     network = params[:network] # || params[:game][:network]
@@ -24,14 +23,9 @@ class GamesController < ApplicationController
     time_string = params[:time] # || params[:game][:time]
     time_zone = params[:time_zone] # || params[:game][:time_zone]
 
-    #byebug
-
-    #byebug
-
     team1 = ( team1_string ? Team.find_given_nickname(team1_string.downcase) : nil )
     team2 = ( team2_string ? Team.find_given_nickname(team2_string.downcase) : nil )
 
-    #byebug
     if(date_string && date_string.length > 0)
       date = case date_string
       when DAYS.include?(date_string&.strip&.downcase)
@@ -47,7 +41,6 @@ class GamesController < ApplicationController
         Date.parse(date_string) if date_string
       end
     end
-    #byebug
     #date  = ( date_string ? Date.parse(date_string) : nil )
     time = ( time_string ? Time.parse(time_string) : nil )
     date_time = DateTime.new(date.year, date.month, date.day, time.hour, time.min, time.sec) if(date && time)
