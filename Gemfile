@@ -32,7 +32,6 @@ gem 'httparty'
 gem 'awesome_print', :require => 'ap'
 
 gem 'simple_form'
-gem 'bootstrap', '~> 4.0.0.alpha4'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -45,6 +44,8 @@ gem 'bootstrap', '~> 4.0.0.alpha4'
 
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'watir'
+
+gem 'puma'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
