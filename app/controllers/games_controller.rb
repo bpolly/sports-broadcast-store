@@ -54,7 +54,8 @@ class GamesController < ApplicationController
     end
     #render :json => games
     #byebug
-    render :json => games
+
+    render :json => games, humanized_networks: @human_tv_network_list
   end
 
   def get_day_difference(day)

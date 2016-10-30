@@ -8,4 +8,13 @@ class GameSerializer < ActiveModel::Serializer
   def away_team
     object.away_team.name
   end
+
+  def tv_networks
+    humanized_networks_list = @instance_options[:humanized_networks]
+    humanized_networks = []
+    object.tv_networks.split(",").map(&:strip).map(&:upcase).each do |network|
+      humanized_networks << humanized_networks_list[network]
+    end
+    humanized_networks.to_sentence
+  end
 end
