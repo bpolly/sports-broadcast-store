@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   include ActiveModel::Serializers::JSON
   protect_from_forgery with: :null_session
+  skip_before_filter :verify_authenticity_token
   DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 
   def index
@@ -46,11 +47,11 @@ class GamesController < ApplicationController
     date_time = DateTime.new(date.year, date.month, date.day, time.hour, time.min, time.sec) if(date && time)
     #byebug
     if(!date && !time)
-      games = Game.with_teams(team1).with_teams(team2).with_network(network).with_league(league).where("date > ?", Time.now.utc - 5.hours).sort_by(&:date)[0...1]
+      games = Game.includes(:home_team, :away_team).with_teams(team1).with_teams(team2).with_network(network).with_league(league).where("date > ?", Time.now.utc - 5.hours).sort_by(&:date)[0...1]
     elsif(date && !time)
-      games = Game.with_teams(team1).with_teams(team2).with_network(network).with_date_no_time(date).with_league(league).where("date > ?", Time.now.utc - 5.hours).sort_by(&:date)[0...5]
+      games = Game.includes(:home_team, :away_team).with_teams(team1).with_teams(team2).with_network(network).with_date_no_time(date).with_league(league).where("date > ?", Time.now.utc - 5.hours).sort_by(&:date)[0...5]
     else
-      games = Game.with_teams(team1).with_teams(team2).with_network(network).with_date(date).with_league(league).where("date > ?", Time.now.utc - 5.hours).sort_by(&:date)[0...5]
+      games = Game.includes(:home_team, :away_team).with_teams(team1).with_teams(team2).with_network(network).with_date(date).with_league(league).where("date > ?", Time.now.utc - 5.hours).sort_by(&:date)[0...5]
     end
     #render :json => games
     #byebug
