@@ -1,0 +1,2 @@
+module UserZipCodesHelper
+end

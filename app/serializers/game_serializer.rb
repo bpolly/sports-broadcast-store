@@ -17,4 +17,9 @@ class GameSerializer < ActiveModel::Serializer
     end
     humanized_networks.to_sentence
   end
+
+  def date
+    user_gmt_offset = @instance_options[:user_gmt_offset]
+    object.date + user_gmt_offset.hours
+  end
 end
