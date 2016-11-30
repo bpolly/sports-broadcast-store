@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/scrape/:league', to: 'games#scrape'
   post '/games', to: 'games#retrieve_given_params'
   post '/zip_codes', to: 'user_zip_codes#update'
+  post '/retrieve_zip', to: 'user_zip_codes#show'
 
   resources :teams do
     resources :nicknames
