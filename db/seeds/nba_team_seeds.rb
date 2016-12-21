@@ -108,7 +108,7 @@ end
 
 
 no = Team.create(name: "new orleans pelicans", slug: "nba-no", league: league, schedule_url: "http://sports.yahoo.com/nba/teams/nor/schedule/")
-["new orleans pelicans", "orleans", "pelicans"].each do |nick|
+["new orleans pelicans", "new orleans", "pelicans"].each do |nick|
   no.nicknames.create(name: nick)
 end
 
