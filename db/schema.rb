@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161102152539) do
+ActiveRecord::Schema.define(version: 20161127184917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,5 +49,14 @@ ActiveRecord::Schema.define(version: 20161102152539) do
     t.string   "schedule_url"
     t.string   "timezone"
   end
+
+  create_table "user_zip_codes", force: :cascade do |t|
+    t.string   "amz_id"
+    t.string   "zip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_zip_codes", ["amz_id"], name: "index_user_zip_codes_on_amz_id", using: :btree
 
 end

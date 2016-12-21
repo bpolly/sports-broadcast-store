@@ -23,6 +23,9 @@ class GamesController < ApplicationController
     date_string = params[:date] # || params[:game][:date]
     time_string = params[:time] # || params[:game][:time]
     time_zone = params[:time_zone] # || params[:game][:time_zone]
+    amz_id = params[:amz_id]
+
+    user_gmt_offset = UserZipCode.get_offset_by_amz_id(amz_id)
 
     team1 = ( team1_string ? Team.find_given_nickname(team1_string.downcase) : nil )
     team2 = ( team2_string ? Team.find_given_nickname(team2_string.downcase) : nil )
@@ -56,7 +59,7 @@ class GamesController < ApplicationController
     #render :json => games
     #byebug
 
-    render :json => games, humanized_networks: @human_tv_network_list
+    render :json => games, humanized_networks: @human_tv_network_list, user_gmt_offset: user_gmt_offset
   end
 
   def get_day_difference(day)
