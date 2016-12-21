@@ -1,4 +1,4 @@
-class YahooScraper
+class NbcScraper
   require 'open-uri'
   require 'watir'
   SEASON_MONTHS = ['10', '11', '12', '01', '02', '03', '04', '05']
@@ -7,7 +7,7 @@ class YahooScraper
     Team.nba.each do |team|
 
       SEASON_MONTHS.each do |month|
-        team_schedule = "http://scores.nbcsports.msnbc.com/nba/teamstats.asp?teamno=#{team.yahoo_team_id}&type=schedule&year=#{Time.now.year}&month=#{month}"
+        team_schedule = "http://scores.nbcsports.msnbc.com/nba/teamstats.asp?teamno=#{team.nbc_team_id}&type=schedule&year=#{Time.now.year}&month=#{month}"
         month = month.to_i
         doc = Nokogiri::HTML(open(team_schedule))
 
@@ -67,4 +67,4 @@ class YahooScraper
       end # SEASON_MONTHS.each do |month|
     end # Team.nba.each do |team|
   end # def scrape_nba
-end # class YahooScraper
+end # class NbcScraper
