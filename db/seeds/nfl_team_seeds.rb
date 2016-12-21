@@ -1,161 +1,161 @@
 league = "nfl"
 
-ari = Team.create(name: "arizona cardinals", slug: "nfl-ari", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-arizona-cardinals-football-schedule.php")
+ari = Team.find_or_create_by(name: "arizona cardinals", slug: "nfl-ari", league: league)
 ["arizona cardinals", "arizona", "cardinals"].each do |nick|
-  ari.nicknames.create(name: nick)
+  ari.nicknames.find_or_create_by(name: nick)
 end
 
-atl = Team.create(name: "atlanta falcons", slug: "nfl-atl", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-atlanta-falcons-football-schedule.php")
+atl = Team.find_or_create_by(name: "atlanta falcons", slug: "nfl-atl", league: league)
 ["atlanta falcons", "atlanta", "falcons"].each do |nick|
-  atl.nicknames.create(name: nick)
+  atl.nicknames.find_or_create_by(name: nick)
 end
 
-bal = Team.create(name: "baltimore ravens", slug: "nfl-bal", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-baltimore-ravens-football-schedule.php")
+bal = Team.find_or_create_by(name: "baltimore ravens", slug: "nfl-bal", league: league)
 ["baltimore ravens", "baltimore", "ravens"].each do |nick|
-  bal.nicknames.create(name: nick)
+  bal.nicknames.find_or_create_by(name: nick)
 end
 
-buf = Team.create(name: "buffalo bills", slug: "nfl-buf", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-buffalo-bills-football-schedule.php")
+buf = Team.find_or_create_by(name: "buffalo bills", slug: "nfl-buf", league: league)
 ["buffalo bills", "buffalo", "bills"].each do |nick|
-  buf.nicknames.create(name: nick)
+  buf.nicknames.find_or_create_by(name: nick)
 end
 
-car = Team.create(name: "carolina panthers", slug: "nfl-car", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-carolina-panthers-football-schedule.php")
+car = Team.find_or_create_by(name: "carolina panthers", slug: "nfl-car", league: league)
 ["carolina panthers", "carolina", "panthers"].each do |nick|
-  car.nicknames.create(name: nick)
+  car.nicknames.find_or_create_by(name: nick)
 end
 
-chi = Team.create(name: "chicago bears", slug: "nfl-chi", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-chicago-bears-football-schedule.php")
+chi = Team.find_or_create_by(name: "chicago bears", slug: "nfl-chi", league: league)
 ["chicago bears", "chicago", "bears"].each do |nick|
-  chi.nicknames.create(name: nick)
+  chi.nicknames.find_or_create_by(name: nick)
 end
 
-cin = Team.create(name: "cincinnati bengals", slug: "nfl-cin", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-cincinnati-bengals-football-schedule.php")
+cin = Team.find_or_create_by(name: "cincinnati bengals", slug: "nfl-cin", league: league)
 ["cincinnati bengals", "cincinnati", "bengals"].each do |nick|
-  cin.nicknames.create(name: nick)
+  cin.nicknames.find_or_create_by(name: nick)
 end
 
-cle = Team.create(name: "cleveland browns", slug: "nfl-cle", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-cleveland-browns-football-schedule.php")
+cle = Team.find_or_create_by(name: "cleveland browns", slug: "nfl-cle", league: league)
 ["cleveland browns", "cleveland", "browns"].each do |nick|
-  cle.nicknames.create(name: nick)
+  cle.nicknames.find_or_create_by(name: nick)
 end
 
-dal = Team.create(name: "dallas cowboys", slug: "nfl-dal", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-dallas-cowboys-football-schedule.php")
+dal = Team.find_or_create_by(name: "dallas cowboys", slug: "nfl-dal", league: league)
 ["dallas cowboys", "dallas", "cowboys"].each do |nick|
-  dal.nicknames.create(name: nick)
+  dal.nicknames.find_or_create_by(name: nick)
 end
 
-den = Team.create(name: "denver broncos", slug: "nfl-den", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-denver-broncos-football-schedule.php")
+den = Team.find_or_create_by(name: "denver broncos", slug: "nfl-den", league: league)
 ["denver broncos", "denver", "broncos"].each do |nick|
-  den.nicknames.create(name: nick)
+  den.nicknames.find_or_create_by(name: nick)
 end
 
-det = Team.create(name: "detroit lions", slug: "nfl-det", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-detroit-lions-football-schedule.php")
+det = Team.find_or_create_by(name: "detroit lions", slug: "nfl-det", league: league)
 ["detroit lions", "detroit", "lions"].each do |nick|
-  det.nicknames.create(name: nick)
+  det.nicknames.find_or_create_by(name: nick)
 end
 
-gb = Team.create(name: "green bay packers", slug: "nfl-gb", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-green-bay-packers-football-schedule.php")
+gb = Team.find_or_create_by(name: "green bay packers", slug: "nfl-gb", league: league)
 ["green bay packers", "green bay", "packers"].each do |nick|
-  gb.nicknames.create(name: nick)
+  gb.nicknames.find_or_create_by(name: nick)
 end
 
-hou = Team.create(name: "houston texans", slug: "nfl-hou", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-houston-texans-football-schedule.php")
+hou = Team.find_or_create_by(name: "houston texans", slug: "nfl-hou", league: league)
 ["houston texans", "houston", "texans"].each do |nick|
-  hou.nicknames.create(name: nick)
+  hou.nicknames.find_or_create_by(name: nick)
 end
 
-ind = Team.create(name: "indianapolis colts", slug: "nfl-ind", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-indianapolis-colts-football-schedule.php")
+ind = Team.find_or_create_by(name: "indianapolis colts", slug: "nfl-ind", league: league)
 ["indianapolis colts", "indianapolis", "colts"].each do |nick|
-  ind.nicknames.create(name: nick)
+  ind.nicknames.find_or_create_by(name: nick)
 end
 
-jac = Team.create(name: "jacksonville jaguars", slug: "nfl-jac", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-jacksonville-jaguars-football-schedule.php")
+jac = Team.find_or_create_by(name: "jacksonville jaguars", slug: "nfl-jac", league: league)
 ["jacksonville jaguars", "jacksonville", "jaguars"].each do |nick|
-  jac.nicknames.create(name: nick)
+  jac.nicknames.find_or_create_by(name: nick)
 end
 
-kc = Team.create(name: "kansas city chiefs", slug: "nfl-kc", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-kansas-city-chiefs-football-schedule.php")
+kc = Team.find_or_create_by(name: "kansas city chiefs", slug: "nfl-kc", league: league)
 ["kansas city chiefs", "kansas city", "chiefs"].each do |nick|
-  kc.nicknames.create(name: nick)
+  kc.nicknames.find_or_create_by(name: nick)
 end
 
-mia = Team.create(name: "miami dolphins", slug: "nfl-mia", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-miami-dolphins-football-schedule.php")
+mia = Team.find_or_create_by(name: "miami dolphins", slug: "nfl-mia", league: league)
 ["miami dolphins", "miami", "dolphins"].each do |nick|
-  mia.nicknames.create(name: nick)
+  mia.nicknames.find_or_create_by(name: nick)
 end
 
-min = Team.create(name: "minnesota vikings", slug: "nfl-min", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-minnesota-vikings-football-schedule.php")
+min = Team.find_or_create_by(name: "minnesota vikings", slug: "nfl-min", league: league)
 ["minnesota vikings", "minnesota", "vikings"].each do |nick|
-  min.nicknames.create(name: nick)
+  min.nicknames.find_or_create_by(name: nick)
 end
 
-ne = Team.create(name: "new england patriots", slug: "nfl-ne", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-new-england-patriots-football-schedule.php")
+ne = Team.find_or_create_by(name: "new england patriots", slug: "nfl-ne", league: league)
 ["new england patriots", "new england", "patriots"].each do |nick|
-  ne.nicknames.create(name: nick)
+  ne.nicknames.find_or_create_by(name: nick)
 end
 
-no = Team.create(name: "new orleans saints", slug: "nfl-no", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-new-orleans-saints-football-schedule.php")
+no = Team.find_or_create_by(name: "new orleans saints", slug: "nfl-no", league: league)
 ["new orleans saints", "new orleans", "saints"].each do |nick|
-  no.nicknames.create(name: nick)
+  no.nicknames.find_or_create_by(name: nick)
 end
 
-nyg = Team.create(name: "new york giants", slug: "nfl-nyg", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-new-york-giants-football-schedule.php")
+nyg = Team.find_or_create_by(name: "new york giants", slug: "nfl-nyg", league: league)
 ["new york giants", "giants"].each do |nick|
-  nyg.nicknames.create(name: nick)
+  nyg.nicknames.find_or_create_by(name: nick)
 end
 
-nyj = Team.create(name: "new york jets", slug: "nfl-nyj", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-new-york-jets-football-schedule.php")
+nyj = Team.find_or_create_by(name: "new york jets", slug: "nfl-nyj", league: league)
 ["new york jets", "jets"].each do |nick|
-  nyj.nicknames.create(name: nick)
+  nyj.nicknames.find_or_create_by(name: nick)
 end
 
-oak = Team.create(name: "oakland raiders", slug: "nfl-oak", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-oakland-raiders-football-schedule.php")
+oak = Team.find_or_create_by(name: "oakland raiders", slug: "nfl-oak", league: league)
 ["oakland raiders", "oakland", "raiders"].each do |nick|
-  oak.nicknames.create(name: nick)
+  oak.nicknames.find_or_create_by(name: nick)
 end
 
-phi = Team.create(name: "philadelphia eagles", slug: "nfl-phi", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-philadelphia-eagles-football-schedule.php")
+phi = Team.find_or_create_by(name: "philadelphia eagles", slug: "nfl-phi", league: league)
 ["philadelphia eagles", "philadelphia", "eagles"].each do |nick|
-  phi.nicknames.create(name: nick)
+  phi.nicknames.find_or_create_by(name: nick)
 end
 
-pit = Team.create(name: "pittsburgh steelers", slug: "nfl-pit", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-pittsburgh-steelers-football-schedule.php")
+pit = Team.find_or_create_by(name: "pittsburgh steelers", slug: "nfl-pit", league: league)
 ["pittsburgh steelers", "pittsburgh", "steelers"].each do |nick|
-  pit.nicknames.create(name: nick)
+  pit.nicknames.find_or_create_by(name: nick)
 end
 
-sd = Team.create(name: "san diego chargers", slug: "nfl-sd", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-san-diego-chargers-football-schedule.php")
+sd = Team.find_or_create_by(name: "san diego chargers", slug: "nfl-sd", league: league)
 ["san diego chargers", "san diego", "chargers"].each do |nick|
-  sd.nicknames.create(name: nick)
+  sd.nicknames.find_or_create_by(name: nick)
 end
 
-sf = Team.create(name: "san francisco 49ers", slug: "nfl-sf", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-san-francisco-49ers-football-schedule.php")
+sf = Team.find_or_create_by(name: "san francisco 49ers", slug: "nfl-sf", league: league)
 ["san francisco 49ers", "san francisco", "49ers"].each do |nick|
-  sf.nicknames.create(name: nick)
+  sf.nicknames.find_or_create_by(name: nick)
 end
 
-sea = Team.create(name: "seattle seahawks", slug: "nfl-sea", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-seattle-seahawks-football-schedule.php")
+sea = Team.find_or_create_by(name: "seattle seahawks", slug: "nfl-sea", league: league)
 ["seattle seahawks", "seattle", "seahawks"].each do |nick|
-  sea.nicknames.create(name: nick)
+  sea.nicknames.find_or_create_by(name: nick)
 end
 
-la = Team.create(name: "los angeles rams", slug: "nfl-la", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-los-angeles-rams-football-schedule.php")
+la = Team.find_or_create_by(name: "los angeles rams", slug: "nfl-la", league: league)
 ["los angeles rams", "los angeles", "rams", "la"].each do |nick|
-  la.nicknames.create(name: nick)
+  la.nicknames.find_or_create_by(name: nick)
 end
 
-tb = Team.create(name: "tampa bay buccaneers", slug: "nfl-tb", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-tampa-bay-buccaneers-football-schedule.php")
+tb = Team.find_or_create_by(name: "tampa bay buccaneers", slug: "nfl-tb", league: league)
 ["tampa bay buccaneers", "tampa bay", "buccaneers"].each do |nick|
-  tb.nicknames.create(name: nick)
+  tb.nicknames.find_or_create_by(name: nick)
 end
 
-ten = Team.create(name: "tennessee titans", slug: "nfl-ten", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-tennessee-titans-football-schedule.php")
+ten = Team.find_or_create_by(name: "tennessee titans", slug: "nfl-ten", league: league)
 ["tennessee titans", "tennessee", "titans"].each do |nick|
-  ten.nicknames.create(name: nick)
+  ten.nicknames.find_or_create_by(name: nick)
 end
 
-was = Team.create(name: "washington redskins", slug: "nfl-was", league: league, schedule_url: "http://www.fbschedules.com/nfl-yy/YYYY-washington-redskins-football-schedule.php")
+was = Team.find_or_create_by(name: "washington redskins", slug: "nfl-was", league: league)
 ["washington redskins", "washington", "redskins"].each do |nick|
-  was.nicknames.create(name: nick)
+  was.nicknames.find_or_create_by(name: nick)
 end
