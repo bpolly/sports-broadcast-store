@@ -1,12 +1,73 @@
 class NbcScraper
   require 'open-uri'
   require 'watir'
-  SEASON_MONTHS = ['10', '11', '12', '01', '02', '03', '04', '05']
+
+  def scrape_nfl
+    season_months = ['08', '11', '12', '01', '02', '03', '04', '05']
+
+    Team.nfl.each do |team|
+      team_schedule = "http://scores.nbcsports.com/fb/teamstats.asp?tm=#{team.nbc_team_id}&type=schedules"
+      doc = Nokogiri::HTML(open(team_schedule))
+
+      # season = doc.css('.shsYearNav strong').text
+      # year_one = season.split('-')[0]
+      # year_two = (year_one[0..1] + season.split('-')[1])
+      # current_year = (month > 6 && month <= 12) ? year_one.to_i : year_two.to_i
+
+      dates = doc.css(".shsTable tr").each do |row|
+        cols = row.css("td")
+        if(cols.count > 3 && (row.attributes['class'].value != 'shsTableTtlRow') && (row.attributes['class'].value != 'shsColTtlRow'))
+          date_extractor = /[\w]+. ([\d]+)/
+          opponent_extractor = /(vs.|@) (.+)/
+          time_extractor = /MST([\d]+:[\d]+ (?:AM|PM) EST)/
+          date = cols[3].children.first.text
+          #byebug
+          match_sign = opponent_extractor.match(cols[4].children.first.text)[1]
+          time = time_extractor.match(cols[5].text) ? time_extractor.match(cols[5].text)[1] : byebug
+          tv_networks = cols[6].text ? cols[6].text.gsub(/[[:space:]]/, '').split('/').join(',') : ''
+
+          home_game = match_sign == 'vs.'
+
+          team_no_extractor = /team=(\d+)/
+          team_no = team_no_extractor.match(cols[4].css('a').first.attributes['href'].value)[1]
+
+          opposing_team = Team.where(league: 'nfl').find_by(nbc_team_id: team_no)
+
+          #opposing_team = Team.find_given_nickname_and_league((extra_nickname != '' ? extra_nickname : opposing_team_text.downcase), "nba").first
+          byebug unless opposing_team
+
+          home_team_id = 0
+          away_team_id = 0
+          if(home_game)
+            home_team_id = team.id
+            away_team_id = opposing_team.id
+          else
+            home_team_id = opposing_team.id
+            away_team_id = team.id
+          end
+
+          date = Time.parse(date)
+          date_time = Time.parse(time).to_datetime
+          day = date.day
+          month = date.month
+          date_time = date_time.change(day: day, month: month, year: calculate_year(month, 'nfl'))
+
+          if(date_time > (Time.now - 1.day))
+            Game.find_or_create_by(home_team_id: home_team_id, away_team_id: away_team_id, date: date_time, tv_networks: tv_networks, league: 'nfl')
+          end
+          #game.save
+        end # if cols.count
+      end # dates = doc.css(".shsTable tr").each do |row|
+
+    end
+  end
 
   def scrape_nba
+    season_months = ['10', '11', '12', '01', '02', '03', '04', '05']
+
     Team.nba.each do |team|
 
-      SEASON_MONTHS.each do |month|
+      season_months.each do |month|
         team_schedule = "http://scores.nbcsports.msnbc.com/nba/teamstats.asp?teamno=#{team.nbc_team_id}&type=schedule&year=#{Time.now.year}&month=#{month}"
         month = month.to_i
         doc = Nokogiri::HTML(open(team_schedule))
@@ -15,9 +76,6 @@ class NbcScraper
         year_one = season.split('-')[0]
         year_two = (year_one[0..1] + season.split('-')[1])
         current_year = (month > 6 && month <= 12) ? year_one.to_i : year_two.to_i
-
-        clippers = 12
-        lakers = 13
 
         dates = doc.css(".shsTable tr").each do |row|
           cols = row.css("td")
@@ -41,8 +99,12 @@ class NbcScraper
               extra_nickname = team_no == '12' ? 'clippers' : 'lakers'
             end
 
-            #byebug
-            opposing_team = Team.find_given_nickname_and_league((extra_nickname != '' ? extra_nickname : opposing_team_text.downcase), "nba").first
+            team_no_extractor = /teamno=(\d+)/
+            team_no = team_no_extractor.match(cols[1].css('a').first.attributes['href'].value)[1]
+
+            opposing_team = Team.where(league: 'nba').find_by(nbc_team_id: team_no)
+
+            #opposing_team = Team.find_given_nickname_and_league((extra_nickname != '' ? extra_nickname : opposing_team_text.downcase), "nba").first
             byebug unless opposing_team
 
             home_team_id = 0
@@ -67,4 +129,30 @@ class NbcScraper
       end # SEASON_MONTHS.each do |month|
     end # Team.nba.each do |team|
   end # def scrape_nba
+
+
+  def calculate_year(game_month, league)
+    current_year = Time.now.year
+    current_month = Time.now.month
+    case league
+    when 'nba', 'nfl'
+      if(game_month >= 8 && game_month <= 12)
+        if(current_month >= 7 && current_month <= 12)
+          return current_year
+        else # current_month 1-7
+          return current_year - 1
+        end
+      else # game_month: 1-8
+        if(current_month >= 7 && current_month <= 12)
+          return current_year + 1
+        else # current_month 1-7
+          return current_year
+        end
+      end
+    when 'mlb'
+      # something
+    end
+
+
+  end # case league
 end # class NbcScraper
