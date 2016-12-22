@@ -71,7 +71,7 @@ class GamesController < ApplicationController
     #byebug
     today = Date.today.cwday
 
-    day_num = case day
+    day_num = case day.downcase
     when "monday"
       1
     when "tuesday"
