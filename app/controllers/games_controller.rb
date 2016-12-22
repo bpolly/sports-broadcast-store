@@ -32,9 +32,10 @@ class GamesController < ApplicationController
     today = false
 
     if(date_string && date_string.length > 0)
-      date = case date_string
-      when DAYS.include?(date_string&.strip&.downcase)
-        Date.today + get_day_difference(day)&.days
+      date = case date_string&.strip&.downcase
+      when "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"
+        #byebug
+        Date.today + get_day_difference(date_string&.strip&.downcase)&.days
       when "today", "tonight"
         today = true
         nil
@@ -89,7 +90,7 @@ class GamesController < ApplicationController
       0
     end
 
-    day_difference = 7 - (today - day_num)
+    day_num >= today ? (day_num - today) : ((7+day_num) - today)
   end
 
 
