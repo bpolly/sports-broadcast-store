@@ -196,7 +196,7 @@ class NbcScraper
               extra_nickname = team_no == '12' ? 'clippers' : 'lakers'
             end
 
-            team_no_extractor = /teamno=(\d+)/
+            team_no_extractor = /team=(\d+)/
             team_no = team_no_extractor.match(cols[1].css('a').first.attributes['href'].value)[1]
 
             opposing_team = Team.where(league: 'mlb').find_by(nbc_team_id: team_no)
