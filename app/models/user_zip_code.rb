@@ -5,6 +5,6 @@ class UserZipCode < ActiveRecord::Base
 
   def self.get_offset_by_amz_id(amz_id)
     user = UserZipCode.find_by_amz_id(amz_id)
-    user ? user.zip.to_gmt_offset.to_i : (ActiveSupport::TimeZone.new("America/New_York").utc_offset/3600)
+    user&.zip ? user.zip.to_gmt_offset.to_i : (ActiveSupport::TimeZone.new("America/New_York").utc_offset/3600)
   end
 end
