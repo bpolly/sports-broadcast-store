@@ -1,5 +1,5 @@
 class GameSerializer < ActiveModel::Serializer
-  attributes :id, :date, :tv_networks, :league, :home_team, :away_team
+  attributes :id, :date, :tv_networks, :league, :home_team, :away_team,
 
   def home_team
     object.home_team.name
@@ -20,6 +20,6 @@ class GameSerializer < ActiveModel::Serializer
 
   def date
     user_gmt_offset = @instance_options[:user_gmt_offset]
-    object.date + user_gmt_offset.hours
+    object.date.utc + user_gmt_offset.hours
   end
 end
