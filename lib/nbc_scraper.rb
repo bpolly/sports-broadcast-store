@@ -68,8 +68,14 @@ class NbcScraper
     season_months = ['10', '11', '12', '01', '02', '03', '04', '05']
 
     Team.nba.each do |team|
+      starting_month = season_months.index(sprintf '%02i', Date.today.month)
 
-      season_months[season_months.index(sprintf '%02i', Date.today.month)..-1].each do |month|
+      # if current month is not in season,
+      if starting_month == nil
+        starting_month = 0
+      end
+
+      season_months[starting_month..-1].each do |month|
         team_schedule = "http://scores.nbcsports.msnbc.com/nba/teamstats.asp?teamno=#{team.nbc_team_id}&type=schedule&year=#{Time.now.year}&month=#{month}"
         month = month.to_i
         doc = Nokogiri::HTML(open(team_schedule))
