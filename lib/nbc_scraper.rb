@@ -63,11 +63,13 @@ class NbcScraper
   end
 
   def scrape_nba
+    schedule_released_month = 8
+    season_end_month = 6
     season_months = ['10', '11', '12', '01', '02', '03', '04', '05']
 
     Team.nba.each do |team|
 
-      season_months.each do |month|
+      season_months[season_months.index(sprintf '%02i', Date.today.month)..-1].each do |month|
         team_schedule = "http://scores.nbcsports.msnbc.com/nba/teamstats.asp?teamno=#{team.nbc_team_id}&type=schedule&year=#{Time.now.year}&month=#{month}"
         month = month.to_i
         doc = Nokogiri::HTML(open(team_schedule))
@@ -76,6 +78,11 @@ class NbcScraper
         year_one = season.split('-')[0]
         year_two = (year_one[0..1] + season.split('-')[1])
         current_year = (month > 6 && month <= 12) ? year_one.to_i : year_two.to_i
+
+        # Double check to make sure the calendar is on the right month
+        selected_tab_month_num = Date::ABBR_MONTHNAMES.index(doc.css(".shsTeamSchedTab strong").inner_text.gsub(/[^0-9A-Za-z]/, ''))
+        next if(selected_tab_month_num != month)
+
 
         dates = doc.css(".shsTable tr").each do |row|
           cols = row.css("td")
@@ -115,6 +122,9 @@ class NbcScraper
             else
               home_team_id = opposing_team.id
               away_team_id = team.id
+            end
+            if (home_team_id == 42 && month == 5)
+              byebug
             end
 
             date_time = Time.parse(time).to_datetime
