@@ -28,10 +28,26 @@ class NbaBroadcastsScraper
         # byebug
         cols = row.css("td")
         if(cols.count > 2 && cols[0].text.strip != "(Preseason)")
+          date = cols[0]
+          match_sign = cols[1].text
           opposing_team_text = cols[2].text
           tv_networks = cols[3].text
+          byebug
+
+          home_game = match_sign == 'vs'
           opposing_team = Team.find_given_nickname_and_league(opposing_team_text.downcase, "nba").first
 
+          home_team_id = 0
+          away_team_id = 0
+          if(home_game)
+            home_team_id = team.id
+            away_team_id = opposing_team.id
+          else
+            home_team_id = opposing_team.id
+            away_team_id = team.id
+          end
+
+          Game.new(home_team_id: home_team_id, away_team_id: away_team_id, )
           if(team.schedule[i].teams.include?(opposing_team))
             team.schedule[i].update_attributes(tv_networks: tv_networks) if (tv_networks && !team.schedule[i].tv_networks)
           end

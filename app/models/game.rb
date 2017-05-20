@@ -1,4 +1,4 @@
-class Game < ActiveRecord::Base
+ class Game < ActiveRecord::Base
   belongs_to :away_team, class_name: 'Team', foreign_key: 'away_team_id'
   belongs_to :home_team, class_name: 'Team', foreign_key: 'home_team_id'
   validates :home_team, presence: true
@@ -13,6 +13,7 @@ class Game < ActiveRecord::Base
   scope :with_teams, ->(teams) { where("home_team_id IN (?) OR away_team_id IN (?)", teams.map(&:id), teams.map(&:id)) if teams.present?}
   scope :with_team, ->(team) { where("home_team_id = ? OR away_team_id = ?", team.id, team.id) if team.present?}
   scope :with_date, ->(date) { where("date >= ? AND date <= ? OR date = ?", date - 1.hour, date + 1.hour, date) if date.present?}
+  scope :today, -> { where("date >= ? AND date <= ?", Time.parse('12:00am PST'), Time.parse('11:59pm EST'))}
   #scope :with_date, ->(date) { where("date.in_time_zone('Eastern Time (US & Canada)') = ? OR date.in_time_zone('Eastern Time (US & Canada)') = ? OR date.in_time_zone('Eastern Time (US & Canada)') = ?", date - 1.hour, date, date + 1.hour) if date.present?}
 
   scope :with_date_no_time, ->(date) { where(date: date.beginning_of_day+5.hours...date.beginning_of_day+1.day+5.hours) if date.present?}

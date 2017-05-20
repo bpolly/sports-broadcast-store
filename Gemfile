@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "2.3.1"
+ruby "2.3.3"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use postgresql as the database for Active Record
@@ -49,10 +49,13 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'watir'
 
 gem 'puma'
+gem 'pry'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'factory_girl_rails'
 end
 
 group :development do

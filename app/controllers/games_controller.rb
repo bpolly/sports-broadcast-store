@@ -29,13 +29,16 @@ class GamesController < ApplicationController
 
     team1 = ( team1_string ? Team.find_given_nickname(team1_string.downcase) : nil )
     team2 = ( team2_string ? Team.find_given_nickname(team2_string.downcase) : nil )
+    today = false
 
     if(date_string && date_string.length > 0)
-      date = case date_string
-      when DAYS.include?(date_string&.strip&.downcase)
-        Date.today + get_day_difference(day)&.days
+      date = case date_string&.strip&.downcase
+      when "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"
+        #byebug
+        Date.today + get_day_difference(date_string&.strip&.downcase)&.days
       when "today", "tonight"
-        Date.parse(Time.now.utc.to_s)
+        today = true
+        nil
       when "tomorrow"
         Date.parse(Time.now.utc.to_s) + 1
       when nil, ""
@@ -49,7 +52,9 @@ class GamesController < ApplicationController
     time = ( time_string ? Time.parse(time_string) : nil )
     date_time = DateTime.new(date.year, date.month, date.day, time.hour, time.min, time.sec) if(date && time)
     #byebug
-    if(!date && !time)
+    if(today)
+      games = Game.includes(:home_team, :away_team).with_teams(team1).with_teams(team2).with_network(network).with_league(league).today.sort_by(&:date)[0...1]
+    elsif(!date && !time)
       games = Game.includes(:home_team, :away_team).with_teams(team1).with_teams(team2).with_network(network).with_league(league).where("date > ?", Time.now.utc - 4.hours).sort_by(&:date)[0...1]
     elsif(date && !time)
       games = Game.includes(:home_team, :away_team).with_teams(team1).with_teams(team2).with_network(network).with_date_no_time(date).with_league(league).where("date > ?", Time.now.utc - 4.hours).sort_by(&:date)[0...5]
@@ -66,7 +71,7 @@ class GamesController < ApplicationController
     #byebug
     today = Date.today.cwday
 
-    day_num = case day
+    day_num = case day.downcase
     when "monday"
       1
     when "tuesday"
@@ -85,7 +90,7 @@ class GamesController < ApplicationController
       0
     end
 
-    day_difference = 7 - (today - day_num)
+    day_num >= today ? (day_num - today) : ((7+day_num) - today)
   end
 
 
