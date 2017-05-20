@@ -6,6 +6,8 @@ namespace :delete do
 
   desc 'Delete all games'
   task :all_games => :environment do
-    Game.destroy_all
+    if(Date.today.day == 1)
+      Game.destroy_all
+    end
   end
 end
