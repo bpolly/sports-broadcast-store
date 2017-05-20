@@ -1,6 +1,11 @@
 namespace :delete do
   desc 'Delete games older than yesterday'
   task :old_games => :environment do
-    Game.delete_all('date < ?', 1.days.ago)
+    Game.where("date < ?", Date.today).destroy_all
+  end
+
+  desc 'Delete all games'
+  task :all_games => :environment do
+    Game.destroy_all
   end
 end

@@ -1,6 +1,6 @@
 desc "Deletes any games older than today and scrapes for new ones"
 task scrape_new: [:environment] do
-  Game.where("date < ?", Date.today).destroy_all
+  Rake::Task["delete:old_games"].invoke
   scraper = NbcScraper.new
   scraper.scrape_nba
   scraper.scrape_mlb
