@@ -182,7 +182,8 @@ class NbcScraper
             day = date_extractor.match(cols[0].text)[1].to_i
             match_sign = opponent_extractor.match(cols[1].text)? opponent_extractor.match(cols[1].text)[1] : byebug
             opposing_team_text = opponent_extractor.match(cols[1].text)[2]
-            time = time_extractor.match(cols[2].text) ? time_extractor.match(cols[2].text)[1] : byebug
+            time = time_extractor.match(cols[2].text) ? time_extractor.match(cols[2].text)[1] : nil
+            next unless time
             tv_networks = cols[3].text ? cols[3].text.gsub(/[[:space:]]/, '').split('/').join(',') : ''
 
             home_game = match_sign == 'vs.'
