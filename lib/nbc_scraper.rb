@@ -47,7 +47,7 @@ class NbcScraper
           end
 
           date = Time.parse(date)
-          date_time = Time.parse(time).to_datetime.utc
+          date_time = Time.zone.parse(time).utc.to_datetime
           day = date.day
           month = date.month
           date_time = date_time.change(day: day, month: month, year: calculate_year(month, 'nfl'))
@@ -133,7 +133,7 @@ class NbcScraper
               byebug
             end
 
-            date_time = Time.parse(time).to_datetime.utc
+            date_time = Time.zone.parse(time).utc.to_datetime
             date_time = date_time.change(day: day, month: month, year: current_year)
 
             if(date_time > (Time.now - 1.day))
@@ -214,7 +214,7 @@ class NbcScraper
               away_team_id = team.id
             end
 
-            date_time = Time.parse(time).to_datetime.utc
+            date_time = Time.zone.parse(time).utc.to_datetime
             date_time = date_time.change(day: day, month: month, year: current_year)
 
             if(date_time > (Time.now - 1.day))
