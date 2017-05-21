@@ -213,9 +213,6 @@ class NbcScraper
               home_team_id = opposing_team.id
               away_team_id = team.id
             end
-            if (home_team_id == 42 && month == 5)
-              byebug
-            end
 
             date_time = Time.parse(time).to_datetime.utc
             date_time = date_time.change(day: day, month: month, year: current_year)
