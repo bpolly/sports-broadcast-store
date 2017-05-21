@@ -95,7 +95,7 @@ class NbcScraper
           if(cols.count > 2 && (row.attributes['class'].value != 'shsTableTtlRow') && (row.attributes['class'].value != 'shsColTtlRow'))
             date_extractor = /[\w]+. ([\d]+)/
             opponent_extractor = /(vs.|at) (.+)/
-            time_extractor = /MST([\d]+:[\d]+ (?:AM|PM) EST)/
+            time_extractor = /([\d]+:[\d]+ GMT)/
             day = date_extractor.match(cols[0].text)[1].to_i
             match_sign = opponent_extractor.match(cols[1].text)[1]
             opposing_team_text = opponent_extractor.match(cols[1].text)[2]
@@ -178,7 +178,7 @@ class NbcScraper
           if(cols.count > 2 && (row.attributes['class'].value != 'shsTableTtlRow') && (row.attributes['class'].value != 'shsColTtlRow'))
             date_extractor = /[\w]+. ([\d]+)/
             opponent_extractor = /(vs.|@|at) (.+)/
-            time_extractor = /([\d]+:[\d]+ (?:AM|PM) ET)/
+            time_extractor = /([\d]+:[\d]+ GMT)/
             day = date_extractor.match(cols[0].text)[1].to_i
             match_sign = opponent_extractor.match(cols[1].text)? opponent_extractor.match(cols[1].text)[1] : byebug
             opposing_team_text = opponent_extractor.match(cols[1].text)[2]
