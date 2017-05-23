@@ -45,8 +45,11 @@ class NbcScraper
             home_team_id = opposing_team.id
             away_team_id = team.id
           end
-
           date = Time.parse(date)
+
+          # date_time = Time.zone.parse(time).in_time_zone("Eastern Time (US & Canada)").to_datetime
+          # date_time = date_time.change(day: day, month: month, year: current_year).utc
+
           date_time = Time.zone.parse(time).utc.to_datetime
           day = date.day
           month = date.month
@@ -129,12 +132,9 @@ class NbcScraper
               home_team_id = opposing_team.id
               away_team_id = team.id
             end
-            if (home_team_id == 42 && month == 5)
-              byebug
-            end
 
-            date_time = Time.zone.parse(time).utc.to_datetime
-            date_time = date_time.change(day: day, month: month, year: current_year)
+            date_time = Time.zone.parse(time).in_time_zone("Eastern Time (US & Canada)").to_datetime
+            date_time = date_time.change(day: day, month: month, year: current_year).utc
 
             if(date_time > (Time.now - 1.day))
               Game.find_or_create_by(home_team_id: home_team_id, away_team_id: away_team_id, date: date_time, tv_networks: tv_networks, league: 'nba')
@@ -214,8 +214,8 @@ class NbcScraper
               away_team_id = team.id
             end
 
-            date_time = Time.zone.parse(time).utc.to_datetime
-            date_time = date_time.change(day: day, month: month, year: current_year)
+            date_time = Time.zone.parse(time).in_time_zone("Eastern Time (US & Canada)").to_datetime
+            date_time = date_time.change(day: day, month: month, year: current_year).utc
 
             if(date_time > (Time.now - 1.day))
               Game.find_or_create_by(home_team_id: home_team_id, away_team_id: away_team_id, date: date_time, tv_networks: tv_networks, league: 'mlb')
