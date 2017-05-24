@@ -72,13 +72,13 @@ end
 
 
 lac = Team.find_or_create_by(name: "los angeles clippers", slug: "nba-lac", league: league, nbc_team_id: 12)
-["los angeles clippers","los angeles clippers", "clippers", "clips", "la", "la clippers"].each do |nick|
+["los angeles clippers","los angeles clippers", "clippers", "clips", "la", "l.a. clippers"].each do |nick|
   lac.nicknames.find_or_create_by(name: nick)
 end
 
 
 lal = Team.find_or_create_by(name: "los angeles lakers", slug: "nba-lal", league: league, nbc_team_id: 13)
-["los angeles lakers", "lakers", "los angeles lakers", "la", "la clippers"].each do |nick|
+["los angeles lakers", "lakers", "los angeles lakers", "la", "l.a. clippers"].each do |nick|
   lal.nicknames.find_or_create_by(name: nick)
 end
 

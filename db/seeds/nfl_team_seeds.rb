@@ -141,7 +141,7 @@ sea = Team.find_or_create_by(name: "seattle seahawks", slug: "nfl-sea", league: 
 end
 
 la = Team.find_or_create_by(name: "los angeles rams", slug: "nfl-la", league: league, nbc_team_id: 14)
-["los angeles rams", "los angeles", "rams", "la"].each do |nick|
+["los angeles rams", "los angeles", "rams", "l.a."].each do |nick|
   la.nicknames.find_or_create_by(name: nick)
 end
 

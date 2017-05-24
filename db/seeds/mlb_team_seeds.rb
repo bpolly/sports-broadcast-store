@@ -36,7 +36,7 @@ cin = Team.find_or_create_by(name: "cincinnati reds", slug: "mlb-cin", league: l
 end
 
 cle = Team.find_or_create_by(name: "cleveland indians", slug: "mlb-cle", league: league, timezone: "et", nbc_team_id: 5)
-["cleveland indians", "cleveland", "indians", "tribe"].each do |nick|
+["cleveland indians", "cleveland", "tribe", "indians"].each do |nick|
   cle.nicknames.find_or_create_by(name: nick)
 end
 
@@ -66,7 +66,7 @@ laa = Team.find_or_create_by(name: "los angeles angels", slug: "mlb-laa", league
 end
 
 la = Team.find_or_create_by(name: "los angeles dodgers", slug: "mlb-la", league: league, timezone: "pt", nbc_team_id: 19)
-["los angeles dodgers", "dodgers", "los angeles", "la", "la dodgers"].each do |nick|
+["los angeles dodgers", "dodgers", "los angeles", "la", "l.a. dodgers"].each do |nick|
   la.nicknames.find_or_create_by(name: nick)
 end
 
