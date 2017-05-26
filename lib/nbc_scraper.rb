@@ -3,7 +3,7 @@ class NbcScraper
   require 'watir'
 
   def scrape_nfl
-    season_months = ['08', '11', '12', '01', '02', '03', '04', '05']
+    season_months = ['08', '09', '10', '11', '12', '01', '02']
 
     Team.nfl.each do |team|
       team_schedule = "http://scores.nbcsports.com/fb/teamstats.asp?tm=#{team.nbc_team_id}&type=schedules"
@@ -68,7 +68,7 @@ class NbcScraper
   def scrape_nba
     schedule_released_month = 8
     season_end_month = 6
-    season_months = ['10', '11', '12', '01', '02', '03', '04', '05']
+    season_months = ['10', '11', '12', '01', '02', '03', '04', '05', '06']
 
     Team.nba.each do |team|
       starting_month = season_months.index(sprintf '%02i', Date.today.month)
