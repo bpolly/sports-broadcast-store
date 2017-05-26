@@ -12,7 +12,7 @@ end
 
 
 bk = Team.find_or_create_by(name: "brooklyn nets", slug: "nba-bk", league: league, nbc_team_id: 17)
-["brooklyn nets", "brooklyn", "nets", "new jersey"].each do |nick|
+["brooklyn nets", "brooklyn", "new jersey", "nets"].each do |nick|
   bk.nicknames.find_or_create_by(name: nick)
 end
 
@@ -30,19 +30,19 @@ end
 
 
 cle = Team.find_or_create_by(name: "cleveland cavaliers", slug: "nba-cle", league: league, nbc_team_id: 5)
-["cleveland cavaliers", "cleveland", "cavaliers", "cavs"].each do |nick|
+["cleveland cavaliers", "cleveland", "cavs", "cavaliers"].each do |nick|
   cle.nicknames.find_or_create_by(name: nick)
 end
 
 
 dal = Team.find_or_create_by(name: "dallas mavericks", slug: "nba-dal", league: league, nbc_team_id: 6)
-["dallas mavericks", "dallas", "mavericks", "mavs"].each do |nick|
+["dallas mavericks", "dallas", "mavs", "mavericks"].each do |nick|
   dal.nicknames.find_or_create_by(name: nick)
 end
 
 
 den = Team.find_or_create_by(name: "denver nuggets", slug: "nba-den", league: league, nbc_team_id: 7)
-["denver nuggets", "denver", "nuggets", "nugs"].each do |nick|
+["denver nuggets", "denver", "nugs", "nuggets"].each do |nick|
   den.nicknames.find_or_create_by(name: nick)
 end
 
@@ -54,7 +54,7 @@ end
 
 
 gs = Team.find_or_create_by(name: "golden state warriors", slug: "nba-gs", league: league, nbc_team_id: 9)
-["golden state warriors", "golden state", "warriors", "dubs"].each do |nick|
+["golden state warriors", "golden state", "dubs", "warriors"].each do |nick|
   gs.nicknames.find_or_create_by(name: nick)
 end
 
@@ -84,7 +84,7 @@ end
 
 
 mem = Team.find_or_create_by(name: "memphis grizzlies", slug: "nba-mem", league: league, nbc_team_id: 29)
-["memphis grizzlies", "memphis", "grizzlies", "grizz"].each do |nick|
+["memphis grizzlies", "memphis", "grizz", "grizzlies"].each do |nick|
   mem.nicknames.find_or_create_by(name: nick)
 end
 
@@ -114,13 +114,13 @@ end
 
 
 ny = Team.find_or_create_by(name: "new york knicks", slug: "nba-ny", league: league, nbc_team_id: 18)
-["new york knicks", "knicks", "new york", "knickerbockers"].each do |nick|
+["new york knicks", "new york", "knickerbockers", "knicks"].each do |nick|
   ny.nicknames.find_or_create_by(name: nick)
 end
 
 
 okc = Team.find_or_create_by(name: "oklahoma city thunder", slug: "nba-okc", league: league, nbc_team_id: 25)
-["oklahoma city thunder", "oklahoma", "okc", "thunder", "sonics", "oklahoma city"].each do |nick|
+["oklahoma city thunder", "oklahoma", "okc", "sonics", "oklahoma city", "thunder"].each do |nick|
   okc.nicknames.find_or_create_by(name: nick)
 end
 
@@ -132,7 +132,7 @@ end
 
 
 phi = Team.find_or_create_by(name: "philadelphia sixers", slug: "nba-phi", league: league, nbc_team_id: 20)
-["philadelphia sixers","philadelphia", "seventy sixers", "sixers", "76ers"].each do |nick|
+["philadelphia sixers","philadelphia", "seventy sixers", "76ers", "sixers"].each do |nick|
   phi.nicknames.find_or_create_by(name: nick)
 end
 
@@ -144,7 +144,7 @@ end
 
 
 por = Team.find_or_create_by(name: "portland trail blazers", slug: "nba-por", league: league, nbc_team_id: 22)
-["portland trail blazers", "portland", "trail blazers", "blazers", "fourth seed"].each do |nick|
+["portland trail blazers", "portland", "blazers", "fourth seed", "trail blazers"].each do |nick|
   por.nicknames.find_or_create_by(name: nick)
 end
 
@@ -162,7 +162,7 @@ end
 
 
 tor = Team.find_or_create_by(name: "toronto raptors", slug: "nba-tor", league: league, nbc_team_id: 28)
-["toronto raptors", "toronto", "raptors", "raps"].each do |nick|
+["toronto raptors", "toronto", "raps", "raptors"].each do |nick|
   tor.nicknames.find_or_create_by(name: nick)
 end
 

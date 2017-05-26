@@ -89,7 +89,8 @@ class NbcScraper
         current_year = (month > 6 && month <= 12) ? year_one.to_i : year_two.to_i
 
         # Double check to make sure the calendar is on the right month
-        selected_tab_month_num = Date::ABBR_MONTHNAMES.index(doc.css(".shsTeamSchedTab strong").inner_text.gsub(/[^0-9A-Za-z]/, ''))
+        tab_month_name = doc.css(".shsTeamSchedTab strong").inner_text.gsub(/[^0-9A-Za-z]/, '')
+        selected_tab_month_num = Date::ABBR_MONTHNAMES.index(tab_month_name) || Date::MONTHNAMES.index(tab_month_name)
         next if(selected_tab_month_num != month)
 
 
@@ -168,7 +169,8 @@ class NbcScraper
         current_year = Date.today.year
 
         # Double check to make sure the calendar is on the right month
-        selected_tab_month_num = Date::ABBR_MONTHNAMES.index(doc.css(".shsTeamSchedTab strong").inner_text.gsub(/[^0-9A-Za-z]/, ''))
+        tab_month_name = doc.css(".shsTeamSchedTab strong").inner_text.gsub(/[^0-9A-Za-z]/, '')
+        selected_tab_month_num = Date::ABBR_MONTHNAMES.index(tab_month_name) || Date::MONTHNAMES.index(tab_month_name)
         next if(selected_tab_month_num != month)
 
 
