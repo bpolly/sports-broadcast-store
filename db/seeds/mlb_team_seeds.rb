@@ -21,12 +21,12 @@ bos = Team.find_or_create_by(name: "boston red sox", slug: "mlb-bos", league: le
 end
 
 chc = Team.find_or_create_by(name: "chicago cubs", slug: "mlb-chc", league: league, timezone: "ct", nbc_team_id: 16)
-["chicago cubs", "cubs", "chicago"].each do |nick|
+["chicago cubs", "chicago", "cubs"].each do |nick|
   chc.nicknames.find_or_create_by(name: nick)
 end
 
 chw = Team.find_or_create_by(name: "chicago white sox", slug: "mlb-chw", league: league, timezone: "ct", nbc_team_id: 4)
-["chicago white sox", "white sox", "chicago"].each do |nick|
+["chicago white sox", "chicago", "white sox"].each do |nick|
   chw.nicknames.find_or_create_by(name: nick)
 end
 
