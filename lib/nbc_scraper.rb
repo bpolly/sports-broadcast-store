@@ -23,7 +23,7 @@ class NbcScraper
           date = cols[3].children.first.text
           #byebug
           match_sign = opponent_extractor.match(cols[4].children.first.text)[1]
-          time = time_extractor.match(cols[5].text) ? time_extractor.match(cols[5].text)[1] : byebug
+          time = time_extractor.match(cols[5].text) ? time_extractor.match(cols[5].text)[1] : nil
           tv_networks = cols[6].text ? cols[6].text.gsub(/[[:space:]]/, '').split('/').join(',') : ''
 
           home_game = match_sign == 'vs.'
@@ -45,6 +45,8 @@ class NbcScraper
             home_team_id = opposing_team.id
             away_team_id = team.id
           end
+
+          next unless time
           date = Time.parse(date)
 
           # date_time = Time.zone.parse(time).in_time_zone("Eastern Time (US & Canada)").to_datetime
