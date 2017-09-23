@@ -13,7 +13,7 @@ class GameSerializer < ActiveModel::Serializer
     humanized_networks_list = @instance_options[:humanized_networks]
     humanized_networks = []
     object.tv_networks.split(",").map(&:strip).map(&:upcase).each do |network|
-      humanized_networks << humanized_networks_list[network]
+      humanized_networks << (humanized_networks_list[network] || network)
     end
     humanized_networks.to_sentence
   end
