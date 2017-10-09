@@ -1,0 +1,12 @@
+.dashboard-header {
+  padding: 9px 24px 5px;
+  margin-bottom: 10px;
+}
+
+#dashboard-title {
+  margin-top: 0;
+}
+
+#logo {
+  height: 45px;
+}
