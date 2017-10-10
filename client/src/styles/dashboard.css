@@ -10,3 +10,8 @@
 #logo {
   height: 45px;
 }
+
+.dashboard-container {
+  height: 100vh;
+  overflow: hidden;
+}

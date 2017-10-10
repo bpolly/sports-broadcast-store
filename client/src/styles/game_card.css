@@ -1,8 +1,5 @@
 .game-card {
-    border: 1px solid white;
-    width: 151px;
+    border-bottom: 1px solid #717171;
     height: 120px;
-    border-radius: 13px;
     padding: 11px 13px;
-    margin-right: 15px;
 }

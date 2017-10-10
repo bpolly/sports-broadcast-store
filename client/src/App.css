@@ -1,5 +1,5 @@
 body {
-  background-color: #2d2d2d;
+  background-color: #444444;
   color: #f3f3f3;
 }
 
@@ -8,6 +8,13 @@ body {
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
-  width: 100%;
-  overflow-x: scroll;
+  /*width: 100%;
+  overflow-x: scroll;*/
+}
+
+.flexbox-column {
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: column;
+   flex-direction: column;
 }
