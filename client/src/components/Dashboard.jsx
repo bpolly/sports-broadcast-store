@@ -4,6 +4,7 @@ import GameTable from './GameTable';
 import GameFilterForm from './GameFilterForm';
 import Loading from './Loading';
 import axios from 'axios';
+import moment from 'moment-timezone';
 
 class Dashboard extends Component {
   constructor() {
@@ -15,13 +16,29 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    axios.get('/games')
+    this.fetchGames();
+  }
+
+  fetchGames = (_endDate) => {
+    axios.get(`/games${_endDate ? `?end_date=${_endDate}` : ''}`)
     .then(response => {
       console.log(response);
       this.setState({
         games: response.data || []
       });
     })
+  }
+
+  handleDateChange = (event) => {
+    const { name, value } = event.target;
+    const dateValue = value.match(/(\d)-(\w+)/);
+    console.log(dateValue || 'butts');
+    if(value.length != 0){
+      let numUnits = parseInt(dateValue[1]);
+      let unitName = dateValue[2];
+      const targetDate = moment().add(numUnits, unitName);
+      this.fetchGames(targetDate);
+    }
   }
 
   handleFilterChange = (event) => {
@@ -68,7 +85,8 @@ class Dashboard extends Component {
         <div className="columns">
           <div className="column is-one-quarter">
             <GameFilterForm
-              handleFilterChange={this.handleFilterChange}/>
+              handleFilterChange={this.handleFilterChange}
+              handleDateChange={this.handleDateChange}/>
           </div>
           <div className="column">
             <GameTable games={this.filteredGames()}/>

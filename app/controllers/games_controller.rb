@@ -5,7 +5,11 @@ class GamesController < ApplicationController
   DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 
   def index
-    @games = Game.where("date > ? AND date < ?", 4.hours.ago, 3.weeks.from_now).order(date: :asc)
+    end_date = params[:end_date] ? Time.at(params[:end_date].to_i / 1000) : 3.days.from_now
+    @games = Game
+              .includes(home_team: :nicknames, away_team: :nicknames)
+              .where("date > ? AND date < ?", 4.hours.ago, end_date.end_of_day)
+              .order(date: :asc)
     render json: @games, humanized_networks: @human_tv_network_list, each_serializer: WebGameSerializer
   end
 

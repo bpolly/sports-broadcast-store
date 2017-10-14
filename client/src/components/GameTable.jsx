@@ -13,7 +13,7 @@ class GameTable extends Component {
       );
     }
     return (
-      <table className="table is-striped">
+      <table className="table is-striped is-fullwidth">
         <thead>
           <tr>
             <th>Date</th>
