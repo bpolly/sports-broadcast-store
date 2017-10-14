@@ -20,6 +20,7 @@ class GameSerializer < ActiveModel::Serializer
 
   def date
     user_gmt_offset = @instance_options[:user_gmt_offset]
+    user_gmt_offset ||= UserZipCode.default_offset
     object.date.utc + user_gmt_offset.hours
   end
 end

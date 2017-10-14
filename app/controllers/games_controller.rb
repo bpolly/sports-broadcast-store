@@ -5,7 +5,8 @@ class GamesController < ApplicationController
   DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 
   def index
-    @games = Game.all
+    @games = Game.where("date > ? AND date < ?", 4.hours.ago, 3.weeks.from_now).order(date: :asc)
+    render json: @games, humanized_networks: @human_tv_network_list, each_serializer: WebGameSerializer
   end
 
   def scrape

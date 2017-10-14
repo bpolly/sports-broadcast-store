@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import logo from '../images/sportcasts-logo.png';
 import '../styles/dashboard.css';
-import LeagueColumn from './LeagueColumn';
 
 class Navbar extends Component {
   render() {
     return (
-      <nav className="navbar" role="navigation" aria-label="main navigation">
+      <nav className="navbar" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="http://bulma.io">
             <img id="logo" src={logo} alt="Logo" />

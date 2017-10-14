@@ -5,8 +5,14 @@ class UserZipCode < ActiveRecord::Base
 
   def self.get_offset_by_amz_id(amz_id)
     user = UserZipCode.find_by_amz_id(amz_id)
-    user&.zip ? lookup_tz_offset(user) : (Time.zone.now.utc_offset / 3600)
+    user&.zip ? lookup_tz_offset(user) : default_offset
   end
+
+  def self.default_offset
+    Time.zone.now.utc_offset / 3600
+  end
+
+
 
   private
   def self.lookup_tz_offset(user)
