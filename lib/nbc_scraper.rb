@@ -52,10 +52,10 @@ class NbcScraper
           # date_time = Time.zone.parse(time).in_time_zone("Eastern Time (US & Canada)").to_datetime
           # date_time = date_time.change(day: day, month: month, year: current_year).utc
 
-          date_time = Time.zone.parse(time).utc.to_datetime
+          date_time = Time.zone.parse(time).in_time_zone("Eastern Time (US & Canada)").to_datetime
           day = date.day
           month = date.month
-          date_time = date_time.change(day: day, month: month, year: calculate_year(month, 'nfl'))
+          date_time = date_time.change(day: day, month: month, year: calculate_year(month, 'nfl')).utc
 
           if(date_time > (Time.now - 1.day))
             Game.find_or_create_by(home_team_id: home_team_id, away_team_id: away_team_id, date: date_time, tv_networks: tv_networks, league: 'nfl')
