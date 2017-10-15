@@ -44,4 +44,4 @@ bower.json
 # Ignore Byebug command history file.
 .byebug_history
 
-client/node_modules/.cache
+client/node_modules

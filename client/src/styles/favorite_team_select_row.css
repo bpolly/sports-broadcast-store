@@ -5,6 +5,7 @@ div.favorite-team-select-row:hover {
 div.favorite-team-select-row {
   cursor: pointer;
   white-space: nowrap;
+  user-select: none;
 }
 
 div.favorite-team-name{

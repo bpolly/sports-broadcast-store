@@ -22,17 +22,17 @@ class GameRow extends Component {
         <td>
           { moment(game.date).tz(moment.tz.guess()).format('h:mma') }
         </td>
-        <td>
+        <td className="capitalize">
           { game.home_team.name }
         </td>
-        <td>
+        <td className="capitalize">
           { game.away_team.name }
         </td>
         <td>
           { game.tv_networks }
         </td>
         <td>
-          { game.league }
+          { game.league.toUpperCase() }
         </td>
         <td>
           <i className="fa fa-star" style={starStyling}></i>
