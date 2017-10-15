@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FavoriteTeamSelect from './FavoriteTeamSelect';
 
 class GameFilterForm extends Component {
   render() {
@@ -47,6 +48,8 @@ class GameFilterForm extends Component {
             </div>
           </div>
         </div>
+
+        <FavoriteTeamSelect />
       </div>
     );
   }

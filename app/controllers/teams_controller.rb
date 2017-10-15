@@ -1,10 +1,13 @@
 class TeamsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
   # GET /teams
   # GET /teams.json
   def index
     @teams = Team.includes(:nicknames).all
+    render json: @teams
   end
 
   # GET /teams/1
