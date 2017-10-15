@@ -3,6 +3,8 @@ import FavoriteTeamSelect from './FavoriteTeamSelect';
 
 class GameFilterForm extends Component {
   render() {
+    const { favoriteTeamSlugs, handleFavoriteTeamChange } = this.props;
+
     return(
       <div>
         <div className="field">
@@ -49,7 +51,9 @@ class GameFilterForm extends Component {
           </div>
         </div>
 
-        <FavoriteTeamSelect />
+        <FavoriteTeamSelect
+          favoriteTeamSlugs={favoriteTeamSlugs}
+          handleFavoriteTeamChange={handleFavoriteTeamChange} />
       </div>
     );
   }

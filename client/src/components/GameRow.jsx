@@ -4,12 +4,16 @@ import moment from 'moment-timezone';
 
 class GameRow extends Component {
   isFavoriteTeam = (game) => {
-    const fullTeamText = game.home_team + ' ' + game.away_team;
-    return this.props.favoriteTeams.filter((team) => fullTeamText.indexOf(team) !== -1).length > 0;
+    let teamSlugs = this.props.favoriteTeamSlugs || [];
+    return (teamSlugs.includes(game.home_team.slug) || teamSlugs.includes(game.away_team.slug))
   }
 
   render() {
     const { game } = this.props;
+    const starStyling = {
+      visibility: this.isFavoriteTeam(game) ? 'visible' : 'hidden',
+      color: '#fc6066'
+    };
     return (
       <tr>
         <td>
@@ -19,10 +23,10 @@ class GameRow extends Component {
           { moment(game.date).tz(moment.tz.guess()).format('h:mma') }
         </td>
         <td>
-          { game.home_team }
+          { game.home_team.name }
         </td>
         <td>
-          { game.away_team }
+          { game.away_team.name }
         </td>
         <td>
           { game.tv_networks }
@@ -31,8 +35,7 @@ class GameRow extends Component {
           { game.league }
         </td>
         <td>
-          {this.isFavoriteTeam(game) ? <i className="fa fa-star"></i> : null}
-
+          <i className="fa fa-star" style={starStyling}></i>
         </td>
       </tr>
     );

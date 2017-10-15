@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import '../styles/favorite_team_select_row.css';
 
 class FavoriteTeamSelectRow extends Component {

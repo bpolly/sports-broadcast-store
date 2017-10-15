@@ -6,7 +6,7 @@ import moment from 'moment-timezone';
 
 class GameTable extends Component {
   render() {
-    const { games } = this.props;
+    const { games, favoriteTeamSlugs } = this.props;
     if(!this.props.games) {
       return(
         <Loading />
@@ -17,7 +17,6 @@ class GameTable extends Component {
         <thead>
           <tr>
             <th>Date</th>
-            {console.log(moment.tz.guess())}
             <th>Time ({moment().tz(moment.tz.guess()).format('z')})</th>
             <th>Home Team</th>
             <th>Away Team</th>
@@ -27,7 +26,7 @@ class GameTable extends Component {
           </tr>
         </thead>
         <tbody>
-          { games.map(game => <GameRow key={game.id} game={game} favoriteTeams={['cavaliers']}/>) }
+          { games.map(game => <GameRow key={game.id} game={game} favoriteTeamSlugs={favoriteTeamSlugs}/>) }
         </tbody>
       </table>
     );

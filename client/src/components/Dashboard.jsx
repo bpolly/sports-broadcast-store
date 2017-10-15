@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import '../styles/dashboard.css';
 import GameTable from './GameTable';
 import GameFilterForm from './GameFilterForm';
-import Loading from './Loading';
 import axios from 'axios';
 import moment from 'moment-timezone';
 
@@ -12,6 +11,7 @@ class Dashboard extends Component {
     this.state = {
       games: undefined,
       filters: {},
+      favoriteTeamSlugs: []
     };
   }
 
@@ -22,7 +22,6 @@ class Dashboard extends Component {
   fetchGames = (_endDate) => {
     axios.get(`/games${_endDate ? `?end_date=${_endDate}` : ''}`)
     .then(response => {
-      console.log(response);
       this.setState({
         games: response.data || []
       });
@@ -30,10 +29,9 @@ class Dashboard extends Component {
   }
 
   handleDateChange = (event) => {
-    const { name, value } = event.target;
+    const { value } = event.target;
     const dateValue = value.match(/(\d)-(\w+)/);
-    console.log(dateValue || 'butts');
-    if(value.length != 0){
+    if(value.length !== 0){
       let numUnits = parseInt(dateValue[1]);
       let unitName = dateValue[2];
       const targetDate = moment().add(numUnits, unitName);
@@ -53,6 +51,22 @@ class Dashboard extends Component {
     }));
   }
 
+  handleFavoriteTeamChange = (team) => {
+    const favoriteTeamSlugs = this.state.favoriteTeamSlugs;
+    if(favoriteTeamSlugs.includes(team.slug)){
+      var i = favoriteTeamSlugs.indexOf(team.slug);
+      this.setState({
+        favoriteTeamSlugs: [...favoriteTeamSlugs.slice(0,i), ...favoriteTeamSlugs.slice(i+1)]
+      });
+    }
+    else {
+      this.setState({
+        favoriteTeamSlugs: favoriteTeamSlugs.concat(team.slug)
+      });
+    }
+  }
+
+
   filteredGames = () => {
     const { games, filters } = this.state;
 
@@ -63,7 +77,7 @@ class Dashboard extends Component {
             let gameAttrText = '';
             let filterText = filters[filterName].toLowerCase();
             if(filterName === 'team'){
-              gameAttrText = (game['home_team'] + ' ' + game['away_team']).toLowerCase();
+              gameAttrText = (game['home_team']['name'] + ' ' + game['away_team']['name']).toLowerCase();
             } else {
               gameAttrText = game[filterName].toLowerCase();
             }
@@ -80,16 +94,22 @@ class Dashboard extends Component {
   }
 
   render() {
+    const { favoriteTeamSlugs } = this.state;
     return (
       <div className="dashboard-container">
         <div className="columns">
           <div className="column is-one-quarter">
             <GameFilterForm
               handleFilterChange={this.handleFilterChange}
-              handleDateChange={this.handleDateChange}/>
+              handleDateChange={this.handleDateChange}
+              handleFavoriteTeamChange={this.handleFavoriteTeamChange}
+              favoriteTeamSlugs={favoriteTeamSlugs}/>
           </div>
           <div className="column">
-            <GameTable games={this.filteredGames()}/>
+            <GameTable
+              games={this.filteredGames()}
+              handleFavoriteTeamChange={this.handleFavoriteTeamChange}
+              favoriteTeamSlugs={favoriteTeamSlugs}/>
           </div>
         </div>
       </div>

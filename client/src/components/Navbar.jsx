@@ -7,7 +7,7 @@ class Navbar extends Component {
     return (
       <nav className="navbar" aria-label="main navigation">
         <div className="navbar-brand">
-          <a className="navbar-item" href="http://bulma.io">
+          <a className="navbar-item" href="/">
             <img id="logo" src={logo} alt="Logo" />
           </a>
 
