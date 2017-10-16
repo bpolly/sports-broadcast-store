@@ -5,7 +5,7 @@
   },
   "scripts": {
     "build": "cd client && npm install && npm run build && cd ..",
-    "deploy": "rm -rf /public/static && mv client/build/* /public",
+    "deploy": "cp -a client/build/. public/",
     "postinstall": "npm run build && npm run deploy && echo 'Client built!'"
   }
 }
