@@ -39,10 +39,10 @@ class GameFilterForm extends Component {
           <label className="label">Date Range</label>
           <div className="control">
             <div className="select is-fullwidth">
-              <select name="date" onChange={this.props.handleDateChange}>
+              <select name="date" onChange={this.props.handleDateChange} defaultValue="3-day">
                 <option value="1-day">1 Day</option>
                 <option value="2-day">2 Day</option>
-                <option value="3-day" selected="selected">3 Day</option>
+                <option value="3-day">3 Day</option>
                 <option value="1-week">1 Week</option>
                 <option value="1-month">1 Month</option>
                 <option value="1-year">1 Year</option>

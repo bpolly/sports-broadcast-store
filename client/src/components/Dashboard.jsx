@@ -4,6 +4,7 @@ import GameTable from './GameTable';
 import GameFilterForm from './GameFilterForm';
 import axios from 'axios';
 import moment from 'moment-timezone';
+import cookie from 'react-cookies';
 
 class Dashboard extends Component {
   constructor() {
@@ -13,6 +14,12 @@ class Dashboard extends Component {
       filters: {},
       favoriteTeamSlugs: []
     };
+  }
+
+  componentWillMount() {
+    this.setState({
+      favoriteTeamSlugs: cookie.load('favoriteTeamSlugs') || []
+    });
   }
 
   componentDidMount() {
@@ -57,13 +64,17 @@ class Dashboard extends Component {
       var i = favoriteTeamSlugs.indexOf(team.slug);
       this.setState({
         favoriteTeamSlugs: [...favoriteTeamSlugs.slice(0,i), ...favoriteTeamSlugs.slice(i+1)]
-      });
+      }, this.saveFavoriteTeamSlugsCookie);
     }
     else {
       this.setState({
         favoriteTeamSlugs: favoriteTeamSlugs.concat(team.slug)
-      });
+      }, this.saveFavoriteTeamSlugsCookie);
     }
+  }
+
+  saveFavoriteTeamSlugsCookie = () => {
+    cookie.save('favoriteTeamSlugs', this.state.favoriteTeamSlugs, { path: '/' })
   }
 
 
