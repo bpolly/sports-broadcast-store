@@ -9,7 +9,7 @@ class FavoriteTeamSelectRow extends Component {
         <div className="favorite-team-star">
           <i className={"fa fa-star" + (favoriteTeamSlugs.includes(team.slug) ? '' : '-o')} aria-hidden="true"></i>
         </div>
-        <div className="favorite-team-name" className="capitalize">{ team.name }</div>
+        <div className="favorite-team-name capitalize">{ team.name }</div>
       </div>
     );
   }
