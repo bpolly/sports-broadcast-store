@@ -58,7 +58,8 @@ class NbcScraper
           date_time = date_time.change(day: day, month: month, year: calculate_year(month, 'nfl')).utc
 
           if(date_time > (Time.now - 1.day))
-            Game.find_or_create_by(home_team_id: home_team_id, away_team_id: away_team_id, date: date_time, tv_networks: tv_networks, league: 'nfl')
+            game = Game.find_or_create_by(home_team_id: home_team_id, away_team_id: away_team_id, date: date_time, league: 'nfl')
+            game.update(tv_networks: tv_networks) if game.tv_networks != tv_networks
           end
           #game.save
         end # if cols.count
@@ -140,7 +141,8 @@ class NbcScraper
             date_time = date_time.change(day: day, month: month, year: current_year).utc
 
             if(date_time > (Time.now - 1.day))
-              Game.find_or_create_by(home_team_id: home_team_id, away_team_id: away_team_id, date: date_time, tv_networks: tv_networks, league: 'nba')
+              game = Game.find_or_create_by(home_team_id: home_team_id, away_team_id: away_team_id, date: date_time, league: 'nba')
+              game.update(tv_networks: tv_networks) if game.tv_networks != tv_networks
             end
             #game.save
           end # if cols.count
@@ -184,10 +186,10 @@ class NbcScraper
             opponent_extractor = /(vs.|@|at) (.+)/
             time_extractor = /([\d]+:[\d]+ GMT)/
             day = date_extractor.match(cols[0].text)[1].to_i
-            match_sign = opponent_extractor.match(cols[1].text)? opponent_extractor.match(cols[1].text)[1] : byebug
-            opposing_team_text = opponent_extractor.match(cols[1].text)[2]
+            match_sign = opponent_extractor.match(cols[1].text) ? opponent_extractor.match(cols[1].text)[1] : nil
+            opposing_team_text = opponent_extractor.match(cols[1].text) ? opponent_extractor.match(cols[1].text)[2] : nil
             time = time_extractor.match(cols[2].text) ? time_extractor.match(cols[2].text)[1] : nil
-            next unless time
+            next unless time && match_sign
             tv_networks = cols[3].text ? cols[3].text.gsub(/[[:space:]]/, '').split('/').join(',') : ''
 
             home_game = match_sign == 'vs.'
@@ -222,7 +224,8 @@ class NbcScraper
             date_time = date_time.change(day: day, month: month, year: current_year).utc
 
             if(date_time > (Time.now - 1.day))
-              Game.find_or_create_by(home_team_id: home_team_id, away_team_id: away_team_id, date: date_time, tv_networks: tv_networks, league: 'mlb')
+              game = Game.find_or_create_by(home_team_id: home_team_id, away_team_id: away_team_id, date: date_time, league: 'mlb')
+              game.update(tv_networks: tv_networks) if game.tv_networks != tv_networks
             end
             #game.save
           end # if cols.count

@@ -1,0 +1,7 @@
+#game-filter-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: calc(100vh - 72px);
+  overflow: auto;
+}

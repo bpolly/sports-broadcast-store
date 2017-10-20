@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import FavoriteTeamSelect from './FavoriteTeamSelect';
+import '../styles/game_filter_form.css';
 
 class GameFilterForm extends Component {
   render() {
     const { favoriteTeamSlugs, handleFavoriteTeamChange } = this.props;
 
     return(
-      <div>
-        <div className="field">
+      <div id="game-filter-form">
+        <div className="field flex-no-grow">
           <label className="label">League</label>
           <div className="control">
             <div className="select is-fullwidth">
@@ -21,21 +22,21 @@ class GameFilterForm extends Component {
           </div>
         </div>
 
-        <div className="field">
+        <div className="field flex-no-grow">
           <label className="label">TV Network</label>
           <div className="control">
             <input type="text" name="tv_networks" placeholder="ESPN" onChange={this.props.handleFilterChange} className="input"/>
           </div>
         </div>
 
-        <div className="field">
+        <div className="field flex-no-grow">
           <label className="label">Team</label>
           <div className="control">
             <input type="text" name="team" placeholder="Cavaliers" onChange={this.props.handleFilterChange} className="input"/>
           </div>
         </div>
 
-        <div className="field">
+        <div className="field flex-no-grow">
           <label className="label">Date Range</label>
           <div className="control">
             <div className="select is-fullwidth">

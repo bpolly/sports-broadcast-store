@@ -28,29 +28,27 @@ class FavoriteTeamSelect extends Component {
     const nbaTeams = teams.filter((team) => team.league === "nba")
     const mlbTeams = teams.filter((team) => team.league === "mlb")
     return(
-      <div className="favorite-team-select-container">
-        <div className="field">
-          <label className="label">Favorite Teams</label>
-          <div className="control favorite-team-select">
-          <p className="favorite-team-select-league">NFL</p>
-          {nflTeams.map((team) => <FavoriteTeamSelectRow
-                                    key={team.id}
-                                    team={team}
-                                    favoriteTeamSlugs={favoriteTeamSlugs}
-                                    handleFavoriteTeamChange={handleFavoriteTeamChange} />)}
-          <p className="favorite-team-select-league">NBA</p>
-          {nbaTeams.map((team) => <FavoriteTeamSelectRow
-                                    key={team.id}
-                                    team={team}
-                                    favoriteTeamSlugs={favoriteTeamSlugs}
-                                    handleFavoriteTeamChange={handleFavoriteTeamChange} />)}
-          <p className="favorite-team-select-league">MLB</p>
-          {mlbTeams.map((team) => <FavoriteTeamSelectRow
-                                    key={team.id}
-                                    team={team}
-                                    favoriteTeamSlugs={favoriteTeamSlugs}
-                                    handleFavoriteTeamChange={handleFavoriteTeamChange} />)}
-          </div>
+      <div className="favorite-team-select-container flex-grow">
+        <label className="label">Favorite Teams</label>
+        <div className="control favorite-team-select">
+        <p className="favorite-team-select-league">NFL</p>
+        {nflTeams.map((team) => <FavoriteTeamSelectRow
+                                  key={team.id}
+                                  team={team}
+                                  favoriteTeamSlugs={favoriteTeamSlugs}
+                                  handleFavoriteTeamChange={handleFavoriteTeamChange} />)}
+        <p className="favorite-team-select-league">NBA</p>
+        {nbaTeams.map((team) => <FavoriteTeamSelectRow
+                                  key={team.id}
+                                  team={team}
+                                  favoriteTeamSlugs={favoriteTeamSlugs}
+                                  handleFavoriteTeamChange={handleFavoriteTeamChange} />)}
+        <p className="favorite-team-select-league">MLB</p>
+        {mlbTeams.map((team) => <FavoriteTeamSelectRow
+                                  key={team.id}
+                                  team={team}
+                                  favoriteTeamSlugs={favoriteTeamSlugs}
+                                  handleFavoriteTeamChange={handleFavoriteTeamChange} />)}
         </div>
       </div>
     );

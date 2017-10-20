@@ -1,5 +1,5 @@
 div.favorite-team-select {
-  height: 270px;
+  height: 88%;
   border: 1px solid #dbdbdb;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -7,4 +7,10 @@ div.favorite-team-select {
   padding-left: calc(0.625em - 1px);
   padding-right: calc(0.625em - 1px);
   padding-top: calc(0.375em - 1px);
+}
+
+div.favorite-team-select-container {
+  overflow: hidden;
+  min-height: 0;
+  height: 100%;
 }
