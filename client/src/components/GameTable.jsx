@@ -16,7 +16,7 @@ class GameTable extends Component {
       <table id="game-table" className="table is-striped is-fullwidth">
         <thead>
           <tr>
-            <th>Date</th>
+            <th>Day</th>
             <th>Time ({moment().tz(moment.tz.guess()).format('z')})</th>
             <th>Home Team</th>
             <th>Away Team</th>

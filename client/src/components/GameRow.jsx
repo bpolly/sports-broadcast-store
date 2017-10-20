@@ -13,11 +13,15 @@ class GameRow extends Component {
       visibility: this.isFavoriteTeam(game) ? 'visible' : 'hidden',
       color: '#fc6066'
     };
+    let dateCol = null;
+    if(moment(game.date).tz(moment.tz.guess()).isSame(moment().tz(moment.tz.guess()), 'day')){
+      dateCol = <td><span className="tag is-warning">Today</span></td>;
+    } else {
+      dateCol = <td>{ moment(game.date).tz(moment.tz.guess()).format('dddd MMM Do') }</td>;
+    }
     return (
       <tr>
-        <td>
-          { moment(game.date).tz(moment.tz.guess()).format('dddd MMM Do') }
-        </td>
+        { dateCol }
         <td>
           { moment(game.date).tz(moment.tz.guess()).format('h:mma') }
         </td>
