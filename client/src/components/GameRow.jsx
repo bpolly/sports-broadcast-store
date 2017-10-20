@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import '../styles/game_card.css';
 import moment from 'moment-timezone';
 
 class GameRow extends Component {

@@ -4,7 +4,7 @@ import '../styles/game_filter_form.css';
 
 class GameFilterForm extends Component {
   render() {
-    const { favoriteTeamSlugs, handleFavoriteTeamChange } = this.props;
+    const { favoriteTeamSlugs, handleFavoriteTeamChange, handleShowOnlyFavoriteTeams } = this.props;
 
     return(
       <div id="game-filter-form">
@@ -49,6 +49,15 @@ class GameFilterForm extends Component {
                 <option value="1-year">1 Year</option>
               </select>
             </div>
+          </div>
+        </div>
+
+        <div className="field flex-no-grow">
+          <div className="control">
+            <label className="checkbox">
+              <input type="checkbox" name="favorite-teams-only" onChange={this.props.handleFilterChange} style={{marginRight: "10px"}} />
+              Show only favorite teams
+            </label>
           </div>
         </div>
 

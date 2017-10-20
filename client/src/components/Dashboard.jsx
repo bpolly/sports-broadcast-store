@@ -47,7 +47,11 @@ class Dashboard extends Component {
   }
 
   handleFilterChange = (event) => {
-    const { name, value } = event.target;
+    const { name } = event.target;
+    let { value } = event.target;
+    if(name === 'favorite-teams-only') {
+      value = event.target.checked;
+    }
 
     this.setState((prevState) => ({
       ...prevState,
@@ -73,13 +77,18 @@ class Dashboard extends Component {
     }
   }
 
+  handleShowOnlyFavoriteTeams = (event) => {
+    const { name, value } = event.target;
+
+  }
+
   saveFavoriteTeamSlugsCookie = () => {
     cookie.save('favoriteTeamSlugs', this.state.favoriteTeamSlugs, { path: '/' })
   }
 
 
   filteredGames = () => {
-    const { games, filters } = this.state;
+    const { games, filters, favoriteTeamSlugs } = this.state;
 
     return Object.keys(filters).reduce((games, filterName) => {
       return games.filter((game) => {
@@ -94,6 +103,9 @@ class Dashboard extends Component {
             }
 
             return gameAttrText.indexOf(filterText) !== -1;
+          }
+          else if (filters['favorite-teams-only'] === true) {
+            return (favoriteTeamSlugs.includes(game.home_team.slug) || favoriteTeamSlugs.includes(game.away_team.slug));
           } else {
             return game[filterName] === filters[filterName];
           }
@@ -113,6 +125,7 @@ class Dashboard extends Component {
             <GameFilterForm
               handleFilterChange={this.handleFilterChange}
               handleDateChange={this.handleDateChange}
+              handleFavoriteTeamChange={this.handleFavoriteTeamChange}
               handleFavoriteTeamChange={this.handleFavoriteTeamChange}
               favoriteTeamSlugs={favoriteTeamSlugs}/>
           </div>

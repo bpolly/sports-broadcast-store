@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import '../styles/game_card.css';
+import '../styles/game_table.css';
 import GameRow from './GameRow';
 import Loading from './Loading';
 import moment from 'moment-timezone';
@@ -13,7 +13,7 @@ class GameTable extends Component {
       );
     }
     return (
-      <table className="table is-striped is-fullwidth">
+      <table id="game-table" className="table is-striped is-fullwidth">
         <thead>
           <tr>
             <th>Date</th>
