@@ -47,3 +47,5 @@ bower.json
 
 client/node_modules
 client/build
+
+.DS_Store

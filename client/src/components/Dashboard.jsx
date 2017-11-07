@@ -41,7 +41,7 @@ class Dashboard extends Component {
     if(value.length !== 0){
       let numUnits = parseInt(dateValue[1]);
       let unitName = dateValue[2];
-      const targetDate = moment().add(numUnits, unitName);
+      const targetDate = moment().add(numUnits, unitName).subtract(1, 'day').endOf('day');
       this.fetchGames(targetDate);
     }
   }

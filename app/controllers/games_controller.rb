@@ -9,7 +9,7 @@ class GamesController < ApplicationController
     @games = Game
               .includes(home_team: :nicknames, away_team: :nicknames)
               .where("date > ? AND date < ?", 4.hours.ago, end_date.end_of_day)
-              .order(date: :asc)
+              .order(date: :asc, id: :asc)
     render json: @games, humanized_networks: @human_tv_network_list, each_serializer: WebGameSerializer
   end
 
