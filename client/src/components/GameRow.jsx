@@ -7,18 +7,31 @@ class GameRow extends Component {
     return (teamSlugs.includes(game.home_team.slug) || teamSlugs.includes(game.away_team.slug))
   }
 
+  getDateColumn = () => {
+    let dateCol = null;
+    const { game } = this.props;
+    let gameDate = moment(game.date).tz(moment.tz.guess());
+    let todayDate = moment().tz(moment.tz.guess());
+    let tomorrowDate = moment().tz(moment.tz.guess()).add(1, 'day');
+    if(gameDate.isSame(todayDate, 'day')){
+      return <td><span className="tag is-warning">Today</span></td>;
+    }
+    else if (gameDate.isSame(tomorrowDate, 'day')){
+      return <td><span className="tag is-primary">Tomorrow</span></td>;
+    }
+    else {
+      return <td>{ moment(game.date).tz(moment.tz.guess()).format('dddd MMM Do') }</td>;
+    }
+  }
+
   render() {
     const { game } = this.props;
+    const dateCol = this.getDateColumn();
     const starStyling = {
       visibility: this.isFavoriteTeam(game) ? 'visible' : 'hidden',
       color: '#fc6066'
     };
-    let dateCol = null;
-    if(moment(game.date).tz(moment.tz.guess()).isSame(moment().tz(moment.tz.guess()), 'day')){
-      dateCol = <td><span className="tag is-warning">Today</span></td>;
-    } else {
-      dateCol = <td>{ moment(game.date).tz(moment.tz.guess()).format('dddd MMM Do') }</td>;
-    }
+
     return (
       <tr>
         { dateCol }
