@@ -63,7 +63,6 @@ class Dashboard extends Component {
   }
 
   handleFavoriteTeamChange = (teams) => {
-    console.log(teams)
     this.setState(
       {
         favoriteTeamSlugs: teams.map((team) => team['value'])
