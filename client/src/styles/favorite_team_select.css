@@ -21,11 +21,12 @@ div.favorite-team-select {
   color: #fff;
 }
 
-.Select-value .Select-value-icon {
+.Select-value.favorite-team-option .Select-value-icon {
   border-right: 1px solid #db4f55;
 }
 
-.Select-value .Select-value-icon:hover, .Select-value .Select-value-icon:focus {
+.Select-value.favorite-team-option .Select-value-icon:hover,
+.Select-value.favorite-team-option .Select-value-icon:focus {
   color: #b50000;
 }
 
