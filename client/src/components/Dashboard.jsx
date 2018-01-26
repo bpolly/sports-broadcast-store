@@ -62,30 +62,21 @@ class Dashboard extends Component {
     }));
   }
 
-  handleFavoriteTeamChange = (team) => {
-    const favoriteTeamSlugs = this.state.favoriteTeamSlugs;
-    if(favoriteTeamSlugs.includes(team.slug)){
-      var i = favoriteTeamSlugs.indexOf(team.slug);
-      this.setState({
-        favoriteTeamSlugs: [...favoriteTeamSlugs.slice(0,i), ...favoriteTeamSlugs.slice(i+1)]
+  handleFavoriteTeamChange = (teams) => {
+    console.log(teams)
+    this.setState(
+      {
+        favoriteTeamSlugs: teams.map((team) => team['value'])
       }, this.saveFavoriteTeamSlugsCookie);
-    }
-    else {
-      this.setState({
-        favoriteTeamSlugs: favoriteTeamSlugs.concat(team.slug)
-      }, this.saveFavoriteTeamSlugsCookie);
-    }
   }
 
   handleShowOnlyFavoriteTeams = (event) => {
     const { name, value } = event.target;
-
   }
 
   saveFavoriteTeamSlugsCookie = () => {
     cookie.save('favoriteTeamSlugs', this.state.favoriteTeamSlugs, { path: '/' })
   }
-
 
   filteredGames = () => {
     const { games, filters, favoriteTeamSlugs } = this.state;
