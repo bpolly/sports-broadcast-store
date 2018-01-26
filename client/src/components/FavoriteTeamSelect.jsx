@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 import '../styles/favorite_team_select.css';
-import FavoriteTeamSelectRow from './FavoriteTeamSelectRow';
-
 
 class FavoriteTeamSelect extends Component {
   constructor() {
@@ -10,6 +10,16 @@ class FavoriteTeamSelect extends Component {
     this.state = {
       teams: []
     };
+  }
+
+  generateTeamOptions = () => {
+    return this.state.teams.map(function(team) {
+      let tmp = {}
+      tmp['value'] = team.slug;
+      tmp['label'] = team.name;
+      tmp['className'] = 'favorite-team-option'
+      return tmp;
+    });
   }
 
   componentWillMount(){
@@ -24,32 +34,18 @@ class FavoriteTeamSelect extends Component {
   render(){
     const { teams } = this.state;
     const { favoriteTeamSlugs, handleFavoriteTeamChange } = this.props;
-    const nflTeams = teams.filter((team) => team.league === "nfl")
-    const nbaTeams = teams.filter((team) => team.league === "nba")
-    const mlbTeams = teams.filter((team) => team.league === "mlb")
+    const teamOptions = this.generateTeamOptions();
     return(
-      <div className="favorite-team-select-container flex-grow">
+      <div id="favorite-team-select-container flex-grow">
         <label className="label">Favorite Teams</label>
-        <div className="control favorite-team-select">
-        <p className="favorite-team-select-league">NFL</p>
-        {nflTeams.map((team) => <FavoriteTeamSelectRow
-                                  key={team.id}
-                                  team={team}
-                                  favoriteTeamSlugs={favoriteTeamSlugs}
-                                  handleFavoriteTeamChange={handleFavoriteTeamChange} />)}
-        <p className="favorite-team-select-league">NBA</p>
-        {nbaTeams.map((team) => <FavoriteTeamSelectRow
-                                  key={team.id}
-                                  team={team}
-                                  favoriteTeamSlugs={favoriteTeamSlugs}
-                                  handleFavoriteTeamChange={handleFavoriteTeamChange} />)}
-        <p className="favorite-team-select-league">MLB</p>
-        {mlbTeams.map((team) => <FavoriteTeamSelectRow
-                                  key={team.id}
-                                  team={team}
-                                  favoriteTeamSlugs={favoriteTeamSlugs}
-                                  handleFavoriteTeamChange={handleFavoriteTeamChange} />)}
-        </div>
+        <Select
+          name="favorite-team-multiselect"
+          value={ favoriteTeamSlugs }
+          onChange={ handleFavoriteTeamChange }
+          options={ teamOptions }
+          multi={true}
+          closeOnSelect={false}
+        />
       </div>
     );
   }
