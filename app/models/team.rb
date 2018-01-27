@@ -1,4 +1,4 @@
-class Team < ActiveRecord::Base
+class Team < ApplicationRecord
   has_many :nicknames
   has_many :games
   LEAGUES = ["nba","nfl", "mlb", "nhl"]
