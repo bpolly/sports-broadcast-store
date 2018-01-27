@@ -9,8 +9,27 @@ div.favorite-team-select {
   padding-top: calc(0.375em - 1px);
 }
 
-div.favorite-team-select-container {
+#favorite-team-select-container {
   overflow: hidden;
   min-height: 0;
   height: 100%;
+}
+
+.Select-value.favorite-team-option {
+  background-color: #fc6066;
+  border: 1px solid #fc6066;
+  color: #fff;
+}
+
+.Select-value.favorite-team-option .Select-value-icon {
+  border-right: 1px solid #db4f55;
+}
+
+.Select-value.favorite-team-option .Select-value-icon:hover,
+.Select-value.favorite-team-option .Select-value-icon:focus {
+  color: #b50000;
+}
+
+.Select-option.is-focused {
+  background: rgba(252, 96, 102, 0.2);
 }
