@@ -1,4 +1,4 @@
-class UserZipCode < ActiveRecord::Base
+class UserZipCode < ApplicationRecord
   def self.find_by_amz_id(amz_id)
     amz_id ? UserZipCode.find_by(amz_id: Digest::SHA256.hexdigest(amz_id)) : nil
   end

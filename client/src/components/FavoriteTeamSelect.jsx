@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { titleCase } from '../utilities.js';
 import axios from 'axios';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -16,7 +17,7 @@ class FavoriteTeamSelect extends Component {
     return this.state.teams.map(function(team) {
       let tmp = {}
       tmp['value'] = team.slug;
-      tmp['label'] = team.name;
+      tmp['label'] = titleCase(team.name);
       tmp['className'] = 'favorite-team-option'
       return tmp;
     });
