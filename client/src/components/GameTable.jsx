@@ -6,8 +6,8 @@ import moment from 'moment-timezone';
 
 class GameTable extends Component {
   render() {
-    const { games, favoriteTeamSlugs } = this.props;
-    if(!this.props.games) {
+    const { games, favoriteTeamSlugs, loading } = this.props;
+    if(!this.props.games || loading) {
       return(
         <Loading />
       );

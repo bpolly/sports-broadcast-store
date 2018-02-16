@@ -12,7 +12,8 @@ class Dashboard extends Component {
     this.state = {
       games: undefined,
       filters: {},
-      favoriteTeamSlugs: []
+      favoriteTeamSlugs: [],
+      loading: false
     };
   }
 
@@ -27,10 +28,12 @@ class Dashboard extends Component {
   }
 
   fetchGames = (_endDate) => {
+    this.setState({ loading: true });
     axios.get(`/games${_endDate ? `?end_date=${_endDate}` : ''}`)
     .then(response => {
       this.setState({
-        games: response.data || []
+        games: (response.data || []),
+        loading: false
       });
     })
   }
@@ -107,7 +110,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { favoriteTeamSlugs } = this.state;
+    const { favoriteTeamSlugs, loading } = this.state;
     return (
       <div className="dashboard-container">
         <div className="columns">
@@ -123,7 +126,8 @@ class Dashboard extends Component {
             <GameTable
               games={this.filteredGames()}
               handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-              favoriteTeamSlugs={favoriteTeamSlugs}/>
+              favoriteTeamSlugs={favoriteTeamSlugs}
+              loading={loading}/>
           </div>
         </div>
       </div>
