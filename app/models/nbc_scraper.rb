@@ -82,7 +82,7 @@ class NbcScraper
       end
 
       season_months[starting_month..-1].each do |month|
-        team_schedule = "http://scores.nbcsports.msnbc.com/nba/teamstats.asp?teamno=#{team.nbc_team_id}&type=schedule&year=#{Time.now.year}&month=#{month}"
+        team_schedule = "http://scores.nbcsports.com/nba/teamstats.asp?teamno=#{team.nbc_team_id}&type=schedule&year=#{Time.now.year}&month=#{month}"
         month = month.to_i
         doc = Nokogiri::HTML(open(team_schedule))
 
@@ -166,12 +166,11 @@ class NbcScraper
       end
 
       season_months[starting_month..-1].each do |month|
-        team_schedule = "http://scores.nbcsports.msnbc.com/mlb/teamstats.asp?teamno=#{team.nbc_team_id}&type=schedule&year=#{Time.now.year}&month=#{month}"
+        team_schedule = "http://scores.nbcsports.com/mlb/teamstats.asp?teamno=#{team.nbc_team_id}&type=schedule&year=#{Time.now.year}&month=#{month}"
         month = month.to_i
         doc = Nokogiri::HTML(open(team_schedule))
 
         current_year = Date.today.year
-
         # Double check to make sure the calendar is on the right month
         tab_month_name = doc.css(".shsTeamSchedTab strong").inner_text.gsub(/[^0-9A-Za-z]/, '')
         selected_tab_month_num = Date::ABBR_MONTHNAMES.index(tab_month_name) || Date::MONTHNAMES.index(tab_month_name)
