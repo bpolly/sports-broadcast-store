@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import logo from '../images/sportcasts-logo.png';
 import '../styles/dashboard.css';
+import cookie from 'react-cookies';
 
 class Login extends Component {
   constructor(props) {
@@ -10,7 +11,8 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      loading: false
+      loading: false,
+      errors: ""
     };
   }
 
@@ -23,10 +25,16 @@ class Login extends Component {
   handleSubmit = (e) => {
     this.setState({ loading: true });
     axios.post('/login', {
-      email: this.state.email,
-      password: this.state.password
+      user: {
+        email: this.state.email,
+        password: this.state.password
+      }
     }).then(response => {
-      // Do something with the token
+      this.setState({ errors: 'Success!' })
+      cookie.save('user-auth-token', response.data.access_token, { path: '/' })
+    })
+    .catch(error => {
+      this.setState({ errors: error.response.data.message })
     })
     e.preventDefault();
   }
@@ -71,6 +79,7 @@ class Login extends Component {
               <button className="button is-success">
                 Login
               </button>
+              { this.state.errors }
             </p>
           </div>
         </form>
