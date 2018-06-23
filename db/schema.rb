@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221200504) do
+ActiveRecord::Schema.define(version: 20180623023915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,21 +23,19 @@ ActiveRecord::Schema.define(version: 20161221200504) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "league"
+    t.index ["away_team_id"], name: "index_games_on_away_team_id", using: :btree
+    t.index ["date"], name: "index_games_on_date", using: :btree
+    t.index ["home_team_id"], name: "index_games_on_home_team_id", using: :btree
   end
-
-  add_index "games", ["away_team_id"], name: "index_games_on_away_team_id", using: :btree
-  add_index "games", ["date"], name: "index_games_on_date", using: :btree
-  add_index "games", ["home_team_id"], name: "index_games_on_home_team_id", using: :btree
 
   create_table "nicknames", force: :cascade do |t|
     t.string   "name"
     t.integer  "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_nicknames_on_name", using: :btree
+    t.index ["team_id"], name: "index_nicknames_on_team_id", using: :btree
   end
-
-  add_index "nicknames", ["name"], name: "index_nicknames_on_name", using: :btree
-  add_index "nicknames", ["team_id"], name: "index_nicknames_on_team_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
@@ -55,8 +52,14 @@ ActiveRecord::Schema.define(version: 20161221200504) do
     t.string   "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["amz_id"], name: "index_user_zip_codes_on_amz_id", using: :btree
   end
 
-  add_index "user_zip_codes", ["amz_id"], name: "index_user_zip_codes_on_amz_id", using: :btree
+  create_table "users", force: :cascade do |t|
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
 end

@@ -35,22 +35,13 @@ gem 'simple_form'
 gem 'area'
 
 gem 'rails_12factor', group: :production
-
-# Use ActiveModel has_secure_password
 gem 'bcrypt'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'watir'
-
 gem 'puma'
 gem 'pry'
 gem 'timezone', '~> 1.0'
+gem 'jwt'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
