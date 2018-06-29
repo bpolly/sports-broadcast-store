@@ -1,5 +1,5 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :game do
     date Date.today
   end # factory :game
-end # FactoryGirl.define
+end # FactoryBot.define

@@ -1,24 +1,11 @@
 import React, { Component } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
-import Login from './Login';
+import { Link } from 'react-router-dom';
 import logo from '../images/sportcasts-logo.png';
-import '../styles/dashboard.css';
-import cookie from 'react-cookies';
-var jwtDecode = require('jwt-decode');
+import '../styles/navbar.css';
+import NavbarUserItem from './NavbarUserItem';
 
 class Navbar extends Component {
-  getUserEmail = () => {
-    let authToken = cookie.load('user-auth-token')
-    if(!!authToken){
-      return jwtDecode(authToken).user_email
-    }
-    else {
-      return null
-    }
-  }
-
   render() {
-    const userEmail = this.getUserEmail();
     return (
       <nav className="navbar" aria-label="main navigation">
         <div className="navbar-brand">
@@ -33,17 +20,9 @@ class Navbar extends Component {
           </button>
         </div>
 
-        <div id="navbarExampleTransparentExample" class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item" href="https://bulma.io/">
-              <Link to="/login" className="navbar-item">Login</Link>
-            </a>
-          </div>
-
-          <div class="navbar-end">
-            <div class="navbar-item" href="https://bulma.io/">
-              Test { userEmail }
-            </div>
+        <div id="navbarExampleTransparentExample" className="navbar-menu">
+          <div className="navbar-end">
+            <NavbarUserItem />
           </div>
         </div>
       </nav>

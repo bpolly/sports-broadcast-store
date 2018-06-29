@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180623023915) do
+ActiveRecord::Schema.define(version: 20180629163817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,18 @@ ActiveRecord::Schema.define(version: 20180623023915) do
     t.integer  "nbc_team_id"
   end
 
+  create_table "user_notification_preferences", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.string   "phone"
+    t.string   "callback_url"
+    t.string   "email"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["team_id"], name: "index_user_notification_preferences_on_team_id", using: :btree
+    t.index ["user_id"], name: "index_user_notification_preferences_on_user_id", using: :btree
+  end
+
   create_table "user_zip_codes", force: :cascade do |t|
     t.string   "amz_id"
     t.string   "zip"
@@ -62,4 +74,6 @@ ActiveRecord::Schema.define(version: 20180623023915) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "user_notification_preferences", "teams"
+  add_foreign_key "user_notification_preferences", "users"
 end

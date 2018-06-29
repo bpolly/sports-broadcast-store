@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import logo from '../images/sportcasts-logo.png';
 import '../styles/dashboard.css';
-import cookie from 'react-cookies';
+import AuthService from './AuthService';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      email: "",
-      password: "",
-      loading: false,
-      errors: ""
-    };
+  state = {
+    email: "",
+    password: "",
+    loading: false,
+    errors: ""
   }
+  auth = new AuthService()
 
   handleChange = (e) => {
     this.setState({
@@ -23,20 +18,18 @@ class Login extends Component {
   }
 
   handleSubmit = (e) => {
-    this.setState({ loading: true });
-    axios.post('/login', {
-      user: {
-        email: this.state.email,
-        password: this.state.password
-      }
-    }).then(response => {
-      this.setState({ errors: 'Success!' })
-      cookie.save('user-auth-token', response.data.access_token, { path: '/' })
-    })
-    .catch(error => {
-      this.setState({ errors: error.response.data.message })
-    })
     e.preventDefault();
+    this.setState({ loading: true });
+    this.auth.login(this.state.email, this.state.password)
+      .then(response =>{
+        this.setState({ errors: 'Success! Redirecting home.' })
+        setTimeout(() => {
+          this.props.history.push('/')
+        }, 1000)
+      })
+      .catch(error =>{
+        this.setState({ errors: error.response.data.message })
+      })
   }
 
   render() {

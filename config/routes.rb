@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :teams do
     resources :nicknames
   end
+  resources :user_notification_preferences, only: [:index, :create]
 
   # Sessions
   get    '/login',  to: 'sessions#new'
