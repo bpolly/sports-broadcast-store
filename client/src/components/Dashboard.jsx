@@ -7,21 +7,11 @@ import moment from 'moment-timezone';
 import cookie from 'react-cookies';
 
 class Dashboard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      games: undefined,
-      filters: {},
-      favoriteTeamSlugs: [],
-      loading: false
-    };
-  }
-
-  componentWillMount() {
-    this.setState({
-      favoriteTeamSlugs: cookie.load('favoriteTeamSlugs') || []
-    });
-  }
+  state = {
+    games: undefined,
+    filters: {},
+    loading: false
+  };
 
   componentDidMount() {
     this.fetchGames();
@@ -65,19 +55,8 @@ class Dashboard extends Component {
     }));
   }
 
-  handleFavoriteTeamChange = (teams) => {
-    this.setState(
-      {
-        favoriteTeamSlugs: teams.map((team) => team['value'])
-      }, this.saveFavoriteTeamSlugsCookie);
-  }
-
   handleShowOnlyFavoriteTeams = (event) => {
     const { name, value } = event.target;
-  }
-
-  saveFavoriteTeamSlugsCookie = () => {
-    cookie.save('favoriteTeamSlugs', this.state.favoriteTeamSlugs, { path: '/' })
   }
 
   filteredGames = () => {
@@ -110,7 +89,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { favoriteTeamSlugs, loading } = this.state;
+    const { loading } = this.state;
     return (
       <div className="dashboard-container">
         <div className="columns">
@@ -118,15 +97,13 @@ class Dashboard extends Component {
             <GameFilterForm
               handleFilterChange={this.handleFilterChange}
               handleDateChange={this.handleDateChange}
-              handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-              handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-              favoriteTeamSlugs={favoriteTeamSlugs}/>
+              handleFavoriteTeamChange={this.props.handleFavoriteTeamChange}
+              favoriteTeamSlugs={this.props.favoriteTeamSlugs}/>
           </div>
           <div className="column">
             <GameTable
               games={this.filteredGames()}
-              handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-              favoriteTeamSlugs={favoriteTeamSlugs}
+              favoriteTeamSlugs={this.props.favoriteTeamSlugs}
               loading={loading}/>
           </div>
         </div>
