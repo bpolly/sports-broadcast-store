@@ -1,6 +1,7 @@
 class Team < ApplicationRecord
   has_many :nicknames
   has_many :games
+  has_and_belongs_to_many :users
   LEAGUES = ["nba","nfl", "mlb", "nhl"]
   validates :name, presence: true, uniqueness: true
   validates :league, presence: true
