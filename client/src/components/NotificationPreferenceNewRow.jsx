@@ -2,17 +2,25 @@ import React, { Component } from 'react'
 import '../styles/notification_preference_row.css'
 import axios from 'axios'
 import AuthService from './AuthService'
+import Select from 'react-select'
+import { generateTeamOptions } from '../utilities.js'
 
-class NotificationPreferenceRow extends Component {
+class NotificationPreferenceNewRow extends Component {
   state = {
-    team_id: this.props.preference.team_id || '',
-    phone: this.props.preference.phone || '',
-    callback_url: this.props.preference.callback_url || '',
-    email: this.props.preference.email || '',
     editing: false,
-    saving: false
+    saving: false,
+    favoriteTeams: []
   }
   auth = new AuthService()
+
+  componentDidMount() {
+    console.log('componentdidmount')
+    axios.get('/user_favorite_teams',
+      { headers: { Authorization: this.auth.getToken() } }
+    ).then(response => {
+      this.setState({ favoriteTeams: response.data })
+    })
+  }
 
   handleEditClick = () => {
     this.setState({ editing: true })
@@ -21,7 +29,7 @@ class NotificationPreferenceRow extends Component {
   handleSaveClick = () => {
     this.setState({ saving: true })
     setTimeout(function() {}, 500)
-    axios.patch('/user_notification_preference',
+    axios.post('/user_notification_preference',
       {
         user_notification_preference_id: this.props.preference.id,
         team_id: this.state.team_id,
@@ -42,15 +50,28 @@ class NotificationPreferenceRow extends Component {
 
   handleDiscardChangesClick = () => {
     this.setState({
-      team_id: this.props.preference.team_id || '',
-      phone: this.props.preference.phone || '',
-      callback_url: this.props.preference.callback_url || '',
-      email: this.props.preference.email || '',
+      team_id: '',
+      phone: '',
+      callback_url: '',
+      email: '',
       editing: false
     })
   }
 
+  handleNewNotificationClick = () => {
+    this.setState({
+      editing: true
+    })
+  }
+
   handleChange = (e) => {
+    let change = {}
+    change[e.target.name] = e.target.value
+    this.setState(change)
+  }
+
+  handleTeamChange = (e) => {
+    console.log(e)
     let change = {}
     change[e.target.name] = e.target.value
     this.setState(change)
@@ -72,20 +93,19 @@ class NotificationPreferenceRow extends Component {
     }
   }
 
-  render(){
+  formRow = () => {
     const { preference } = this.props
-    const { editing, phone, callback_url, email } = this.state
+    const { team_id, phone, callback_url, email, favoriteTeams } = this.state
 
     return(
       <tr>
         <td>
-          <input
-            className="input"
-            type="text"
-            value={ preference.team_id }
-            disabled={ !editing }
-            onChange={ this.handleChange }
-            name="team_id"
+          <Select
+            name="favorite-team-multiselect"
+            value={ team_id }
+            onChange={ this.handleTeamChange }
+            options={ generateTeamOptions(favoriteTeams) }
+            closeOnSelect={true}
           />
         </td>
         <td>
@@ -93,7 +113,6 @@ class NotificationPreferenceRow extends Component {
             className="input"
             type="text"
             value={ phone }
-            disabled={ !editing }
             onChange={ this.handleChange }
             name="phone"
           />
@@ -103,7 +122,6 @@ class NotificationPreferenceRow extends Component {
             className="input"
             type="text"
             value={ callback_url }
-            disabled={ !editing }
             onChange={ this.handleChange }
             name="callback_url"
           />
@@ -113,7 +131,6 @@ class NotificationPreferenceRow extends Component {
             className="input"
             type="text"
             value={ email }
-            disabled={ !editing }
             onChange={ this.handleChange }
             name="email"
           />
@@ -125,6 +142,26 @@ class NotificationPreferenceRow extends Component {
     )
   }
 
+  buttonRow = () => {
+    return(
+      <tr>
+        <td colspan="5" style={{"text-align": 'center'}}>
+          <button className="button" onClick={this.handleNewNotificationClick}>Add New</button>
+        </td>
+      </tr>
+    )
+  }
+
+  render(){
+    const { editing } = this.state
+    if(editing) {
+      return this.formRow()
+    }
+    else {
+      return this.buttonRow()
+    }
+  }
+
 }
 
-export default NotificationPreferenceRow
+export default NotificationPreferenceNewRow

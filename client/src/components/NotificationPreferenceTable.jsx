@@ -3,6 +3,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import FavoriteTeamSelect from './FavoriteTeamSelect';
 import NotificationPreferenceRow from './NotificationPreferenceRow';
+import NotificationPreferenceNewRow from './NotificationPreferenceNewRow';
 import AuthService from './AuthService';
 import '../styles/notification_center.css';
 
@@ -23,6 +24,8 @@ class NotificationPreferenceTable extends Component {
 
   render() {
     let preferences = this.state.currentNotificationPreferences
+    const { favoriteTeamSlugs } = this.props
+    console.log(favoriteTeamSlugs)
     return(
       <table className="table is-fullwidth">
         <thead>
@@ -35,8 +38,11 @@ class NotificationPreferenceTable extends Component {
         </thead>
         <tbody>
           { preferences.map(function(preference, index){
-                      return <NotificationPreferenceRow preference={preference} />;
+                      return <NotificationPreferenceRow
+                                preference={preference}
+                                key={preference.id} />;
                     })}
+          <NotificationPreferenceNewRow favoriteTeamSlugs={favoriteTeamSlugs} />
         </tbody>
       </table>
     )

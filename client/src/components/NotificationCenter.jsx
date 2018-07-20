@@ -17,7 +17,7 @@ class NotificationCenter extends Component {
           handleFavoriteTeamChange={this.props.handleFavoriteTeamChange} />
         <hr />
         <h3 className="subtitle">Team Alerts</h3>
-        <NotificationPreferenceTable />
+        <NotificationPreferenceTable           favoriteTeamSlugs={this.props.favoriteTeamSlugs} />
       </div>
     )
   }

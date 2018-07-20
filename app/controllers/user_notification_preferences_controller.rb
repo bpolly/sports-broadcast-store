@@ -1,3 +1,4 @@
+require 'irb'
 class UserNotificationPreferencesController < ApplicationController
   protect_from_forgery with: :null_session
 
@@ -19,12 +20,22 @@ class UserNotificationPreferencesController < ApplicationController
     end
   end
 
+  def update
+    return unless current_user
+    preference = current_user.user_notification_preferences.find(params[:user_notification_preference_id])
+    if preference.update(notification_params)
+      render json: preference.reload, status: :ok
+    else
+      render json: { message: 'Error updating preference', status: :internal_server_error }
+    end
+  end
+
   private
 
   def notification_params
     given_params = params[:user_notification_preference].reject {|_, v| v.blank? }
     {
-      team: Team.find_by(slug: given_params[:team_slug]),
+      team_id: given_params[:team_id],
       callback_url: given_params[:callback_url],
       phone: given_params[:phone],
       email: given_params[:email],

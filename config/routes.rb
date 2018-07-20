@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   post '/retrieve_zip',          to: 'user_zip_codes#show'
   post '/update_favorite_teams', to: 'user_favorite_teams#update_all'
 
+  patch '/user_notification_preference', to: 'user_notification_preferences#update'
+
   resources :games
   resources :users, only: [:create]
   resources :teams do
