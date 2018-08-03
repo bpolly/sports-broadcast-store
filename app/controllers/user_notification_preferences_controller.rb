@@ -14,7 +14,7 @@ class UserNotificationPreferencesController < ApplicationController
     return unless current_user
     preference = current_user.user_notification_preferences.new(notification_params)
     if preference.save
-      head :created
+      render json: preference, status: :ok
     else
       render json: { message: preference.errors.full_messages }, status: :unauthorized
     end
@@ -35,7 +35,7 @@ class UserNotificationPreferencesController < ApplicationController
   def notification_params
     given_params = params[:user_notification_preference].reject {|_, v| v.blank? }
     {
-      team_id: given_params[:team_id],
+      team_id: Team.find_by(slug: params[:team_slug]).try(&:id),
       callback_url: given_params[:callback_url],
       phone: given_params[:phone],
       email: given_params[:email],

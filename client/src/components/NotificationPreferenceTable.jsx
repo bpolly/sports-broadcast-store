@@ -22,6 +22,28 @@ class NotificationPreferenceTable extends Component {
     })
   }
 
+  saveNewNotification = (params) => {
+    return axios.post('/user_notification_preferences',
+      {
+        team_slug: params['selectedTeamSlug'],
+        phone: params['phone'],
+        callback_url: params['callbackUrl'],
+        email: params['email']
+      },
+      {
+        headers: { Authorization: this.auth.getToken() }
+      }
+    ).then(response => {
+      let newPreference = response.data
+      console.log(newPreference)
+      newPreference['key'] = newPreference['id']
+      this.setState({ currentNotificationPreferences: [...this.state.currentNotificationPreferences, newPreference] })
+    })
+    .catch(error =>{
+      // do something with error
+    })
+  }
+
   render() {
     let preferences = this.state.currentNotificationPreferences
     const { favoriteTeams } = this.props
@@ -41,7 +63,9 @@ class NotificationPreferenceTable extends Component {
                                 preference={preference}
                                 key={preference.id} />;
                     })}
-          <NotificationPreferenceNewRow favoriteTeams={favoriteTeams} />
+          <NotificationPreferenceNewRow
+            favoriteTeams={favoriteTeams}
+            saveNewNotification={this.saveNewNotification} />
         </tbody>
       </table>
     )

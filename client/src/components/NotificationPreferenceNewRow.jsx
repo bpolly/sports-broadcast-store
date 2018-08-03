@@ -10,7 +10,7 @@ class NotificationPreferenceNewRow extends Component {
     editing: false,
     saving: false,
     favoriteTeams: [],
-    selectedTeamSlug: {},
+    selectedTeamSlug: '',
     phone: '',
     callbackUrl: '',
     email: '',
@@ -37,23 +37,30 @@ class NotificationPreferenceNewRow extends Component {
     }
     this.setState({ saving: true })
     setTimeout(function() {}, 500)
-    axios.post('/user_notification_preference',
-      {
-        user_notification_preference_id: this.props.preference.id,
-        team_id: this.state.team_id,
-        phone: this.state.phone,
-        callbackUrl: this.state.callbackUrl,
-        email: this.state.email
-      },
-      {
-        headers: { Authorization: this.auth.getToken() }
-      }
-    ).then(response => {
-      this.setState({ editing: false, saving: false })
-    })
+    let saveParams = {
+      selectedTeamSlug: this.state.selectedTeamSlug,
+      phone: this.state.phone,
+      callbackUrl: this.state.callbackUrl,
+      email: this.state.email
+    }
+    this.props.saveNewNotification(saveParams)
+      .then(response => {
+        this.setState({
+          editing: false,
+          saving: false,
+          selectedTeamSlug: '',
+          phone: '',
+          callbackUrl: '',
+          email: ''
+        })
+      })
     .catch(error =>{
       this.setState({ editing: true, saving: false })
     })
+  }
+
+  clearInputs = () => {
+
   }
 
   handleDiscardChangesClick = () => {
@@ -79,7 +86,7 @@ class NotificationPreferenceNewRow extends Component {
   }
 
   handleTeamChange = (e) => {
-    this.setState({ selectedTeamSlug: e.value })
+    if(e && e.value) this.setState({ selectedTeamSlug: e.value })
   }
 
   validForm = () => {
@@ -112,9 +119,7 @@ class NotificationPreferenceNewRow extends Component {
   }
 
   formRow = () => {
-    const { preference } = this.props
     const { selectedTeamSlug, phone, callbackUrl, email, favoriteTeams } = this.state
-    console.log(selectedTeamSlug)
 
     return(
       <tr>

@@ -1,6 +1,7 @@
 class UserNotificationPreference < ApplicationRecord
   belongs_to :user
   belongs_to :team
+  validates :team_id, presence: true
   validates :callback_url, url: { allow_nil: true, no_local: true  }
   validate :all_are_not_blank
 
