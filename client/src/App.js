@@ -13,16 +13,16 @@ import axios from 'axios'
 
 class App extends Component {
   state = {
-    favoriteTeamSlugs: []
+    favoriteTeams: []
   }
   auth = new AuthService()
 
   componentDidMount() {
-    console.log('componentdidmount')
     axios.get('/user_favorite_teams',
       { headers: { Authorization: this.auth.getToken() } }
     ).then(response => {
-      this.setState({ favoriteTeamSlugs: response.data.map((team) => team['slug']) })
+      console.log(response.data)
+      this.setState({ favoriteTeams: response.data })
     })
   }
 
@@ -33,12 +33,13 @@ class App extends Component {
         headers: { Authorization: this.auth.getToken() }
       }
     ).then(response => {
-      this.setState({ favoriteTeamSlugs: response.data })
+      console.log(response.data)
+      this.setState({ favoriteTeams: response.data })
     })
   }
 
-  saveFavoriteTeamSlugsCookie = () => {
-    cookie.save('favoriteTeamSlugs', this.state.favoriteTeamSlugs, { path: '/' })
+  saveFavoriteTeamsCookie = () => {
+    cookie.save('favoriteTeams', this.state.favoriteTeams, { path: '/' })
   }
 
   render() {
@@ -52,7 +53,7 @@ class App extends Component {
               render={() =>
                   <Dashboard
                     handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-                    favoriteTeamSlugs={this.state.favoriteTeamSlugs}
+                    favoriteTeams={this.state.favoriteTeams}
                   />}
             />
             <Route path="/login" component={Login}/>
@@ -61,7 +62,7 @@ class App extends Component {
               render={() =>
                   <NotificationCenter
                     handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-                    favoriteTeamSlugs={this.state.favoriteTeamSlugs}
+                    favoriteTeams={this.state.favoriteTeams}
                   />}
             />
             <Route render={() => (<div>

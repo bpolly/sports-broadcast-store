@@ -21,8 +21,10 @@ class FavoriteTeamSelect extends Component {
 
   render(){
     const { teams } = this.state
-    const { favoriteTeamSlugs, handleFavoriteTeamChange } = this.props
+    const { favoriteTeams, handleFavoriteTeamChange } = this.props
     const teamOptions = generateTeamOptions(this.state.teams)
+    const favoriteTeamSlugs = favoriteTeams.map((team) => team['slug'])
+
     return(
       <div id="favorite-team-select-container flex-grow">
         <label className="label">Favorite Teams</label>

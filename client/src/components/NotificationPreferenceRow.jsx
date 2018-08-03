@@ -7,7 +7,7 @@ class NotificationPreferenceRow extends Component {
   state = {
     team_id: this.props.preference.team_id || '',
     phone: this.props.preference.phone || '',
-    callback_url: this.props.preference.callback_url || '',
+    callbackUrl: this.props.preference.callbackUrl || '',
     email: this.props.preference.email || '',
     editing: false,
     saving: false
@@ -26,7 +26,7 @@ class NotificationPreferenceRow extends Component {
         user_notification_preference_id: this.props.preference.id,
         team_id: this.state.team_id,
         phone: this.state.phone,
-        callback_url: this.state.callback_url,
+        callbackUrl: this.state.callbackUrl,
         email: this.state.email
       },
       {
@@ -44,7 +44,7 @@ class NotificationPreferenceRow extends Component {
     this.setState({
       team_id: this.props.preference.team_id || '',
       phone: this.props.preference.phone || '',
-      callback_url: this.props.preference.callback_url || '',
+      callbackUrl: this.props.preference.callbackUrl || '',
       email: this.props.preference.email || '',
       editing: false
     })
@@ -74,7 +74,7 @@ class NotificationPreferenceRow extends Component {
 
   render(){
     const { preference } = this.props
-    const { editing, phone, callback_url, email } = this.state
+    const { editing, phone, callbackUrl, email } = this.state
 
     return(
       <tr>
@@ -102,10 +102,10 @@ class NotificationPreferenceRow extends Component {
           <input
             className="input"
             type="text"
-            value={ callback_url }
+            value={ callbackUrl }
             disabled={ !editing }
             onChange={ this.handleChange }
-            name="callback_url"
+            name="callbackUrl"
           />
         </td>
         <td>

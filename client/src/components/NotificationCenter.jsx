@@ -13,11 +13,11 @@ class NotificationCenter extends Component {
         <h1 className="title">Notification Center</h1>
         <h3 className="subtitle">Favorite Teams</h3>
         <FavoriteTeamSelect
-          favoriteTeamSlugs={this.props.favoriteTeamSlugs}
+          favoriteTeams={this.props.favoriteTeams}
           handleFavoriteTeamChange={this.props.handleFavoriteTeamChange} />
         <hr />
         <h3 className="subtitle">Team Alerts</h3>
-        <NotificationPreferenceTable           favoriteTeamSlugs={this.props.favoriteTeamSlugs} />
+        <NotificationPreferenceTable           favoriteTeams={this.props.favoriteTeams} />
       </div>
     )
   }

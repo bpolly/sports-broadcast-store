@@ -9,7 +9,11 @@ class NotificationPreferenceNewRow extends Component {
   state = {
     editing: false,
     saving: false,
-    favoriteTeams: []
+    favoriteTeams: [],
+    selectedTeamSlug: {},
+    phone: '',
+    callbackUrl: '',
+    email: '',
   }
   auth = new AuthService()
 
@@ -34,7 +38,7 @@ class NotificationPreferenceNewRow extends Component {
         user_notification_preference_id: this.props.preference.id,
         team_id: this.state.team_id,
         phone: this.state.phone,
-        callback_url: this.state.callback_url,
+        callbackUrl: this.state.callbackUrl,
         email: this.state.email
       },
       {
@@ -52,7 +56,7 @@ class NotificationPreferenceNewRow extends Component {
     this.setState({
       team_id: '',
       phone: '',
-      callback_url: '',
+      callbackUrl: '',
       email: '',
       editing: false
     })
@@ -71,17 +75,27 @@ class NotificationPreferenceNewRow extends Component {
   }
 
   handleTeamChange = (e) => {
-    console.log(e)
-    let change = {}
-    change[e.target.name] = e.target.value
-    this.setState(change)
+    this.setState({ selectedTeamSlug: e.value })
+  }
+
+  validForm = () => {
+    return !!(this.state.selectedTeamSlug &&
+        (
+          !!this.state.phone ||
+          !!this.state.callbackUrl ||
+          !!this.state.email
+        )
+      )
   }
 
   actionButton = () => {
     if(this.state.editing){
       return (
         <div>
-          <button className={`button is-success ${this.state.saving ? 'is-loading' : ''}`} onClick={this.handleSaveClick}>Save</button>
+          <button
+            className={`button is-success ${this.state.saving ? 'is-loading' : ''}`}
+            onClick={this.handleSaveClick}
+            disabled={!this.validForm()}>Save</button>
           <button className="button" onClick={this.handleDiscardChangesClick}>Cancel</button>
         </div>
       )
@@ -95,17 +109,19 @@ class NotificationPreferenceNewRow extends Component {
 
   formRow = () => {
     const { preference } = this.props
-    const { team_id, phone, callback_url, email, favoriteTeams } = this.state
+    const { selectedTeamSlug, phone, callbackUrl, email, favoriteTeams } = this.state
+    console.log(selectedTeamSlug)
 
     return(
       <tr>
         <td>
           <Select
-            name="favorite-team-multiselect"
-            value={ team_id }
+            name="favorite-team-select"
+            value={ selectedTeamSlug }
             onChange={ this.handleTeamChange }
             options={ generateTeamOptions(favoriteTeams) }
             closeOnSelect={true}
+            selectedValue={selectedTeamSlug}
           />
         </td>
         <td>
@@ -121,9 +137,9 @@ class NotificationPreferenceNewRow extends Component {
           <input
             className="input"
             type="text"
-            value={ callback_url }
+            value={ callbackUrl }
             onChange={ this.handleChange }
-            name="callback_url"
+            name="callbackUrl"
           />
         </td>
         <td>
@@ -145,7 +161,7 @@ class NotificationPreferenceNewRow extends Component {
   buttonRow = () => {
     return(
       <tr>
-        <td colspan="5" style={{"text-align": 'center'}}>
+        <td colSpan="5" style={{"textAlign": 'center'}}>
           <button className="button" onClick={this.handleNewNotificationClick}>Add New</button>
         </td>
       </tr>

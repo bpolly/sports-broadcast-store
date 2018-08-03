@@ -11,7 +11,6 @@ class NavbarLoggedInItem extends Component {
   }
 
   render() {
-    console.log(this.props)
     const userEmail = this.props.userToken.user_email
     return(
       <div className="navbar-item has-dropdown is-hoverable dropdown-right">

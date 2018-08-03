@@ -59,8 +59,12 @@ class Dashboard extends Component {
     const { name, value } = event.target;
   }
 
+  favoriteTeamSlugs = () => {
+    return this.props.favoriteTeams.map((team) => team['slug'])
+  }
+
   filteredGames = () => {
-    const { games, filters, favoriteTeamSlugs } = this.state;
+    const { games, filters } = this.state;
 
     return Object.keys(filters).reduce((games, filterName) => {
       return games.filter((game) => {
@@ -77,7 +81,7 @@ class Dashboard extends Component {
             return gameAttrText.indexOf(filterText) !== -1;
           }
           else if (filters['favorite-teams-only'] === true) {
-            return (favoriteTeamSlugs.includes(game.home_team.slug) || favoriteTeamSlugs.includes(game.away_team.slug));
+            return (this.favoriteTeamSlugs().includes(game.home_team.slug) || this.favoriteTeamSlugs().includes(game.away_team.slug));
           } else {
             return game[filterName] === filters[filterName];
           }
@@ -98,12 +102,12 @@ class Dashboard extends Component {
               handleFilterChange={this.handleFilterChange}
               handleDateChange={this.handleDateChange}
               handleFavoriteTeamChange={this.props.handleFavoriteTeamChange}
-              favoriteTeamSlugs={this.props.favoriteTeamSlugs}/>
+              favoriteTeams={this.props.favoriteTeams}/>
           </div>
           <div className="column">
             <GameTable
               games={this.filteredGames()}
-              favoriteTeamSlugs={this.props.favoriteTeamSlugs}
+              favoriteTeamsSlugs={this.favoriteTeamSlugs()}
               loading={loading}/>
           </div>
         </div>

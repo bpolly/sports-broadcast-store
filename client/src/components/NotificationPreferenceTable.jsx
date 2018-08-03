@@ -24,8 +24,7 @@ class NotificationPreferenceTable extends Component {
 
   render() {
     let preferences = this.state.currentNotificationPreferences
-    const { favoriteTeamSlugs } = this.props
-    console.log(favoriteTeamSlugs)
+    const { favoriteTeams } = this.props
     return(
       <table className="table is-fullwidth">
         <thead>
@@ -42,7 +41,7 @@ class NotificationPreferenceTable extends Component {
                                 preference={preference}
                                 key={preference.id} />;
                     })}
-          <NotificationPreferenceNewRow favoriteTeamSlugs={favoriteTeamSlugs} />
+          <NotificationPreferenceNewRow favoriteTeams={favoriteTeams} />
         </tbody>
       </table>
     )
