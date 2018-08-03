@@ -51,15 +51,16 @@ class NotificationPreferenceTable extends Component {
       <table className="table is-fullwidth">
         <thead>
           <tr>
-            <th>Team</th>
-            <th>Phone</th>
-            <th>Callback URL</th>
-            <th>Email</th>
+            <th className="team-input">Team</th>
+            <th className="phone-input">Phone</th>
+            <th className="callback-url-input">Callback URL</th>
+            <th className="email-input">Email</th>
           </tr>
         </thead>
         <tbody>
           { preferences.map(function(preference, index){
                       return <NotificationPreferenceRow
+                                favoriteTeams={favoriteTeams}
                                 preference={preference}
                                 key={preference.id} />;
                     })}

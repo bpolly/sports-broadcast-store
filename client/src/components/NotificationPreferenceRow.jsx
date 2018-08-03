@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import '../styles/notification_preference_row.css'
 import axios from 'axios'
 import AuthService from './AuthService'
+import Select from 'react-select'
+import { generateTeamOptions } from '../utilities.js'
 
 class NotificationPreferenceRow extends Component {
   state = {
-    team_id: this.props.preference.team_id || '',
+    selectedTeamSlug: this.props.preference.team.slug || '',
     phone: this.props.preference.phone || '',
     callbackUrl: this.props.preference.callbackUrl || '',
     email: this.props.preference.email || '',
@@ -56,6 +58,10 @@ class NotificationPreferenceRow extends Component {
     this.setState(change)
   }
 
+  handleTeamChange = (e) => {
+    if(e && e.value) this.setState({ selectedTeamSlug: e.value })
+  }
+
   actionButton = () => {
     if(this.state.editing){
       return (
@@ -73,24 +79,26 @@ class NotificationPreferenceRow extends Component {
   }
 
   render(){
-    const { preference } = this.props
-    const { editing, phone, callbackUrl, email } = this.state
+    const { preference, favoriteTeams } = this.props
+    const { editing, selectedTeamSlug, phone, callbackUrl, email } = this.state
 
     return(
       <tr>
         <td>
-          <input
-            className="input"
-            type="text"
-            value={ preference.team_id }
+          <Select
+            className="favorite-team-select-single team-input"
+            name="favorite-team-select"
+            value={ selectedTeamSlug }
+            onChange={ this.handleTeamChange }
+            options={ generateTeamOptions(favoriteTeams) }
+            closeOnSelect={true}
             disabled={ !editing }
-            onChange={ this.handleChange }
-            name="team_id"
+            selectedValue={selectedTeamSlug}
           />
         </td>
         <td>
           <input
-            className="input"
+            className="input phone-input"
             type="text"
             value={ phone }
             disabled={ !editing }
@@ -100,7 +108,7 @@ class NotificationPreferenceRow extends Component {
         </td>
         <td>
           <input
-            className="input"
+            className="input callback-url-input"
             type="text"
             value={ callbackUrl }
             disabled={ !editing }
@@ -110,7 +118,7 @@ class NotificationPreferenceRow extends Component {
         </td>
         <td>
           <input
-            className="input"
+            className="input email-input"
             type="text"
             value={ email }
             disabled={ !editing }

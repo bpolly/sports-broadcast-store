@@ -9,7 +9,7 @@ class NotificationPreferenceNewRow extends Component {
   state = {
     editing: false,
     saving: false,
-    favoriteTeams: [],
+    // favoriteTeams: this.props.favoriteTeams,
     selectedTeamSlug: '',
     phone: '',
     callbackUrl: '',
@@ -18,12 +18,12 @@ class NotificationPreferenceNewRow extends Component {
   auth = new AuthService()
 
   componentDidMount() {
-    console.log('componentdidmount')
-    axios.get('/user_favorite_teams',
-      { headers: { Authorization: this.auth.getToken() } }
-    ).then(response => {
-      this.setState({ favoriteTeams: response.data })
-    })
+    // console.log('componentdidmount')
+    // axios.get('/user_favorite_teams',
+    //   { headers: { Authorization: this.auth.getToken() } }
+    // ).then(response => {
+    //   this.setState({ favoriteTeams: response.data })
+    // })
   }
 
   handleEditClick = () => {
@@ -119,13 +119,14 @@ class NotificationPreferenceNewRow extends Component {
   }
 
   formRow = () => {
-    const { selectedTeamSlug, phone, callbackUrl, email, favoriteTeams } = this.state
+    const { selectedTeamSlug, phone, callbackUrl, email } = this.state
+    const { favoriteTeams } = this.props
 
     return(
       <tr>
         <td>
           <Select
-            className="favorite-team-select-single"
+            className="favorite-team-select-single team-input"
             name="favorite-team-select"
             value={ selectedTeamSlug }
             onChange={ this.handleTeamChange }
@@ -136,7 +137,7 @@ class NotificationPreferenceNewRow extends Component {
         </td>
         <td>
           <input
-            className="input"
+            className="input phone-input"
             type="text"
             value={ phone }
             onChange={ this.handleChange }
@@ -145,7 +146,7 @@ class NotificationPreferenceNewRow extends Component {
         </td>
         <td>
           <input
-            className="input"
+            className="input callback-url-input"
             type="text"
             value={ callbackUrl }
             onChange={ this.handleChange }
@@ -154,7 +155,7 @@ class NotificationPreferenceNewRow extends Component {
         </td>
         <td>
           <input
-            className="input"
+            className="input email-input"
             type="text"
             value={ email }
             onChange={ this.handleChange }
