@@ -44,7 +44,7 @@ class NotificationPreferenceRow extends Component {
 
   handleDiscardChangesClick = () => {
     this.setState({
-      team_id: this.props.preference.team_id || '',
+      selectedTeamSlug: this.props.preference.team.slug || '',
       phone: this.props.preference.phone || '',
       callbackUrl: this.props.preference.callbackUrl || '',
       email: this.props.preference.email || '',
