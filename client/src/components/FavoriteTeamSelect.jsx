@@ -29,6 +29,7 @@ class FavoriteTeamSelect extends Component {
       <div id="favorite-team-select-container flex-grow">
         <label className="label">Favorite Teams</label>
         <Select
+          className="favorite-team-select-multiple"
           name="favorite-team-multiselect"
           value={ favoriteTeamSlugs }
           onChange={ handleFavoriteTeamChange }

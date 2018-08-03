@@ -31,6 +31,10 @@ class NotificationPreferenceNewRow extends Component {
   }
 
   handleSaveClick = () => {
+    if(!this.validForm()){
+      console.log('Save failed')
+      return null;
+    }
     this.setState({ saving: true })
     setTimeout(function() {}, 500)
     axios.post('/user_notification_preference',
@@ -116,6 +120,7 @@ class NotificationPreferenceNewRow extends Component {
       <tr>
         <td>
           <Select
+            className="favorite-team-select-single"
             name="favorite-team-select"
             value={ selectedTeamSlug }
             onChange={ this.handleTeamChange }
