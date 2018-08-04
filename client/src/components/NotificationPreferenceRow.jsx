@@ -9,7 +9,7 @@ class NotificationPreferenceRow extends Component {
   state = {
     selectedTeamSlug: this.props.preference.team.slug || '',
     phone: this.props.preference.phone || '',
-    callbackUrl: this.props.preference.callbackUrl || '',
+    callbackUrl: this.props.preference.callback_url || '',
     email: this.props.preference.email || '',
     editing: false,
     saving: false
