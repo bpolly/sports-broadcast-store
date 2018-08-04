@@ -19,9 +19,8 @@ class NbcScraper
         if(cols.count > 3 && (row.attributes['class'].value != 'shsTableTtlRow') && (row.attributes['class'].value != 'shsColTtlRow'))
           date_extractor = /[\w]+. ([\d]+)/
           opponent_extractor = /(vs.|@) (.+)/
-          time_extractor = /MST([\d]+:[\d]+ (?:AM|PM) EST)/
+          time_extractor = /([\d]+:[\d]+ GMT)/
           date = cols[3].children.first.text
-          #byebug
           match_sign = opponent_extractor.match(cols[4].children.first.text)[1]
           time = time_extractor.match(cols[5].text) ? time_extractor.match(cols[5].text)[1] : nil
           tv_networks = cols[6].text ? cols[6].text.gsub(/[[:space:]]/, '').split('/').join(',') : ''
