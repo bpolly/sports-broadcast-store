@@ -35,7 +35,7 @@ class FavoriteTeamSelect extends Component {
           onChange={ handleFavoriteTeamChange }
           options={ teamOptions }
           multi={true}
-          closeOnSelect={false}
+          closeOnSelect={true}
         />
       </div>
     )
