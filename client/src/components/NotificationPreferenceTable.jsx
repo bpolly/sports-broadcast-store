@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
-import FavoriteTeamSelect from './FavoriteTeamSelect';
 import NotificationPreferenceRow from './NotificationPreferenceRow';
 import NotificationPreferenceNewRow from './NotificationPreferenceNewRow';
 import AuthService from './AuthService';

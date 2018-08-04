@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
-import axios from 'axios';
 import FavoriteTeamSelect from './FavoriteTeamSelect';
 import NotificationPreferenceTable from './NotificationPreferenceTable';
-import AuthService from './AuthService';
 import '../styles/notification_center.css';
 
 class NotificationCenter extends Component {

@@ -8,7 +8,6 @@ class GameRow extends Component {
   }
 
   getDateColumn = () => {
-    let dateCol = null;
     const { game } = this.props;
     let gameDate = moment(game.date).tz(moment.tz.guess());
     let todayDate = moment().tz(moment.tz.guess());

@@ -22,7 +22,7 @@ class FavoriteTeamSelect extends Component {
   render(){
     const { teams } = this.state
     const { favoriteTeams, handleFavoriteTeamChange } = this.props
-    const teamOptions = generateTeamOptions(this.state.teams)
+    const teamOptions = generateTeamOptions(teams)
     const favoriteTeamSlugs = favoriteTeams.map((team) => team['slug'])
 
     return(

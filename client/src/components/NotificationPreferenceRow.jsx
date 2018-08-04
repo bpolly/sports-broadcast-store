@@ -79,7 +79,7 @@ class NotificationPreferenceRow extends Component {
   }
 
   render(){
-    const { preference, favoriteTeams } = this.props
+    const { favoriteTeams } = this.props
     const { editing, selectedTeamSlug, phone, callbackUrl, email } = this.state
 
     return(

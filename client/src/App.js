@@ -33,7 +33,7 @@ class App extends Component {
         headers: { Authorization: this.auth.getToken() }
       }
     ).then(response => {
-      console.log(response.data)
+      console.log(response)
       this.setState({ favoriteTeams: response.data })
     })
   }
@@ -43,6 +43,8 @@ class App extends Component {
   }
 
   render() {
+    const { favoriteTeams } = this.state
+
     return (
       <BrowserRouter >
         <div>
@@ -53,7 +55,7 @@ class App extends Component {
               render={() =>
                   <Dashboard
                     handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-                    favoriteTeams={this.state.favoriteTeams}
+                    favoriteTeams={favoriteTeams}
                   />}
             />
             <Route path="/login" component={Login}/>
@@ -62,7 +64,7 @@ class App extends Component {
               render={() =>
                   <NotificationCenter
                     handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-                    favoriteTeams={this.state.favoriteTeams}
+                    favoriteTeams={favoriteTeams}
                   />}
             />
             <Route render={() => (<div>

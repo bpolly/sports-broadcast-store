@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import '../styles/notification_preference_row.css'
-import axios from 'axios'
-import AuthService from './AuthService'
 import Select from 'react-select'
 import { generateTeamOptions } from '../utilities.js'
 
@@ -14,16 +12,6 @@ class NotificationPreferenceNewRow extends Component {
     phone: '',
     callbackUrl: '',
     email: '',
-  }
-  auth = new AuthService()
-
-  componentDidMount() {
-    // console.log('componentdidmount')
-    // axios.get('/user_favorite_teams',
-    //   { headers: { Authorization: this.auth.getToken() } }
-    // ).then(response => {
-    //   this.setState({ favoriteTeams: response.data })
-    // })
   }
 
   handleEditClick = () => {
@@ -57,10 +45,6 @@ class NotificationPreferenceNewRow extends Component {
     .catch(error =>{
       this.setState({ editing: true, saving: false })
     })
-  }
-
-  clearInputs = () => {
-
   }
 
   handleDiscardChangesClick = () => {

@@ -4,7 +4,7 @@ import '../styles/game_filter_form.css';
 
 class GameFilterForm extends Component {
   render() {
-    const { favoriteTeams, handleFavoriteTeamChange, handleShowOnlyFavoriteTeams } = this.props;
+    const { favoriteTeams, handleFavoriteTeamChange } = this.props;
 
     return(
       <div id="game-filter-form">

@@ -4,7 +4,6 @@ import GameTable from './GameTable';
 import GameFilterForm from './GameFilterForm';
 import axios from 'axios';
 import moment from 'moment-timezone';
-import cookie from 'react-cookies';
 
 class Dashboard extends Component {
   state = {
@@ -32,7 +31,7 @@ class Dashboard extends Component {
     const { value } = event.target;
     const dateValue = value.match(/(\d)-(\w+)/);
     if(value.length !== 0){
-      let numUnits = parseInt(dateValue[1]);
+      let numUnits = parseInt(dateValue[1], 10);
       let unitName = dateValue[2];
       const targetDate = moment().add(numUnits, unitName).subtract(1, 'day').endOf('day');
       this.fetchGames(targetDate);
@@ -55,12 +54,10 @@ class Dashboard extends Component {
     }));
   }
 
-  handleShowOnlyFavoriteTeams = (event) => {
-    const { name, value } = event.target;
-  }
-
   favoriteTeamSlugs = () => {
-    return this.props.favoriteTeams.map((team) => team['slug'])
+    console.log(this.props.favoriteTeams)
+    console.log(this.props.favoriteTeams.length)
+    // return this.props.favoriteTeams.map((team) => team['slug'])
   }
 
   filteredGames = () => {
