@@ -43,6 +43,7 @@ gem 'pry-byebug'
 gem 'timezone', '~> 1.0'
 gem 'jwt'
 gem 'validate_url'
+gem 'twilio-ruby'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
