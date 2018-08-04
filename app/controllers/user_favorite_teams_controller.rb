@@ -8,9 +8,11 @@ class UserFavoriteTeamsController < ApplicationController
 
   def update_all
     raise unless current_user
-    Team.where(slug: params[:teams]).each do |team|
+    current_user.user_favorite_teams.destroy_all
+    new_teams = Team.where(slug: params[:teams]).each do |team|
       current_user.user_favorite_teams.find_or_create_by(team: team)
     end
+    render json: new_teams, status: :created
   end
 
   # GET /teams/new
