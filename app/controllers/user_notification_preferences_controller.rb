@@ -1,6 +1,6 @@
-require 'irb'
 class UserNotificationPreferencesController < ApplicationController
   protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token
 
   def index
     if current_user
@@ -22,20 +22,21 @@ class UserNotificationPreferencesController < ApplicationController
 
   def update
     return unless current_user
-    preference = current_user.user_notification_preferences.find(params[:user_notification_preference_id])
+    preference = current_user.user_notification_preferences.find(params[:id])
     if preference.update(notification_params)
       render json: preference.reload, status: :ok
     else
-      render json: { message: 'Error updating preference', status: :internal_server_error }
+      render json: { message: 'Error updating preference' }, status: :internal_server_error
     end
   end
 
   def destroy
     return unless current_user
-    if UserNotificationPreference.find(params[:id]).destroy
+    preference = current_user.user_notification_preferences.find(params[:id])
+    if preference.destroy
       head :ok
     else
-      render json: { message: 'Error deleting preference', status: :internal_server_error }
+      render json: { message: 'Error deleting preference'}, status: :internal_server_error
     end
   end
 

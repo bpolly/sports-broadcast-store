@@ -8,7 +8,6 @@ class UserFavoriteTeamsController < ApplicationController
 
   def update_all
     raise unless current_user
-    current_user.user_favorite_teams.destroy_all
     given_team_slugs = params[:teams]
     current_team_slugs = current_user.user_favorite_teams.map(&:team_slug)
     newly_added_team_slugs = given_team_slugs - current_team_slugs

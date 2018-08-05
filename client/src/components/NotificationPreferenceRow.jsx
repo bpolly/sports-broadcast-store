@@ -23,12 +23,11 @@ class NotificationPreferenceRow extends Component {
   handleSaveClick = () => {
     this.setState({ saving: true })
     setTimeout(function() {}, 500)
-    axios.patch('/user_notification_preference',
+    axios.patch('/user_notification_preferences/' + this.props.preference.id,
       {
-        user_notification_preference_id: this.props.preference.id,
-        team_id: this.state.team_id,
+        team_slug: this.state.selectedTeamSlug,
         phone: this.state.phone,
-        callbackUrl: this.state.callbackUrl,
+        callback_url: this.state.callbackUrl,
         email: this.state.email
       },
       {
