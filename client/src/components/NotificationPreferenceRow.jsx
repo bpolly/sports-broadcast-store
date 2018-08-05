@@ -52,6 +52,10 @@ class NotificationPreferenceRow extends Component {
     })
   }
 
+  handleDeleteClick = () => {
+    this.props.deleteNotification(this.props.preference)
+  }
+
   handleChange = (e) => {
     let change = {}
     change[e.target.name] = e.target.value
@@ -73,7 +77,12 @@ class NotificationPreferenceRow extends Component {
     }
     else {
       return (
-        <button className="button" onClick={this.handleEditClick}>Edit</button>
+        <div className="field is-grouped">
+          <p className="control">
+            <button className="button" onClick={this.handleEditClick}>Edit</button>
+            <button className="button is-danger is-link" onClick={this.handleDeleteClick}>Delete</button>
+          </p>
+        </div>
       )
     }
   }

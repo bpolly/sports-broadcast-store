@@ -30,6 +30,15 @@ class UserNotificationPreferencesController < ApplicationController
     end
   end
 
+  def destroy
+    return unless current_user
+    if UserNotificationPreference.find(params[:id]).destroy
+      head :ok
+    else
+      render json: { message: 'Error deleting preference', status: :internal_server_error }
+    end
+  end
+
   private
 
   def notification_params

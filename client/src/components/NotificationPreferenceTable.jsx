@@ -42,6 +42,20 @@ class NotificationPreferenceTable extends Component {
     })
   }
 
+  deleteNotification = (preference) => {
+    return axios.delete('/user_notification_preferences/' + preference.id,
+      {
+        headers: { Authorization: this.auth.getToken() }
+      }
+    ).then(response => {
+      let filteredArray = this.state.currentNotificationPreferences.filter(item => item !== preference)
+      this.setState({currentNotificationPreferences: filteredArray});
+    })
+    .catch(error =>{
+      // do something with error
+    })
+  }
+
   render() {
     let preferences = this.state.currentNotificationPreferences
     const { favoriteTeams } = this.props
@@ -60,8 +74,9 @@ class NotificationPreferenceTable extends Component {
                       return <NotificationPreferenceRow
                                 favoriteTeams={favoriteTeams}
                                 preference={preference}
-                                key={preference.id} />;
-                    })}
+                                key={preference.id}
+                                deleteNotification={this.deleteNotification} />;
+                    }, this)}
           <NotificationPreferenceNewRow
             favoriteTeams={favoriteTeams}
             saveNewNotification={this.saveNewNotification} />

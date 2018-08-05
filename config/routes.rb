@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :teams do
     resources :nicknames
   end
-  resources :user_notification_preferences, only: [:index, :create]
+  resources :user_notification_preferences, only: [:index, :create, :destroy]
   resources  :user_favorite_teams
 
 
