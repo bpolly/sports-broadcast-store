@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180630191218) do
+ActiveRecord::Schema.define(version: 20180807014838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,13 +60,26 @@ ActiveRecord::Schema.define(version: 20180630191218) do
   create_table "user_notification_preferences", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "team_id"
-    t.string   "phone"
     t.string   "callback_url"
     t.string   "email"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "user_phone_id"
     t.index ["team_id"], name: "index_user_notification_preferences_on_team_id", using: :btree
     t.index ["user_id"], name: "index_user_notification_preferences_on_user_id", using: :btree
+    t.index ["user_phone_id"], name: "index_user_notification_preferences_on_user_phone_id", using: :btree
+  end
+
+  create_table "user_phones", force: :cascade do |t|
+    t.string   "number",                 null: false
+    t.string   "verification_code",      null: false
+    t.integer  "user_id",                null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.datetime "last_code_generated_at", null: false
+    t.datetime "verified_at"
+    t.datetime "deleted_at"
+    t.index ["user_id"], name: "index_user_phones_on_user_id", using: :btree
   end
 
   create_table "user_zip_codes", force: :cascade do |t|
@@ -87,5 +100,7 @@ ActiveRecord::Schema.define(version: 20180630191218) do
   add_foreign_key "user_favorite_teams", "teams"
   add_foreign_key "user_favorite_teams", "users"
   add_foreign_key "user_notification_preferences", "teams"
+  add_foreign_key "user_notification_preferences", "user_phones"
   add_foreign_key "user_notification_preferences", "users"
+  add_foreign_key "user_phones", "users"
 end
