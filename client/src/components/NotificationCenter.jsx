@@ -9,7 +9,8 @@ import '../styles/notification_center.css';
 
 class NotificationCenter extends Component {
   state = {
-    phoneNumbers: []
+    phoneNumbers: [],
+    showPhoneForm: false
   }
   auth = new AuthService()
 
@@ -27,14 +28,26 @@ class NotificationCenter extends Component {
     })
   }
 
+  showPhoneFormModal = () => {
+    this.setState({ showPhoneForm: true })
+  }
+
+  closePhoneFormModal = () => {
+    this.setState({ showPhoneForm: false })
+  }
+
   render() {
     const { phoneNumbers } = this.state
+    const { favoriteTeams } = this.props
 
     return(
       <div className="container">
         <h1 className="title">Notification Center</h1>
         <h3 className="subtitle">Team Alerts</h3>
-        <NotificationPreferenceTable           favoriteTeams={this.props.favoriteTeams} />
+        <NotificationPreferenceTable
+          favoriteTeams={favoriteTeams}
+          phoneNumbers={phoneNumbers}
+        />
         <hr />
           <div className="columns">
             <div className="column is-one-half">
@@ -52,7 +65,10 @@ class NotificationCenter extends Component {
                             />
                           )
                         }, this)}
-              <button className="button">Add New</button>
+              <button className="button" onClick={this.showPhoneFormModal}>Add New</button>
+              <PhoneNumberForm
+                hidden={!this.state.showPhoneForm}
+                closePhoneFormModal={this.closePhoneFormModal} />
             </div>
           </div>
       </div>

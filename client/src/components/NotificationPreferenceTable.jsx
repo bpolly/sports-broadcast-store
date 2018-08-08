@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import NotificationPreferenceRow from './NotificationPreferenceRow'
 import NotificationPreferenceNewRow from './NotificationPreferenceNewRow'
-import PhoneNumberForm from './PhoneNumberForm'
 import AuthService from './AuthService'
 import '../styles/notification_center.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 class NotificationPreferenceTable extends Component {
   state = {
     currentNotificationPreferences: [],
-    showPhoneForm: false,
     userPhoneNumbers: []
   }
   auth = new AuthService()
@@ -64,20 +62,11 @@ class NotificationPreferenceTable extends Component {
     })
   }
 
-  onFocus = () => {
-    this.setState({ showPhoneForm: true })
-  }
-
-  closePhoneFormModal = () => {
-    console.log('hi there')
-    this.setState({ showPhoneForm: false })
-  }
-
   render() {
     let preferences = this.state.currentNotificationPreferences
-    const { favoriteTeams } = this.props
+    const { favoriteTeams, phoneNumbers } = this.props
     return(
-      <div>
+      <div className="">
         <table className="table is-fullwidth">
           <thead>
             <tr>
@@ -91,6 +80,7 @@ class NotificationPreferenceTable extends Component {
             { preferences.map(function(preference, index){
                         return <NotificationPreferenceRow
                                   favoriteTeams={favoriteTeams}
+                                  phoneNumbers={phoneNumbers}
                                   preference={preference}
                                   key={preference.id}
                                   deleteNotification={this.deleteNotification} />;
@@ -102,9 +92,6 @@ class NotificationPreferenceTable extends Component {
             />
           </tbody>
         </table>
-        <PhoneNumberForm
-          hidden={!this.state.showPhoneForm}
-          closePhoneFormModal={this.closePhoneFormModal} />
       </div>
     )
   }

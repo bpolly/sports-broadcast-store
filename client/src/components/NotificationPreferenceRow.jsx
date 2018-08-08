@@ -3,7 +3,7 @@ import '../styles/notification_preference_row.css'
 import axios from 'axios'
 import AuthService from './AuthService'
 import Select from 'react-select'
-import { generateTeamOptions } from '../utilities.js'
+import { generateTeamOptions, generatePhoneNumberOptions } from '../utilities.js'
 
 class NotificationPreferenceRow extends Component {
   state = {
@@ -87,7 +87,7 @@ class NotificationPreferenceRow extends Component {
   }
 
   render(){
-    const { favoriteTeams } = this.props
+    const { favoriteTeams, phoneNumbers } = this.props
     const { editing, selectedTeamSlug, phone, callbackUrl, email } = this.state
 
     return(
@@ -108,20 +108,10 @@ class NotificationPreferenceRow extends Component {
           <Select
             className="favorite-team-select-single team-input"
             name="phone-select"
-            value={ selectedTeamSlug }
-            onChange={ this.handleTeamChange }
-            options={ generateTeamOptions(favoriteTeams) }
+            options={ generatePhoneNumberOptions(phoneNumbers) }
             closeOnSelect={true}
             disabled={ !editing }
             selectedValue={selectedTeamSlug}
-          />
-          <input
-            className="input phone-input"
-            type="text"
-            value={ phone }
-            disabled={ !editing }
-            onChange={ this.handleChange }
-            name="phone"
           />
         </td>
         <td>

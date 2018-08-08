@@ -11,3 +11,12 @@ export function generateTeamOptions(teams) {
     return tmp;
   });
 }
+
+export function generatePhoneNumberOptions(phoneNumbers) {
+  return phoneNumbers.map(function(phoneNumber) {
+    let tmp = {}
+    tmp['value'] = phoneNumber.id
+    tmp['label'] = phoneNumber.number
+    return tmp;
+  });
+}
