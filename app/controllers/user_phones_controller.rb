@@ -1,5 +1,6 @@
 class UserPhonesController < ApplicationController
   protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token
 
   def create
     return unless current_user && current_user.id == params[:user_id].to_i
@@ -12,7 +13,6 @@ class UserPhonesController < ApplicationController
   end
 
   def verify
-    # binding.pry
     return unless current_user && current_user.id == params[:user_id].to_i
     user_phone = current_user.phones.find(params[:id])
     if user_phone.verify_phone(params[:verification_code])

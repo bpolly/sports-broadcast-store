@@ -4,6 +4,9 @@
   "private": true,
   "proxy": "http://localhost:3000/",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.2",
+    "@fortawesome/free-solid-svg-icons": "^5.2.0",
+    "@fortawesome/react-fontawesome": "^0.1.1",
     "axios": "^0.16.2",
     "jwt-decode": "^2.2.0",
     "moment-timezone": "^0.5.13",

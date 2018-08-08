@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import NotificationPreferenceRow from './NotificationPreferenceRow';
-import NotificationPreferenceNewRow from './NotificationPreferenceNewRow';
-import PhoneNumberForm from './PhoneNumberForm';
-import AuthService from './AuthService';
-import '../styles/notification_center.css';
+import React, { Component } from 'react'
+import axios from 'axios'
+import NotificationPreferenceRow from './NotificationPreferenceRow'
+import NotificationPreferenceNewRow from './NotificationPreferenceNewRow'
+import PhoneNumberForm from './PhoneNumberForm'
+import AuthService from './AuthService'
+import '../styles/notification_center.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class NotificationPreferenceTable extends Component {
   state = {

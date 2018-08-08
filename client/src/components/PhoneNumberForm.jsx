@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PhoneNumberVerificationForm from './PhoneNumberVerificationForm'
 import axios from 'axios';
 import AuthService from './AuthService';
 import '../styles/animate.css';
@@ -8,9 +9,7 @@ class PhoneNumberForm extends Component {
   state = {
     phoneNumber: '',
     verificationSent: false,
-    verificationCode: '',
     phoneNumberID: '',
-    verificationSuccess: false
   }
   auth = new AuthService()
 
@@ -38,7 +37,6 @@ class PhoneNumberForm extends Component {
     .catch(error =>{
       // do something with error
     })
-
   }
 
 
@@ -91,22 +89,9 @@ class PhoneNumberForm extends Component {
                 <button className="button is-primary" onClick={this.handleSaveClick}>Submit</button>
               </div>
             </div>
-            <div className="box animated fadeInDown" style={{display: !!this.state.phoneNumberID ? '' : 'none'}}>
-              <div className="field" style={{ textAlign: 'center' }}>
-                <label className="label">Enter Verification Code</label>
-                <input
-                  value={verificationCode}
-                  onChange={this.handleChange}
-                  onKeyUp={this.checkForAllCodeCharacters}
-                  className="input is-large"
-                  name="verificationCode"
-                  type="text"
-                  placeholder=""
-                  id="phone-activation-code"
-                  maxLength="4"
-                />
-              </div>
-            </div>
+            <PhoneNumberVerificationForm
+              phoneNumberID={phoneNumberID}
+            />
           </div>
         </div>
         <button
