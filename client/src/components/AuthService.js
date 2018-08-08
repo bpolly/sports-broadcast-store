@@ -62,6 +62,10 @@ export default class AuthService {
         return decode(this.getToken());
     }
 
+    getUserId() {
+        // Using jwt-decode npm package to decode the token
+        return decode(this.getToken())['user_id'];
+    }
 
     fetch(url, options) {
         // performs api calls sending the required authentication headers

@@ -1,0 +1,7 @@
+.hidden {
+  display: none;
+}
+
+#phone-activation-code {
+  max-width: 3.8em;
+}

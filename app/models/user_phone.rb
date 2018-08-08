@@ -5,6 +5,7 @@ class UserPhone < ApplicationRecord
                     length: { minimum: 10, maximum: 15 }
   before_create :generate_verification_code
   before_save :strip_non_numbers
+  after_create :send_verification_code
 
   CODE_EXPIRATION_LIMIT = 1.hour
 
@@ -32,5 +33,9 @@ class UserPhone < ApplicationRecord
 
   def strip_non_numbers
     assign_attributes(number: self.number.gsub(/\D/, ''))
+  end
+
+  def send_verification_code
+    TwilioClient.send_sms(to: number, body: "Your Sportcasts verification code is #{verification_code}")
   end
 end

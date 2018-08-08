@@ -122,8 +122,10 @@ class NotificationPreferenceNewRow extends Component {
         <td>
           <input
             className="input phone-input"
-            type="text"
+            type="password"
             value={ phone }
+            onFocus={this.props.onFocus}
+            autoComplete="new-password"
             onChange={ this.handleChange }
             name="phone"
           />

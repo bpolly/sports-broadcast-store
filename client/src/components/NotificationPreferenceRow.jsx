@@ -94,7 +94,7 @@ class NotificationPreferenceRow extends Component {
       <tr>
         <td>
           <Select
-            className="favorite-team-select-single team-input"
+            className="favorite-team-select-single team-input select"
             name="favorite-team-select"
             value={ selectedTeamSlug }
             onChange={ this.handleTeamChange }
@@ -105,6 +105,16 @@ class NotificationPreferenceRow extends Component {
           />
         </td>
         <td>
+          <Select
+            className="favorite-team-select-single team-input"
+            name="phone-select"
+            value={ selectedTeamSlug }
+            onChange={ this.handleTeamChange }
+            options={ generateTeamOptions(favoriteTeams) }
+            closeOnSelect={true}
+            disabled={ !editing }
+            selectedValue={selectedTeamSlug}
+          />
           <input
             className="input phone-input"
             type="text"

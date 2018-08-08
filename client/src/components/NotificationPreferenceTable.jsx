@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import NotificationPreferenceRow from './NotificationPreferenceRow';
 import NotificationPreferenceNewRow from './NotificationPreferenceNewRow';
+import PhoneNumberForm from './PhoneNumberForm';
 import AuthService from './AuthService';
 import '../styles/notification_center.css';
 
 class NotificationPreferenceTable extends Component {
   state = {
-    currentNotificationPreferences: []
+    currentNotificationPreferences: [],
+    showPhoneForm: false
   }
   auth = new AuthService()
 
@@ -56,32 +58,48 @@ class NotificationPreferenceTable extends Component {
     })
   }
 
+  onFocus = () => {
+    this.setState({ showPhoneForm: true })
+  }
+
+  closePhoneFormModal = () => {
+    console.log('hi there')
+    this.setState({ showPhoneForm: false })
+  }
+
   render() {
     let preferences = this.state.currentNotificationPreferences
     const { favoriteTeams } = this.props
     return(
-      <table className="table is-fullwidth">
-        <thead>
-          <tr>
-            <th className="team-input">Team</th>
-            <th className="phone-input">Phone</th>
-            <th className="callback-url-input">Callback URL</th>
-            <th className="email-input">Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          { preferences.map(function(preference, index){
-                      return <NotificationPreferenceRow
-                                favoriteTeams={favoriteTeams}
-                                preference={preference}
-                                key={preference.id}
-                                deleteNotification={this.deleteNotification} />;
-                    }, this)}
-          <NotificationPreferenceNewRow
-            favoriteTeams={favoriteTeams}
-            saveNewNotification={this.saveNewNotification} />
-        </tbody>
-      </table>
+      <div>
+        <table className="table is-fullwidth">
+          <thead>
+            <tr>
+              <th className="team-input">Team</th>
+              <th className="phone-input">Phone</th>
+              <th className="callback-url-input">Callback URL</th>
+              <th className="email-input">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            { preferences.map(function(preference, index){
+                        return <NotificationPreferenceRow
+                                  favoriteTeams={favoriteTeams}
+                                  preference={preference}
+                                  key={preference.id}
+                                  deleteNotification={this.deleteNotification} />;
+                      }, this)}
+            <NotificationPreferenceNewRow
+              favoriteTeams={favoriteTeams}
+              saveNewNotification={this.saveNewNotification}
+              onFocus={this.onFocus}
+            />
+          </tbody>
+        </table>
+        <PhoneNumberForm
+          hidden={!this.state.showPhoneForm}
+          closePhoneFormModal={this.closePhoneFormModal} />
+      </div>
     )
   }
 }
