@@ -25,6 +25,14 @@ class UserPhone < ApplicationRecord
     update(deleted_at: DateTime.now)
   end
 
+  def verified?
+    verified_at.present?
+  end
+
+  def deleted?
+    verified_at.present?
+  end
+
   private
 
   def generate_verification_code

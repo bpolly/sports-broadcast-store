@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   resources :users do
-    resources :phones, controller: 'user_phones'
+    resources :phones, controller: 'user_phones' do
+      post 'verify', on: :member
+    end
   end
   get  '/scrape/:league',        to: 'games#scrape'
   post '/games',                 to: 'games#retrieve_given_params'

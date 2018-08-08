@@ -2,9 +2,20 @@ class UserPhonesController < ApplicationController
   protect_from_forgery with: :null_session
 
   def create
-    user = User.find(params[:user_id])
-    user_phone = user.phones.new(user_phone_params)
+    return unless current_user && current_user.id != params[:user_id]
+    user_phone = current_user.phones.new(user_phone_params)
     if user_phone.save
+      render json: user_phone, status: :created
+    else
+      render json: user_phone.errors, status: :bad
+    end
+  end
+
+  def verify
+    # binding.pry
+    return unless current_user && current_user.id == params[:user_id].to_i
+    user_phone = current_user.phones.find(params[:id])
+    if user_phone.verify_phone(params[:verification_code])
       render json: user_phone, status: :created
     else
       render json: user_phone.errors, status: :bad

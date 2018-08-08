@@ -6,7 +6,7 @@ class UserNotificationPreference < ApplicationRecord
   validates :callback_url, url: { allow_nil: true, no_local: true  }
   validate :all_are_not_blank
 
-  scope :sms, -> { where.not(phone: nil) }
+  scope :sms, -> { where.not(user_phone: nil) }
 
   private
 

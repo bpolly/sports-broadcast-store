@@ -9,7 +9,8 @@ class PhoneNumberForm extends Component {
     phoneNumber: '',
     verificationSent: false,
     verificationCode: '',
-    phoneNumberID: ''
+    phoneNumberID: '',
+    verificationSuccess: false
   }
   auth = new AuthService()
 
@@ -20,20 +21,19 @@ class PhoneNumberForm extends Component {
   }
 
   checkForAllCodeCharacters = () => {
+    if(this.state.verificationCode.length != 4) return
+
     let user_id = this.auth.getUserId()
-    return axios.post(`/users/${user_id}/phones/${this.state.phoneNumberID}/verify`,
+    axios.post(`/users/${user_id}/phones/${this.state.phoneNumberID}/verify`,
       {
-        // team_slug: params['selectedTeamSlug'],
-        // phone: params['phone'],
-        // callback_url: params['callbackUrl'],
-        // email: params['email']
+        verification_code: this.state.verificationCode
       },
       {
         headers: { Authorization: this.auth.getToken() }
       }
     ).then(response => {
       console.log(response)
-      this.setState({ verificationSent: true })
+      this.setState({ verificationSuccess: true })
     })
     .catch(error =>{
       // do something with error
@@ -55,7 +55,8 @@ class PhoneNumberForm extends Component {
     ).then(response => {
       console.log('Phone number saved')
       console.log(response)
-      let phoneNumberID = response['id']
+      let phoneNumberID = response.data['id']
+      console.log(phoneNumberID)
       this.setState({ verificationSent: true, phoneNumberID: phoneNumberID })
     })
     .catch(error =>{
@@ -65,7 +66,7 @@ class PhoneNumberForm extends Component {
 
   render() {
     const { hidden } = this.props
-    const { phoneNumber, verificationCode } = this.state
+    const { phoneNumber, verificationCode, phoneNumberID } = this.state
 
     return(
       <div className={`modal ${hidden ? '' : 'is-active'}`} >
@@ -90,12 +91,13 @@ class PhoneNumberForm extends Component {
                 <button className="button is-primary" onClick={this.handleSaveClick}>Submit</button>
               </div>
             </div>
-            <div className="box animated fadeInDown" style={{display: this.state.verificationSent ? '' : 'none'}}>
+            <div className="box animated fadeInDown" style={{display: !!this.state.phoneNumberID ? '' : 'none'}}>
               <div className="field" style={{ textAlign: 'center' }}>
                 <label className="label">Enter Verification Code</label>
                 <input
                   value={verificationCode}
                   onChange={this.handleChange}
+                  onKeyUp={this.checkForAllCodeCharacters}
                   className="input is-large"
                   name="verificationCode"
                   type="text"
@@ -103,12 +105,6 @@ class PhoneNumberForm extends Component {
                   id="phone-activation-code"
                   maxLength="4"
                 />
-                <button
-                  className="button is-large"
-                  aria-label="close"
-                  onClick={this.props.closePhoneFormModal}>
-                  Enter
-                </button>
               </div>
             </div>
           </div>
