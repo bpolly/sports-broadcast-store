@@ -2,6 +2,11 @@ class UserPhonesController < ApplicationController
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
 
+  def index
+    return unless current_user && current_user.id == params[:user_id].to_i
+    render json: current_user.phones, status: :ok
+  end
+
   def create
     return unless current_user && current_user.id == params[:user_id].to_i
     user_phone = current_user.phones.new(user_phone_params)

@@ -10,11 +10,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 class NotificationPreferenceTable extends Component {
   state = {
     currentNotificationPreferences: [],
-    showPhoneForm: false
+    showPhoneForm: false,
+    userPhoneNumbers: []
   }
   auth = new AuthService()
 
   componentDidMount() {
+    this.fetchNotificationPreferences()
+  }
+
+  fetchNotificationPreferences = () => {
     axios.get('/user_notification_preferences',
       { headers: { Authorization: this.auth.getToken() } }
     ).then(response => {
