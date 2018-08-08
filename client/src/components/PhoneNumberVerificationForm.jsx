@@ -8,7 +8,8 @@ import '../styles/phone_number_form.css';
 class PhoneNumberVerificationForm extends Component {
   state = {
     verificationCode: '',
-    verificationSuccess: false
+    verificationSuccess: false,
+    verificationCodeChecked: false
   }
   auth = new AuthService()
 
@@ -19,7 +20,11 @@ class PhoneNumberVerificationForm extends Component {
   }
 
   checkForAllCodeCharacters = () => {
+    if(this.state.verificationCode.length < 4){
+      this.setState({ verificationCodeChecked: false })
+    }
     if(this.state.verificationCode.length != 4) return
+    this.setState({ verificationCodeChecked: true })
 
     let user_id = this.auth.getUserId()
     axios.post(`/users/${user_id}/phones/${this.props.phoneNumberID}/verify`,
@@ -34,8 +39,32 @@ class PhoneNumberVerificationForm extends Component {
       this.setState({ verificationSuccess: true })
     })
     .catch(error =>{
-      // do something with error
+      this.setState({ verificationSuccess: false })
     })
+  }
+
+  resultIcon = () => {
+    const { verificationSuccess, verificationCodeChecked } = this.state
+    if(verificationCodeChecked && verificationSuccess){
+      return(
+        <FontAwesomeIcon
+          icon="check-circle"
+          color="#6DB65B"
+          size="lg"
+          className="verification-code-success-icon"
+        />
+      )
+    }
+    else if(verificationCodeChecked && !verificationSuccess){
+      return(
+        <FontAwesomeIcon
+          icon="times-circle"
+          color="#f4425c"
+          size="lg"
+          className="verification-code-success-icon"
+        />
+      )
+    }
   }
 
   render() {
@@ -57,11 +86,7 @@ class PhoneNumberVerificationForm extends Component {
             id="phone-activation-code"
             maxLength="4"
           />
-          <FontAwesomeIcon
-            icon="check-circle"
-            color="#6DB65B"
-            size="sm"
-          />
+          {this.resultIcon()}
         </div>
       </div>
     )
