@@ -2,7 +2,7 @@ class UserPhonesController < ApplicationController
   protect_from_forgery with: :null_session
 
   def create
-    return unless current_user && current_user.id != params[:user_id]
+    return unless current_user && current_user.id == params[:user_id].to_i
     user_phone = current_user.phones.new(user_phone_params)
     if user_phone.save
       render json: user_phone, status: :created
