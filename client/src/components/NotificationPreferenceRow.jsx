@@ -8,7 +8,7 @@ import { generateTeamOptions, generatePhoneNumberOptions } from '../utilities.js
 class NotificationPreferenceRow extends Component {
   state = {
     selectedTeamSlug: this.props.preference.team.slug || '',
-    phone: this.props.preference.phone || '',
+    phoneID: (this.props.preference.user_phone && this.props.preference.user_phone.id) || '',
     callbackUrl: this.props.preference.callback_url || '',
     email: this.props.preference.email || '',
     editing: false,
@@ -26,7 +26,7 @@ class NotificationPreferenceRow extends Component {
     axios.patch('/user_notification_preferences/' + this.props.preference.id,
       {
         team_slug: this.state.selectedTeamSlug,
-        phone: this.state.phone,
+        user_phone_id: this.state.phoneID,
         callback_url: this.state.callbackUrl,
         email: this.state.email
       },
@@ -65,6 +65,10 @@ class NotificationPreferenceRow extends Component {
     if(e && e.value) this.setState({ selectedTeamSlug: e.value })
   }
 
+  handlePhoneChange = (e) => {
+    if(e && e.value) this.setState({ phoneID: e.value })
+  }
+
   actionButton = () => {
     if(this.state.editing){
       return (
@@ -88,7 +92,7 @@ class NotificationPreferenceRow extends Component {
 
   render(){
     const { favoriteTeams, phoneNumbers } = this.props
-    const { editing, selectedTeamSlug, phone, callbackUrl, email } = this.state
+    const { editing, selectedTeamSlug, phoneID, callbackUrl, email } = this.state
 
     return(
       <tr>
@@ -107,11 +111,13 @@ class NotificationPreferenceRow extends Component {
         <td>
           <Select
             className="favorite-team-select-single team-input"
-            name="phone-select"
+            name="phoneID"
             options={ generatePhoneNumberOptions(phoneNumbers) }
-            closeOnSelect={true}
+            closeOnSelect={ true }
             disabled={ !editing }
-            selectedValue={selectedTeamSlug}
+            selectedValue={ phoneID }
+            value={ phoneID }
+            onChange={ this.handlePhoneChange }
           />
         </td>
         <td>

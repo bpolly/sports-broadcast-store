@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import AuthService from './AuthService'
+import '../styles/phone_number_listing.css'
 
 class PhoneNumberListing extends Component {
   verificationStatusTag = () => {
@@ -20,8 +21,9 @@ class PhoneNumberListing extends Component {
     const { phoneNumber } = this.props
 
     return(
-      <div className="box">
+      <div className="box phone-number-listing">
         { phoneNumber.number }
+        <a class="delete is-pulled-right is-small"></a>
         { this.verificationStatusTag() }
       </div>
     )

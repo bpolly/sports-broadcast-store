@@ -47,7 +47,7 @@ class UserNotificationPreferencesController < ApplicationController
     {
       team_id: Team.find_by(slug: params[:team_slug]).try(&:id),
       callback_url: given_params[:callback_url],
-      phone: given_params[:phone],
+      user_phone_id: given_params[:user_phone_id],
       email: given_params[:email],
     }
   end

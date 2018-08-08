@@ -61,6 +61,7 @@ class NotificationCenter extends Component {
               { phoneNumbers.map(function(phoneNumber, index){
                           return (
                             <PhoneNumberListing
+                              key={phoneNumber.id}
                               phoneNumber={phoneNumber}
                             />
                           )
