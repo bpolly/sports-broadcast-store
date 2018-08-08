@@ -23,7 +23,7 @@ class PhoneNumberListing extends Component {
     return(
       <div className="box phone-number-listing">
         { phoneNumber.number }
-        <a class="delete is-pulled-right is-small"></a>
+        <a className="delete is-pulled-right is-small"></a>
         { this.verificationStatusTag() }
       </div>
     )

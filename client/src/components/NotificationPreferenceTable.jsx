@@ -87,6 +87,7 @@ class NotificationPreferenceTable extends Component {
                       }, this)}
             <NotificationPreferenceNewRow
               favoriteTeams={favoriteTeams}
+              phoneNumbers={phoneNumbers}
               saveNewNotification={this.saveNewNotification}
               onFocus={this.onFocus}
             />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import '../styles/notification_preference_row.css'
 import Select from 'react-select'
-import { generateTeamOptions } from '../utilities.js'
+import { generateTeamOptions, generatePhoneNumberOptions } from '../utilities.js'
+import '../styles/notification_preference_row.css'
 
 class NotificationPreferenceNewRow extends Component {
   state = {
@@ -9,7 +9,7 @@ class NotificationPreferenceNewRow extends Component {
     saving: false,
     // favoriteTeams: this.props.favoriteTeams,
     selectedTeamSlug: '',
-    phone: '',
+    phoneID: '',
     callbackUrl: '',
     email: '',
   }
@@ -27,7 +27,7 @@ class NotificationPreferenceNewRow extends Component {
     setTimeout(function() {}, 500)
     let saveParams = {
       selectedTeamSlug: this.state.selectedTeamSlug,
-      phone: this.state.phone,
+      user_phone_id: this.state.phoneID,
       callbackUrl: this.state.callbackUrl,
       email: this.state.email
     }
@@ -37,7 +37,7 @@ class NotificationPreferenceNewRow extends Component {
           editing: false,
           saving: false,
           selectedTeamSlug: '',
-          phone: '',
+          user_phone_id: '',
           callbackUrl: '',
           email: ''
         })
@@ -50,7 +50,7 @@ class NotificationPreferenceNewRow extends Component {
   handleDiscardChangesClick = () => {
     this.setState({
       team_id: '',
-      phone: '',
+      phoneID: '',
       callbackUrl: '',
       email: '',
       editing: false
@@ -76,11 +76,15 @@ class NotificationPreferenceNewRow extends Component {
   validForm = () => {
     return !!(this.state.selectedTeamSlug &&
         (
-          !!this.state.phone ||
+          !!this.state.phoneID ||
           !!this.state.callbackUrl ||
           !!this.state.email
         )
       )
+  }
+
+  handlePhoneChange = (e) => {
+    if(e && e.value) this.setState({ phoneID: e.value })
   }
 
   actionButton = () => {
@@ -103,8 +107,8 @@ class NotificationPreferenceNewRow extends Component {
   }
 
   formRow = () => {
-    const { selectedTeamSlug, phone, callbackUrl, email } = this.state
-    const { favoriteTeams } = this.props
+    const { selectedTeamSlug, callbackUrl, email, phoneID } = this.state
+    const { favoriteTeams, phoneNumbers } = this.props
 
     return(
       <tr>
@@ -120,14 +124,14 @@ class NotificationPreferenceNewRow extends Component {
           />
         </td>
         <td>
-          <input
-            className="input phone-input"
-            type="password"
-            value={ phone }
-            onFocus={this.props.onFocus}
-            autoComplete="new-password"
-            onChange={ this.handleChange }
-            name="phone"
+          <Select
+            className="favorite-team-select-single team-input"
+            name="phoneID"
+            options={ generatePhoneNumberOptions(phoneNumbers) }
+            closeOnSelect={ true }
+            selectedValue={ phoneID }
+            value={ phoneID }
+            onChange={ this.handlePhoneChange }
           />
         </td>
         <td>
