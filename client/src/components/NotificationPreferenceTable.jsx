@@ -30,7 +30,7 @@ class NotificationPreferenceTable extends Component {
     return axios.post('/user_notification_preferences',
       {
         team_slug: params['selectedTeamSlug'],
-        phone: params['phone'],
+        user_phone_id: params['user_phone_id'],
         callback_url: params['callbackUrl'],
         email: params['email']
       },
