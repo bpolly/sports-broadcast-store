@@ -36,6 +36,21 @@ class NotificationCenter extends Component {
     this.setState({ showPhoneForm: false })
   }
 
+  deletePhoneNumber = (phoneNumber) => {
+    let user_id = this.auth.getUserId()
+    return axios.delete(`/users/${user_id}/phones/` + phoneNumber.id,
+      {
+        headers: { Authorization: this.auth.getToken() }
+      }
+    ).then(response => {
+      let filteredArray = this.state.phoneNumbers.filter(item => item !== phoneNumber)
+      this.setState({phoneNumbers: filteredArray});
+    })
+    .catch(error =>{
+      // do something with error
+    })
+  }
+
   render() {
     const { phoneNumbers } = this.state
     const { favoriteTeams } = this.props
@@ -63,6 +78,7 @@ class NotificationCenter extends Component {
                             <PhoneNumberListing
                               key={phoneNumber.id}
                               phoneNumber={phoneNumber}
+                              deletePhoneNumber={this.deletePhoneNumber}
                             />
                           )
                         }, this)}

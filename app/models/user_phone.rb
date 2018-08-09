@@ -1,5 +1,6 @@
 class UserPhone < ApplicationRecord
   belongs_to :user
+  has_many :user_notification_preferences, dependent: :destroy
   validates :number, presence: true,
                     numericality: true,
                     length: { minimum: 10, maximum: 15 }

@@ -4,6 +4,11 @@ import AuthService from './AuthService'
 import '../styles/phone_number_listing.css'
 
 class PhoneNumberListing extends Component {
+  handleDeleteClick = () => {
+    if (!window.confirm(`Are you sure you wish to delete phone number ${this.props.phoneNumber.number}?`)) return
+    this.props.deletePhoneNumber(this.props.phoneNumber)
+  }
+
   verificationStatusTag = () => {
     if(this.props.phoneNumber.verified) {
       return (
@@ -14,7 +19,6 @@ class PhoneNumberListing extends Component {
         <span className="tag is-warning is-pulled-right">unverified</span>
       )
     }
-
   }
 
   render() {
@@ -23,7 +27,10 @@ class PhoneNumberListing extends Component {
     return(
       <div className="box phone-number-listing">
         { phoneNumber.number }
-        <a className="delete is-pulled-right is-small"></a>
+        <a
+          className="delete is-pulled-right is-small"
+          onClick={this.handleDeleteClick}>
+        </a>
         { this.verificationStatusTag() }
       </div>
     )

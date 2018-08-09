@@ -27,6 +27,17 @@ class UserPhonesController < ApplicationController
     end
   end
 
+  def destroy
+    return unless current_user && current_user.id == params[:user_id].to_i
+    user_phone = current_user.phones.find(params[:id])
+    if user_phone.destroy
+      head :ok
+    else
+      render json: user_phone.errors, status: :bad
+    end
+
+  end
+
   private
 
   def user_phone_params
