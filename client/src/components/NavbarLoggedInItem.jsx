@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { withRouter } from 'react-router'
-import AuthService from './AuthService';
+import AuthService from './AuthService'
 
 class NavbarLoggedInItem extends Component {
   auth = new AuthService()
@@ -11,7 +11,8 @@ class NavbarLoggedInItem extends Component {
   }
 
   render() {
-    const userEmail = this.props.userToken.user_email
+    const userEmail = this.auth.getUserEmail()
+
     return(
       <div className="navbar-item has-dropdown is-hoverable dropdown-right">
         <a className="navbar-link" href="#">
@@ -31,4 +32,4 @@ class NavbarLoggedInItem extends Component {
   }
 }
 
-export default withRouter(NavbarLoggedInItem);
+export default withRouter(NavbarLoggedInItem)
