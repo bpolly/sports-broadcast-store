@@ -72,7 +72,20 @@ class NotificationCenter extends Component {
                 handleFavoriteTeamChange={this.props.handleFavoriteTeamChange} />
             </div>
             <div className="column">
-              <h3 className="subtitle">Verified Phone Numbers</h3>
+              <div className="level">
+                <div className="level-left">
+                  <div className="level-item">
+                    <h3 className="subtitle">Phone Numbers</h3>
+                  </div>
+                </div>
+                <div className="level-right">
+                  <div className="level-item">
+                    <button className="button is-small is-outlined is-primary" onClick={this.showPhoneFormModal}>Add New</button>
+                  </div>
+                </div>
+              </div>
+
+
               { phoneNumbers.map(function(phoneNumber, index){
                           return (
                             <PhoneNumberListing
@@ -83,7 +96,6 @@ class NotificationCenter extends Component {
                             />
                           )
                         }, this)}
-              <button className="button" onClick={this.showPhoneFormModal}>Add New</button>
               <PhoneNumberForm
                 hidden={!this.state.showPhoneForm}
                 closePhoneFormModal={this.closePhoneFormModal}

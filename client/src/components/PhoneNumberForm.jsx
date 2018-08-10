@@ -66,10 +66,19 @@ class PhoneNumberForm extends Component {
     return(
       <div className={`modal ${hidden ? '' : 'is-active'}`} >
         <div className="modal-background"></div>
-        <div className="modal-content">
-          <div className="box">
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">Add Phone Number</p>
+            <button
+              className="delete"
+              aria-label="close"
+              onClick={this.props.closePhoneFormModal}>
+            </button>
+          </header>
+          <section class="modal-card-body">
+
             <div className="field">
-              <label className="label">Add Phone Number</label>
+              <label className="label">Subtitle</label>
               <div className="control">
                 <input
                   name="phoneNumber"
@@ -91,13 +100,8 @@ class PhoneNumberForm extends Component {
               closePhoneFormModal={this.props.closePhoneFormModal}
               fetchPhoneNumbers={this.props.fetchPhoneNumbers}
             />
-          </div>
+          </section>
         </div>
-        <button
-          className="modal-close is-large"
-          aria-label="close"
-          onClick={this.props.closePhoneFormModal}>
-        </button>
       </div>
     )
   }

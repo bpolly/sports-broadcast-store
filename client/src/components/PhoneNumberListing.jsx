@@ -17,11 +17,11 @@ class PhoneNumberListing extends Component {
   verificationStatusTag = () => {
     if(this.props.phoneNumber.verified) {
       return (
-        <span className="tag is-success is-pulled-right">verified</span>
+        <span></span>
       )
     } else {
       return (
-        <span className="tag is-warning is-pulled-right">unverified</span>
+        <button className="button is-warning is-small" onClick={this.showPhoneFormModal}>verify</button>
       )
     }
   }
@@ -39,16 +39,23 @@ class PhoneNumberListing extends Component {
 
     return(
       <div className="box phone-number-listing">
-        { phoneNumber.number }
-        <a
-          className="delete is-pulled-right is-small"
-          onClick={this.handleDeleteClick}>
-        </a>
-        { this.verificationStatusTag() }
-        <a
-          className={`is-pulled-right is-small ${this.props.phoneNumber.verified ? 'is-invisible' : ''}`}
-          onClick={this.showPhoneFormModal}>Verify
-        </a>
+        <div className="level">
+          <div className="level-left">
+            <div className="level-item">
+              { phoneNumber.number }
+            </div>
+          </div>
+          <div className="level-right">
+            <div className="level-item">
+              { this.verificationStatusTag() }
+            </div>
+            <div className="level-item">
+              <a className="delete is-small"
+                onClick={this.handleDeleteClick}>
+              </a>
+            </div>
+          </div>
+        </div>
         <PhoneNumberForm
           hidden={!this.state.showPhoneForm}
           closePhoneFormModal={this.closePhoneFormModal}

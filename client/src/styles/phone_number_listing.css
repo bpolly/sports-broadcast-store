@@ -7,6 +7,10 @@
 }
 
 .phone-number-listing .delete {
-  margin-top: 0.25rem;
   margin-left: 0.3rem;
+}
+
+
+.box.phone-number-listing .level{
+  margin-bottom: 0;
 }
