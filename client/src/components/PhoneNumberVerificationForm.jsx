@@ -37,10 +37,12 @@ class PhoneNumberVerificationForm extends Component {
       }
     ).then(response => {
       console.log(response)
+      this.props.fetchPhoneNumbers()
       this.setState({ verificationSuccess: true, verificationMessage: 'Success! Redirecting...' })
+      setTimeout(this.props.closePhoneFormModal, 1500)
+
     })
     .catch(error =>{
-      console.log(error.response)
       this.setState({ verificationSuccess: false, verificationMessage: error.response.data })
     })
   }

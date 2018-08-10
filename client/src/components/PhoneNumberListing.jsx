@@ -53,6 +53,7 @@ class PhoneNumberListing extends Component {
           hidden={!this.state.showPhoneForm}
           closePhoneFormModal={this.closePhoneFormModal}
           phoneNumber={phoneNumber}
+          fetchPhoneNumbers={this.props.fetchPhoneNumbers}
         />
       </div>
     )

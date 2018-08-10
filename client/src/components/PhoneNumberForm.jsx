@@ -51,11 +51,8 @@ class PhoneNumberForm extends Component {
         headers: { Authorization: this.auth.getToken() }
       }
     ).then(response => {
-      console.log('Phone number saved')
-      console.log(response)
-      let phoneNumberID = response.data['id']
-      console.log(phoneNumberID)
-      this.setState({ verificationSent: true, phoneNumberID: phoneNumberID })
+      this.setState({ verificationSent: true, phoneNumberID: response.data['id'] })
+      this.props.fetchPhoneNumbers()
     })
     .catch(error =>{
       // do something with error
@@ -91,6 +88,8 @@ class PhoneNumberForm extends Component {
             </div>
             <PhoneNumberVerificationForm
               phoneNumberID={phoneNumberID}
+              closePhoneFormModal={this.props.closePhoneFormModal}
+              fetchPhoneNumbers={this.props.fetchPhoneNumbers}
             />
           </div>
         </div>

@@ -79,13 +79,16 @@ class NotificationCenter extends Component {
                               key={phoneNumber.id}
                               phoneNumber={phoneNumber}
                               deletePhoneNumber={this.deletePhoneNumber}
+                              fetchPhoneNumbers={this.fetchPhoneNumbers}
                             />
                           )
                         }, this)}
               <button className="button" onClick={this.showPhoneFormModal}>Add New</button>
               <PhoneNumberForm
                 hidden={!this.state.showPhoneForm}
-                closePhoneFormModal={this.closePhoneFormModal} />
+                closePhoneFormModal={this.closePhoneFormModal}
+                fetchPhoneNumbers={this.fetchPhoneNumbers}
+              />
             </div>
           </div>
       </div>
