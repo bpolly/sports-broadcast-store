@@ -35,11 +35,17 @@ class UserPhone < ApplicationRecord
     verified_at.present?
   end
 
-  def generate_verification_code
-    assign_attributes(verification_code: SecureRandom.hex[0..3].upcase, last_code_generated_at: DateTime.now)
+  def generate_new_verification_code
+    generate_verification_code
+    save
+    send_verification_code
   end
 
   private
+
+  def generate_verification_code
+    assign_attributes(verification_code: SecureRandom.hex[0..3].upcase, last_code_generated_at: DateTime.now)
+  end
 
   def strip_non_numbers
     assign_attributes(number: self.number.gsub(/\D/, ''))

@@ -46,6 +46,21 @@ class PhoneNumberVerificationForm extends Component {
     })
   }
 
+  resendNewCode = () => {
+    let user_id = this.auth.getUserId()
+    axios.post(`/users/${user_id}/phones/${this.props.phoneNumberID}/resend_verification_code`,
+      {},
+      {
+        headers: { Authorization: this.auth.getToken() }
+      }
+    ).then(response => {
+      this.setState({ verificationMessage: 'New verification code sent!' })
+    })
+    .catch(error => {
+      this.setState({ verificationMessage: 'Verification code resend failed.' })
+    })
+  }
+
   resultIcon = () => {
     const { verificationSuccess, verificationCodeChecked } = this.state
     if(verificationCodeChecked && verificationSuccess){
@@ -94,7 +109,9 @@ class PhoneNumberVerificationForm extends Component {
         <div className="field">
           { verificationMessage }
         </div>
-        <span className="verification-code-resend-btn button is-small">Resend</span>
+        <button
+          className="verification-code-resend-btn button is-small"
+          onClick={this.resendNewCode}>Resend</button>
       </div>
     )
   }
