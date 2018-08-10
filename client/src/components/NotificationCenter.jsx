@@ -54,6 +54,7 @@ class NotificationCenter extends Component {
   render() {
     const { phoneNumbers } = this.state
     const { favoriteTeams } = this.props
+    let phoneNumberCount = phoneNumbers.length
 
     return(
       <div className="container">
@@ -80,7 +81,9 @@ class NotificationCenter extends Component {
                 </div>
                 <div className="level-right">
                   <div className="level-item">
-                    <button className="button is-small is-outlined is-primary" onClick={this.showPhoneFormModal}>Add New</button>
+                    <button
+                      className={`button is-small is-outlined is-primary ${ phoneNumberCount >= 3 ? 'is-invisible': ''}`}
+                      onClick={this.showPhoneFormModal}>Add New</button>
                   </div>
                 </div>
               </div>

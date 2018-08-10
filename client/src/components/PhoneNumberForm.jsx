@@ -75,7 +75,7 @@ class PhoneNumberForm extends Component {
               onClick={this.props.closePhoneFormModal}>
             </button>
           </header>
-          <section class="modal-card-body">
+          <section className="modal-card-body">
 
             <div className="field">
               <label className="label">Subtitle</label>
