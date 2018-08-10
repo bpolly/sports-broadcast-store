@@ -26,7 +26,6 @@ class App extends Component {
     axios.get('/user_favorite_teams',
       { headers: { Authorization: this.auth.getToken() } }
     ).then(response => {
-      console.log(response.data)
       this.setState({ favoriteTeams: response.data })
     })
   }
@@ -38,7 +37,6 @@ class App extends Component {
         headers: { Authorization: this.auth.getToken() }
       }
     ).then(response => {
-      console.log(response)
       this.setState({ favoriteTeams: response.data })
     })
   }

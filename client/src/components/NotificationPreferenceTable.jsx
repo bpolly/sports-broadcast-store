@@ -4,7 +4,6 @@ import NotificationPreferenceRow from './NotificationPreferenceRow'
 import NotificationPreferenceNewRow from './NotificationPreferenceNewRow'
 import AuthService from './AuthService'
 import '../styles/notification_center.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class NotificationPreferenceTable extends Component {
   state = {
@@ -21,7 +20,6 @@ class NotificationPreferenceTable extends Component {
     axios.get('/user_notification_preferences',
       { headers: { Authorization: this.auth.getToken() } }
     ).then(response => {
-      console.log(response)
       this.setState({ currentNotificationPreferences: response.data })
     })
   }
@@ -39,7 +37,6 @@ class NotificationPreferenceTable extends Component {
       }
     ).then(response => {
       let newPreference = response.data
-      console.log(newPreference)
       newPreference['key'] = newPreference['id']
       this.setState({ currentNotificationPreferences: [...this.state.currentNotificationPreferences, newPreference] })
     })

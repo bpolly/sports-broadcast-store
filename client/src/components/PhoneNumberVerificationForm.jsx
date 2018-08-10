@@ -24,7 +24,7 @@ class PhoneNumberVerificationForm extends Component {
     if(this.state.verificationCode.length < 4){
       this.setState({ verificationCodeChecked: false, verificationMessage: '' })
     }
-    if(this.state.verificationCode.length != 4) return
+    if(this.state.verificationCode.length !== 4) return
     this.setState({ verificationCodeChecked: true })
 
     let user_id = this.auth.getUserId()
@@ -36,7 +36,6 @@ class PhoneNumberVerificationForm extends Component {
         headers: { Authorization: this.auth.getToken() }
       }
     ).then(response => {
-      console.log(response)
       this.props.fetchPhoneNumbers()
       this.setState({ verificationSuccess: true, verificationMessage: 'Success! Redirecting...' })
       setTimeout(this.props.closePhoneFormModal, 1500)
@@ -93,8 +92,9 @@ class PhoneNumberVerificationForm extends Component {
           {this.resultIcon()}
         </div>
         <div className="field">
-        { verificationMessage }
+          { verificationMessage }
         </div>
+        <span className="verification-code-resend-btn button is-small">Resend</span>
       </div>
     )
   }

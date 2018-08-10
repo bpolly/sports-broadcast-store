@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import AuthService from './AuthService'
 import PhoneNumberForm from './PhoneNumberForm'
 import '../styles/phone_number_listing.css'
 

@@ -19,27 +19,6 @@ class PhoneNumberForm extends Component {
     this.setState(change)
   }
 
-  checkForAllCodeCharacters = () => {
-    if(this.state.verificationCode.length != 4) return
-
-    let user_id = this.auth.getUserId()
-    axios.post(`/users/${user_id}/phones/${this.state.phoneNumberID}/verify`,
-      {
-        verification_code: this.state.verificationCode
-      },
-      {
-        headers: { Authorization: this.auth.getToken() }
-      }
-    ).then(response => {
-      console.log(response)
-      this.setState({ verificationSuccess: true })
-    })
-    .catch(error =>{
-      // do something with error
-    })
-  }
-
-
   handleSaveClick = () => {
     this.setState({ verificationSent: true })
     let user_id = this.auth.getUserId()
@@ -61,7 +40,7 @@ class PhoneNumberForm extends Component {
 
   render() {
     const { hidden } = this.props
-    const { phoneNumber, verificationCode, phoneNumberID } = this.state
+    const { phoneNumber, phoneNumberID } = this.state
 
     return(
       <div className={`modal ${hidden ? '' : 'is-active'}`} >

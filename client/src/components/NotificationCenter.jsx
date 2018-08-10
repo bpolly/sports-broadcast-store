@@ -23,7 +23,6 @@ class NotificationCenter extends Component {
     axios.get(`/users/${user_id}/phones/`,
       { headers: { Authorization: this.auth.getToken() } }
     ).then(response => {
-      console.log(response)
       this.setState({ phoneNumbers: response.data })
     })
   }

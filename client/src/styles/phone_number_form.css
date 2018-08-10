@@ -11,3 +11,9 @@
   top: 3.2em;
   margin-left: 0.5em;
 }
+
+.verification-code-resend-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
