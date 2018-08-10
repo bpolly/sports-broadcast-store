@@ -9,7 +9,8 @@ class PhoneNumberVerificationForm extends Component {
   state = {
     verificationCode: '',
     verificationSuccess: false,
-    verificationCodeChecked: false
+    verificationCodeChecked: false,
+    verificationMessage: ''
   }
   auth = new AuthService()
 
@@ -21,7 +22,7 @@ class PhoneNumberVerificationForm extends Component {
 
   checkForAllCodeCharacters = () => {
     if(this.state.verificationCode.length < 4){
-      this.setState({ verificationCodeChecked: false })
+      this.setState({ verificationCodeChecked: false, verificationMessage: '' })
     }
     if(this.state.verificationCode.length != 4) return
     this.setState({ verificationCodeChecked: true })
@@ -36,10 +37,11 @@ class PhoneNumberVerificationForm extends Component {
       }
     ).then(response => {
       console.log(response)
-      this.setState({ verificationSuccess: true })
+      this.setState({ verificationSuccess: true, verificationMessage: 'Success! Redirecting...' })
     })
     .catch(error =>{
-      this.setState({ verificationSuccess: false })
+      console.log(error.response)
+      this.setState({ verificationSuccess: false, verificationMessage: error.response.data })
     })
   }
 
@@ -69,7 +71,7 @@ class PhoneNumberVerificationForm extends Component {
 
   render() {
     const { phoneNumberID } = this.props
-    const { verificationCode } = this.state
+    const { verificationCode, verificationMessage } = this.state
 
     return(
       <div className="box animated fadeInDown" style={{display: !!phoneNumberID ? '' : 'none'}}>
@@ -87,6 +89,9 @@ class PhoneNumberVerificationForm extends Component {
             maxLength="4"
           />
           {this.resultIcon()}
+        </div>
+        <div className="field">
+        { verificationMessage }
         </div>
       </div>
     )

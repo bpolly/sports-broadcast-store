@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import AuthService from './AuthService'
+import PhoneNumberForm from './PhoneNumberForm'
 import '../styles/phone_number_listing.css'
 
 class PhoneNumberListing extends Component {
+  state = {
+    showPhoneForm: false
+  }
+
   handleDeleteClick = () => {
     if (!window.confirm(`Are you sure you wish to delete phone number ${this.props.phoneNumber.number}?`)) return
     this.props.deletePhoneNumber(this.props.phoneNumber)
@@ -21,6 +26,14 @@ class PhoneNumberListing extends Component {
     }
   }
 
+  showPhoneFormModal = () => {
+    this.setState({ showPhoneForm: true })
+  }
+
+  closePhoneFormModal = () => {
+    this.setState({ showPhoneForm: false })
+  }
+
   render() {
     const { phoneNumber } = this.props
 
@@ -32,6 +45,15 @@ class PhoneNumberListing extends Component {
           onClick={this.handleDeleteClick}>
         </a>
         { this.verificationStatusTag() }
+        <a
+          className={`is-pulled-right is-small ${this.props.phoneNumber.verified ? 'is-invisible' : ''}`}
+          onClick={this.showPhoneFormModal}>Verify
+        </a>
+        <PhoneNumberForm
+          hidden={!this.state.showPhoneForm}
+          closePhoneFormModal={this.closePhoneFormModal}
+          phoneNumber={phoneNumber}
+        />
       </div>
     )
   }

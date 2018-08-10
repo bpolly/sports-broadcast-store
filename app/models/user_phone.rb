@@ -14,11 +14,12 @@ class UserPhone < ApplicationRecord
   scope :unverified, -> { where(verified_at: nil) }
 
   def verify_phone(user_supplied_code)
-    return false if (
-                      user_supplied_code.blank? ||
-                      last_code_generated_at < CODE_EXPIRATION_LIMIT.ago ||
-                      user_supplied_code.upcase != verification_code.upcase
-                    )
+    if (user_supplied_code.blank? || user_supplied_code.upcase != verification_code.upcase)
+      errors.add(:verification_code, 'does not match.')
+    elsif(last_code_generated_at < CODE_EXPIRATION_LIMIT.ago)
+      errors.add(:verification_code, 'expired. Please request a new one.')
+    end
+    return false if errors.any?
     update(verified_at: DateTime.now)
   end
 

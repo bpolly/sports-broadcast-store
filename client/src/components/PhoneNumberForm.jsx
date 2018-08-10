@@ -7,9 +7,9 @@ import '../styles/phone_number_form.css';
 
 class PhoneNumberForm extends Component {
   state = {
-    phoneNumber: '',
+    phoneNumber: (this.props.phoneNumber && this.props.phoneNumber.number) || '',
     verificationSent: false,
-    phoneNumberID: '',
+    phoneNumberID: (this.props.phoneNumber && this.props.phoneNumber.id) || '',
   }
   auth = new AuthService()
 
