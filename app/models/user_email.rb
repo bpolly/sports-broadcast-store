@@ -1,18 +1,15 @@
-class UserPhone < ApplicationRecord
+class UserEmail < ApplicationRecord
   belongs_to :user
-  has_many :user_notification_preferences
-  validates :number, presence: true,
-                    numericality: true,
-                    length: { minimum: 10, maximum: 15 }
+  has_many :user_notification_preferences, dependent: :destroy
+  validates :email_address, presence: true, length: { minimum: 4, maximum: 25 }
   before_create :generate_verification_code
-  before_save :strip_non_numbers
   after_create :send_verification_code
 
   CODE_EXPIRATION_LIMIT = 1.hour
 
   scope :unverified, -> { where(verified_at: nil) }
 
-  def verify_phone(user_supplied_code)
+  def verify_email(user_supplied_code)
     if (user_supplied_code.blank? || user_supplied_code.upcase != verification_code.upcase)
       errors.add(:verification_code, 'does not match.')
     elsif(last_code_generated_at < CODE_EXPIRATION_LIMIT.ago)
@@ -38,11 +35,8 @@ class UserPhone < ApplicationRecord
     assign_attributes(verification_code: SecureRandom.hex[0..3].upcase, last_code_generated_at: DateTime.now)
   end
 
-  def strip_non_numbers
-    assign_attributes(number: self.number.gsub(/\D/, ''))
+  def send_verification_code
+    # Send email
   end
 
-  def send_verification_code
-    TwilioClient.send_sms(to: number, body: "Your Sportcasts verification code is #{verification_code}")
-  end
 end

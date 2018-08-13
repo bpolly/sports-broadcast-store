@@ -1,4 +1,4 @@
-class UserPhoneSerializer < ActiveModel::Serializer
+class UserEmailSerializer < ActiveModel::Serializer
   attributes  :id,
               :number,
               :user_id,
