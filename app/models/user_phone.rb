@@ -12,7 +12,7 @@ class UserPhone < ApplicationRecord
 
   scope :unverified, -> { where(verified_at: nil) }
 
-  def verify_phone(user_supplied_code)
+  def verify(user_supplied_code)
     if (user_supplied_code.blank? || user_supplied_code.upcase != verification_code.upcase)
       errors.add(:verification_code, 'does not match.')
     elsif(last_code_generated_at < CODE_EXPIRATION_LIMIT.ago)

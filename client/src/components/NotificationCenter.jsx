@@ -3,6 +3,7 @@ import FavoriteTeamSelect from './FavoriteTeamSelect';
 import NotificationPreferenceTable from './NotificationPreferenceTable';
 import PhoneNumberForm from './PhoneNumberForm'
 import PhoneNumberListing from './PhoneNumberListing'
+import EmailCheckbox from './EmailCheckbox'
 import axios from 'axios'
 import AuthService from './AuthService'
 import '../styles/notification_center.css';
@@ -10,20 +11,31 @@ import '../styles/notification_center.css';
 class NotificationCenter extends Component {
   state = {
     phoneNumbers: [],
+    emailObjects: [],
     showPhoneForm: false
   }
   auth = new AuthService()
 
   componentDidMount(){
     this.fetchPhoneNumbers()
+    this.fetchEmails()
   }
 
   fetchPhoneNumbers = () => {
     let user_id = this.auth.getUserId()
-    axios.get(`/users/${user_id}/phones/`,
+    axios.get(`/users/${user_id}/phones`,
       { headers: { Authorization: this.auth.getToken() } }
     ).then(response => {
       this.setState({ phoneNumbers: response.data })
+    })
+  }
+
+  fetchEmails = () => {
+    let user_id = this.auth.getUserId()
+    axios.get(`/users/${user_id}/emails`,
+      { headers: { Authorization: this.auth.getToken() } }
+    ).then(response => {
+      this.setState({ emailObjects: response.data })
     })
   }
 
@@ -34,6 +46,15 @@ class NotificationCenter extends Component {
   closePhoneFormModal = () => {
     this.setState({ showPhoneForm: false })
   }
+
+  showEmailFormModal = () => {
+    this.setState({ showEmailForm: true })
+  }
+
+  closeEmailFormModal = () => {
+    this.setState({ showEmailForm: false })
+  }
+
 
   deletePhoneNumber = (phoneNumber) => {
     let user_id = this.auth.getUserId()
@@ -50,10 +71,24 @@ class NotificationCenter extends Component {
     })
   }
 
+  phoneNumberList = () => {
+    return this.state.phoneNumbers.map(function(phoneNumber, index){
+                return (
+                  <PhoneNumberListing
+                    key={phoneNumber.id}
+                    phoneNumber={phoneNumber}
+                    deletePhoneNumber={this.deletePhoneNumber}
+                    fetchPhoneNumbers={this.fetchPhoneNumbers}
+                  />
+                )
+              }, this)
+  }
+
   render() {
-    const { phoneNumbers } = this.state
+    const { phoneNumbers, emailObjects } = this.state
     const { favoriteTeams } = this.props
     let phoneNumberCount = phoneNumbers.length
+    let emailAddressCount = emailObjects.length
 
     return(
       <div className="container">
@@ -72,37 +107,51 @@ class NotificationCenter extends Component {
                 handleFavoriteTeamChange={this.props.handleFavoriteTeamChange} />
             </div>
             <div className="column">
+              <div className="phone-list">
+                <div className="level">
+                  <div className="level-left">
+                    <div className="level-item">
+                      <h3 className="subtitle">Phone Numbers</h3>
+                    </div>
+                  </div>
+                  <div className="level-right">
+                    <div className="level-item">
+                      <button
+                        className={`button is-small is-outlined is-primary ${ phoneNumberCount >= 3 ? 'is-invisible': ''}`}
+                        onClick={this.showPhoneFormModal}>Add New</button>
+                    </div>
+                  </div>
+                </div>
+
+
+                { this.phoneNumberList() }
+
+                <PhoneNumberForm
+                  hidden={!this.state.showPhoneForm}
+                  closePhoneFormModal={this.closePhoneFormModal}
+                  fetchPhoneNumbers={this.fetchPhoneNumbers}
+                />
+              </div>
+
+              <hr />
+
               <div className="level">
                 <div className="level-left">
                   <div className="level-item">
-                    <h3 className="subtitle">Phone Numbers</h3>
+                    <h3 className="subtitle">Email Addresses</h3>
                   </div>
                 </div>
                 <div className="level-right">
                   <div className="level-item">
                     <button
-                      className={`button is-small is-outlined is-primary ${ phoneNumberCount >= 3 ? 'is-invisible': ''}`}
-                      onClick={this.showPhoneFormModal}>Add New</button>
+                      className={`button is-small is-outlined is-primary ${ emailAddressCount >= 2 ? 'is-invisible': ''}`}
+                      onClick={this.showEmailFormModal}>Add New</button>
                   </div>
                 </div>
               </div>
 
 
-              { phoneNumbers.map(function(phoneNumber, index){
-                          return (
-                            <PhoneNumberListing
-                              key={phoneNumber.id}
-                              phoneNumber={phoneNumber}
-                              deletePhoneNumber={this.deletePhoneNumber}
-                              fetchPhoneNumbers={this.fetchPhoneNumbers}
-                            />
-                          )
-                        }, this)}
-              <PhoneNumberForm
-                hidden={!this.state.showPhoneForm}
-                closePhoneFormModal={this.closePhoneFormModal}
-                fetchPhoneNumbers={this.fetchPhoneNumbers}
-              />
+              <EmailCheckbox />
             </div>
           </div>
       </div>

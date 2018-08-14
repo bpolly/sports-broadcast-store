@@ -20,7 +20,7 @@ class UserPhonesController < ApplicationController
   def verify
     return unless current_user && current_user.id == params[:user_id].to_i
     user_phone = current_user.phones.find(params[:id])
-    if user_phone.verify_phone(params[:verification_code])
+    if user_phone.verify(params[:verification_code])
       render json: user_phone, status: :created
     else
       render json: user_phone.errors.full_messages, status: :bad
