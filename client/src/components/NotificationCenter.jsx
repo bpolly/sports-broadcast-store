@@ -3,7 +3,6 @@ import FavoriteTeamSelect from './FavoriteTeamSelect';
 import NotificationPreferenceTable from './NotificationPreferenceTable';
 import PhoneNumberForm from './PhoneNumberForm'
 import PhoneNumberListing from './PhoneNumberListing'
-import EmailCheckbox from './EmailCheckbox'
 import axios from 'axios'
 import AuthService from './AuthService'
 import '../styles/notification_center.css';
@@ -72,16 +71,21 @@ class NotificationCenter extends Component {
   }
 
   phoneNumberList = () => {
-    return this.state.phoneNumbers.map(function(phoneNumber, index){
-                return (
-                  <PhoneNumberListing
-                    key={phoneNumber.id}
-                    phoneNumber={phoneNumber}
-                    deletePhoneNumber={this.deletePhoneNumber}
-                    fetchPhoneNumbers={this.fetchPhoneNumbers}
-                  />
-                )
-              }, this)
+    if(this.state.phoneNumbers.length == 0) {
+      return(<div>You haven't added any phone numbers yet, add one above!</div>)
+    }
+    else {
+      return this.state.phoneNumbers.map(function(phoneNumber, index){
+                  return (
+                    <PhoneNumberListing
+                      key={phoneNumber.id}
+                      phoneNumber={phoneNumber}
+                      deletePhoneNumber={this.deletePhoneNumber}
+                      fetchPhoneNumbers={this.fetchPhoneNumbers}
+                    />
+                  )
+                }, this)
+    }
   }
 
   render() {
@@ -149,9 +153,6 @@ class NotificationCenter extends Component {
                   </div>
                 </div>
               </div>
-
-
-              <EmailCheckbox />
             </div>
           </div>
       </div>

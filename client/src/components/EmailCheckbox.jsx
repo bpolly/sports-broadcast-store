@@ -3,19 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../styles/email_checkbox.css';
 
 class EmailCheckbox extends Component {
-  state = {
-    checked: false
-  }
-
-  handleClick = () => {
-    this.setState( (state) => ({ checked : !state.checked }) )
-  }
-
   icon = () => {
-    if(this.state.checked){
+    if(this.props.is_checked){
       return(
         <FontAwesomeIcon
           icon="check-square"
+          color="green"
           size="lg"
         />
       )
@@ -23,6 +16,7 @@ class EmailCheckbox extends Component {
       return(
         <FontAwesomeIcon
           icon="square"
+          color="green"
           size="lg"
         />
       )
@@ -30,10 +24,12 @@ class EmailCheckbox extends Component {
   }
 
   render() {
+    const { is_disabled, emailAddress } = this.props
+
     return(
-      <div className="box email-checkbox" onClick={this.handleClick}>
+      <div className={`box email-checkbox ${is_disabled ? 'disabled' : ''}`} onClick={this.props.handleEmailCheckboxClick}>
         { this.icon() }
-        <span className="email-checkbox-address">Email Address</span>
+        <span className="email-checkbox-address">{emailAddress}</span>
       </div>
     )
   }

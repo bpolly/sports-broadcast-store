@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import EmailCheckbox from './EmailCheckbox'
 import { generateTeamOptions, generatePhoneNumberOptions } from '../utilities.js'
+import AuthService from './AuthService'
 import '../styles/notification_preference_row.css'
 
 class NotificationPreferenceNewRow extends Component {
@@ -11,8 +13,11 @@ class NotificationPreferenceNewRow extends Component {
     selectedTeamSlug: '',
     phoneID: '',
     callbackUrl: '',
-    email: '',
+    useEmail: '',
   }
+  auth = new AuthService()
+
+
 
   handleEditClick = () => {
     this.setState({ editing: true })
@@ -29,7 +34,7 @@ class NotificationPreferenceNewRow extends Component {
       selectedTeamSlug: this.state.selectedTeamSlug,
       user_phone_id: this.state.phoneID,
       callbackUrl: this.state.callbackUrl,
-      email: this.state.email
+      email: this.state.useEmail ? this.auth.getUserEmail() : ''
     }
     this.props.saveNewNotification(saveParams)
       .then(response => {
@@ -87,6 +92,10 @@ class NotificationPreferenceNewRow extends Component {
     if(e && e.value) this.setState({ phoneID: e.value })
   }
 
+  handleEmailCheckboxClick = () => {
+    this.setState( (state) => ({ useEmail : !state.useEmail }) )
+  }
+
   actionButton = () => {
     if(this.state.editing){
       return (
@@ -107,7 +116,7 @@ class NotificationPreferenceNewRow extends Component {
   }
 
   formRow = () => {
-    const { selectedTeamSlug, callbackUrl, email, phoneID } = this.state
+    const { selectedTeamSlug, callbackUrl, email, phoneID, useEmail } = this.state
     const { favoriteTeams, phoneNumbers } = this.props
 
     return(
@@ -144,13 +153,11 @@ class NotificationPreferenceNewRow extends Component {
           />
         </td>
         <td>
-          <input
-            className="input email-input"
-            type="text"
-            value={ email }
-            onChange={ this.handleChange }
-            name="email"
-          />
+          <EmailCheckbox
+            handleEmailCheckboxClick={this.handleEmailCheckboxClick}
+            emailAddress={this.auth.getUserEmail()}
+            is_checked={useEmail}
+            is_disabled={false}/>
         </td>
         <td>
           {this.actionButton()}

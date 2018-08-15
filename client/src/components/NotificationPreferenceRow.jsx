@@ -3,6 +3,7 @@ import '../styles/notification_preference_row.css'
 import axios from 'axios'
 import AuthService from './AuthService'
 import Select from 'react-select'
+import EmailCheckbox from './EmailCheckbox'
 import { generateTeamOptions, generatePhoneNumberOptions } from '../utilities.js'
 
 class NotificationPreferenceRow extends Component {
@@ -131,14 +132,7 @@ class NotificationPreferenceRow extends Component {
           />
         </td>
         <td>
-          <input
-            className="input email-input"
-            type="text"
-            value={ email }
-            disabled={ !editing }
-            onChange={ this.handleChange }
-            name="email"
-          />
+          <EmailCheckbox is_disabled={ !editing } />
         </td>
         <td>
           {this.actionButton()}
