@@ -93,6 +93,7 @@ class NotificationPreferenceNewRow extends Component {
   }
 
   handleEmailCheckboxClick = () => {
+    if(!this.state.editing) return
     this.setState( (state) => ({ useEmail : !state.useEmail }) )
   }
 

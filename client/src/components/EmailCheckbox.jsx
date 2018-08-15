@@ -7,7 +7,7 @@ class EmailCheckbox extends Component {
     if(this.props.is_checked){
       return(
         <FontAwesomeIcon
-          icon="check-square"
+          icon={['fas', 'check-square']}
           color="green"
           size="lg"
         />
@@ -15,8 +15,8 @@ class EmailCheckbox extends Component {
     } else {
       return(
         <FontAwesomeIcon
-          icon="square"
-          color="green"
+          icon={['far', 'square']}
+          color="#c5c5c5"
           size="lg"
         />
       )
@@ -27,7 +27,7 @@ class EmailCheckbox extends Component {
     const { is_disabled, emailAddress } = this.props
 
     return(
-      <div className={`box email-checkbox ${is_disabled ? 'disabled' : ''}`} onClick={this.props.handleEmailCheckboxClick}>
+      <div className={`button email-checkbox ${is_disabled ? 'disabled' : ''}`} onClick={this.props.handleEmailCheckboxClick}>
         { this.icon() }
         <span className="email-checkbox-address">{emailAddress}</span>
       </div>

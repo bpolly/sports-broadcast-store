@@ -70,6 +70,11 @@ class NotificationPreferenceRow extends Component {
     if(e && e.value) this.setState({ phoneID: e.value })
   }
 
+  handleEmailCheckboxClick = () => {
+    if(!this.state.editing) return
+    this.setState( (state) => ({ useEmail : !state.useEmail }) )
+  }
+
   actionButton = () => {
     if(this.state.editing){
       return (
@@ -132,7 +137,11 @@ class NotificationPreferenceRow extends Component {
           />
         </td>
         <td>
-          <EmailCheckbox is_disabled={ !editing } />
+          <EmailCheckbox
+            handleEmailCheckboxClick={this.handleEmailCheckboxClick}
+            emailAddress={this.auth.getUserEmail()}
+            is_checked={useEmail}
+            is_disabled={!editing}/>
         </td>
         <td>
           {this.actionButton()}
