@@ -11,7 +11,7 @@ class NotificationPreferenceRow extends Component {
     selectedTeamSlug: this.props.preference.team.slug || '',
     phoneID: (this.props.preference.user_phone && this.props.preference.user_phone.id) || '',
     callbackUrl: this.props.preference.callback_url || '',
-    email: this.props.preference.email || '',
+    useEmail: !!this.props.preference.email || false,
     editing: false,
     saving: false
   }
@@ -29,7 +29,7 @@ class NotificationPreferenceRow extends Component {
         team_slug: this.state.selectedTeamSlug,
         user_phone_id: this.state.phoneID,
         callback_url: this.state.callbackUrl,
-        email: this.state.email
+        use_email: this.state.useEmail
       },
       {
         headers: { Authorization: this.auth.getToken() }
@@ -47,7 +47,7 @@ class NotificationPreferenceRow extends Component {
       selectedTeamSlug: this.props.preference.team.slug || '',
       phone: this.props.preference.phone || '',
       callbackUrl: this.props.preference.callbackUrl || '',
-      email: this.props.preference.email || '',
+      useEmail: !!this.props.preference.email || false,
       editing: false
     })
   }
@@ -98,7 +98,7 @@ class NotificationPreferenceRow extends Component {
 
   render(){
     const { favoriteTeams, phoneNumbers } = this.props
-    const { editing, selectedTeamSlug, phoneID, callbackUrl, email } = this.state
+    const { editing, selectedTeamSlug, phoneID, callbackUrl, useEmail } = this.state
 
     return(
       <tr>

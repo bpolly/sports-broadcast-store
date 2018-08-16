@@ -13,11 +13,9 @@ class NotificationPreferenceNewRow extends Component {
     selectedTeamSlug: '',
     phoneID: '',
     callbackUrl: '',
-    useEmail: '',
+    useEmail: false,
   }
   auth = new AuthService()
-
-
 
   handleEditClick = () => {
     this.setState({ editing: true })
@@ -34,7 +32,7 @@ class NotificationPreferenceNewRow extends Component {
       selectedTeamSlug: this.state.selectedTeamSlug,
       user_phone_id: this.state.phoneID,
       callbackUrl: this.state.callbackUrl,
-      email: this.state.useEmail ? this.auth.getUserEmail() : ''
+      use_email: this.state.useEmail
     }
     this.props.saveNewNotification(saveParams)
       .then(response => {
@@ -44,7 +42,7 @@ class NotificationPreferenceNewRow extends Component {
           selectedTeamSlug: '',
           user_phone_id: '',
           callbackUrl: '',
-          email: ''
+          useEmail: false
         })
       })
     .catch(error =>{
@@ -57,7 +55,7 @@ class NotificationPreferenceNewRow extends Component {
       team_id: '',
       phoneID: '',
       callbackUrl: '',
-      email: '',
+      useEmail: false,
       editing: false
     })
   }
@@ -83,7 +81,7 @@ class NotificationPreferenceNewRow extends Component {
         (
           !!this.state.phoneID ||
           !!this.state.callbackUrl ||
-          !!this.state.email
+          !!this.state.useEmail
         )
       )
   }
@@ -117,7 +115,7 @@ class NotificationPreferenceNewRow extends Component {
   }
 
   formRow = () => {
-    const { selectedTeamSlug, callbackUrl, email, phoneID, useEmail } = this.state
+    const { selectedTeamSlug, callbackUrl, useEmail, phoneID } = this.state
     const { favoriteTeams, phoneNumbers } = this.props
 
     return(

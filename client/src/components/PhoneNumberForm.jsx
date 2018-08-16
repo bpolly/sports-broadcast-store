@@ -57,7 +57,6 @@ class PhoneNumberForm extends Component {
           <section className="modal-card-body">
 
             <div className="field">
-              <label className="label">Subtitle</label>
               <div className="control">
                 <input
                   name="phoneNumber"
@@ -67,7 +66,7 @@ class PhoneNumberForm extends Component {
                   value={phoneNumber}
                   onChange={this.handleChange}/>
               </div>
-              <p className="help">This is a help text</p>
+              <p className="help">Enter without punctuation</p>
             </div>
             <div className="field">
               <div className="control">

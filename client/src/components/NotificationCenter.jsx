@@ -46,15 +46,6 @@ class NotificationCenter extends Component {
     this.setState({ showPhoneForm: false })
   }
 
-  showEmailFormModal = () => {
-    this.setState({ showEmailForm: true })
-  }
-
-  closeEmailFormModal = () => {
-    this.setState({ showEmailForm: false })
-  }
-
-
   deletePhoneNumber = (phoneNumber) => {
     let user_id = this.auth.getUserId()
     return axios.delete(`/users/${user_id}/phones/` + phoneNumber.id,
@@ -127,7 +118,6 @@ class NotificationCenter extends Component {
                   </div>
                 </div>
 
-
                 { this.phoneNumberList() }
 
                 <PhoneNumberForm
@@ -135,23 +125,6 @@ class NotificationCenter extends Component {
                   closePhoneFormModal={this.closePhoneFormModal}
                   fetchPhoneNumbers={this.fetchPhoneNumbers}
                 />
-              </div>
-
-              <hr />
-
-              <div className="level">
-                <div className="level-left">
-                  <div className="level-item">
-                    <h3 className="subtitle">Email Addresses</h3>
-                  </div>
-                </div>
-                <div className="level-right">
-                  <div className="level-item">
-                    <button
-                      className={`button is-small is-outlined is-primary ${ emailAddressCount >= 2 ? 'is-invisible': ''}`}
-                      onClick={this.showEmailFormModal}>Add New</button>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
