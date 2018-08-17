@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
   def set_human_tv_network_list
     @human_tv_network_list ||= JSON.parse(File.read('lib/networkList.json'))
   end
+
+  def current_user
+    ApiRequestAuthorizer.new(request.headers).get_user
+  end
 end

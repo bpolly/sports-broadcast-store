@@ -4,24 +4,13 @@ import GameTable from './GameTable';
 import GameFilterForm from './GameFilterForm';
 import axios from 'axios';
 import moment from 'moment-timezone';
-import cookie from 'react-cookies';
 
 class Dashboard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      games: undefined,
-      filters: {},
-      favoriteTeamSlugs: [],
-      loading: false
-    };
-  }
-
-  componentWillMount() {
-    this.setState({
-      favoriteTeamSlugs: cookie.load('favoriteTeamSlugs') || []
-    });
-  }
+  state = {
+    games: undefined,
+    filters: {},
+    loading: false
+  };
 
   componentDidMount() {
     this.fetchGames();
@@ -42,7 +31,7 @@ class Dashboard extends Component {
     const { value } = event.target;
     const dateValue = value.match(/(\d)-(\w+)/);
     if(value.length !== 0){
-      let numUnits = parseInt(dateValue[1]);
+      let numUnits = parseInt(dateValue[1], 10);
       let unitName = dateValue[2];
       const targetDate = moment().add(numUnits, unitName).subtract(1, 'day').endOf('day');
       this.fetchGames(targetDate);
@@ -65,23 +54,14 @@ class Dashboard extends Component {
     }));
   }
 
-  handleFavoriteTeamChange = (teams) => {
-    this.setState(
-      {
-        favoriteTeamSlugs: teams.map((team) => team['value'])
-      }, this.saveFavoriteTeamSlugsCookie);
-  }
-
-  handleShowOnlyFavoriteTeams = (event) => {
-    const { name, value } = event.target;
-  }
-
-  saveFavoriteTeamSlugsCookie = () => {
-    cookie.save('favoriteTeamSlugs', this.state.favoriteTeamSlugs, { path: '/' })
+  favoriteTeamSlugs = () => {
+    console.log(this.props.favoriteTeams)
+    console.log(this.props.favoriteTeams.length)
+    // return this.props.favoriteTeams.map((team) => team['slug'])
   }
 
   filteredGames = () => {
-    const { games, filters, favoriteTeamSlugs } = this.state;
+    const { games, filters } = this.state;
 
     return Object.keys(filters).reduce((games, filterName) => {
       return games.filter((game) => {
@@ -98,7 +78,7 @@ class Dashboard extends Component {
             return gameAttrText.indexOf(filterText) !== -1;
           }
           else if (filters['favorite-teams-only'] === true) {
-            return (favoriteTeamSlugs.includes(game.home_team.slug) || favoriteTeamSlugs.includes(game.away_team.slug));
+            return (this.favoriteTeamSlugs().includes(game.home_team.slug) || this.favoriteTeamSlugs().includes(game.away_team.slug));
           } else {
             return game[filterName] === filters[filterName];
           }
@@ -110,7 +90,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { favoriteTeamSlugs, loading } = this.state;
+    const { loading } = this.state;
     return (
       <div className="dashboard-container">
         <div className="columns">
@@ -118,15 +98,13 @@ class Dashboard extends Component {
             <GameFilterForm
               handleFilterChange={this.handleFilterChange}
               handleDateChange={this.handleDateChange}
-              handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-              handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-              favoriteTeamSlugs={favoriteTeamSlugs}/>
+              handleFavoriteTeamChange={this.props.handleFavoriteTeamChange}
+              favoriteTeams={this.props.favoriteTeams}/>
           </div>
           <div className="column">
             <GameTable
               games={this.filteredGames()}
-              handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-              favoriteTeamSlugs={favoriteTeamSlugs}
+              favoriteTeamsSlugs={this.favoriteTeamSlugs()}
               loading={loading}/>
           </div>
         </div>

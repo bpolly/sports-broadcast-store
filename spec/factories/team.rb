@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :team do
     sequence(:name) { |n| "Team " + n }
 
@@ -14,4 +14,4 @@ FactoryGirl.define do
       league 'nfl'
     end
   end # factory :team
-end # FactoryGirl.define
+end # FactoryBot.define

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "2.3.3"
+ruby "2.4.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0'
 # Use postgresql as the database for Active Record
@@ -35,28 +35,22 @@ gem 'simple_form'
 gem 'area'
 
 gem 'rails_12factor', group: :production
-
-# Use ActiveModel has_secure_password
 gem 'bcrypt'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'watir'
-
 gem 'puma'
-gem 'pry'
+gem 'pry-byebug'
 gem 'timezone', '~> 1.0'
+gem 'jwt'
+gem 'validate_url'
+gem 'twilio-ruby'
+gem 'sendgrid-ruby'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails', '~> 3.5'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
 end
 
 group :development do

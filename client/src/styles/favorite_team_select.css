@@ -15,21 +15,21 @@ div.favorite-team-select {
   height: 100%;
 }
 
-.Select-value.favorite-team-option {
+.favorite-team-select-multiple .Select-value.favorite-team-option {
   background-color: #fc6066;
   border: 1px solid #fc6066;
   color: #fff;
 }
 
-.Select-value.favorite-team-option .Select-value-icon {
+.favorite-team-select-multiple .Select-value.favorite-team-option .Select-value-icon {
   border-right: 1px solid #db4f55;
 }
 
-.Select-value.favorite-team-option .Select-value-icon:hover,
-.Select-value.favorite-team-option .Select-value-icon:focus {
+.favorite-team-select-multiple .Select-value.favorite-team-option .Select-value-icon:hover,
+.favorite-team-select-multiple .Select-value.favorite-team-option .Select-value-icon:focus {
   color: #b50000;
 }
 
-.Select-option.is-focused {
+.favorite-team-select-multiple .Select-option.is-focused {
   background: rgba(252, 96, 102, 0.2);
 }

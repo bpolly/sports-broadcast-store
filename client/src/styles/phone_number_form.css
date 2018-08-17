@@ -1,0 +1,19 @@
+.hidden {
+  display: none;
+}
+
+#phone-activation-code {
+  max-width: 3.8em;
+}
+
+.verification-code-success-icon {
+  position: fixed;
+  top: 3.2em;
+  margin-left: 0.5em;
+}
+
+.verification-code-resend-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}

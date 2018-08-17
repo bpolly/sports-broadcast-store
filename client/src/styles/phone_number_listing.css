@@ -1,0 +1,16 @@
+.box.phone-number-listing {
+  padding: 0.75rem;
+}
+
+.box:not(:last-child).phone-number-listing {
+  margin-bottom: 0.5rem;
+}
+
+.phone-number-listing .delete {
+  margin-left: 0.3rem;
+}
+
+
+.box.phone-number-listing .level{
+  margin-bottom: 0;
+}
