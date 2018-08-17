@@ -2,14 +2,10 @@ class UserPhonesController < ApplicationController
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
 
-  def index
-    return unless current_user && current_user.id == params[:user_id].to_i
-    render json: current_user.phones.order(id: :asc), status: :ok
-  end
-
   def create
     return unless current_user && current_user.id == params[:user_id].to_i
-    user_phone = current_user.phones.new(user_phone_params)
+    user_phone = UserPhone.new(user_phone_params)
+    current_user.phone = user_phone
     if user_phone.save
       render json: user_phone, status: :created
     else
@@ -19,7 +15,7 @@ class UserPhonesController < ApplicationController
 
   def verify
     return unless current_user && current_user.id == params[:user_id].to_i
-    user_phone = current_user.phones.find(params[:id])
+    user_phone = current_user.phone
     if user_phone.verify(params[:verification_code])
       render json: user_phone, status: :created
     else
@@ -29,7 +25,7 @@ class UserPhonesController < ApplicationController
 
   def destroy
     return unless current_user && current_user.id == params[:user_id].to_i
-    user_phone = current_user.phones.find(params[:id])
+    user_phone = current_user.phone
     if user_phone.destroy
       head :ok
     else
@@ -39,7 +35,7 @@ class UserPhonesController < ApplicationController
 
   def resend_verification_code
     return unless current_user && current_user.id == params[:user_id].to_i
-    user_phone = current_user.phones.find(params[:id])
+    user_phone = current_user.phone
     if user_phone.generate_new_verification_code
       head :ok
     else

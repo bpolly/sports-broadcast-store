@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180813124156) do
+ActiveRecord::Schema.define(version: 20180817181445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,18 @@ ActiveRecord::Schema.define(version: 20180813124156) do
     t.integer  "nbc_team_id"
   end
 
+  create_table "user_emails", force: :cascade do |t|
+    t.string   "address",                null: false
+    t.datetime "verified_at"
+    t.string   "verification_code",      null: false
+    t.integer  "user_id",                null: false
+    t.datetime "last_code_generated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["address"], name: "index_user_emails_on_address", unique: true, using: :btree
+    t.index ["user_id"], name: "index_user_emails_on_user_id", unique: true, using: :btree
+  end
+
   create_table "user_favorite_teams", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "team_id"
@@ -61,13 +73,12 @@ ActiveRecord::Schema.define(version: 20180813124156) do
     t.integer  "user_id"
     t.integer  "team_id"
     t.string   "callback_url"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "user_phone_id"
-    t.string   "email"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "phone",        default: false, null: false
+    t.boolean  "email",        default: false, null: false
     t.index ["team_id"], name: "index_user_notification_preferences_on_team_id", using: :btree
     t.index ["user_id"], name: "index_user_notification_preferences_on_user_id", using: :btree
-    t.index ["user_phone_id"], name: "index_user_notification_preferences_on_user_phone_id", using: :btree
   end
 
   create_table "user_phones", force: :cascade do |t|
@@ -78,7 +89,7 @@ ActiveRecord::Schema.define(version: 20180813124156) do
     t.datetime "updated_at",             null: false
     t.datetime "last_code_generated_at", null: false
     t.datetime "verified_at"
-    t.index ["user_id"], name: "index_user_phones_on_user_id", using: :btree
+    t.index ["user_id"], name: "index_user_phones_on_user_id", unique: true, using: :btree
   end
 
   create_table "user_zip_codes", force: :cascade do |t|
@@ -90,16 +101,15 @@ ActiveRecord::Schema.define(version: 20180813124156) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email"
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "user_emails", "users"
   add_foreign_key "user_favorite_teams", "teams"
   add_foreign_key "user_favorite_teams", "users"
   add_foreign_key "user_notification_preferences", "teams"
-  add_foreign_key "user_notification_preferences", "user_phones"
   add_foreign_key "user_notification_preferences", "users"
   add_foreign_key "user_phones", "users"
 end

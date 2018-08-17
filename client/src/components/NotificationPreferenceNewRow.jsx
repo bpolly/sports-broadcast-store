@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
-import EmailCheckbox from './EmailCheckbox'
+import Checkbox from './Checkbox'
 import { generateTeamOptions, generatePhoneNumberOptions } from '../utilities.js'
 import AuthService from './AuthService'
 import '../styles/notification_preference_row.css'
@@ -9,11 +9,10 @@ class NotificationPreferenceNewRow extends Component {
   state = {
     editing: false,
     saving: false,
-    // favoriteTeams: this.props.favoriteTeams,
     selectedTeamSlug: '',
-    phoneID: '',
     callbackUrl: '',
     useEmail: false,
+    usePhone: false
   }
   auth = new AuthService()
 
@@ -32,7 +31,8 @@ class NotificationPreferenceNewRow extends Component {
       selectedTeamSlug: this.state.selectedTeamSlug,
       user_phone_id: this.state.phoneID,
       callbackUrl: this.state.callbackUrl,
-      use_email: this.state.useEmail
+      email: this.state.useEmail,
+      phone: this.state.usePhone
     }
     this.props.saveNewNotification(saveParams)
       .then(response => {
@@ -40,9 +40,9 @@ class NotificationPreferenceNewRow extends Component {
           editing: false,
           saving: false,
           selectedTeamSlug: '',
-          user_phone_id: '',
           callbackUrl: '',
-          useEmail: false
+          email: false,
+          phone: false
         })
       })
     .catch(error =>{
@@ -53,9 +53,9 @@ class NotificationPreferenceNewRow extends Component {
   handleDiscardChangesClick = () => {
     this.setState({
       team_id: '',
-      phoneID: '',
       callbackUrl: '',
       useEmail: false,
+      usePhone: false,
       editing: false
     })
   }
@@ -86,8 +86,10 @@ class NotificationPreferenceNewRow extends Component {
       )
   }
 
-  handlePhoneChange = (e) => {
-    if(e && e.value) this.setState({ phoneID: e.value })
+  handlePhoneCheckboxClick = () => {
+    console.log('hi')
+    if(!this.state.editing) return
+    this.setState( (state) => ({ usePhone : !state.usePhone }) )
   }
 
   handleEmailCheckboxClick = () => {
@@ -115,7 +117,7 @@ class NotificationPreferenceNewRow extends Component {
   }
 
   formRow = () => {
-    const { selectedTeamSlug, callbackUrl, useEmail, phoneID } = this.state
+    const { selectedTeamSlug, callbackUrl, useEmail, usePhone } = this.state
     const { favoriteTeams, phoneNumbers } = this.props
 
     return(
@@ -132,15 +134,11 @@ class NotificationPreferenceNewRow extends Component {
           />
         </td>
         <td>
-          <Select
-            className="favorite-team-select-single team-input"
-            name="phoneID"
-            options={ generatePhoneNumberOptions(phoneNumbers) }
-            closeOnSelect={ true }
-            selectedValue={ phoneID }
-            value={ phoneID }
-            onChange={ this.handlePhoneChange }
-          />
+          <Checkbox
+            handleClick={this.handlePhoneCheckboxClick}
+            label={ '1234567890' }
+            isChecked={usePhone}
+            isDisabled={false}/>
         </td>
         <td>
           <input
@@ -152,11 +150,11 @@ class NotificationPreferenceNewRow extends Component {
           />
         </td>
         <td>
-          <EmailCheckbox
-            handleEmailCheckboxClick={this.handleEmailCheckboxClick}
-            emailAddress={this.auth.getUserEmail()}
-            is_checked={useEmail}
-            is_disabled={false}/>
+          <Checkbox
+            handleClick={this.handleEmailCheckboxClick}
+            label={this.auth.getUserEmail()}
+            isChecked={useEmail}
+            isDisabled={false}/>
         </td>
         <td>
           {this.actionButton()}
