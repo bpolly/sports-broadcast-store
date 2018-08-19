@@ -6,15 +6,16 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Dashboard from './components/Dashboard'
 import Login from './components/Login'
+import Signup from './components/Signup'
 import NotificationCenter from './components/NotificationCenter'
 import cookie from 'react-cookies'
 import AuthService from './components/AuthService'
 import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSquare  } from '@fortawesome/free-regular-svg-icons';
-import { faEnvelope, faKey, faCheckCircle, faTimesCircle, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faKey, faCheckCircle, faTimesCircle, faCheckSquare, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faEnvelope, faKey, faCheckCircle, faTimesCircle, faSquare, faCheckSquare);
+library.add(faEnvelope, faKey, faCheckCircle, faTimesCircle, faSquare, faCheckSquare, faUserCircle)
 
 class App extends Component {
   state = {
@@ -43,6 +44,10 @@ class App extends Component {
 
   saveFavoriteTeamsCookie = () => {
     cookie.save('favoriteTeams', this.state.favoriteTeams, { path: '/' })
+
+
+    // <Route path="/verify/email/:emailId/:code" component={EmailVerification} />
+
   }
 
   render() {
@@ -62,6 +67,7 @@ class App extends Component {
                   />}
             />
             <Route path="/login" component={Login}/>
+            <Route path="/signup" component={Signup}/>
             <Route
               exact path="/notifications"
               render={() =>

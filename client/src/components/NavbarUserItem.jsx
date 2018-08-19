@@ -14,7 +14,15 @@ class NavbarUserItem extends Component {
     }
     else {
       return(
-        <Link to="/login" className="navbar-item">Login</Link>
+        <React.Fragment>
+          <div className="navbar-item">
+            <Link to="/login">Login</Link>
+          </div>
+          <div className="navbar-item">
+            <Link to="/signup">Signup</Link>
+          </div>
+        </React.Fragment>
+
       )
     }
   }
