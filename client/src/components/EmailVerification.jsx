@@ -35,7 +35,7 @@ class EmailVerification extends Component {
       this.setState({
         verificationSent: true,
         verificationSuccess: true,
-        message: `${this.state.email_address} verified! Please login.`
+        message: 'Success! Please login.'
       })
     })
     .catch(error => {
@@ -55,28 +55,6 @@ class EmailVerification extends Component {
         emailAddress={ this.state.emailAddress }
       />
     )
-  }
-
-  resendVerificationEmail = () => {
-    axios.post('/resend_verification', {
-      email_address: this.state.emailAddress,
-    })
-    .then(response => {
-      console.log('success')
-      this.setState({
-        verificationSent: true,
-        verificationSuccess: true,
-        message: `${this.state.email_address} verified! Please login.`
-      })
-    })
-    .catch(error => {
-      console.log(error.response)
-      this.setState({
-        verificationSent: true,
-        verificationSuccess: false,
-        message: error.response.data
-      })
-    })
   }
 
   render() {

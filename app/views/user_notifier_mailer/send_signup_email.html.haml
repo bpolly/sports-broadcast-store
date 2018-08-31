@@ -1,0 +1,9 @@
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h3
+      Welcome to Sportcasts!
+    %p
+      Please verify your email by clicking the following link:
+    %a{:href => "#{@verification_url}"} #{@verification_url}

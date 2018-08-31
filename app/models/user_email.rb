@@ -28,7 +28,7 @@ class UserEmail < ApplicationRecord
   def generate_new_verification_code
     generate_verification_code
     save
-    # send_verification_code
+    send_verification_code
   end
 
   private
@@ -38,6 +38,6 @@ class UserEmail < ApplicationRecord
   end
 
   def send_verification_code
-    EmailSender.send_activation(user_email: self)
+    ::UserNotifierMailer.send_signup_email(user: user).deliver_now
   end
 end

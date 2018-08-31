@@ -3,7 +3,6 @@ class UserEmailsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def verify
-    # binding.pry
     user_email = UserEmail.find_by!(address: params[:email_address])
     if user_email.verify(params[:verification_code])
       render json: user_email, status: :created
@@ -13,12 +12,11 @@ class UserEmailsController < ApplicationController
   end
 
   def resend_verification_code
-    return unless current_user && current_user.id == params[:user_id].to_i
-    user_email = current_user.email
+    user_email = UserEmail.find_by!(address: params[:email_address])
     if user_email.generate_new_verification_code
       head :ok
     else
-      render json: user_email.errors, status: :bad
+      render json: user_email.errors.full_messages, status: :bad
     end
   end
 

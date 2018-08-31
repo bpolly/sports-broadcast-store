@@ -45,6 +45,7 @@ gem 'jwt'
 gem 'validate_url'
 gem 'twilio-ruby'
 gem 'sendgrid-ruby'
+gem 'sendgrid-actionmailer', github: 'eddiezane/sendgrid-actionmailer'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
