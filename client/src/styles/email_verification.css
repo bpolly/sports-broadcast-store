@@ -1,0 +1,15 @@
+.box-small {
+  width: 400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.message-success {
+  color: green;
+  font-weight: 600;
+}
+
+.message-failure {
+  color: red;
+  font-weight: 600;
+}

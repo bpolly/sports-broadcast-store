@@ -3,11 +3,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './styles/bulma.css'
 import './styles/font-awesome-4.7.0/css/font-awesome.min.css'
 import './App.css'
-import Navbar from './components/Navbar'
 import Dashboard from './components/Dashboard'
+import EmailVerification from './components/EmailVerification'
 import Login from './components/Login'
-import Signup from './components/Signup'
+import Navbar from './components/Navbar'
 import NotificationCenter from './components/NotificationCenter'
+import Signup from './components/Signup'
 import cookie from 'react-cookies'
 import AuthService from './components/AuthService'
 import axios from 'axios'
@@ -66,6 +67,7 @@ class App extends Component {
                     favoriteTeams={favoriteTeams}
                   />}
             />
+            <Route path="/verify" component={EmailVerification} />
             <Route path="/login" component={Login}/>
             <Route path="/signup" component={Signup}/>
             <Route

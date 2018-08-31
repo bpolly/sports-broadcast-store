@@ -8,7 +8,6 @@ Rails.application.routes.draw do
       post 'resend_verification_code', on: :collection
     end
     resources :email, controller: 'user_emails' do
-      post 'verify', on: :collection
       post 'resend_verification_code', on: :collection
     end
   end
@@ -17,6 +16,7 @@ Rails.application.routes.draw do
   post '/zip_codes',             to: 'user_zip_codes#update'
   post '/retrieve_zip',          to: 'user_zip_codes#show'
   post '/update_favorite_teams', to: 'user_favorite_teams#update_all'
+  post '/verify_email',          to: 'user_emails#verify'
 
   resources :games
   resources :users, only: [:create]

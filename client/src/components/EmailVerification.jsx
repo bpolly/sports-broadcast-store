@@ -1,57 +1,108 @@
 import React, { Component } from 'react'
-import '../styles/dashboard.css'
-import AuthService from './AuthService'
+import { withRouter } from 'react-router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
-import '../styles/signup.css'
-
+import EmailVerificationResend from './EmailVerificationResend';
+import '../styles/email_verification.css'
+const queryString = require('query-string')
 
 class EmailVerification extends Component {
   state = {
-    email: "",
-    password: "",
-    passwordConfirmation: "",
-    loading: false,
-    errors: "",
-    signupSent: false,
-    signupSuccessful: false
+    emailAddress: '',
+    verificationCode: '',
+    verificationSent: false,
+    verificationSuccess: false,
+    message: ''
   }
-  auth = new AuthService()
 
   componentDidMount(){
-    const { match: { params } } = this.props;
-
-    axios.get(`/api/users/${params.userId}`)
-      .then(({ data: user }) => {
-        console.log('user', user);
-
-        this.setState({ user });
-      });
+    const params = queryString.parse(this.props.location.search)
+    console.log(params)
+    this.setState({
+      emailAddress: params.email_address,
+      verificationCode: params.code,
+    }, this.attemptVerification)
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-    this.setState({ loading: true, signupSent: true })
-
-    return axios.post('/users', {
-      user: {
-        password: this.state.password,
-        password_confirmation: this.state.passwordConfirmation,
-        user_email_attributes: {
-          address: this.state.email
-        }
-      }
-    }).then(response => {
-        this.setState({ loading: false, signupSuccessful: true  })
+  attemptVerification = () => {
+    console.log(this.state)
+    axios.post('/verify_email', {
+      email_address: this.state.emailAddress,
+      verification_code: this.state.verificationCode
+    })
+    .then(response => {
+      console.log('success')
+      this.setState({
+        verificationSent: true,
+        verificationSuccess: true,
+        message: `${this.state.email_address} verified! Please login.`
       })
-      .catch(error => {
-        this.setState({ loading: false, signupSuccessful: false  })
+    })
+    .catch(error => {
+      console.log(error.response)
+      this.setState({
+        verificationSent: true,
+        verificationSuccess: false,
+        message: error.response.data
       })
+    })
   }
 
+  resendVerificationLink = () => {
+    if(this.state.verificationSuccess) return
+    return(
+      <EmailVerificationResend
+        emailAddress={ this.state.emailAddress }
+      />
+    )
+  }
+
+  resendVerificationEmail = () => {
+    axios.post('/resend_verification', {
+      email_address: this.state.emailAddress,
+    })
+    .then(response => {
+      console.log('success')
+      this.setState({
+        verificationSent: true,
+        verificationSuccess: true,
+        message: `${this.state.email_address} verified! Please login.`
+      })
+    })
+    .catch(error => {
+      console.log(error.response)
+      this.setState({
+        verificationSent: true,
+        verificationSuccess: false,
+        message: error.response.data
+      })
+    })
+  }
 
   render() {
+    const { message, verificationSuccess, emailAddress } = this.state
+    return(
+      <div className="container has-text-centered">
+        <div className="box box-small">
+          <FontAwesomeIcon
+            icon={['fas', 'envelope']}
+            color="#fb5f66"
+            size="4x"
+            id="signup-icon-header"
+          />
+
+          <p>{`Verifying ${emailAddress}`}</p>
+          <p>...</p>
+
+          <p className={verificationSuccess ? 'message-success' : 'message-failure'}>{ message }</p>
+
+          <hr />
+        { this.resendVerificationLink() }
+
+        </div>
+      </div>
+    )
   }
 }
 
-export default EmailVerification
+export default withRouter(EmailVerification)

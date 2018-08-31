@@ -10,7 +10,9 @@ class UserEmail < ApplicationRecord
   scope :unverified, -> { where(verified_at: nil) }
 
   def verify(user_supplied_code)
-    if (user_supplied_code.blank? || user_supplied_code.upcase != verification_code.upcase)
+    if(verified_at.present?)
+      errors.add(:email, 'already verified.')
+    elsif(user_supplied_code.blank? || user_supplied_code.upcase != verification_code.upcase)
       errors.add(:verification_code, 'does not match.')
     elsif(last_code_generated_at < CODE_EXPIRATION_LIMIT.ago)
       errors.add(:verification_code, 'expired. Please request a new one.')
@@ -26,7 +28,7 @@ class UserEmail < ApplicationRecord
   def generate_new_verification_code
     generate_verification_code
     save
-    send_verification_code
+    # send_verification_code
   end
 
   private
@@ -36,7 +38,6 @@ class UserEmail < ApplicationRecord
   end
 
   def send_verification_code
-    # Send email
+    EmailSender.send_activation(user_email: self)
   end
-
 end

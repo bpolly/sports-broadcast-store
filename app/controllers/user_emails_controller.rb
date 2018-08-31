@@ -3,8 +3,8 @@ class UserEmailsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def verify
-    return unless current_user && current_user.id == params[:user_id].to_i
-    user_email = current_user.email
+    # binding.pry
+    user_email = UserEmail.find_by!(address: params[:email_address])
     if user_email.verify(params[:verification_code])
       render json: user_email, status: :created
     else
