@@ -28,11 +28,10 @@ class NotificationPreferenceNewRow extends Component {
     this.setState({ saving: true })
     setTimeout(function() {}, 500)
     let saveParams = {
-      selectedTeamSlug: this.state.selectedTeamSlug,
-      user_phone_id: this.state.phoneID,
-      callbackUrl: this.state.callbackUrl,
-      email: this.state.useEmail,
-      phone: this.state.usePhone
+      team_slug: this.state.selectedTeamSlug,
+      callback_url: this.state.callbackUrl,
+      use_email: this.state.useEmail,
+      use_phone: this.state.usePhone
     }
     this.props.saveNewNotification(saveParams)
       .then(response => {
@@ -41,8 +40,8 @@ class NotificationPreferenceNewRow extends Component {
           saving: false,
           selectedTeamSlug: '',
           callbackUrl: '',
-          email: false,
-          phone: false
+          useEmail: false,
+          usePhone: false
         })
       })
     .catch(error =>{
@@ -79,7 +78,7 @@ class NotificationPreferenceNewRow extends Component {
   validForm = () => {
     return !!(this.state.selectedTeamSlug &&
         (
-          !!this.state.phoneID ||
+          !!this.state.usePhone ||
           !!this.state.callbackUrl ||
           !!this.state.useEmail
         )
@@ -93,6 +92,7 @@ class NotificationPreferenceNewRow extends Component {
   }
 
   handleEmailCheckboxClick = () => {
+    console.log('hi23')
     if(!this.state.editing) return
     this.setState( (state) => ({ useEmail : !state.useEmail }) )
   }
@@ -118,7 +118,7 @@ class NotificationPreferenceNewRow extends Component {
 
   formRow = () => {
     const { selectedTeamSlug, callbackUrl, useEmail, usePhone } = this.state
-    const { favoriteTeams, phoneNumbers } = this.props
+    const { favoriteTeams, phoneNumber } = this.props
 
     return(
       <tr>

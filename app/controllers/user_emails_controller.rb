@@ -2,6 +2,15 @@ class UserEmailsController < ApplicationController
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
 
+  def show
+    return unless current_user && current_user.id == params[:user_id].to_i
+    if current_user.email
+      render json: current_user.email, status: :ok
+    else
+      render json: {}, status: :ok
+    end
+  end
+
   def verify
     user_email = UserEmail.find_by!(address: params[:email_address])
     if user_email.verify(params[:verification_code])

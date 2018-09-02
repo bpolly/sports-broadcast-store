@@ -29,8 +29,8 @@ class NotificationPreferenceRow extends Component {
         team_slug: this.state.selectedTeamSlug,
         user_phone_id: this.state.phoneID,
         callback_url: this.state.callbackUrl,
-        email: this.state.useEmail,
-        phone: this.state.usePhone
+        use_email: this.state.useEmail,
+        use_phone: this.state.usePhone
       },
       {
         headers: { Authorization: this.auth.getToken() }
@@ -73,7 +73,7 @@ class NotificationPreferenceRow extends Component {
     this.setState( (state) => ({ usePhone : !state.usePhone }) )
   }
 
-  handleCheckboxClick = () => {
+  handleEmailCheckboxClick = () => {
     if(!this.state.editing) return
     this.setState( (state) => ({ useEmail : !state.useEmail }) )
   }
@@ -100,7 +100,7 @@ class NotificationPreferenceRow extends Component {
   }
 
   render(){
-    const { favoriteTeams, phoneNumbers } = this.props
+    const { favoriteTeams, phoneNumber } = this.props
     const { editing, selectedTeamSlug, callbackUrl, useEmail, usePhone } = this.state
 
     return(

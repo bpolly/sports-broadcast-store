@@ -12,8 +12,8 @@ export function generateTeamOptions(teams) {
   });
 }
 
-export function generatePhoneNumberOptions(phoneNumbers) {
-  return phoneNumbers.filter(phoneNumber => phoneNumber.verified).map(function(phoneNumber) {
+export function generatePhoneNumberOptions(phoneNumber) {
+  return phoneNumber.filter(phoneNumber => phoneNumber.verified).map(function(phoneNumber) {
     let tmp = {}
     tmp['value'] = phoneNumber.id
     tmp['label'] = phoneNumber.number

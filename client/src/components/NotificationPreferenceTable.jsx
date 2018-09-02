@@ -8,7 +8,7 @@ import '../styles/notification_center.css'
 class NotificationPreferenceTable extends Component {
   state = {
     currentNotificationPreferences: [],
-    userPhoneNumbers: []
+    userphoneNumber: []
   }
   auth = new AuthService()
 
@@ -25,13 +25,7 @@ class NotificationPreferenceTable extends Component {
   }
 
   saveNewNotification = (params) => {
-    return axios.post('/user_notification_preferences',
-      {
-        team_slug: params['selectedTeamSlug'],
-        user_phone_id: params['user_phone_id'],
-        callback_url: params['callbackUrl'],
-        email: params['email']
-      },
+    return axios.post('/user_notification_preferences', params,
       {
         headers: { Authorization: this.auth.getToken() }
       }
@@ -61,7 +55,7 @@ class NotificationPreferenceTable extends Component {
 
   render() {
     let preferences = this.state.currentNotificationPreferences
-    const { favoriteTeams, phoneNumbers } = this.props
+    const { favoriteTeams, phoneNumber } = this.props
     return(
       <div className="">
         <table className="table is-fullwidth">
@@ -77,14 +71,14 @@ class NotificationPreferenceTable extends Component {
             { preferences.map(function(preference, index){
                         return <NotificationPreferenceRow
                                   favoriteTeams={favoriteTeams}
-                                  phoneNumbers={phoneNumbers}
+                                  phoneNumber={phoneNumber}
                                   preference={preference}
                                   key={preference.id}
                                   deleteNotification={this.deleteNotification} />;
                       }, this)}
             <NotificationPreferenceNewRow
               favoriteTeams={favoriteTeams}
-              phoneNumbers={phoneNumbers}
+              phoneNumber={phoneNumber}
               saveNewNotification={this.saveNewNotification}
               onFocus={this.onFocus}
             />

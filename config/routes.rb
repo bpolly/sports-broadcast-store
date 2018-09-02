@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   resources :users do
-    resources :phone, controller: 'user_phones' do
+    resource :phone, controller: 'user_phones' do
       post 'verify', on: :collection
       post 'resend_verification_code', on: :collection
     end
-    resources :email, controller: 'user_emails' do
+    resource :email, controller: 'user_emails' do
       post 'resend_verification_code', on: :collection
     end
   end
