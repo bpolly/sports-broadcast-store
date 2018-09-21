@@ -7,7 +7,7 @@ class UserPhonesController < ApplicationController
     if current_user.phone
       render json: current_user.phone, status: :ok
     else
-      render json: {}, status: :ok
+      render json: nil, status: :ok
     end
   end
 
