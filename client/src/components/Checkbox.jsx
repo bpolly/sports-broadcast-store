@@ -23,11 +23,16 @@ class Checkbox extends Component {
     }
   }
 
+  clickOverride = () => {
+    if(this.props.isDisabled) return
+    this.props.handleClick()
+  }
+
   render() {
     const { isDisabled, label } = this.props
 
     return(
-      <div className={`button email-checkbox ${isDisabled ? 'disabled' : ''}`} onClick={this.props.handleClick}>
+      <div className={`button email-checkbox ${isDisabled ? 'disabled' : ''}`} onClick={this.clickOverride}>
         { this.icon() }
         <span className="email-checkbox-address">{label}</span>
       </div>

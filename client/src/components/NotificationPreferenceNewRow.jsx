@@ -136,9 +136,9 @@ class NotificationPreferenceNewRow extends Component {
         <td>
           <Checkbox
             handleClick={this.handlePhoneCheckboxClick}
-            label={ '1234567890' }
+            label={ phoneNumber ? phoneNumber.number : 'Add a phone number below!' }
             isChecked={usePhone}
-            isDisabled={false}/>
+            isDisabled={!phoneNumber}/>
         </td>
         <td>
           <input
