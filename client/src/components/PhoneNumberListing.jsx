@@ -58,7 +58,7 @@ class PhoneNumberListing extends Component {
           hidden={!this.state.showPhoneForm}
           closePhoneFormModal={this.closePhoneFormModal}
           phoneNumber={phoneNumber}
-          fetchphoneNumber={this.props.fetchphoneNumber}
+          fetchPhoneNumber={this.props.fetchPhoneNumber}
         />
       </div>
     )

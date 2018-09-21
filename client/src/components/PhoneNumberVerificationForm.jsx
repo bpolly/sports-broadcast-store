@@ -28,7 +28,7 @@ class PhoneNumberVerificationForm extends Component {
     this.setState({ verificationCodeChecked: true })
 
     let user_id = this.auth.getUserId()
-    axios.post(`/users/${user_id}/phone/${this.props.phoneNumberID}/verify`,
+    axios.post(`/users/${user_id}/phone/verify`,
       {
         verification_code: this.state.verificationCode
       },
@@ -36,7 +36,7 @@ class PhoneNumberVerificationForm extends Component {
         headers: { Authorization: this.auth.getToken() }
       }
     ).then(response => {
-      this.props.fetchphoneNumber()
+      this.props.fetchPhoneNumber()
       this.setState({ verificationSuccess: true, verificationMessage: 'Success! Redirecting...' })
       setTimeout(this.props.closePhoneFormModal, 1500)
 

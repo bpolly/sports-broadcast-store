@@ -16,11 +16,11 @@ class NotificationCenter extends Component {
   auth = new AuthService()
 
   componentDidMount(){
-    this.fetchphoneNumber()
+    this.fetchPhoneNumber()
     this.fetchEmails()
   }
 
-  fetchphoneNumber = () => {
+  fetchPhoneNumber = () => {
     let user_id = this.auth.getUserId()
     axios.get(`/users/${user_id}/phone`,
       { headers: { Authorization: this.auth.getToken() } }
@@ -48,13 +48,12 @@ class NotificationCenter extends Component {
 
   deletePhoneNumber = (phoneNumber) => {
     let user_id = this.auth.getUserId()
-    return axios.delete(`/users/${user_id}/phone/` + phoneNumber.id,
+    return axios.delete(`/users/${user_id}/phone/`,
       {
         headers: { Authorization: this.auth.getToken() }
       }
     ).then(response => {
-      let filteredArray = this.state.phoneNumber.filter(item => item !== phoneNumber)
-      this.setState({phoneNumber: filteredArray})
+      this.setState({phoneNumber: null})
     })
     .catch(error =>{
       // do something with error
@@ -69,7 +68,7 @@ class NotificationCenter extends Component {
           key={phoneNumber.id}
           phoneNumber={phoneNumber}
           deletePhoneNumber={this.deletePhoneNumber}
-          fetchphoneNumber={this.fetchphoneNumber}
+          fetchPhoneNumber={this.fetchPhoneNumber}
         />
       )
     }

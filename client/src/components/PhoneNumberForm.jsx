@@ -31,7 +31,7 @@ class PhoneNumberForm extends Component {
       }
     ).then(response => {
       this.setState({ verificationSent: true, phoneNumberID: response.data['id'] })
-      this.props.fetchphoneNumber()
+      this.props.fetchPhoneNumber()
     })
     .catch(error =>{
       // do something with error
@@ -76,7 +76,7 @@ class PhoneNumberForm extends Component {
             <PhoneNumberVerificationForm
               phoneNumberID={phoneNumberID}
               closePhoneFormModal={this.props.closePhoneFormModal}
-              fetchphoneNumber={this.props.fetchphoneNumber}
+              fetchPhoneNumber={this.props.fetchPhoneNumber}
             />
           </section>
         </div>

@@ -1,12 +1,11 @@
 class UserPhone < ApplicationRecord
   belongs_to :user
-  has_many :user_notification_preferences
   validates :number, presence: true,
                     numericality: true,
                     length: { minimum: 10, maximum: 15 }
   before_create :generate_verification_code
   before_save :strip_non_numbers
-  after_commit :send_verification_code
+  after_create :send_verification_code
   after_destroy :update_notification_preferences
 
   CODE_EXPIRATION_LIMIT = 1.hour
@@ -48,6 +47,6 @@ class UserPhone < ApplicationRecord
   end
 
   def update_notification_preferences
-    user_notification_preferences.sms.update(phone: false)
+    user.notification_preferences.update(phone: false)
   end
 end
