@@ -40,7 +40,7 @@ class Signup extends Component {
         this.setState({ loading: false, signupSuccessful: true  })
       })
       .catch(error => {
-        this.setState({ loading: false, signupSuccessful: false  })
+        this.setState({ loading: false, signupSuccessful: false, errors: error.response.data })
       })
   }
 
