@@ -11,6 +11,7 @@ module TwilioClient
           to: to,
           from: FROM_PHONE_NUMBER)
       puts message.sid
+      message.sid
     end
   end
 end

@@ -10,6 +10,7 @@ class PhoneNumberVerificationForm extends Component {
     verificationCode: '',
     verificationSuccess: false,
     verificationCodeChecked: false,
+    verificationCodeCheckInProgress: false,
     verificationMessage: ''
   }
   auth = new AuthService()
@@ -25,7 +26,11 @@ class PhoneNumberVerificationForm extends Component {
       this.setState({ verificationCodeChecked: false, verificationMessage: '' })
     }
     if(this.state.verificationCode.length !== 4) return
-    this.setState({ verificationCodeChecked: true })
+    this.initiateVerificationCheck()
+  }
+
+  initiateVerificationCheck = () => {
+    this.setState({ verificationCodeCheckInProgress: true })
 
     let user_id = this.auth.getUserId()
     axios.post(`/users/${user_id}/phone/verify`,
@@ -35,20 +40,35 @@ class PhoneNumberVerificationForm extends Component {
       {
         headers: { Authorization: this.auth.getToken() }
       }
-    ).then(response => {
-      this.props.fetchPhoneNumber()
-      this.setState({ verificationSuccess: true, verificationMessage: 'Success! Redirecting...' })
-      setTimeout(this.props.closePhoneFormModal, 1500)
+    ).then(this.handleVerificationSuccess)
+    .catch(error => {
+      this.handleVerificationFailure(error)
+    })
+    .then(() => {
+          this.setState({ verificationCodeCheckInProgress: false })
+    })
+  }
 
+  handleVerificationSuccess = () => {
+    this.props.fetchPhoneNumber()
+    this.setState({
+      verificationCodeChecked: true,
+      verificationSuccess: true,
+      verificationMessage: 'Success! Redirecting...'
     })
-    .catch(error =>{
-      this.setState({ verificationSuccess: false, verificationMessage: error.response.data })
-    })
+    setTimeout(this.props.closePhoneFormModal, 1500)
+  }
+
+  handleVerificationFailure = (error) => {
+    this.setState({
+      verificationCodeChecked: true,
+      verificationSuccess: false,
+      verificationMessage: error.response.data })
   }
 
   resendNewCode = () => {
     let user_id = this.auth.getUserId()
-    axios.post(`/users/${user_id}/phone/${this.props.phoneNumberID}/resend_verification_code`,
+    axios.post(`/users/${user_id}/phone/resend_verification_code`,
       {},
       {
         headers: { Authorization: this.auth.getToken() }
@@ -62,8 +82,18 @@ class PhoneNumberVerificationForm extends Component {
   }
 
   resultIcon = () => {
-    const { verificationSuccess, verificationCodeChecked } = this.state
-    if(verificationCodeChecked && verificationSuccess){
+    const { verificationSuccess, verificationCodeChecked, verificationCodeCheckInProgress } = this.state
+    if(verificationCodeCheckInProgress) {
+      return(
+        <FontAwesomeIcon
+          icon="spinner"
+          color="#6DB65B"
+          size="lg"
+          className="verification-code-success-icon fa-spin"
+        />
+      )
+    }
+    else if(verificationCodeChecked && verificationSuccess) {
       return(
         <FontAwesomeIcon
           icon="check-circle"
@@ -73,7 +103,7 @@ class PhoneNumberVerificationForm extends Component {
         />
       )
     }
-    else if(verificationCodeChecked && !verificationSuccess){
+    else if(verificationCodeChecked && !verificationSuccess) {
       return(
         <FontAwesomeIcon
           icon="times-circle"

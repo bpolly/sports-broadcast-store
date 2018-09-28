@@ -14,9 +14,9 @@ import AuthService from './components/AuthService'
 import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSquare  } from '@fortawesome/free-regular-svg-icons';
-import { faEnvelope, faLock, faCheckCircle, faTimesCircle, faCheckSquare, faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faLock, faCheckCircle, faTimesCircle, faCheckSquare, faUserCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faEnvelope, faLock, faCheckCircle, faTimesCircle, faSquare, faCheckSquare, faUserCircle)
+library.add(faEnvelope, faLock, faCheckCircle, faTimesCircle, faSquare, faCheckSquare, faUserCircle, faSpinner)
 
 class App extends Component {
   state = {
