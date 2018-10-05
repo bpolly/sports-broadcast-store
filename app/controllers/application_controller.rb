@@ -16,4 +16,8 @@ class ApplicationController < ActionController::Base
   def not_found(_e)
     render json: _e.to_s, status: :not_found
   end
+
+  def fallback_index_html
+    render :file => 'public/index.html'
+  end
 end
