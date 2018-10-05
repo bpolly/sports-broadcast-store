@@ -11,7 +11,7 @@ class UserNotifierMailer < ActionMailer::Base
   private
 
   def verification_url(user_email:)
-    host = Rails.env.development? ? 'http://localhost:3005' : 'http://sportcasts.com'
+    host = Rails.env.development? ? 'http://localhost:3005' : 'http://sportcasts.io'
     "#{host}/verify?email_address=#{user_email.address}&code=#{user_email.verification_code}"
   end
 end
