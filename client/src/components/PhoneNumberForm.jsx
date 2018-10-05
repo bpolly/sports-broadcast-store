@@ -38,6 +38,18 @@ class PhoneNumberForm extends Component {
     })
   }
 
+  PhoneNumberVerificationForm = () => {
+    const { phoneNumberID } = this.state
+    if(phoneNumberID) return(
+      <PhoneNumberVerificationForm
+        phoneNumberID={phoneNumberID}
+        closePhoneFormModal={this.props.closePhoneFormModal}
+        fetchPhoneNumber={this.props.fetchPhoneNumber}
+      />
+    )
+  }
+
+
   render() {
     const { hidden } = this.props
     const { phoneNumber, phoneNumberID } = this.state
@@ -73,11 +85,7 @@ class PhoneNumberForm extends Component {
                 <button className="button is-primary" onClick={this.handleSaveClick}>Submit</button>
               </div>
             </div>
-            <PhoneNumberVerificationForm
-              phoneNumberID={phoneNumberID}
-              closePhoneFormModal={this.props.closePhoneFormModal}
-              fetchPhoneNumber={this.props.fetchPhoneNumber}
-            />
+            { this.PhoneNumberVerificationForm() }
           </section>
         </div>
       </div>

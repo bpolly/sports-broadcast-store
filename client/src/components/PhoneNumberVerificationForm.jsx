@@ -120,7 +120,7 @@ class PhoneNumberVerificationForm extends Component {
     const { verificationCode, verificationMessage } = this.state
 
     return(
-      <div className="box animated fadeInDown" style={{display: !!phoneNumberID ? '' : 'none'}}>
+      <div className="box animated fadeInDown">
         <div className="field" style={{ textAlign: 'center' }}>
           <label className="label">Enter Verification Code</label>
           <input
