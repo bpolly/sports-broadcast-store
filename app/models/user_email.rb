@@ -3,7 +3,7 @@ class UserEmail < ApplicationRecord
   has_many :user_notification_preferences
   validates :address, presence: true
   before_create :generate_verification_code
-  after_commit :send_verification_code
+  after_create :send_verification_code
 
   CODE_EXPIRATION_LIMIT = 1.hour
 
