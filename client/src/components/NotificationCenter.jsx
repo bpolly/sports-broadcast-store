@@ -1,37 +1,37 @@
-import React, { Component } from 'react';
-import FavoriteTeamSelect from './FavoriteTeamSelect';
-import NotificationPreferenceTable from './NotificationPreferenceTable';
+import React, { Component } from 'react'
+import FavoriteTeamSelect from './FavoriteTeamSelect'
+import NotificationPreferenceTable from './NotificationPreferenceTable'
 import PhoneNumberForm from './PhoneNumberForm'
 import PhoneNumberListing from './PhoneNumberListing'
 import axios from 'axios'
 import AuthService from './AuthService'
-import '../styles/notification_center.css';
+import '../styles/notification_center.css'
 
 class NotificationCenter extends Component {
   state = {
-    phoneNumbers: [],
+    phoneNumber: null,
     emailObjects: [],
     showPhoneForm: false
   }
   auth = new AuthService()
 
   componentDidMount(){
-    this.fetchPhoneNumbers()
+    this.fetchPhoneNumber()
     this.fetchEmails()
   }
 
-  fetchPhoneNumbers = () => {
+  fetchPhoneNumber = () => {
     let user_id = this.auth.getUserId()
-    axios.get(`/users/${user_id}/phones`,
+    axios.get(`/users/${user_id}/phone`,
       { headers: { Authorization: this.auth.getToken() } }
     ).then(response => {
-      this.setState({ phoneNumbers: response.data })
+      this.setState({ phoneNumber: response.data })
     })
   }
 
   fetchEmails = () => {
     let user_id = this.auth.getUserId()
-    axios.get(`/users/${user_id}/emails`,
+    axios.get(`/users/${user_id}/email`,
       { headers: { Authorization: this.auth.getToken() } }
     ).then(response => {
       this.setState({ emailObjects: response.data })
@@ -48,13 +48,12 @@ class NotificationCenter extends Component {
 
   deletePhoneNumber = (phoneNumber) => {
     let user_id = this.auth.getUserId()
-    return axios.delete(`/users/${user_id}/phones/` + phoneNumber.id,
+    return axios.delete(`/users/${user_id}/phone/`,
       {
         headers: { Authorization: this.auth.getToken() }
       }
     ).then(response => {
-      let filteredArray = this.state.phoneNumbers.filter(item => item !== phoneNumber)
-      this.setState({phoneNumbers: filteredArray});
+      this.setState({phoneNumber: null})
     })
     .catch(error =>{
       // do something with error
@@ -62,27 +61,25 @@ class NotificationCenter extends Component {
   }
 
   phoneNumberList = () => {
-    if(this.state.phoneNumbers.length == 0) {
-      return(<div>You haven't added any phone numbers yet, add one above!</div>)
+    const { phoneNumber } = this.state
+    if(phoneNumber) {
+      return(
+        <PhoneNumberListing
+          key={phoneNumber.id}
+          phoneNumber={phoneNumber}
+          deletePhoneNumber={this.deletePhoneNumber}
+          fetchPhoneNumber={this.fetchPhoneNumber}
+        />
+      )
     }
     else {
-      return this.state.phoneNumbers.map(function(phoneNumber, index){
-                  return (
-                    <PhoneNumberListing
-                      key={phoneNumber.id}
-                      phoneNumber={phoneNumber}
-                      deletePhoneNumber={this.deletePhoneNumber}
-                      fetchPhoneNumbers={this.fetchPhoneNumbers}
-                    />
-                  )
-                }, this)
+      return(<div>You haven't added any phone numbers yet, add one above!</div>)
     }
   }
 
   render() {
-    const { phoneNumbers, emailObjects } = this.state
+    const { phoneNumber, emailObjects } = this.state
     const { favoriteTeams } = this.props
-    let phoneNumberCount = phoneNumbers.length
     let emailAddressCount = emailObjects.length
 
     return(
@@ -91,7 +88,7 @@ class NotificationCenter extends Component {
         <h3 className="subtitle">Team Alerts</h3>
         <NotificationPreferenceTable
           favoriteTeams={favoriteTeams}
-          phoneNumbers={phoneNumbers}
+          phoneNumber={phoneNumber}
         />
         <hr />
           <div className="columns">
@@ -112,7 +109,7 @@ class NotificationCenter extends Component {
                   <div className="level-right">
                     <div className="level-item">
                       <button
-                        className={`button is-small is-outlined is-primary ${ phoneNumberCount >= 3 ? 'is-invisible': ''}`}
+                        className={`button is-small is-outlined is-primary ${ phoneNumber == null ? ''  : 'is-invisible'}`}
                         onClick={this.showPhoneFormModal}>Add New</button>
                     </div>
                   </div>
@@ -123,7 +120,7 @@ class NotificationCenter extends Component {
                 <PhoneNumberForm
                   hidden={!this.state.showPhoneForm}
                   closePhoneFormModal={this.closePhoneFormModal}
-                  fetchPhoneNumbers={this.fetchPhoneNumbers}
+                  fetchPhoneNumber={this.fetchPhoneNumber}
                 />
               </div>
             </div>
@@ -133,4 +130,4 @@ class NotificationCenter extends Component {
   }
 }
 
-export default NotificationCenter;
+export default NotificationCenter

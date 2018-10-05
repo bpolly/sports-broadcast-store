@@ -22,7 +22,7 @@ class PhoneNumberForm extends Component {
   handleSaveClick = () => {
     this.setState({ verificationSent: true })
     let user_id = this.auth.getUserId()
-    axios.post(`/users/${user_id}/phones`,
+    axios.post(`/users/${user_id}/phone`,
       {
         number: this.state.phoneNumber
       },
@@ -31,12 +31,24 @@ class PhoneNumberForm extends Component {
       }
     ).then(response => {
       this.setState({ verificationSent: true, phoneNumberID: response.data['id'] })
-      this.props.fetchPhoneNumbers()
+      this.props.fetchPhoneNumber()
     })
     .catch(error =>{
       // do something with error
     })
   }
+
+  PhoneNumberVerificationForm = () => {
+    const { phoneNumberID } = this.state
+    if(phoneNumberID) return(
+      <PhoneNumberVerificationForm
+        phoneNumberID={phoneNumberID}
+        closePhoneFormModal={this.props.closePhoneFormModal}
+        fetchPhoneNumber={this.props.fetchPhoneNumber}
+      />
+    )
+  }
+
 
   render() {
     const { hidden } = this.props
@@ -73,11 +85,7 @@ class PhoneNumberForm extends Component {
                 <button className="button is-primary" onClick={this.handleSaveClick}>Submit</button>
               </div>
             </div>
-            <PhoneNumberVerificationForm
-              phoneNumberID={phoneNumberID}
-              closePhoneFormModal={this.props.closePhoneFormModal}
-              fetchPhoneNumbers={this.props.fetchPhoneNumbers}
-            />
+            { this.PhoneNumberVerificationForm() }
           </section>
         </div>
       </div>

@@ -3,18 +3,20 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './styles/bulma.css'
 import './styles/font-awesome-4.7.0/css/font-awesome.min.css'
 import './App.css'
-import Navbar from './components/Navbar'
 import Dashboard from './components/Dashboard'
+import EmailVerification from './components/EmailVerification'
 import Login from './components/Login'
+import Navbar from './components/Navbar'
 import NotificationCenter from './components/NotificationCenter'
+import Signup from './components/Signup'
 import cookie from 'react-cookies'
 import AuthService from './components/AuthService'
 import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSquare  } from '@fortawesome/free-regular-svg-icons';
-import { faEnvelope, faKey, faCheckCircle, faTimesCircle, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faLock, faCheckCircle, faTimesCircle, faCheckSquare, faUserCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faEnvelope, faKey, faCheckCircle, faTimesCircle, faSquare, faCheckSquare);
+library.add(faEnvelope, faLock, faCheckCircle, faTimesCircle, faSquare, faCheckSquare, faUserCircle, faSpinner)
 
 class App extends Component {
   state = {
@@ -43,6 +45,10 @@ class App extends Component {
 
   saveFavoriteTeamsCookie = () => {
     cookie.save('favoriteTeams', this.state.favoriteTeams, { path: '/' })
+
+
+    // <Route path="/verify/email/:emailId/:code" component={EmailVerification} />
+
   }
 
   render() {
@@ -61,7 +67,9 @@ class App extends Component {
                     favoriteTeams={favoriteTeams}
                   />}
             />
+            <Route path="/verify" component={EmailVerification} />
             <Route path="/login" component={Login}/>
+            <Route path="/signup" component={Signup}/>
             <Route
               exact path="/notifications"
               render={() =>

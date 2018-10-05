@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import '../styles/game_table.css';
-import GameRow from './GameRow';
-import Loading from './Loading';
-import moment from 'moment-timezone';
+import React, { Component } from 'react'
+import '../styles/game_table.css'
+import GameRow from './GameRow'
+import Loading from './Loading'
+import moment from 'moment-timezone'
 
 class GameTable extends Component {
   render() {
-    const { games, favoriteTeamSlugs, loading } = this.props;
+    const { games, favoriteTeamSlugs, loading } = this.props
     if(!this.props.games || loading) {
       return(
         <Loading />
-      );
+      )
     }
     return (
       <table id="game-table" className="table is-striped is-fullwidth">
@@ -29,8 +29,8 @@ class GameTable extends Component {
           { games.map(game => <GameRow key={game.id} game={game} favoriteTeamSlugs={favoriteTeamSlugs}/>) }
         </tbody>
       </table>
-    );
+    )
   }
 }
 
-export default GameTable;
+export default GameTable

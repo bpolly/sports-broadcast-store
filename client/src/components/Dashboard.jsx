@@ -57,7 +57,7 @@ class Dashboard extends Component {
   favoriteTeamSlugs = () => {
     console.log(this.props.favoriteTeams)
     console.log(this.props.favoriteTeams.length)
-    // return this.props.favoriteTeams.map((team) => team['slug'])
+    return this.props.favoriteTeams.map((team) => team['slug'])
   }
 
   filteredGames = () => {
@@ -104,7 +104,7 @@ class Dashboard extends Component {
           <div className="column">
             <GameTable
               games={this.filteredGames()}
-              favoriteTeamsSlugs={this.favoriteTeamSlugs()}
+              favoriteTeamSlugs={this.favoriteTeamSlugs()}
               loading={loading}/>
           </div>
         </div>

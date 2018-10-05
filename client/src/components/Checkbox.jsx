@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import '../styles/email_checkbox.css';
+import '../styles/checkbox.css'
 
-class EmailCheckbox extends Component {
+class Checkbox extends Component {
   icon = () => {
-    if(this.props.is_checked){
+    if(this.props.isChecked){
       return(
         <FontAwesomeIcon
           icon={['fas', 'check-square']}
@@ -23,17 +23,22 @@ class EmailCheckbox extends Component {
     }
   }
 
+  clickOverride = () => {
+    if(this.props.isDisabled) return
+    this.props.handleClick()
+  }
+
   render() {
-    const { is_disabled, emailAddress } = this.props
+    const { isDisabled, label } = this.props
 
     return(
-      <div className={`button email-checkbox ${is_disabled ? 'disabled' : ''}`} onClick={this.props.handleEmailCheckboxClick}>
+      <div className={`button email-checkbox ${isDisabled ? 'disabled' : ''}`} onClick={this.clickOverride}>
         { this.icon() }
-        <span className="email-checkbox-address">{emailAddress}</span>
+        <span className="email-checkbox-address">{label}</span>
       </div>
     )
   }
 
 }
 
-export default EmailCheckbox
+export default Checkbox

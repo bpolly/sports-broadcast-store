@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import '../styles/dashboard.css';
+import '../styles/login.css';
 import AuthService from './AuthService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Login extends Component {
   state = {
@@ -32,50 +33,63 @@ class Login extends Component {
       })
   }
 
+  formContent = () => {
+    return(
+      <form className="login-form" onSubmit={this.handleSubmit}>
+        <div className="field">
+          <p className="control has-icons-left has-icons-right">
+            <input
+              className="input"
+              type="email"
+              placeholder="Email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+            <span className="icon is-small is-left">
+              <FontAwesomeIcon icon={['fas', 'envelope']} />
+            </span>
+          </p>
+        </div>
+        <div className="field">
+          <p className="control has-icons-left">
+            <input
+              className="input"
+              type="password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+            <span className="icon is-small is-left">
+              <FontAwesomeIcon icon={['fas', 'lock']} />
+            </span>
+          </p>
+        </div>
+        <div className="field">
+          <p className="control">
+            <button className="button is-success">
+              Login
+            </button>
+            { this.state.errors }
+          </p>
+        </div>
+      </form>
+    )
+  }
+
   render() {
     return (
-      <div className="container">
-        <form className="login-form" onSubmit={this.handleSubmit}>
-          <div className="field">
-            <p className="control has-icons-left has-icons-right">
-              <input
-                className="input"
-                type="email"
-                placeholder="Email"
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-              <span className="icon is-small is-left">
-                <i className="fas fa-envelope"></i>
-              </span>
-              <span className="icon is-small is-right">
-                <i className="fas fa-check"></i>
-              </span>
-            </p>
-          </div>
-          <div className="field">
-            <p className="control has-icons-left">
-              <input
-                className="input"
-                type="password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-              <span className="icon is-small is-left">
-                <i className="fas fa-lock"></i>
-              </span>
-            </p>
-          </div>
-          <div className="field">
-            <p className="control">
-              <button className="button is-success">
-                Login
-              </button>
-              { this.state.errors }
-            </p>
-          </div>
-        </form>
+      <div className="container container-login">
+        <div className="box">
+          <FontAwesomeIcon
+            icon={['fas', 'user-circle']}
+            color="#fb5f66"
+            size="4x"
+            id="signup-icon-header"
+          />
+
+          { this.formContent() }
+
+        </div>
       </div>
     );
   }

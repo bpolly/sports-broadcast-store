@@ -1,12 +1,12 @@
 class UserPhone < ApplicationRecord
   belongs_to :user
-  has_many :user_notification_preferences
   validates :number, presence: true,
                     numericality: true,
                     length: { minimum: 10, maximum: 15 }
   before_create :generate_verification_code
   before_save :strip_non_numbers
   after_create :send_verification_code
+  after_destroy :update_notification_preferences
 
   CODE_EXPIRATION_LIMIT = 1.hour
 
@@ -27,6 +27,10 @@ class UserPhone < ApplicationRecord
   end
 
   def generate_new_verification_code
+    if(last_code_generated_at > 5.minutes.ago)
+      errors.add(:throttle_activated, 'You must wait at least 5 minutes in between resends')
+      return false
+    end
     generate_verification_code
     save
     send_verification_code
@@ -44,5 +48,9 @@ class UserPhone < ApplicationRecord
 
   def send_verification_code
     TwilioClient.send_sms(to: number, body: "Your Sportcasts verification code is #{verification_code}")
+  end
+
+  def update_notification_preferences
+    user.notification_preferences.update(phone: false)
   end
 end

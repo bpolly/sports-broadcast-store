@@ -22,6 +22,21 @@ export default class AuthService {
         })
     }
 
+    createUser(email, password, passwordConfirmation) {
+      return axios.post('/users', {
+        user: {
+          password: password,
+          password_confirmation: passwordConfirmation,
+          user_email_attributes: {
+            address: email
+          }
+        }
+      }).then(response => {
+          this.setToken(response.data.access_token)
+          return Promise.resolve(response);
+        })
+    }
+
     loggedIn() {
         // Checks if there is a saved token and it's still valid
         const token = this.getToken() // GEtting token from localstorage

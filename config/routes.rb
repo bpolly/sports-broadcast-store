@@ -3,9 +3,12 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   resources :users do
-    resources :phones, controller: 'user_phones' do
-      post 'verify', on: :member
-      post 'resend_verification_code', on: :member
+    resource :phone, controller: 'user_phones' do
+      post 'verify', on: :collection
+      post 'resend_verification_code', on: :collection
+    end
+    resource :email, controller: 'user_emails' do
+      post 'resend_verification_code', on: :collection
     end
   end
   get  '/scrape/:league',        to: 'games#scrape'
@@ -13,6 +16,7 @@ Rails.application.routes.draw do
   post '/zip_codes',             to: 'user_zip_codes#update'
   post '/retrieve_zip',          to: 'user_zip_codes#show'
   post '/update_favorite_teams', to: 'user_favorite_teams#update_all'
+  post '/verify_email',          to: 'user_emails#verify'
 
   resources :games
   resources :users, only: [:create]
