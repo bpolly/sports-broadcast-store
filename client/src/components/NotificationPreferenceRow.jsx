@@ -82,7 +82,11 @@ class NotificationPreferenceRow extends Component {
     if(this.state.editing){
       return (
         <div>
-          <button className={`button is-success ${this.state.saving ? 'is-loading' : ''}`} onClick={this.handleSaveClick}>Save</button>
+          <button
+            className={`button is-success ${this.state.saving ? 'is-loading' : ''}`}
+            onClick={this.handleSaveClick}
+            disabled={ !(this.state.useEmail || this.state.usePhone) }
+          >Save</button>
           <button className="button" onClick={this.handleDiscardChangesClick}>Cancel</button>
         </div>
       )
@@ -122,7 +126,7 @@ class NotificationPreferenceRow extends Component {
           handleClick={ this.handlePhoneCheckboxClick }
           label={ phoneNumber ? phoneNumber.number : 'Add a phone number below!' }
           isChecked={ usePhone }
-          isDisabled={ !editing }/>
+          isDisabled={ !editing || !phoneNumber }/>
         </td>
         <td>
           <input
