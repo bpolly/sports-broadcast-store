@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styles/login.css';
+import '../styles/login.scss';
 import AuthService from './AuthService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

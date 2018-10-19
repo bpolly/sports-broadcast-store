@@ -3,7 +3,7 @@ import axios from 'axios'
 import NotificationPreferenceRow from './NotificationPreferenceRow'
 import NotificationPreferenceNewRow from './NotificationPreferenceNewRow'
 import AuthService from './AuthService'
-import '../styles/notification_center.css'
+import '../styles/notification_center.scss'
 
 class NotificationPreferenceTable extends Component {
   state = {

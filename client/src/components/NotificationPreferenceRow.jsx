@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../styles/notification_preference_row.css'
+import '../styles/notification_preference_row.scss'
 import axios from 'axios'
 import AuthService from './AuthService'
 import Select from 'react-select'
@@ -82,12 +82,12 @@ class NotificationPreferenceRow extends Component {
     if(this.state.editing){
       return (
         <div>
+          <button className="button" onClick={this.handleDiscardChangesClick}>Cancel</button>
           <button
             className={`button is-success ${this.state.saving ? 'is-loading' : ''}`}
             onClick={this.handleSaveClick}
             disabled={ !(this.state.useEmail || this.state.usePhone) }
           >Save</button>
-          <button className="button" onClick={this.handleDiscardChangesClick}>Cancel</button>
         </div>
       )
     }

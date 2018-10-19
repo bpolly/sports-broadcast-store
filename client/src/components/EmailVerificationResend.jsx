@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
-import '../styles/email_verification.css'
+import '../styles/email_verification.scss'
 const queryString = require('query-string')
 
 class EmailVerificationResend extends Component {

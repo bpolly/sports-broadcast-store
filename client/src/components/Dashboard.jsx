@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import '../styles/dashboard.css';
+// import '../styles/dashboard.scss';
 import GameTable from './GameTable';
 import GameFilterForm from './GameFilterForm';
 import axios from 'axios';

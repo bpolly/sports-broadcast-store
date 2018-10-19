@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../images/sportcasts-logo.png';
-import '../styles/navbar.css';
+import '../styles/navbar.scss';
 import NavbarUserItem from './NavbarUserItem';
 
 class Navbar extends Component {

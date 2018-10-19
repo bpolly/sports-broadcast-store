@@ -5,7 +5,7 @@ import PhoneNumberForm from './PhoneNumberForm'
 import PhoneNumberListing from './PhoneNumberListing'
 import axios from 'axios'
 import AuthService from './AuthService'
-import '../styles/notification_center.css'
+import '../styles/notification_center.scss'
 
 class NotificationCenter extends Component {
   state = {

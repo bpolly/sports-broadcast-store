@@ -3,7 +3,7 @@ import Select from 'react-select'
 import Checkbox from './Checkbox'
 import { generateTeamOptions, generatePhoneNumberOptions } from '../utilities.js'
 import AuthService from './AuthService'
-import '../styles/notification_preference_row.css'
+import '../styles/notification_preference_row.scss'
 
 class NotificationPreferenceNewRow extends Component {
   state = {

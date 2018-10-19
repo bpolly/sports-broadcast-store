@@ -3,7 +3,7 @@ import PhoneNumberVerificationForm from './PhoneNumberVerificationForm'
 import axios from 'axios';
 import AuthService from './AuthService';
 import '../styles/animate.css';
-import '../styles/phone_number_form.css';
+import '../styles/phone_number_form.scss';
 
 class PhoneNumberForm extends Component {
   state = {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import '../styles/checkbox.css'
+import '../styles/checkbox.scss'
 
 class Checkbox extends Component {
   icon = () => {

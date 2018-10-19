@@ -3,7 +3,7 @@ import { generateTeamOptions } from '../utilities.js'
 import axios from 'axios'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
-import '../styles/favorite_team_select.css'
+import '../styles/favorite_team_select.scss'
 
 class FavoriteTeamSelect extends Component {
   state = {

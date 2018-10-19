@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import '../styles/dashboard.css'
+import '../styles/dashboard.scss'
 import AuthService from './AuthService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
-import '../styles/signup.css'
+import '../styles/signup.scss'
 
 
 class Signup extends Component {

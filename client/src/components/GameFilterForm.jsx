@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FavoriteTeamSelect from './FavoriteTeamSelect';
-import '../styles/game_filter_form.css';
+import '../styles/game_filter_form.scss';
 
 class GameFilterForm extends Component {
   render() {

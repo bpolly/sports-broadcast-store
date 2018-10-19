@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../styles/game_table.css'
+import '../styles/game_table.scss'
 import GameRow from './GameRow'
 import Loading from './Loading'
 import moment from 'moment-timezone'

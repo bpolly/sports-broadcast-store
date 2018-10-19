@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PhoneNumberForm from './PhoneNumberForm'
-import '../styles/phone_number_listing.css'
+import '../styles/phone_number_listing.scss'
 
 class PhoneNumberListing extends Component {
   state = {
