@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../images/sportcasts-logo.png';
-import '../styles/navbar.scss';
-import NavbarUserItem from './NavbarUserItem';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import logo from '../images/sportcasts-logo.png'
+import '../styles/navbar.scss'
+import NavbarUserItem from './NavbarUserItem'
+import stripes from '../images/color-stripes.svg'
 
 class Navbar extends Component {
   render() {
     return (
       <nav className="navbar" aria-label="main navigation">
         <div className="navbar-brand">
+          <img src={stripes} className="navbar-stripes" alt="stripes" />
           <Link to="/" className="navbar-item">
             <img id="logo" src={logo} alt="Logo" />
           </Link>
@@ -26,8 +28,8 @@ class Navbar extends Component {
           </div>
         </div>
       </nav>
-    );
+    )
   }
 }
 
-export default Navbar;
+export default Navbar

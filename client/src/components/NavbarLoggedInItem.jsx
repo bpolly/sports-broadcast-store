@@ -14,8 +14,8 @@ class NavbarLoggedInItem extends Component {
     const userEmail = this.auth.getUserEmail()
 
     return(
-      <div className="navbar-item has-dropdown is-hoverable dropdown-right">
-        <a className="navbar-link" href="#">
+      <div className="navbar-item has-dropdown is-hoverable dropdown-right" id="navbar-email-dropdown">
+        <a className="navbar-link" href="#" >
           { userEmail }
         </a>
         <div className="navbar-dropdown is-boxed">

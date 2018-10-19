@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import NavbarLoggedInItem from './NavbarLoggedInItem'
 import AuthService from './AuthService'
+import '../styles/navbar.scss'
 
 class NavbarUserItem extends Component {
   auth = new AuthService()
