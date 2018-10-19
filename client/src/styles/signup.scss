@@ -4,22 +4,23 @@
   margin-bottom: 17px;
 }
 
+.signup-info-column {
+  .card-header {
+    background: #fb5f66;
 
-.signup-info-column .card-header {
-  background: #fb5f66;
-}
+    .card-header-title {
+      background: #fb5f66;
+      color: white;
+    }
+  }
 
-.signup-info-column .card-header .card-header-title {
-  background: #fb5f66;
-  color: white;
-}
+  .card-content {
+    background: #fff9f9;
+  }
 
-.signup-info-column .card-content {
-  background: #fff9f9;
-}
-
-.signup-info-column .box {
-  border-right: 0;
+  .box {
+    border-right: 0;
+  }
 }
 
 .signup-form-column .box {
