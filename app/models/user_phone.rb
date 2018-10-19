@@ -2,6 +2,7 @@ class UserPhone < ApplicationRecord
   belongs_to :user
   validates :number, presence: true,
                     numericality: true,
+                    uniqueness: true,
                     length: { minimum: 10, maximum: 15 }
   before_create :generate_verification_code
   before_save :strip_non_numbers

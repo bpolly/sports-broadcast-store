@@ -1,7 +1,7 @@
 class UserEmail < ApplicationRecord
   belongs_to :user
   has_many :user_notification_preferences
-  validates :address, presence: true
+  validates :address, presence: true, uniqueness: true
   before_create :generate_verification_code
   after_create :send_verification_code
 
