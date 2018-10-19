@@ -9,8 +9,8 @@ class Navbar extends Component {
   render() {
     return (
       <nav className="navbar" aria-label="main navigation">
+        <img src={stripes} className="navbar-stripes" alt="stripes" />
         <div className="navbar-brand">
-          <img src={stripes} className="navbar-stripes" alt="stripes" />
           <Link to="/" className="navbar-item">
             <img id="logo" src={logo} alt="Logo" />
           </Link>
