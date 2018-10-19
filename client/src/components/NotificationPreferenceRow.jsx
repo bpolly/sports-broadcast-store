@@ -11,7 +11,7 @@ class NotificationPreferenceRow extends Component {
     selectedTeamSlug: this.props.preference.team.slug || '',
     callbackUrl: this.props.preference.callback_url || '',
     useEmail: !!this.props.preference.email || false,
-    usePhone: !!this.props.preference.phone || false,
+    usePhone: !!this.props.preference.phoneNumber || false,
     editing: false,
     saving: false
   }
@@ -120,7 +120,7 @@ class NotificationPreferenceRow extends Component {
         <td>
         <Checkbox
           handleClick={ this.handlePhoneCheckboxClick }
-          label={ '1234567890' }
+          label={ phoneNumber ? phoneNumber.number : 'Add a phone number below!' }
           isChecked={ usePhone }
           isDisabled={ !editing }/>
         </td>
