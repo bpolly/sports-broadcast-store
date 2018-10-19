@@ -116,7 +116,6 @@ class PhoneNumberVerificationForm extends Component {
   }
 
   render() {
-    const { phoneNumberID } = this.props
     const { verificationCode, verificationMessage } = this.state
 
     return(

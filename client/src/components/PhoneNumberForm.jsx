@@ -52,7 +52,7 @@ class PhoneNumberForm extends Component {
 
   render() {
     const { hidden } = this.props
-    const { phoneNumber, phoneNumberID } = this.state
+    const { phoneNumber } = this.state
 
     return(
       <div className={`modal ${hidden ? '' : 'is-active'}`} >

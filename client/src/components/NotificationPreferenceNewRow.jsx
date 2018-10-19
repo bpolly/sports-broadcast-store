@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
 import Checkbox from './Checkbox'
-import { generateTeamOptions, generatePhoneNumberOptions } from '../utilities.js'
+import { generateTeamOptions } from '../utilities.js'
 import AuthService from './AuthService'
 import '../styles/notification_preference_row.scss'
 

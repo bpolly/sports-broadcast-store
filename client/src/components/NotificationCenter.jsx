@@ -80,7 +80,6 @@ class NotificationCenter extends Component {
   render() {
     const { phoneNumber, emailObjects } = this.state
     const { favoriteTeams } = this.props
-    let emailAddressCount = emailObjects.length
 
     return(
       <div className="container">
