@@ -33,6 +33,7 @@ class FavoriteTeamSelect extends Component {
           onChange={ handleFavoriteTeamChange }
           options={ teamOptions }
           isMulti={true}
+          isClearable={false}
           closeMenuOnSelect={true}
         />
       </div>
