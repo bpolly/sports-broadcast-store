@@ -9,7 +9,6 @@ import Login from './components/Login'
 import Navbar from './components/Navbar'
 import NotificationCenter from './components/NotificationCenter'
 import Signup from './components/Signup'
-import cookie from 'react-cookies'
 import AuthService from './components/AuthService'
 import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -41,14 +40,6 @@ class App extends Component {
     ).then(response => {
       this.setState({ favoriteTeams: response.data })
     })
-  }
-
-  saveFavoriteTeamsCookie = () => {
-    cookie.save('favoriteTeams', this.state.favoriteTeams, { path: '/' })
-
-
-    // <Route path="/verify/email/:emailId/:code" component={EmailVerification} />
-
   }
 
   render() {

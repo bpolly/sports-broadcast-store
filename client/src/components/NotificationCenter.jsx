@@ -78,7 +78,7 @@ class NotificationCenter extends Component {
   }
 
   render() {
-    const { phoneNumber, emailObjects } = this.state
+    const { phoneNumber } = this.state
     const { favoriteTeams } = this.props
 
     return(
