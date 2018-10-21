@@ -22,7 +22,7 @@ class Navbar extends Component {
           </button>
         </div>
 
-        <div id="navbarExampleTransparentExample" className="navbar-menu">
+        <div className="navbar-menu">
           <div className="navbar-end">
             <NavbarUserItem />
           </div>

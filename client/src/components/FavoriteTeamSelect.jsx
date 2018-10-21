@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { generateTeamOptions } from '../utilities.js'
 import axios from 'axios'
 import Select from 'react-select'
-import 'react-select/dist/react-select.css'
 import '../styles/favorite_team_select.scss'
 
 class FavoriteTeamSelect extends Component {
@@ -23,7 +22,7 @@ class FavoriteTeamSelect extends Component {
     const { teams } = this.state
     const { favoriteTeams, handleFavoriteTeamChange } = this.props
     const teamOptions = generateTeamOptions(teams)
-    const favoriteTeamSlugs = favoriteTeams.map((team) => team['slug'])
+    const favoriteTeamSlugs = generateTeamOptions(favoriteTeams)
 
     return(
       <div id="favorite-team-select-container flex-grow">
@@ -33,8 +32,8 @@ class FavoriteTeamSelect extends Component {
           value={ favoriteTeamSlugs }
           onChange={ handleFavoriteTeamChange }
           options={ teamOptions }
-          multi={true}
-          closeOnSelect={true}
+          isMulti={true}
+          closeMenuOnSelect={true}
         />
       </div>
     )
