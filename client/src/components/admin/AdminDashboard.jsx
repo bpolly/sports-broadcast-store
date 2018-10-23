@@ -8,7 +8,12 @@ class AdminDashboard extends Component {
   render() {
     return(
       <div id="admin-dashboard">
-        <AdminSidebar />
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <AdminSidebar />
+          </div>
+          { this.props.selectedPage }
+          </div>
       </div>
     )
   }
