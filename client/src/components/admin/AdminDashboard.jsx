@@ -7,13 +7,8 @@ import moment from 'moment-timezone';
 class AdminDashboard extends Component {
   render() {
     return(
-      <div id="admin-dashboard">
-        <div class="columns">
-          <div class="column is-one-quarter">
-            <AdminSidebar />
-          </div>
-          { this.props.selectedPage }
-          </div>
+      <div id="admin-dashboard" style={{"background": '#bbbbbb'}}>
+        Some metrics will go here
       </div>
     )
   }

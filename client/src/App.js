@@ -10,6 +10,7 @@ import Navbar from './components/Navbar'
 import NotificationCenter from './components/NotificationCenter'
 import Signup from './components/Signup'
 import AuthService from './components/AuthService'
+import AdminLayout from './components/admin/AdminLayout'
 import AdminDashboard from './components/admin/AdminDashboard'
 import AdminSidebar from './components/admin/AdminSidebar'
 import axios from 'axios'
@@ -74,9 +75,10 @@ class App extends Component {
             <Route
               path="/admin"
               render={() =>
-                  <AdminDashboard
-                    selectedPage={ <Signup /> }
-                  />}
+                  <AdminLayout>
+                    <AdminDashboard />
+                  </AdminLayout>
+                }
             />
             <Route render={() => (<div>
                 Sorry, this page does not exist.
