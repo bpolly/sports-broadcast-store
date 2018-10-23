@@ -7,7 +7,7 @@ import moment from 'moment-timezone';
 class AdminLayout extends Component {
   render() {
     return(
-      <div id="admin-layout">
+      <div id="admin-layout" className="container is-fluid">
         <div class="columns">
           <div class="column is-one-fifth">
             <AdminSidebar />
