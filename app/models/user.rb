@@ -12,4 +12,8 @@ class User < ApplicationRecord
   alias_attribute :notification_preferences, :user_notification_preferences
 
   accepts_nested_attributes_for :user_email
+
+  def admin?
+    email.address == "something@test.com"
+  end
 end

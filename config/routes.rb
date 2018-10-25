@@ -25,7 +25,9 @@ Rails.application.routes.draw do
   end
   resources :user_notification_preferences, only: [:index, :create, :destroy, :update]
   resources  :user_favorite_teams
-
+  namespace :admin do
+    resources :users
+  end
 
   # Sessions
   get    '/login',  to: 'sessions#new'

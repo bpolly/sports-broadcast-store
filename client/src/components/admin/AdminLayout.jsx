@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import '../../styles/admin/layout.scss';
 import AdminSidebar from './AdminSidebar';
-import axios from 'axios';
-import moment from 'moment-timezone';
 
 class AdminLayout extends Component {
   render() {
     return(
       <div id="admin-layout" className="container is-fluid">
-        <div class="columns">
-          <div class="column is-one-fifth">
+        <div className="columns">
+          <div className="column is-one-fifth">
             <AdminSidebar />
           </div>
-          <div class="column">
+          <div className="column">
           { this.props.children }
           </div>
         </div>

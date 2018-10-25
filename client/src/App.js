@@ -12,6 +12,7 @@ import Signup from './components/Signup'
 import AuthService from './components/AuthService'
 import AdminLayout from './components/admin/AdminLayout'
 import AdminDashboard from './components/admin/AdminDashboard'
+import AdminUsers from './components/admin/AdminUsers'
 import AdminSidebar from './components/admin/AdminSidebar'
 import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -73,10 +74,19 @@ class App extends Component {
                   />}
             />
             <Route
+              exact
               path="/admin"
               render={() =>
                   <AdminLayout>
                     <AdminDashboard />
+                  </AdminLayout>
+                }
+            />
+            <Route
+              path="/admin/users"
+              render={() =>
+                  <AdminLayout>
+                    <AdminUsers />
                   </AdminLayout>
                 }
             />

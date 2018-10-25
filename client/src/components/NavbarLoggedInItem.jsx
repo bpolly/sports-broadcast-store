@@ -23,6 +23,9 @@ class NavbarLoggedInItem extends Component {
           <NavLink className="navbar-item" to="/notifications">
             Notification Preferences
           </NavLink>
+          <NavLink className="navbar-item" to="/admin">
+            Admin
+          </NavLink>
           <hr className="navbar-divider" />
           <a className="navbar-item" onClick={this.handleLogout}>
             Logout
