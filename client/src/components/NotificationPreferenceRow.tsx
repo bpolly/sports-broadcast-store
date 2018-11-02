@@ -5,13 +5,31 @@ import AuthService from './AuthService'
 import Select from 'react-select'
 import Checkbox from './Checkbox'
 import { generateTeamOptions } from '../utilities.js'
+import { PhoneNumber, Preference, Team } from '../types/sportcast_types'
 
-class NotificationPreferenceRow extends Component {
+type NotificationPreferenceRowProps = {
+  favoriteTeams: Array<Team>;
+  saveNewNotification: (object) => Promise<any>;
+  phoneNumber: PhoneNumber;
+  preference: Preference;
+  deleteNotification: (Preference) => void;
+}
+
+type NotificationPreferenceRowState = {
+  editing: boolean;
+  saving: boolean;
+  selectedTeamSlug: string;
+  callback_url: string;
+  useEmail: boolean;
+  usePhone: boolean;
+}
+
+class NotificationPreferenceRow extends Component<NotificationPreferenceRowProps, NotificationPreferenceRowState> {
   state = {
     selectedTeamSlug: this.props.preference.team.slug || '',
-    callbackUrl: this.props.preference.callback_url || '',
+    callback_url: this.props.preference.callback_url || '',
     useEmail: !!this.props.preference.email || false,
-    usePhone: !!this.props.preference.phoneNumber || false,
+    usePhone: !!this.props.preference.phone || false,
     editing: false,
     saving: false
   }
@@ -27,8 +45,7 @@ class NotificationPreferenceRow extends Component {
     axios.patch('/user_notification_preferences/' + this.props.preference.id,
       {
         team_slug: this.state.selectedTeamSlug,
-        user_phone_id: this.state.phoneID,
-        callback_url: this.state.callbackUrl,
+        callback_url: this.state.callback_url,
         use_email: this.state.useEmail,
         use_phone: this.state.usePhone
       },
@@ -46,8 +63,7 @@ class NotificationPreferenceRow extends Component {
   handleDiscardChangesClick = () => {
     this.setState({
       selectedTeamSlug: this.props.preference.team.slug || '',
-      phone: this.props.preference.phone || '',
-      callbackUrl: this.props.preference.callbackUrl || '',
+      callback_url: this.props.preference.callback_url || '',
       useEmail: !!this.props.preference.email || false,
       usePhone: !!this.props.preference.phone || false,
       editing: false
@@ -105,7 +121,7 @@ class NotificationPreferenceRow extends Component {
 
   render(){
     const { favoriteTeams, phoneNumber } = this.props
-    const { editing, selectedTeamSlug, callbackUrl, useEmail, usePhone } = this.state
+    const { editing, selectedTeamSlug, callback_url, useEmail, usePhone } = this.state
 
     return(
       <tr>
@@ -132,10 +148,10 @@ class NotificationPreferenceRow extends Component {
           <input
             className="input callback-url-input"
             type="text"
-            value={ callbackUrl }
+            value={ callback_url }
             disabled={ !editing }
             onChange={ this.handleChange }
-            name="callbackUrl"
+            name="callback_url"
           />
         </td>
         <td>

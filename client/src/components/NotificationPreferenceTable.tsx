@@ -4,11 +4,20 @@ import NotificationPreferenceRow from './NotificationPreferenceRow'
 import NotificationPreferenceNewRow from './NotificationPreferenceNewRow'
 import AuthService from './AuthService'
 import '../styles/notification_center.scss'
+import { PhoneNumber, Team } from '../types/sportcast_types'
 
-class NotificationPreferenceTable extends Component {
+type NotificationPreferenceTableProps = {
+  favoriteTeams: Array<Team>;
+  phoneNumber: PhoneNumber;
+}
+
+type NotificationPreferenceTableState = {
+  currentNotificationPreferences: Array<any>;
+}
+
+class NotificationPreferenceTable extends Component<NotificationPreferenceTableProps, NotificationPreferenceTableState> {
   state = {
     currentNotificationPreferences: [],
-    userphoneNumber: []
   }
   auth = new AuthService()
 

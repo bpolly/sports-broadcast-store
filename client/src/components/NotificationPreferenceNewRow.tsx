@@ -4,8 +4,24 @@ import Checkbox from './Checkbox'
 import { generateTeamOptions } from '../utilities.js'
 import AuthService from './AuthService'
 import '../styles/notification_preference_row.scss'
+import { Team, PhoneNumber } from '../types/sportcast_types'
 
-class NotificationPreferenceNewRow extends Component {
+type NotificationPreferenceNewRowProps = {
+  favoriteTeams: Array<Team>;
+  saveNewNotification: (object) => Promise<any>;
+  phoneNumber: PhoneNumber;
+}
+
+type NotificationPreferenceNewRowState = {
+  editing: boolean;
+  saving: boolean;
+  selectedTeamSlug: string;
+  callbackUrl: string;
+  useEmail: boolean;
+  usePhone: boolean;
+}
+
+class NotificationPreferenceNewRow extends Component<NotificationPreferenceNewRowProps, NotificationPreferenceNewRowState> {
   state = {
     editing: false,
     saving: false,
@@ -51,7 +67,7 @@ class NotificationPreferenceNewRow extends Component {
 
   handleDiscardChangesClick = () => {
     this.setState({
-      team_id: '',
+      selectedTeamSlug: '',
       callbackUrl: '',
       useEmail: false,
       usePhone: false,
@@ -166,7 +182,7 @@ class NotificationPreferenceNewRow extends Component {
   buttonRow = () => {
     return(
       <tr>
-        <td colSpan="5" style={{"textAlign": 'center'}}>
+        <td colSpan={5} style={{"textAlign": 'center'}}>
           <button className="button" onClick={this.handleNewNotificationClick}>Add New</button>
         </td>
       </tr>

@@ -7,11 +7,6 @@ export interface Game {
   id: number;
 }
 
-export interface Team {
-  name: string;
-  slug: string;
-}
-
 export interface PhoneNumber {
   created_at: string;
   id: number;
@@ -21,4 +16,17 @@ export interface PhoneNumber {
   user_id: number;
   verified: boolean;
   verified_at: string;
+}
+
+export interface Preference {
+  callback_url: string;
+  email: boolean;
+  id: number;
+  phone: boolean;
+  team: Team;
+}
+
+export interface Team {
+  name: string;
+  slug: string;
 }

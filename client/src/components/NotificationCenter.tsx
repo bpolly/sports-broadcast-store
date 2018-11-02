@@ -6,8 +6,21 @@ import PhoneNumberListing from './PhoneNumberListing'
 import axios from 'axios'
 import AuthService from './AuthService'
 import '../styles/notification_center.scss'
+import { PhoneNumber, Team } from '../types/sportcast_types'
 
-class NotificationCenter extends Component {
+type NotificationCenterProps = {
+  favoriteTeams: Array<Team>;
+  handleFavoriteTeamChange: () => void;
+}
+
+type NotificationCenterState = {
+  phoneNumber: PhoneNumber | null;
+  emailObjects: Array<any>;
+  showPhoneForm: boolean;
+}
+
+
+class NotificationCenter extends Component<NotificationCenterProps, NotificationCenterState> {
   state = {
     phoneNumber: null,
     emailObjects: [],
