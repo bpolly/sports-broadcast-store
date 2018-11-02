@@ -101,7 +101,6 @@ class Signup extends Component {
             </p>
           </div>
         </form>
-
       )
     }
     else {
@@ -137,12 +136,13 @@ class Signup extends Component {
         </div>
           <div className="column signup-form-column">
             <div className="box">
-              <FontAwesomeIcon
-                icon={['fas', 'user-circle']}
-                color="#fb5f66"
-                size="4x"
-                id="signup-icon-header"
-              />
+              <span id="signup-icon-header">
+                <FontAwesomeIcon
+                  icon={['fas', 'user-circle']}
+                  color="#fb5f66"
+                  size="4x"
+                />
+              </span>
 
               { this.formContent() }
 

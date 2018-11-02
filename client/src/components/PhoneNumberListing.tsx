@@ -1,15 +1,22 @@
 import React, { Component } from 'react'
 import PhoneNumberForm from './PhoneNumberForm'
 import '../styles/phone_number_listing.scss'
+import { PhoneNumber } from '../types/sportcast_types'
 
-class PhoneNumberListing extends Component {
+type PhoneNumberListingProps = {
+  phoneNumber: PhoneNumber;
+  deletePhoneNumber: () => void;
+  fetchPhoneNumber: () => void;
+}
+
+class PhoneNumberListing extends Component<PhoneNumberListingProps> {
   state = {
     showPhoneForm: false
   }
 
   handleDeleteClick = () => {
     if (!window.confirm(`Are you sure you wish to delete phone number ${this.props.phoneNumber.number}?`)) return
-    this.props.deletePhoneNumber(this.props.phoneNumber)
+    this.props.deletePhoneNumber()
   }
 
   verificationStatusTag = () => {

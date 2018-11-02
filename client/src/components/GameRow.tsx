@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 import moment from 'moment-timezone'
 import { Game } from '../types/sportcast_types'
 
-class GameRow extends Component<{game: Game, favoriteTeamSlugs: Array<string> }> {
+interface GameRowProps {
+  game: Game;
+  favoriteTeamSlugs: Array<string>;
+}
+
+class GameRow extends Component<GameRowProps> {
   isFavoriteTeam = (game: Game) => {
     let teamSlugs = this.props.favoriteTeamSlugs || []
     return (teamSlugs.includes(game.home_team.slug) || teamSlugs.includes(game.away_team.slug))

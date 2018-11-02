@@ -46,7 +46,7 @@ class NotificationCenter extends Component {
     this.setState({ showPhoneForm: false })
   }
 
-  deletePhoneNumber = (phoneNumber) => {
+  deletePhoneNumber = () => {
     let user_id = this.auth.getUserId()
     return axios.delete(`/users/${user_id}/phone/`,
       {

@@ -3,8 +3,16 @@ import '../styles/game_table.scss'
 import GameRow from './GameRow'
 import Loading from './Loading'
 import moment from 'moment-timezone'
+import { Game } from '../types/sportcast_types'
 
-class GameTable extends Component {
+interface GameTableProps {
+  games: Array<Game>;
+  favoriteTeamSlugs: Array<string>;
+  loading: boolean
+}
+
+
+class GameTable extends Component<GameTableProps> {
   render() {
     const { games, favoriteTeamSlugs, loading } = this.props
     if(!this.props.games || loading) {

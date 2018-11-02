@@ -4,12 +4,20 @@ import axios from 'axios'
 import AuthService from './AuthService'
 import '../styles/animate.css'
 import '../styles/phone_number_form.scss'
+import { PhoneNumber } from '../types/sportcast_types'
 
-class PhoneNumberForm extends Component {
+type PhoneNumberFormProps = {
+  phoneNumber?: PhoneNumber;
+  closePhoneFormModal: () => void;
+  fetchPhoneNumber: () => void;
+  hidden: boolean;
+}
+
+class PhoneNumberForm extends Component<PhoneNumberFormProps> {
   state = {
-    phoneNumber: (this.props.phoneNumber && this.props.phoneNumber.number) || '',
+    phoneNumber: (this.props.phoneNumber && this.props.phoneNumber.number) || null,
     verificationSent: false,
-    phoneNumberID: (this.props.phoneNumber && this.props.phoneNumber.id) || '',
+    phoneNumberID: (this.props.phoneNumber && this.props.phoneNumber.id) || null,
   }
   auth = new AuthService()
 
@@ -42,7 +50,6 @@ class PhoneNumberForm extends Component {
     const { phoneNumberID } = this.state
     if(phoneNumberID) return(
       <PhoneNumberVerificationForm
-        phoneNumberID={phoneNumberID}
         closePhoneFormModal={this.props.closePhoneFormModal}
         fetchPhoneNumber={this.props.fetchPhoneNumber}
       />
