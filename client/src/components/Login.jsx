@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import '../styles/login.scss';
-import AuthService from './AuthService';
+import React, { Component } from 'react'
+import '../styles/login.scss'
+import AuthService from './AuthService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Login extends Component {
@@ -15,12 +15,12 @@ class Login extends Component {
   handleChange = (e) => {
     this.setState({
       [e.target.type]: e.target.value
-    });
+    })
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
-    this.setState({ loading: true });
+    e.preventDefault()
+    this.setState({ loading: true })
     this.auth.login(this.state.email, this.state.password)
       .then(response =>{
         this.setState({ errors: 'Success! Redirecting home.' })
@@ -91,8 +91,8 @@ class Login extends Component {
 
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Login;
+export default Login

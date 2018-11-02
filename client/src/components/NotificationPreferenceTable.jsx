@@ -46,7 +46,7 @@ class NotificationPreferenceTable extends Component {
       }
     ).then(response => {
       let filteredArray = this.state.currentNotificationPreferences.filter(item => item !== preference)
-      this.setState({currentNotificationPreferences: filteredArray});
+      this.setState({currentNotificationPreferences: filteredArray})
     })
     .catch(error =>{
       // do something with error
@@ -74,7 +74,7 @@ class NotificationPreferenceTable extends Component {
                                   phoneNumber={phoneNumber}
                                   preference={preference}
                                   key={preference.id}
-                                  deleteNotification={this.deleteNotification} />;
+                                  deleteNotification={this.deleteNotification} />
                       }, this)}
             <NotificationPreferenceNewRow
               favoriteTeams={favoriteTeams}
@@ -89,4 +89,4 @@ class NotificationPreferenceTable extends Component {
   }
 }
 
-export default NotificationPreferenceTable;
+export default NotificationPreferenceTable

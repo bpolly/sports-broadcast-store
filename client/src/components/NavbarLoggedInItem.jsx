@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
+import { NavLink } from 'react-router-dom'
 import AuthService from './AuthService'
 
 class NavbarLoggedInItem extends Component {
@@ -19,9 +20,12 @@ class NavbarLoggedInItem extends Component {
           { userEmail }
         </a>
         <div className="navbar-dropdown is-boxed">
-          <a className="navbar-item" href="/notifications">
+          <NavLink className="navbar-item" to="/notifications">
             Notification Preferences
-          </a>
+          </NavLink>
+          <NavLink className="navbar-item" to="/admin">
+            Admin
+          </NavLink>
           <hr className="navbar-divider" />
           <a className="navbar-item" onClick={this.handleLogout}>
             Logout

@@ -1,5 +1,5 @@
-import decode from 'jwt-decode';
-import cookie from 'react-cookies';
+import decode from 'jwt-decode'
+import cookie from 'react-cookies'
 import axios from 'axios'
 
 export default class AuthService {
@@ -18,7 +18,7 @@ export default class AuthService {
         }
       }).then(response => {
           this.setToken(response.data.access_token)
-          return Promise.resolve(response);
+          return Promise.resolve(response)
         })
     }
 
@@ -33,7 +33,7 @@ export default class AuthService {
         }
       }).then(response => {
           this.setToken(response.data.access_token)
-          return Promise.resolve(response);
+          return Promise.resolve(response)
         })
     }
 
@@ -45,15 +45,15 @@ export default class AuthService {
 
     isTokenExpired(token) {
         try {
-            const decoded = decode(token);
+            const decoded = decode(token)
             if (decoded.exp < Date.now() / 1000) { // Checking if token is expired. N
-                return true;
+                return true
             }
             else
-                return false;
+                return false
         }
         catch (err) {
-            return false;
+            return false
         }
     }
 
@@ -74,17 +74,17 @@ export default class AuthService {
 
     getUserData() {
         // Using jwt-decode npm package to decode the token
-        return decode(this.getToken());
+        return decode(this.getToken())
     }
 
     getUserId() {
         // Using jwt-decode npm package to decode the token
-        return decode(this.getToken())['user_id'];
+        return decode(this.getToken())['user_id']
     }
 
     getUserEmail() {
         // Using jwt-decode npm package to decode the token
-        return decode(this.getToken())['user_email'];
+        return decode(this.getToken())['user_email']
     }
 
     fetch(url, options) {

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import '../styles/loading.scss';
+import React, { Component } from 'react'
+import '../styles/loading.scss'
 
 class Loading extends Component {
   render(){
@@ -8,8 +8,8 @@ class Loading extends Component {
         <span>Loading Game Data</span>
           <i className="fa fa-spinner fa-pulse fa-fw"></i>
       </div>
-    );
+    )
   }
 }
 
-export default Loading;
+export default Loading

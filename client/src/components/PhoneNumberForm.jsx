@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import PhoneNumberVerificationForm from './PhoneNumberVerificationForm'
-import axios from 'axios';
-import AuthService from './AuthService';
-import '../styles/animate.css';
-import '../styles/phone_number_form.scss';
+import axios from 'axios'
+import AuthService from './AuthService'
+import '../styles/animate.css'
+import '../styles/phone_number_form.scss'
 
 class PhoneNumberForm extends Component {
   state = {
@@ -93,4 +93,4 @@ class PhoneNumberForm extends Component {
   }
 }
 
-export default PhoneNumberForm;
+export default PhoneNumberForm

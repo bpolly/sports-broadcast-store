@@ -23,7 +23,7 @@ class NotificationPreferenceNewRow extends Component {
   handleSaveClick = () => {
     if(!this.validForm()){
       console.log('Save failed')
-      return null;
+      return null
     }
     this.setState({ saving: true })
     setTimeout(function() {}, 500)
