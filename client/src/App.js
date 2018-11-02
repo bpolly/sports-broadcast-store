@@ -15,8 +15,8 @@ import AdminDashboard from './components/admin/AdminDashboard'
 import AdminUsers from './components/admin/AdminUsers'
 import AdminSidebar from './components/admin/AdminSidebar'
 import axios from 'axios'
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSquare  } from '@fortawesome/free-regular-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faSquare  } from '@fortawesome/free-regular-svg-icons'
 import { faEnvelope, faLock, faCheckCircle, faTimesCircle, faCheckSquare, faUserCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faEnvelope, faLock, faCheckCircle, faTimesCircle, faSquare, faCheckSquare, faUserCircle, faSpinner)

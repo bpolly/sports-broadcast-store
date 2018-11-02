@@ -6,7 +6,7 @@ class AdminSidebar extends Component {
   render() {
     return (
       <div id="admin-sidebar">
-        <h4 className="title is-4">Admin</h4>
+        <h4 className="title is-4">Mission Control</h4>
         <aside className="menu">
           <p className="menu-label">
             General
@@ -39,4 +39,4 @@ class AdminSidebar extends Component {
   }
 }
 
-export default AdminSidebar;
+export default AdminSidebar

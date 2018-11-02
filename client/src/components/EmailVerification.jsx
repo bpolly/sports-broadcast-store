@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
-import EmailVerificationResend from './EmailVerificationResend';
+import EmailVerificationResend from './EmailVerificationResend'
 import '../styles/email_verification.scss'
 const queryString = require('query-string')
 

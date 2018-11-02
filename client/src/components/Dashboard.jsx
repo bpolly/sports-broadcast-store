@@ -1,48 +1,48 @@
-import React, { Component } from 'react';
-// import '../styles/dashboard.scss';
-import GameTable from './GameTable';
-import GameFilterForm from './GameFilterForm';
-import axios from 'axios';
-import moment from 'moment-timezone';
+import React, { Component } from 'react'
+// import '../styles/dashboard.scss'
+import GameTable from './GameTable'
+import GameFilterForm from './GameFilterForm'
+import axios from 'axios'
+import moment from 'moment-timezone'
 
 class Dashboard extends Component {
   state = {
     games: undefined,
     filters: {},
     loading: false
-  };
+  }
 
   componentDidMount() {
-    this.fetchGames();
+    this.fetchGames()
   }
 
   fetchGames = (_endDate) => {
-    this.setState({ loading: true });
+    this.setState({ loading: true })
     axios.get(`/games${_endDate ? `?end_date=${_endDate}` : ''}`)
     .then(response => {
       this.setState({
         games: (response.data || []),
         loading: false
-      });
+      })
     })
   }
 
   handleDateChange = (event) => {
-    const { value } = event.target;
-    const dateValue = value.match(/(\d)-(\w+)/);
+    const { value } = event.target
+    const dateValue = value.match(/(\d)-(\w+)/)
     if(value.length !== 0){
-      let numUnits = parseInt(dateValue[1], 10);
-      let unitName = dateValue[2];
-      const targetDate = moment().add(numUnits, unitName).subtract(1, 'day').endOf('day');
-      this.fetchGames(targetDate);
+      let numUnits = parseInt(dateValue[1], 10)
+      let unitName = dateValue[2]
+      const targetDate = moment().add(numUnits, unitName).subtract(1, 'day').endOf('day')
+      this.fetchGames(targetDate)
     }
   }
 
   handleFilterChange = (event) => {
-    const { name } = event.target;
-    let { value } = event.target;
+    const { name } = event.target
+    let { value } = event.target
     if(name === 'favorite-teams-only') {
-      value = event.target.checked;
+      value = event.target.checked
     }
 
     this.setState((prevState) => ({
@@ -51,7 +51,7 @@ class Dashboard extends Component {
         ...prevState.filters,
         [name]: value,
       },
-    }));
+    }))
   }
 
   favoriteTeamSlugs = () => {
@@ -61,36 +61,36 @@ class Dashboard extends Component {
   }
 
   filteredGames = () => {
-    const { games, filters } = this.state;
+    const { games, filters } = this.state
 
     return Object.keys(filters).reduce((games, filterName) => {
       return games.filter((game) => {
         if (filters[filterName]) {
           if (typeof game[filterName] === 'string' || filterName === 'team') {
-            let gameAttrText = '';
-            let filterText = filters[filterName].toLowerCase();
+            let gameAttrText = ''
+            let filterText = filters[filterName].toLowerCase()
             if(filterName === 'team'){
-              gameAttrText = (game['home_team']['name'] + ' ' + game['away_team']['name']).toLowerCase();
+              gameAttrText = (game['home_team']['name'] + ' ' + game['away_team']['name']).toLowerCase()
             } else {
-              gameAttrText = game[filterName].toLowerCase();
+              gameAttrText = game[filterName].toLowerCase()
             }
 
-            return gameAttrText.indexOf(filterText) !== -1;
+            return gameAttrText.indexOf(filterText) !== -1
           }
           else if (filters['favorite-teams-only'] === true) {
-            return (this.favoriteTeamSlugs().includes(game.home_team.slug) || this.favoriteTeamSlugs().includes(game.away_team.slug));
+            return (this.favoriteTeamSlugs().includes(game.home_team.slug) || this.favoriteTeamSlugs().includes(game.away_team.slug))
           } else {
-            return game[filterName] === filters[filterName];
+            return game[filterName] === filters[filterName]
           }
         }
 
-        return true;
-      });
-    }, games);
+        return true
+      })
+    }, games)
   }
 
   render() {
-    const { loading } = this.state;
+    const { loading } = this.state
     return (
       <div className="dashboard-container">
         <div className="columns">
@@ -109,8 +109,8 @@ class Dashboard extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Dashboard;
+export default Dashboard

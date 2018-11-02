@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import '../../styles/admin/layout.scss';
-import AdminSidebar from './AdminSidebar';
+import React, { Component } from 'react'
+import '../../styles/admin/layout.scss'
+import AdminSidebar from './AdminSidebar'
 
 class AdminLayout extends Component {
   render() {
@@ -19,4 +19,4 @@ class AdminLayout extends Component {
   }
 }
 
-export default AdminLayout;
+export default AdminLayout

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import FavoriteTeamSelect from './FavoriteTeamSelect';
-import '../styles/game_filter_form.scss';
+import React, { Component } from 'react'
+import FavoriteTeamSelect from './FavoriteTeamSelect'
+import '../styles/game_filter_form.scss'
 
 class GameFilterForm extends Component {
   render() {
-    const { favoriteTeams, handleFavoriteTeamChange } = this.props;
+    const { favoriteTeams, handleFavoriteTeamChange } = this.props
 
     return(
       <div id="game-filter-form">
@@ -66,8 +66,8 @@ class GameFilterForm extends Component {
           favoriteTeams={favoriteTeams}
           handleFavoriteTeamChange={handleFavoriteTeamChange} />
       </div>
-    );
+    )
   }
 }
 
-export default GameFilterForm;
+export default GameFilterForm
