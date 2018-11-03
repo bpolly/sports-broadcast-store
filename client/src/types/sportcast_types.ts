@@ -30,3 +30,8 @@ export interface Team {
   name: string;
   slug: string;
 }
+
+export interface TeamSelectOption {
+  label: string;
+  value: string;
+}

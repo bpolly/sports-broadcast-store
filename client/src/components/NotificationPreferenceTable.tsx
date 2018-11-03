@@ -4,11 +4,11 @@ import NotificationPreferenceRow from './NotificationPreferenceRow'
 import NotificationPreferenceNewRow from './NotificationPreferenceNewRow'
 import AuthService from './AuthService'
 import '../styles/notification_center.scss'
-import { PhoneNumber, Team } from '../types/sportcast_types'
+import { PhoneNumber, Team, Preference } from '../types/sportcast_types'
 
 type NotificationPreferenceTableProps = {
   favoriteTeams: Array<Team>;
-  phoneNumber: PhoneNumber;
+  phoneNumber: PhoneNumber | null;
 }
 
 type NotificationPreferenceTableState = {
@@ -33,22 +33,35 @@ class NotificationPreferenceTable extends Component<NotificationPreferenceTableP
     })
   }
 
-  saveNewNotification = (params) => {
-    return axios.post('/user_notification_preferences', params,
-      {
-        headers: { Authorization: this.auth.getToken() }
-      }
-    ).then(response => {
+  saveNewNotification = async (params) => {
+    try {
+      let response = await axios.post('/user_notification_preferences', params,
+        {
+          headers: { Authorization: this.auth.getToken() }
+        }
+      )
       let newPreference = response.data
       newPreference['key'] = newPreference['id']
       this.setState({ currentNotificationPreferences: [...this.state.currentNotificationPreferences, newPreference] })
-    })
-    .catch(error =>{
+    } catch(error) {
       // do something with error
-    })
+    }
+
+    // return axios.post('/user_notification_preferences', params,
+    //   {
+    //     headers: { Authorization: this.auth.getToken() }
+    //   }
+    // ).then(response => {
+    //   let newPreference = response.data
+    //   newPreference['key'] = newPreference['id']
+    //   this.setState({ currentNotificationPreferences: [...this.state.currentNotificationPreferences, newPreference] })
+    // })
+    // .catch(error =>{
+    //   // do something with error
+    // })
   }
 
-  deleteNotification = (preference) => {
+  deleteNotification = (preference: Preference): Promise<void> => {
     return axios.delete('/user_notification_preferences/' + preference.id,
       {
         headers: { Authorization: this.auth.getToken() }
@@ -77,19 +90,17 @@ class NotificationPreferenceTable extends Component<NotificationPreferenceTableP
             </tr>
           </thead>
           <tbody>
-            { preferences.map(function(preference, index){
+            { preferences.map(function(this: NotificationPreferenceTable, preference: Preference){
                         return <NotificationPreferenceRow
                                   favoriteTeams={favoriteTeams}
                                   phoneNumber={phoneNumber}
                                   preference={preference}
-                                  key={preference.id}
                                   deleteNotification={this.deleteNotification} />
                       }, this)}
             <NotificationPreferenceNewRow
               favoriteTeams={favoriteTeams}
               phoneNumber={phoneNumber}
               saveNewNotification={this.saveNewNotification}
-              onFocus={this.onFocus}
             />
           </tbody>
         </table>

@@ -4,12 +4,12 @@ import Checkbox from './Checkbox'
 import { generateTeamOptions } from '../utilities.js'
 import AuthService from './AuthService'
 import '../styles/notification_preference_row.scss'
-import { Team, PhoneNumber } from '../types/sportcast_types'
+import { Team, PhoneNumber, TeamSelectOption } from '../types/sportcast_types'
 
 type NotificationPreferenceNewRowProps = {
   favoriteTeams: Array<Team>;
   saveNewNotification: (object) => Promise<any>;
-  phoneNumber: PhoneNumber;
+  phoneNumber: PhoneNumber | null;
 }
 
 type NotificationPreferenceNewRowState = {
@@ -87,8 +87,8 @@ class NotificationPreferenceNewRow extends Component<NotificationPreferenceNewRo
     this.setState(change)
   }
 
-  handleTeamChange = (e) => {
-    if(e && e.value) this.setState({ selectedTeamSlug: e.value })
+  handleTeamChange = (selectedOption: TeamSelectOption) => {
+    this.setState({ selectedTeamSlug: selectedOption.value })
   }
 
   validForm = () => {
@@ -135,6 +135,7 @@ class NotificationPreferenceNewRow extends Component<NotificationPreferenceNewRo
   formRow = () => {
     const { selectedTeamSlug, callbackUrl, useEmail, usePhone } = this.state
     const { favoriteTeams, phoneNumber } = this.props
+    let teamOptions: Array<TeamSelectOption> = generateTeamOptions(favoriteTeams)
 
     return(
       <tr>
@@ -142,11 +143,10 @@ class NotificationPreferenceNewRow extends Component<NotificationPreferenceNewRo
           <Select
             className="favorite-team-select-single team-input"
             name="favorite-team-select"
-            value={ selectedTeamSlug }
+            value={teamOptions.find(option => option.value === selectedTeamSlug)}
             onChange={ this.handleTeamChange }
-            options={ generateTeamOptions(favoriteTeams) }
+            options={ teamOptions }
             closeOnSelect={true}
-            selectedValue={selectedTeamSlug}
           />
         </td>
         <td>

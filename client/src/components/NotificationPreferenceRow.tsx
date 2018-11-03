@@ -5,14 +5,13 @@ import AuthService from './AuthService'
 import Select from 'react-select'
 import Checkbox from './Checkbox'
 import { generateTeamOptions } from '../utilities.js'
-import { PhoneNumber, Preference, Team } from '../types/sportcast_types'
+import { PhoneNumber, Preference, Team, TeamSelectOption } from '../types/sportcast_types'
 
 type NotificationPreferenceRowProps = {
   favoriteTeams: Array<Team>;
-  saveNewNotification: (object) => Promise<any>;
-  phoneNumber: PhoneNumber;
+  phoneNumber: PhoneNumber | null;
   preference: Preference;
-  deleteNotification: (Preference) => void;
+  deleteNotification: (Preference) => Promise<void>;
 }
 
 type NotificationPreferenceRowState = {
@@ -80,8 +79,8 @@ class NotificationPreferenceRow extends Component<NotificationPreferenceRowProps
     this.setState(change)
   }
 
-  handleTeamChange = (e) => {
-    if(e && e.value) this.setState({ selectedTeamSlug: e.value })
+  handleTeamChange = (selectedOption: TeamSelectOption) => {
+    this.setState({ selectedTeamSlug: selectedOption.value })
   }
 
   handlePhoneCheckboxClick = () => {
@@ -122,6 +121,7 @@ class NotificationPreferenceRow extends Component<NotificationPreferenceRowProps
   render(){
     const { favoriteTeams, phoneNumber } = this.props
     const { editing, selectedTeamSlug, callback_url, useEmail, usePhone } = this.state
+    let teamOptions: Array<{value: string, label: string, className: string}> = generateTeamOptions(favoriteTeams)
 
     return(
       <tr>
@@ -129,12 +129,11 @@ class NotificationPreferenceRow extends Component<NotificationPreferenceRowProps
           <Select
             className="favorite-team-select-single team-input"
             name="favorite-team-select"
-            value={ selectedTeamSlug }
+            value={ teamOptions.find(option => option.value === selectedTeamSlug) }
             onChange={ this.handleTeamChange }
             options={ generateTeamOptions(favoriteTeams) }
             closeOnSelect={true}
-            disabled={ !editing }
-            selectedValue={ selectedTeamSlug }
+            isDisabled={ !editing }
           />
         </td>
         <td>

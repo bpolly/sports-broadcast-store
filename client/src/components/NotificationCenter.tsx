@@ -19,7 +19,6 @@ type NotificationCenterState = {
   showPhoneForm: boolean;
 }
 
-
 class NotificationCenter extends Component<NotificationCenterProps, NotificationCenterState> {
   state = {
     phoneNumber: null,
@@ -38,7 +37,8 @@ class NotificationCenter extends Component<NotificationCenterProps, Notification
     axios.get(`/users/${user_id}/phone`,
       { headers: { Authorization: this.auth.getToken() } }
     ).then(response => {
-      this.setState({ phoneNumber: response.data })
+      let phoneNumberResponse: PhoneNumber = response.data;
+      this.setState({ phoneNumber: phoneNumberResponse })
     })
   }
 
@@ -78,7 +78,6 @@ class NotificationCenter extends Component<NotificationCenterProps, Notification
     if(phoneNumber) {
       return(
         <PhoneNumberListing
-          key={phoneNumber.id}
           phoneNumber={phoneNumber}
           deletePhoneNumber={this.deletePhoneNumber}
           fetchPhoneNumber={this.fetchPhoneNumber}
