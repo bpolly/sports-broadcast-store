@@ -5,8 +5,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
 import '../styles/signup.scss'
 
+type SignupState = {
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+  loading: boolean;
+  errors: string;
+  signupSent: boolean;
+  signupSuccessful: boolean;
+}
 
-class Signup extends Component {
+class Signup extends Component<{}, SignupState> {
   state = {
     email: "",
     password: "",
@@ -18,10 +27,10 @@ class Signup extends Component {
   }
   auth = new AuthService()
 
-  handleChange = (e) => {
+  handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     this.setState({
-      [e.target.name]: e.target.value
-    })
+      [e.currentTarget.name]: e.currentTarget.value
+    } as any)
   }
 
   handleSubmit = (e) => {

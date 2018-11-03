@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
-import { NavLink } from 'react-router-dom'
+import { NavLink, RouteComponentProps } from 'react-router-dom'
 import AuthService from './AuthService'
 
-class NavbarLoggedInItem extends Component {
+class NavbarLoggedInItem extends Component<RouteComponentProps<any>> {
   auth = new AuthService()
 
   handleLogout = () => {
