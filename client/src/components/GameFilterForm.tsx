@@ -2,7 +2,14 @@ import React, { Component } from 'react'
 import FavoriteTeamSelect from './FavoriteTeamSelect'
 import '../styles/game_filter_form.scss'
 
-class GameFilterForm extends Component {
+type GameFilterFormProps = {
+  favoriteTeams: Array<Team>
+  handleFavoriteTeamChange: (teams: Team[]) => void
+  handleFilterChange: () => void
+  handleDateChange: () => void
+}
+
+class GameFilterForm extends Component<GameFilterFormProps, any> {
   render() {
     const { favoriteTeams, handleFavoriteTeamChange } = this.props
 

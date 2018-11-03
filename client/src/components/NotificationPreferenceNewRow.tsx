@@ -4,7 +4,6 @@ import Checkbox from './Checkbox'
 import { generateTeamOptions } from '../utilities.js'
 import AuthService from './AuthService'
 import '../styles/notification_preference_row.scss'
-import { Team, PhoneNumber, TeamSelectOption } from '../types/sportcast_types'
 
 type NotificationPreferenceNewRowProps = {
   favoriteTeams: Array<Team>;

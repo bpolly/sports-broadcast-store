@@ -4,7 +4,6 @@ import NotificationPreferenceRow from './NotificationPreferenceRow'
 import NotificationPreferenceNewRow from './NotificationPreferenceNewRow'
 import AuthService from './AuthService'
 import '../styles/notification_center.scss'
-import { PhoneNumber, Team, Preference } from '../types/sportcast_types'
 
 type NotificationPreferenceTableProps = {
   favoriteTeams: Array<Team>;

@@ -1,3 +1,4 @@
+/// <reference path="./types/sportcast_types.d.ts" />
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './styles/bulma.css'
@@ -51,7 +52,7 @@ class App extends Component {
     return (
       <BrowserRouter >
         <div>
-          <Navbar/>
+          <Navbar />
           <Switch>
             <Route
               exact path="/"

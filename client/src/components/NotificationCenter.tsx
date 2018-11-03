@@ -6,11 +6,10 @@ import PhoneNumberListing from './PhoneNumberListing'
 import axios from 'axios'
 import AuthService from './AuthService'
 import '../styles/notification_center.scss'
-import { PhoneNumber, Team } from '../types/sportcast_types'
 
 type NotificationCenterProps = {
   favoriteTeams: Array<Team>;
-  handleFavoriteTeamChange: () => void;
+  handleFavoriteTeamChange: (teams: Team[]) => void
 }
 
 type NotificationCenterState = {

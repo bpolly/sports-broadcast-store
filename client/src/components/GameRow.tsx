@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import moment from 'moment-timezone'
-import { Game } from '../types/sportcast_types'
 
 interface GameRowProps {
   game: Game;

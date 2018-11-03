@@ -4,7 +4,6 @@ import axios from 'axios'
 import AuthService from './AuthService'
 import '../styles/animate.css'
 import '../styles/phone_number_form.scss'
-import { PhoneNumber } from '../types/sportcast_types'
 
 type PhoneNumberFormProps = {
   phoneNumber?: PhoneNumber;

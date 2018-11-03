@@ -3,7 +3,14 @@ import '../styles/login.scss'
 import AuthService from './AuthService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-class Login extends Component {
+type LoginState = {
+  email: string
+  password: string
+  loading: boolean
+  errors: string
+}
+
+class Login extends Component<any, LoginState> {
   state = {
     email: "",
     password: "",
@@ -15,7 +22,7 @@ class Login extends Component {
   handleChange = (e) => {
     this.setState({
       [e.target.type]: e.target.value
-    })
+    } as any)
   }
 
   handleSubmit = (e) => {
@@ -80,12 +87,13 @@ class Login extends Component {
     return (
       <div className="container container-login">
         <div className="box">
-          <FontAwesomeIcon
-            icon={['fas', 'user-circle']}
-            color="#fb5f66"
-            size="4x"
-            id="signup-icon-header"
-          />
+          <span id="signup-icon-header">
+            <FontAwesomeIcon
+              icon={['fas', 'user-circle']}
+              color="#fb5f66"
+              size="4x"
+            />
+          </span>
 
           { this.formContent() }
 

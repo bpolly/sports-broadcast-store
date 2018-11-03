@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import PhoneNumberForm from './PhoneNumberForm'
 import '../styles/phone_number_listing.scss'
-import { PhoneNumber } from '../types/sportcast_types'
 
 type PhoneNumberListingProps = {
-  phoneNumber: PhoneNumber;
-  deletePhoneNumber: () => void;
-  fetchPhoneNumber: () => void;
+  phoneNumber: PhoneNumber
+  deletePhoneNumber: () => void
+  fetchPhoneNumber: () => void
 }
 
 class PhoneNumberListing extends Component<PhoneNumberListingProps> {

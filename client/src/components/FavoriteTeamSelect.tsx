@@ -4,9 +4,18 @@ import axios from 'axios'
 import Select from 'react-select'
 import '../styles/favorite_team_select.scss'
 
-class FavoriteTeamSelect extends Component {
+type FavoriteTeamSelectState = {
+  teams: Team[]
+}
+
+type FavoriteTeamSelectProps = {
+  favoriteTeams: Team[]
+  handleFavoriteTeamChange: (teams: Team[]) => void
+}
+
+class FavoriteTeamSelect extends Component<FavoriteTeamSelectProps, FavoriteTeamSelectState> {
   state = {
-      teams: []
+    teams: []
   }
 
   componentDidMount(){

@@ -1,25 +1,34 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import '../styles/email_verification.scss'
+import AuthService from './AuthService';
 
-class EmailVerificationResend extends Component {
+type EmailVerificationResendProps = {
+}
+
+type EmailVerificationResendState = {
+  emailResendAttempted: boolean
+  message: string
+}
+
+class EmailVerificationResend extends Component<EmailVerificationResendProps, EmailVerificationResendState> {
   state = {
     emailResendAttempted: false,
     message: ''
   }
+  auth = new AuthService()
 
   resendVerificationLink = () => {
-    if(!this.state.verificationSuccess) {
-      return(
-        <div>
-        Misplace the email or your code has expired?
-        <a onClick={this.resendVerificationEmail}>Click here to resend!</a>
-        </div>
-      )
-    }
+    return(
+      <div>
+      Misplace the email or your code has expired?
+      <a onClick={this.resendVerificationEmail}>Click here to resend!</a>
+      </div>
+    )
   }
 
   message = () => {
+    let something = 1
     if(this.state.emailResendAttempted){
       return(<p>Email verification sent!</p>)
     }
@@ -32,9 +41,12 @@ class EmailVerificationResend extends Component {
 
   resendVerificationEmail = () => {
     this.setState({ emailResendAttempted: true })
-    axios.post('/resend_verification', {
-      email_address: this.state.emailAddress,
-    })
+    let user_id = this.auth.getUserId()
+    axios.post(`/users/${user_id}/email/resend_verification_code`, {},
+      {
+        headers: { Authorization: this.auth.getToken() }
+      }
+    )
     .then(response => {
       console.log('success')
       this.setState({

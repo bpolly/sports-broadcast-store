@@ -1,4 +1,4 @@
-export interface Game {
+interface Game {
   home_team: Team;
   away_team: Team;
   tv_networks: string;
@@ -7,7 +7,7 @@ export interface Game {
   id: number;
 }
 
-export interface PhoneNumber {
+interface PhoneNumber {
   created_at: string;
   id: number;
   last_code_generated_at: string;
@@ -18,7 +18,7 @@ export interface PhoneNumber {
   verified_at: string;
 }
 
-export interface Preference {
+interface Preference {
   callback_url: string;
   email: boolean;
   id: number;
@@ -26,12 +26,12 @@ export interface Preference {
   team: Team;
 }
 
-export interface Team {
+interface Team {
   name: string;
   slug: string;
 }
 
-export interface TeamSelectOption {
+interface TeamSelectOption {
   label: string;
   value: string;
 }
