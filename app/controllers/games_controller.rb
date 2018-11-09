@@ -5,7 +5,7 @@ class GamesController < ApplicationController
   DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 
   def index
-    end_date = params[:end_date] ? Time.at(params[:end_date].to_i / 1000) : 3.days.from_now
+    end_date = params[:end_date] ? Time.zone.parse(params[:end_date]) : 3.days.from_now
     @games = Game
               .includes(home_team: :nicknames, away_team: :nicknames)
               .where("date > ? AND date < ?", 4.hours.ago, end_date.end_of_day)
