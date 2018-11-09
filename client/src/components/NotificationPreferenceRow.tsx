@@ -6,23 +6,23 @@ import Checkbox from './Checkbox'
 import axios from 'axios'
 import Select from 'react-select'
 
-interface NotificationPreferenceRowProps {
-  favoriteTeams: Team[];
-  phoneNumber: PhoneNumber | null;
-  preference: Preference;
-  deleteNotification: (Preference) => Promise<void>;
+interface Props {
+  favoriteTeams: Team[]
+  phoneNumber: PhoneNumber | null
+  preference: Preference
+  deleteNotification: (Preference) => Promise<void>
 }
 
-interface NotificationPreferenceRowState {
-  editing: boolean;
-  saving: boolean;
-  selectedTeamSlug: string;
-  callback_url: string;
-  useEmail: boolean;
-  usePhone: boolean;
+interface State {
+  editing: boolean
+  saving: boolean
+  selectedTeamSlug: string
+  callback_url: string
+  useEmail: boolean
+  usePhone: boolean
 }
 
-class NotificationPreferenceRow extends Component<NotificationPreferenceRowProps, NotificationPreferenceRowState> {
+class NotificationPreferenceRow extends Component<Props, State> {
   state = {
     callback_url: this.props.preference.callback_url || '',
     editing: false,

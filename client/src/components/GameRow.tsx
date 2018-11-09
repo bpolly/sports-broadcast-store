@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import moment from 'moment-timezone'
 
-interface GameRowProps {
-  game: Game;
-  favoriteTeamSlugs: Array<string>;
+interface Props {
+  game: Game
+  favoriteTeamSlugs: string[]
 }
 
-class GameRow extends Component<GameRowProps> {
+class GameRow extends Component<Props> {
   isFavoriteTeam = (game: Game) => {
     let teamSlugs = this.props.favoriteTeamSlugs || []
     return (teamSlugs.includes(game.home_team.slug) || teamSlugs.includes(game.away_team.slug))
@@ -35,7 +35,7 @@ class GameRow extends Component<GameRowProps> {
     const starStyling = {
       visibility: this.isFavoriteTeam(game) ? 'visible' : 'hidden',
       color: '#fc6066'
-    } as React.CSSProperties;
+    } as React.CSSProperties
 
     return (
       <tr>

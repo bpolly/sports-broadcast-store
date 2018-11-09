@@ -4,7 +4,11 @@ import axios from 'axios'
 import AuthService from '../AuthService'
 import moment from 'moment-timezone'
 
-class AdminUsers extends Component {
+interface State {
+  users: User[]
+}
+
+class AdminUsers extends Component<any, State> {
   state = {
     users: []
   }
@@ -37,7 +41,7 @@ class AdminUsers extends Component {
           </thead>
           <tbody>
             {
-              users.map(user =>
+              users.map((user: User) =>
                 <tr>
                   <td>{ user.id }</td>
                   <td>{ user.email.address }</td>

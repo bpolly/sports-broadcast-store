@@ -5,15 +5,27 @@ import GameFilterForm from './GameFilterForm'
 import axios from 'axios'
 import moment from 'moment-timezone'
 
-class Dashboard extends Component {
+interface State {
+  games: Game[]
+  filters: object
+  loading: boolean
+}
+
+interface FilterType {
+  league?: string
+  team?: string
+  tv_networks?: string
+}
+
+class Dashboard extends Component<any, State> {
   state = {
-    games: undefined,
+    games: [],
     filters: {},
     loading: false
   }
 
   componentDidMount() {
-    this.fetchGames()
+    this.fetchGames(null)
   }
 
   fetchGames = (_endDate) => {
@@ -64,7 +76,7 @@ class Dashboard extends Component {
     const { games, filters } = this.state
 
     return Object.keys(filters).reduce((games, filterName) => {
-      return games.filter((game) => {
+      return games.filter((game: Game) => {
         if (filters[filterName]) {
           if (typeof game[filterName] === 'string' || filterName === 'team') {
             let gameAttrText = ''

@@ -4,14 +4,14 @@ import GameRow from './GameRow'
 import Loading from './Loading'
 import moment from 'moment-timezone'
 
-interface GameTableProps {
-  games: Array<Game>
-  favoriteTeamSlugs: Array<string>
+interface Props {
+  games: Game[]
+  favoriteTeamSlugs: string[]
   loading: boolean
 }
 
 
-class GameTable extends Component<GameTableProps> {
+class GameTable extends Component<Props> {
   render() {
     const { games, favoriteTeamSlugs, loading } = this.props
     if(!this.props.games || loading) {

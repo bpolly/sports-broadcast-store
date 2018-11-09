@@ -5,16 +5,16 @@ import NotificationPreferenceNewRow from './NotificationPreferenceNewRow'
 import AuthService from './AuthService'
 import '../styles/notification_center.scss'
 
-type NotificationPreferenceTableProps = {
-  favoriteTeams: Array<Team>;
-  phoneNumber: PhoneNumber | null;
+interface Props {
+  favoriteTeams: Team[]
+  phoneNumber: PhoneNumber | null
 }
 
-type NotificationPreferenceTableState = {
-  currentNotificationPreferences: Array<any>;
+interface State {
+  currentNotificationPreferences: any[]
 }
 
-class NotificationPreferenceTable extends Component<NotificationPreferenceTableProps, NotificationPreferenceTableState> {
+class NotificationPreferenceTable extends Component<Props, State> {
   state = {
     currentNotificationPreferences: [],
   }

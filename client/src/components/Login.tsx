@@ -3,14 +3,14 @@ import '../styles/login.scss'
 import AuthService from './AuthService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-type LoginState = {
+interface State {
   email: string
   password: string
   loading: boolean
   errors: string
 }
 
-class Login extends Component<any, LoginState> {
+class Login extends Component<any, State> {
   state = {
     email: "",
     password: "",

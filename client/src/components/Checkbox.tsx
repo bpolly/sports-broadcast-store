@@ -2,7 +2,14 @@ import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../styles/checkbox.scss'
 
-class Checkbox extends Component {
+interface Props {
+  handleClick: () => void
+  isChecked: boolean
+  isDisabled: boolean
+  label: string
+}
+
+class Checkbox extends Component<Props> {
   icon = () => {
     if(this.props.isChecked){
       return(

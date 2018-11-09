@@ -5,12 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../styles/animate.css'
 import '../styles/phone_number_form.scss'
 
-type PhoneNumberVerificationFormProps = {
-  closePhoneFormModal: () => void;
-  fetchPhoneNumber: () => void;
+interface Props {
+  closePhoneFormModal: () => void
+  fetchPhoneNumber: () => void
 }
 
-class PhoneNumberVerificationForm extends Component<PhoneNumberVerificationFormProps> {
+class PhoneNumberVerificationForm extends Component<Props> {
   state = {
     verificationCode: '',
     verificationSuccess: false,

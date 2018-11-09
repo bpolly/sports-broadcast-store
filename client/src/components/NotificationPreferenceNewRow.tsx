@@ -5,22 +5,22 @@ import { generateTeamOptions } from '../utilities.js'
 import AuthService from './AuthService'
 import '../styles/notification_preference_row.scss'
 
-type NotificationPreferenceNewRowProps = {
-  favoriteTeams: Array<Team>;
-  saveNewNotification: (object) => Promise<any>;
-  phoneNumber: PhoneNumber | null;
+interface Props {
+  favoriteTeams: Team[]
+  saveNewNotification: (object) => Promise<any>
+  phoneNumber: PhoneNumber | null
 }
 
-type NotificationPreferenceNewRowState = {
-  editing: boolean;
-  saving: boolean;
-  selectedTeamSlug: string;
-  callbackUrl: string;
-  useEmail: boolean;
-  usePhone: boolean;
+interface State {
+  editing: boolean
+  saving: boolean
+  selectedTeamSlug: string
+  callbackUrl: string
+  useEmail: boolean
+  usePhone: boolean
 }
 
-class NotificationPreferenceNewRow extends Component<NotificationPreferenceNewRowProps, NotificationPreferenceNewRowState> {
+class NotificationPreferenceNewRow extends Component<Props, State> {
   state = {
     editing: false,
     saving: false,

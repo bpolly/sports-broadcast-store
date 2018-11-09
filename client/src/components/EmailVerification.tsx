@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
+import { NavLink, RouteComponentProps } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
 import EmailVerificationResend from './EmailVerificationResend'
 import '../styles/email_verification.scss'
 const queryString = require('query-string')
 
-class EmailVerification extends Component {
+class EmailVerification extends Component<RouteComponentProps<any>> {
   state = {
     emailAddress: '',
     verificationCode: '',
@@ -51,9 +52,7 @@ class EmailVerification extends Component {
   resendVerificationLink = () => {
     if(this.state.verificationSuccess) return
     return(
-      <EmailVerificationResend
-        emailAddress={ this.state.emailAddress }
-      />
+      <EmailVerificationResend />
     )
   }
 
@@ -62,12 +61,13 @@ class EmailVerification extends Component {
     return(
       <div className="container has-text-centered">
         <div className="box box-small">
-          <FontAwesomeIcon
-            icon={['fas', 'envelope']}
-            color="#fb5f66"
-            size="4x"
-            id="signup-icon-header"
-          />
+          <span id="signup-icon-header">
+            <FontAwesomeIcon
+              icon={['fas', 'envelope']}
+              color="#fb5f66"
+              size="4x"
+            />
+          </span>
 
           <p>{`Verifying ${emailAddress}`}</p>
           <p>...</p>

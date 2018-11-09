@@ -7,18 +7,18 @@ import axios from 'axios'
 import AuthService from './AuthService'
 import '../styles/notification_center.scss'
 
-type NotificationCenterProps = {
-  favoriteTeams: Array<Team>;
+interface Props {
+  favoriteTeams: Team[]
   handleFavoriteTeamChange: (teams: Team[]) => void
 }
 
-type NotificationCenterState = {
-  phoneNumber: PhoneNumber | null;
-  emailObjects: Array<any>;
-  showPhoneForm: boolean;
+interface State {
+  phoneNumber: PhoneNumber | null
+  emailObjects: any[]
+  showPhoneForm: boolean
 }
 
-class NotificationCenter extends Component<NotificationCenterProps, NotificationCenterState> {
+class NotificationCenter extends Component<Props, State> {
   state = {
     phoneNumber: null,
     emailObjects: [],
@@ -36,7 +36,7 @@ class NotificationCenter extends Component<NotificationCenterProps, Notification
     axios.get(`/users/${user_id}/phone`,
       { headers: { Authorization: this.auth.getToken() } }
     ).then(response => {
-      let phoneNumberResponse: PhoneNumber = response.data;
+      let phoneNumberResponse: PhoneNumber = response.data
       this.setState({ phoneNumber: phoneNumberResponse })
     })
   }

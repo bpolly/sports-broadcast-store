@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PhoneNumberForm from './PhoneNumberForm'
 import '../styles/phone_number_listing.scss'
 
-type PhoneNumberListingProps = {
+type Props = {
   phoneNumber: PhoneNumber
   deletePhoneNumber: () => void
   fetchPhoneNumber: () => void
 }
 
-class PhoneNumberListing extends Component<PhoneNumberListingProps> {
+class PhoneNumberListing extends Component<Props> {
   state = {
     showPhoneForm: false
   }

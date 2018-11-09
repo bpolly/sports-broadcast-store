@@ -5,17 +5,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
 import '../styles/signup.scss'
 
-type SignupState = {
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-  loading: boolean;
-  errors: string;
-  signupSent: boolean;
-  signupSuccessful: boolean;
+type State = {
+  email: string
+  password: string
+  passwordConfirmation: string
+  loading: boolean
+  errors: string
+  signupSent: boolean
+  signupSuccessful: boolean
 }
 
-class Signup extends Component<{}, SignupState> {
+class Signup extends Component<any, State> {
   state = {
     email: "",
     password: "",

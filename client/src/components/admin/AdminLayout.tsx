@@ -1,8 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component, ReactChild } from 'react'
 import '../../styles/admin/layout.scss'
 import AdminSidebar from './AdminSidebar'
 
-class AdminLayout extends Component {
+interface Props {
+  children: ReactChild
+}
+
+class AdminLayout extends Component<Props> {
   render() {
     return(
       <div id="admin-layout" className="container is-fluid">

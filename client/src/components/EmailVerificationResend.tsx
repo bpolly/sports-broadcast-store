@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import '../styles/email_verification.scss'
-import AuthService from './AuthService';
+import AuthService from './AuthService'
 
-type EmailVerificationResendProps = {
-}
-
-type EmailVerificationResendState = {
+interface State {
   emailResendAttempted: boolean
   message: string
 }
 
-class EmailVerificationResend extends Component<EmailVerificationResendProps, EmailVerificationResendState> {
+class EmailVerificationResend extends Component<any, State> {
   state = {
     emailResendAttempted: false,
     message: ''

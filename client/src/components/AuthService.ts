@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export default class AuthService {
     // Initializing important variables
-    constructor(domain) {
+    constructor() {
         this.fetch = this.fetch.bind(this) // React binding stuff
         this.login = this.login.bind(this)
         this.getUserData = this.getUserData.bind(this)
@@ -113,7 +113,7 @@ export default class AuthService {
         if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
             return response
         } else {
-            var error = new Error(response.statusText)
+            var error: any = new Error(response.statusText)
             error.response = response
             throw error
         }

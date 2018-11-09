@@ -5,14 +5,14 @@ import AuthService from './AuthService'
 import '../styles/animate.css'
 import '../styles/phone_number_form.scss'
 
-type PhoneNumberFormProps = {
-  phoneNumber?: PhoneNumber;
-  closePhoneFormModal: () => void;
-  fetchPhoneNumber: () => void;
-  hidden: boolean;
+interface Props {
+  phoneNumber?: PhoneNumber
+  closePhoneFormModal: () => void
+  fetchPhoneNumber: () => void
+  hidden: boolean
 }
 
-class PhoneNumberForm extends Component<PhoneNumberFormProps> {
+class PhoneNumberForm extends Component<Props> {
   state = {
     phoneNumber: (this.props.phoneNumber && this.props.phoneNumber.number) || null,
     verificationSent: false,
