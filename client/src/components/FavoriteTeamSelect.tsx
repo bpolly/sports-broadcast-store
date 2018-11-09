@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { generateTeamOptions } from '../utilities.js'
+import { generateTeamOptions } from '../utilities'
 import axios from 'axios'
 import Select from 'react-select'
 import '../styles/favorite_team_select.scss'

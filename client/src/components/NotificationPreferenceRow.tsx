@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../styles/notification_preference_row.scss'
-import { generateTeamOptions } from '../utilities.js'
+import { generateTeamOptions } from '../utilities'
 import AuthService from './AuthService'
 import Checkbox from './Checkbox'
 import axios from 'axios'
