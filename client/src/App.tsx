@@ -1,5 +1,6 @@
 /// <reference path="./types/sportcast_types.d.ts" />
 import React, { Component } from 'react'
+import { Redirect } from 'react-router'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './styles/bulma.css'
 import './styles/font-awesome-4.7.0/css/font-awesome.min.css'
@@ -68,27 +69,40 @@ class App extends Component {
             <Route
               exact path="/notifications"
               render={() =>
-                  <NotificationCenter
-                    handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-                    favoriteTeams={favoriteTeams}
-                  />}
+                !this.auth.loggedIn() ? (
+                  <Redirect to="/login" />
+                ) : (
+                    <NotificationCenter
+                      handleFavoriteTeamChange={this.handleFavoriteTeamChange}
+                      favoriteTeams={favoriteTeams}
+                    />
+                )
+              }
             />
             <Route
               exact
               path="/admin"
               render={() =>
+                !this.auth.loggedIn() ? (
+                  <Redirect to="/login" />
+                ) : (
                   <AdminLayout>
                     <AdminDashboard />
                   </AdminLayout>
-                }
+                )
+              }
             />
             <Route
               path="/admin/users"
               render={() =>
+                !this.auth.loggedIn() ? (
+                  <Redirect to="/login" />
+                ) : (
                   <AdminLayout>
                     <AdminUsers />
                   </AdminLayout>
-                }
+                )
+              }
             />
             <Route render={() => (<div>
                 Sorry, this page does not exist.
