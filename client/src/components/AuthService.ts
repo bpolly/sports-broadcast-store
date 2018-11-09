@@ -13,7 +13,7 @@ export default class AuthService {
     login(email, password) {
       return axios.post('/login', {
         user: {
-          email: email,
+          email: email,                                
           password: password
         }
       }).then(response => {
@@ -37,10 +37,14 @@ export default class AuthService {
         })
     }
 
-    loggedIn() {
+    isLoggedIn() {
         // Checks if there is a saved token and it's still valid
         const token = this.getToken() // GEtting token from localstorage
         return !!token && !this.isTokenExpired(token) // handwaiving here
+    }
+
+    isAdmin() {
+        return this.isLoggedIn() && decode(this.getToken())['admin']
     }
 
     isTokenExpired(token) {
@@ -96,7 +100,7 @@ export default class AuthService {
 
         // Setting Authorization header
         // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
-        if (this.loggedIn()) {
+        if (this.isLoggedIn()) {
             headers['Authorization'] = 'Bearer ' + this.getToken()
         }
 

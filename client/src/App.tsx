@@ -69,7 +69,7 @@ class App extends Component {
             <Route
               exact path="/notifications"
               render={() =>
-                !this.auth.loggedIn() ? (
+                !this.auth.isLoggedIn() ? (
                   <Redirect to="/login" />
                 ) : (
                     <NotificationCenter
@@ -83,7 +83,7 @@ class App extends Component {
               exact
               path="/admin"
               render={() =>
-                !this.auth.loggedIn() ? (
+                !this.auth.isAdmin() ? (
                   <Redirect to="/login" />
                 ) : (
                   <AdminLayout>
@@ -95,7 +95,7 @@ class App extends Component {
             <Route
               path="/admin/users"
               render={() =>
-                !this.auth.loggedIn() ? (
+                !this.auth.isAdmin() ? (
                   <Redirect to="/login" />
                 ) : (
                   <AdminLayout>

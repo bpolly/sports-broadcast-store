@@ -7,7 +7,7 @@ class NavbarUserItem extends Component {
   auth = new AuthService()
 
   render() {
-    if(this.auth.loggedIn()) {
+    if(this.auth.isLoggedIn()) {
       return(
         <NavbarLoggedInItem />
       )
