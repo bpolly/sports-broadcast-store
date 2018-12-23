@@ -27,7 +27,7 @@ class AdminSidebar extends Component {
               <NavLink to="/admin/payments" activeClassName="is-active">User Notifications</NavLink>
             </li>
             <li>
-              <NavLink to="/admin/transfers" activeClassName="is-active">Outgoing Notifications</NavLink>
+              <NavLink to="/admin/upcoming_notifications" activeClassName="is-active">Upcoming Notifications</NavLink>
             </li>
             <li>
               <NavLink to="/admin/balance" activeClassName="is-active">Balance</NavLink>

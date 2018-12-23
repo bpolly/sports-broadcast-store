@@ -15,6 +15,7 @@ import AuthService from './components/AuthService'
 import AdminLayout from './components/admin/AdminLayout'
 import AdminDashboard from './components/admin/AdminDashboard'
 import AdminUsers from './components/admin/AdminUsers'
+import AdminUpcomingNotifications from './components/admin/AdminUpcomingNotifications'
 import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSquare  } from '@fortawesome/free-regular-svg-icons'
@@ -100,6 +101,18 @@ class App extends Component {
                 ) : (
                   <AdminLayout>
                     <AdminUsers />
+                  </AdminLayout>
+                )
+              }
+            />
+            <Route
+              path="/admin/upcoming_notifications"
+              render={() =>
+                !this.auth.isAdmin() ? (
+                  <Redirect to="/login" />
+                ) : (
+                  <AdminLayout>
+                    <AdminUpcomingNotifications />
                   </AdminLayout>
                 )
               }

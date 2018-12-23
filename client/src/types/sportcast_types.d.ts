@@ -1,21 +1,21 @@
 interface Email {
+  address: any
   created_at: string
   id: number
   last_code_generated_at: string
-  address: any
   updated_at: string
   user_id: number
-  verified: boolean
   verified_at: string
+  verified: boolean
 }
 
 interface Game {
-  home_team: Team
   away_team: Team
-  tv_networks: string
   date: string
-  league: string
+  home_team: Team
   id: number
+  league: string
+  tv_networks: string
 }
 
 interface PhoneNumber {
@@ -25,8 +25,8 @@ interface PhoneNumber {
   number: any
   updated_at: string
   user_id: number
-  verified: boolean
   verified_at: string
+  verified: boolean
 }
 
 interface Preference {
@@ -48,8 +48,9 @@ interface TeamSelectOption {
 }
 
 interface User {
+  created_at: string
+  email: Email
   id: number
   phone: PhoneNumber
-  email: Email
-  created_at: string
+  user_type: string
 }

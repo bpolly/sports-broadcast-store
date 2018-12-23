@@ -1,6 +1,15 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :created_at
+  attributes :id, :created_at, :user_type, :phone, :email
 
-  has_one :phone
-  has_one :email
+  def phone
+    UserPhoneSerializer.new(object.phone, { root: false } )
+  end
+
+  def email
+    UserEmailSerializer.new(object.email, { root: false } )
+  end
+
+  def user_type
+    object.user_type.name
+  end
 end

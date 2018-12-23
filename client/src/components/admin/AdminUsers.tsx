@@ -3,6 +3,7 @@ import '../../styles/admin/users.scss'
 import axios from 'axios'
 import AuthService from '../AuthService'
 import moment from 'moment-timezone'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface State {
   users: User[]
@@ -24,6 +25,20 @@ class AdminUsers extends Component<any, State> {
     })
   }
 
+  verificationIcon = (user: User, type: string) => {
+    if (user[type] == null) return ''
+    else if (user[type].verified_at == null) return ''
+    else return (
+      <FontAwesomeIcon
+        icon="check-circle"
+        color="#6DB65B"
+        size="sm"
+        className="verification-icon"
+      />
+    )
+  }
+
+
   render() {
     const { users } = this.state
     return(
@@ -36,6 +51,7 @@ class AdminUsers extends Component<any, State> {
               <th>ID</th>
               <th>Email</th>
               <th>Phone</th>
+              <th>User Type</th>
               <th>Created At</th>
             </tr>
           </thead>
@@ -44,8 +60,15 @@ class AdminUsers extends Component<any, State> {
               users.map((user: User) =>
                 <tr>
                   <td>{ user.id }</td>
-                  <td>{ user.email.address }</td>
-                  <td>{ user.phone && user.phone.number }</td>
+                  <td>
+                    { user.email.address }
+                    { this.verificationIcon(user, 'email') }
+                  </td>
+                  <td>
+                    { user.phone && user.phone.number }
+                    { this.verificationIcon(user, 'phone') }
+                  </td>
+                  <td>{ user.user_type }</td>
                   <td>{ moment(user.created_at).format('lll') }</td>
                 </tr>
               )
