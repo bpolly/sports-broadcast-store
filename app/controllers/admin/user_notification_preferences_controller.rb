@@ -7,8 +7,8 @@ class Admin::UserNotificationPreferencesController < ApplicationController
   end
 
   def upcoming_notifications
-    render json: UserNotificationPreference.where(
-      team: NotificationFinder.teams_playing_in(minutes: minute_threshold)), status: :ok
+    render json: UserNotificationPreference.joins(:team).where(
+      team: NotificationFinder.teams_playing_in(minutes: minute_threshold)).limit(1000), status: :ok
   end
 
   private

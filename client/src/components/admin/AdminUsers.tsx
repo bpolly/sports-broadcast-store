@@ -58,7 +58,7 @@ class AdminUsers extends Component<any, State> {
           <tbody>
             {
               users.map((user: User) =>
-                <tr>
+                <tr key={ user.id }>
                   <td>{ user.id }</td>
                   <td>
                     { user.email.address }
