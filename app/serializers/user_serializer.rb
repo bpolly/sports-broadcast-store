@@ -2,7 +2,7 @@ class UserSerializer < ActiveModel::Serializer
   attributes :id, :created_at, :user_type, :phone, :email
 
   def phone
-    UserPhoneSerializer.new(object.phone, { root: false } )
+    UserPhoneSerializer.new(object.phone, { root: false } ) if object.phone
   end
 
   def email
