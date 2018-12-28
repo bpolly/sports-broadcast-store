@@ -18,6 +18,17 @@ interface Game {
   tv_networks: string
 }
 
+
+interface GameWithNotifications {
+  away_team: Team
+  date: string
+  home_team: Team
+  id: number
+  league: string
+  tv_networks: string
+  notifications: Preference[]
+}
+
 interface PhoneNumber {
   created_at: string
   id: number
@@ -35,6 +46,7 @@ interface Preference {
   id: number
   phone: boolean
   team: Team
+  user: User
 }
 
 interface Team {

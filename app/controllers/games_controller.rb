@@ -10,7 +10,7 @@ class GamesController < ApplicationController
               .includes(home_team: :nicknames, away_team: :nicknames)
               .where("date > ? AND date < ?", 4.hours.ago, end_date.end_of_day)
               .order(date: :asc, id: :asc)
-    render json: @games, humanized_networks: @human_tv_network_list, each_serializer: WebGameSerializer
+    render json: @games, each_serializer: WebGameSerializer
   end
 
   def scrape
@@ -69,7 +69,7 @@ class GamesController < ApplicationController
     #render :json => games
     #byebug
 
-    render :json => games, humanized_networks: @human_tv_network_list, user_gmt_offset: user_gmt_offset
+    render :json => games, user_gmt_offset: user_gmt_offset
   end
 
   def get_day_difference(day)

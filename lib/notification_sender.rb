@@ -7,7 +7,7 @@ module NotificationSender
     end
 
     def sms_body(preference)
-      game = NotificationFinder.games_in_next_ten_minutes.with_team(preference.team).first
+      game = NotificationFinder.games_in(minutes: 10).with_team(preference.team).first
       home_team = game.home_team
       away_team = game.away_team
 

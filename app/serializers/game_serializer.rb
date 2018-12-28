@@ -10,10 +10,9 @@ class GameSerializer < ActiveModel::Serializer
   end
 
   def tv_networks
-    humanized_networks_list = @instance_options[:humanized_networks]
     humanized_networks = []
     object.tv_networks.split(",").map(&:strip).map(&:upcase).each do |network|
-      humanized_networks << (humanized_networks_list[network] || network)
+      humanized_networks << (HumanizedNetworkFinder.for(network) || network)
     end
     humanized_networks.to_sentence
   end
