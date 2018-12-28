@@ -1,6 +1,6 @@
 class UserZipCodesController < ApplicationController
   protect_from_forgery with: :null_session
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   def show
     user = UserZipCode.find_or_create_by(amz_id: Digest::SHA256.hexdigest(params["amz_id"]))

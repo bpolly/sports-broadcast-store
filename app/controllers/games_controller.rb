@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   include ActiveModel::Serializers::JSON
   protect_from_forgery with: :null_session
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
   DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 
   def index
