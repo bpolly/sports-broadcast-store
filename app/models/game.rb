@@ -26,4 +26,7 @@
     [home_team, away_team]
   end
 
+  def user_notifications(limit: 10)
+    UserNotificationPreference.where("team_id in (?)", teams).first(limit)
+  end
 end

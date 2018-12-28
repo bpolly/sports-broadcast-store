@@ -21,7 +21,8 @@ class SessionsController < ApplicationController
   def login_jwt_payload(user)
     {
       user_id: user.id,
-      user_email: user.email.address
+      user_email: user.email.address,
+      admin: user.admin?
     }
   end
 

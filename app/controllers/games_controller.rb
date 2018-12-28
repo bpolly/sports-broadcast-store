@@ -1,16 +1,16 @@
 class GamesController < ApplicationController
   include ActiveModel::Serializers::JSON
   protect_from_forgery with: :null_session
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
   DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 
   def index
-    end_date = params[:end_date] ? Time.at(params[:end_date].to_i / 1000) : 3.days.from_now
+    end_date = params[:end_date] ? Time.zone.parse(params[:end_date]) : 3.days.from_now
     @games = Game
               .includes(home_team: :nicknames, away_team: :nicknames)
               .where("date > ? AND date < ?", 4.hours.ago, end_date.end_of_day)
               .order(date: :asc, id: :asc)
-    render json: @games, humanized_networks: @human_tv_network_list, each_serializer: WebGameSerializer
+    render json: @games, each_serializer: WebGameSerializer
   end
 
   def scrape
@@ -69,7 +69,7 @@ class GamesController < ApplicationController
     #render :json => games
     #byebug
 
-    render :json => games, humanized_networks: @human_tv_network_list, user_gmt_offset: user_gmt_offset
+    render :json => games, user_gmt_offset: user_gmt_offset
   end
 
   def get_day_difference(day)

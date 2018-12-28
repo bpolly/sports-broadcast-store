@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :teams, through: :user_favorite_teams
   has_one :user_phone, dependent: :destroy
   has_one :user_email, dependent: :destroy
+  belongs_to :user_type
 
   alias_attribute :phone, :user_phone
   alias_attribute :email, :user_email
@@ -13,7 +14,15 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :user_email
 
+  before_create :assign_default_user_type
+
   def admin?
-    email.address == "something@test.com"
+    user_type == UserType.admin
+  end
+
+  private
+
+  def assign_default_user_type
+    self.user_type = UserType.regular
   end
 end

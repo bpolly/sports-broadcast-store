@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   resources  :user_favorite_teams
   namespace :admin do
     resources :users
+    resources :user_notification_preferences
+    get '/upcoming_notifications',  to: 'user_notification_preferences#upcoming_notifications'
   end
 
   # Sessions

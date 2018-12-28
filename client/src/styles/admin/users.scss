@@ -1,0 +1,13 @@
+td {
+  &.unverified {
+    color: red;
+  }
+
+  &.verified {
+    color: green;
+  }
+
+  svg.verification-icon {
+    margin-left: 4px;
+  }
+}
