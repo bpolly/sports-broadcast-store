@@ -59,4 +59,5 @@ group :development do
   gem 'spring'
   gem 'foreman'
   gem 'listen'
+  gem 'bullet'
 end

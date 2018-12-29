@@ -40,6 +40,40 @@ class AdminUpcomingNotifications extends Component<any, State> {
     )
   }
 
+  notificationTable = (game: GameWithNotifications) => {
+    if(game.notifications.length == 0){
+      return(
+        <div>No notifications.</div>
+      )
+    }
+    else {
+      return(
+        <table className="table">
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Email?</th>
+              <th>Phone?</th>
+              <th>User Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              game.notifications.map((notification: Preference) =>
+                <tr key={ notification.id }>
+                  <td>{ notification.user.id }</td>
+                  <td>{ notification.email ? "Yes": "No" }</td>
+                  <td>{ notification.phone ? "Yes": "No" }</td>
+                  <td>{ notification.team && notification.team.name }</td>
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
+      )
+    }
+  }
+
   render() {
     const { gamesWithNotifications } = this.state
     return(
@@ -53,19 +87,15 @@ class AdminUpcomingNotifications extends Component<any, State> {
           <p className="help">Current Count: { gamesWithNotifications.length }</p>
         </div>
 
-
         {
           gamesWithNotifications.map((game: GameWithNotifications) =>
-            <div className="box">
+            <div className="box" key={ game.id }>
               <div className="columns">
-                <div className="column">
+                <div className="column has-text-weight-semibold">
                   { moment(game.date).tz(moment.tz.guess()).format('h:mma') }
                 </div>
                 <div className="column capitalize">
                   { game.away_team } at { game.home_team }
-                </div>
-                <div className="column">
-                  { game.tv_networks }
                 </div>
                 <div className="column">
                   { game.league.toUpperCase() }
@@ -74,28 +104,7 @@ class AdminUpcomingNotifications extends Component<any, State> {
 
               <div className="columns">
                 <div className="column">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>User ID</th>
-                        <th>Email?</th>
-                        <th>Phone?</th>
-                        <th>User Type</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        game.notifications.map((notification: Preference) =>
-                          <tr key={ notification.id }>
-                            <td>{ notification.user.id }</td>
-                            <td>{ notification.email ? "Yes": "No" }</td>
-                            <td>{ notification.phone ? "Yes": "No" }</td>
-                            <td>{ notification.team && notification.team.name }</td>
-                          </tr>
-                        )
-                      }
-                    </tbody>
-                  </table>
+                  { this.notificationTable(game) }
                 </div>
               </div>
             </div>

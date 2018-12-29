@@ -17,7 +17,7 @@ class Admin::UserNotificationPreferencesController < ApplicationController
   end
 
   def upcoming_games_with_notifications
-    NotificationFinder.games_in(minutes: minute_threshold).joins(:home_team, :away_team).order(:date).map do |game|
+    NotificationFinder.games_in(minutes: minute_threshold).includes(:home_team, :away_team).order(:date).map do |game|
       GameSerializer.new(game).serializable_hash.merge(
         'notifications' => game
                             .user_notifications(limit: user_notification_limit)

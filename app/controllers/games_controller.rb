@@ -7,7 +7,7 @@ class GamesController < ApplicationController
   def index
     end_date = params[:end_date] ? Time.zone.parse(params[:end_date]) : 3.days.from_now
     @games = Game
-              .includes(home_team: :nicknames, away_team: :nicknames)
+              .includes(:home_team, :away_team)
               .where("date > ? AND date < ?", 4.hours.ago, end_date.end_of_day)
               .order(date: :asc, id: :asc)
     render json: @games, each_serializer: WebGameSerializer
