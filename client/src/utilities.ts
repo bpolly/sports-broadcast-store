@@ -20,3 +20,11 @@ export function generatePhoneNumberOptions(phoneNumber) {
     return tmp;
   });
 }
+
+export function chunkArrayInGroups(arr: any[], size: number) {
+  let myArray:any[] = [];
+  for(var i = 0; i < arr.length; i += size) {
+    myArray.push(arr.slice(i, i+size));
+  }
+  return myArray;
+}
