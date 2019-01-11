@@ -19,19 +19,18 @@ class EmailVerificationResend extends Component<any, State> {
     return(
       <div>
       Misplace the email or your code has expired?
-      <a onClick={this.resendVerificationEmail}>Click here to resend!</a>
+      <a onClick={this.resendVerificationEmail}> Click here to resend!</a>
       </div>
     )
   }
 
   message = () => {
-    let something = 1
     if(this.state.emailResendAttempted){
       return(<p>Email verification sent!</p>)
     }
     else {
       return(
-        <a onClick={this.resendVerificationEmail}>Click here to resend!</a>
+        <a onClick={this.resendVerificationEmail}> Click here to resend!</a>
       )
     }
   }

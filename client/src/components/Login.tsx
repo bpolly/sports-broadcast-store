@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import '../styles/login.scss'
 import AuthService from './AuthService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import EmailVerificationResend from './EmailVerificationResend'
 
 interface State {
   email: string
   password: string
   loading: boolean
-  errors: string
+  loginStatus: object
 }
 
 class Login extends Component<any, State> {
@@ -15,7 +16,7 @@ class Login extends Component<any, State> {
     email: "",
     password: "",
     loading: false,
-    errors: ""
+    loginStatus: { code: 0, message: '' }
   }
   auth = new AuthService()
 
@@ -30,14 +31,41 @@ class Login extends Component<any, State> {
     this.setState({ loading: true })
     this.auth.login(this.state.email, this.state.password)
       .then(response =>{
-        this.setState({ errors: 'Success! Redirecting home.' })
-        setTimeout(() => {
-          this.props.history.push('/')
-        }, 1000)
+        this.setState(
+          { loginStatus: { code: 200, message: 'OK' }},
+          () => (setTimeout(() => { this.props.history.push('/') }, 1000))
+        )
       })
       .catch(error =>{
-        this.setState({ errors: error.response.data.message })
+        this.setState({
+          loginStatus: {
+            code: error.response.status,
+            message: error.response.data.message
+          }
+        })
       })
+  }
+
+  successMessage = () => { return(<p>Success! Redirecting home...</p>) }
+  defaultErrorMessage = (message: string) => { return( <p>{ message }</p> )}
+  emailNotVerifiedMessage = () => {
+    return(
+      <div>
+        <p>Login successful - however this email has not been verified yet.</p>
+        <p>Please check your email for the verification link.</p>
+        <EmailVerificationResend />
+      </div>
+    )
+  }
+
+  loginResultMessage = () => {
+    const { loginStatus } = this.state
+    switch(loginStatus.code){
+      case 0: return;
+      case 200: return this.successMessage();
+      case 403: return this.emailNotVerifiedMessage();
+      default: return this.defaultErrorMessage(loginStatus.message)
+    }
   }
 
   formContent = () => {
@@ -76,8 +104,10 @@ class Login extends Component<any, State> {
             <button className="button is-success">
               Login
             </button>
-            { this.state.errors }
           </p>
+        </div>
+        <div className="field">
+          { this.loginResultMessage() }
         </div>
       </form>
     )

@@ -21,7 +21,7 @@ class UserEmailsController < ApplicationController
   end
 
   def resend_verification_code
-    user_email = UserEmail.find_by!(address: params[:email_address])
+    user_email = User.find(params[:user_id]).email
     if user_email.generate_new_verification_code
       head :ok
     else

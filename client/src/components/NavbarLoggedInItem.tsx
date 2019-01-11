@@ -13,6 +13,7 @@ class NavbarLoggedInItem extends Component<RouteComponentProps<any>> {
 
   render() {
     const userEmail = this.auth.getUserEmail()
+    const emailIsVerified = this.auth.getUserEmailVerificationStatus()
 
     return(
       <div className="navbar-item has-dropdown is-hoverable dropdown-right" id="navbar-email-dropdown">
