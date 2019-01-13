@@ -9,6 +9,10 @@ class NotificationSender
     new(minutes).send_sms_notifications
   end
 
+  def self.send_email_notifications(minutes)
+    new(minutes).send_email_notifications
+  end
+
   def send_sms_notifications
     sms_twilio_ids = []
     preferences_for_teams_playing.sms.each do |preference|
@@ -20,7 +24,7 @@ class NotificationSender
   def send_email_notifications
     email_ids = []
     preferences_for_teams_playing.email.each do |preference|
-      email_ids << UserNotifierMailer.send_signup_email(user: user).deliver_now
+      email_ids << UserNotifierMailer.send_game_notification(preference: preference, minutes: minutes).deliver_now
     end
     puts email_ids.length
   end

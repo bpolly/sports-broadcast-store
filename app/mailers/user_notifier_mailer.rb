@@ -8,11 +8,13 @@ class UserNotifierMailer < ActionMailer::Base
     :subject => 'Sportcasts - Verify your account' )
   end
 
-  def send_game_notification(preference:)
+  def send_game_notification(preference:, minutes:)
     @game = NotificationFinder.games_in(minutes: minutes).with_team(preference.team).first
-    @home_team = game.home_team
-    @away_team = game.away_team
+    @home_team = @game.home_team
+    @away_team = @game.away_team
     @unsubscribe_url = unsubscribe_url(preference: preference)
+    mail( :to => preference.user.email.address,
+    :subject => 'Sportcasts - Game Notification' )
   end
 
   private
@@ -22,7 +24,8 @@ class UserNotifierMailer < ActionMailer::Base
   end
 
   def unsubscribe_url(preference:)
-    "#{host_url}/unsubscribe?email_address=#{user_email.address}&preference=#{preference.id}"
+    email_address = preference.user.email.address
+    "#{host_url}/unsubscribe?email_address=#{email_address}&preference=#{preference.id}"
   end
 
   def host_url

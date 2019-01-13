@@ -25,7 +25,6 @@ class EmailUnsubscribe extends Component<RouteComponentProps<any>> {
       emailAddress: params.email_address,
       preferenceId: params.preference,
     }, this.fetchTeamNameForPreference)
-
   }
 
   fetchTeamNameForPreference = () => {
