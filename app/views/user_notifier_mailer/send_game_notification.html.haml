@@ -1,0 +1,16 @@
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h3
+      Sportcasts: Game Notification
+    %p
+      Please verify your email by clicking the following link:
+    %a{:href => "#{@verification_url}"} #{@verification_url}
+    %div
+      #{@away_team.name.titleize} @ #{home_team.name.titleize}
+      #{@game.date.in_time_zone("Eastern Time (US & Canada)").strftime("%-l:%M%P")} ET
+      #{@game.tv_networks.split(",").map(&:strip).map(&:upcase).to_sentence}
+
+    Visit sportcasts.io to configure your team notifications.
+    %a{:href => @unsubscribe_url} Click here to unsubscribe

@@ -11,16 +11,22 @@ class NotificationSender
 
   def send_sms_notifications
     sms_twilio_ids = []
-    preferences_for_teams_playing.each do |preference|
+    preferences_for_teams_playing.sms.each do |preference|
       sms_twilio_ids << TwilioClient.send_sms(to: preference.user_phone.number, body: sms_body(preference))
     end
     puts sms_twilio_ids.length
   end
 
+  def send_email_notifications
+    email_ids = []
+    preferences_for_teams_playing.email.each do |preference|
+      email_ids << UserNotifierMailer.send_signup_email(user: user).deliver_now
+    end
+    puts email_ids.length
+  end
+
   def preferences_for_teams_playing
-    UserNotificationPreference
-      .where(team: NotificationFinder.teams_playing_in(minutes: minutes))
-      .sms
+    UserNotificationPreference.where(team: NotificationFinder.teams_playing_in(minutes: minutes))
   end
 
   private

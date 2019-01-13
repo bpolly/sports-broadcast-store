@@ -1,4 +1,5 @@
 export function titleCase(str) {
+  if(str.length == 0) return '' 
   return str.toLowerCase().split(' ').map(word=>word[0].toUpperCase()+word.slice(1)).join(' ');
 }
 

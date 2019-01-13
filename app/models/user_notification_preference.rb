@@ -9,6 +9,7 @@ class UserNotificationPreference < ApplicationRecord
   before_update :delete_if_blank
 
   scope :sms, -> { where(phone: true) }
+  scope :email, -> { where(email: true) }
 
   private
 

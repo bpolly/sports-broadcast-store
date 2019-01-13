@@ -29,6 +29,17 @@ class UserEmailsController < ApplicationController
     end
   end
 
+  def unsubscribe
+    user = UserEmail.find_by!(address: params[:email_address]).user
+    if(params[:preference_id])
+      preference = user.notification_preferences.email.find_by(id: params[:preference_id])
+      preference.update(email: false)
+    else
+      user.notification_preferences.email.each { |p| p.update(email: false) }
+    end
+    head :ok
+  end
+
   private
 
   def user_email_params

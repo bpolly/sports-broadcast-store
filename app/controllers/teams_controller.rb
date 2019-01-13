@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.includes(:nicknames).all
+    @teams = Team.all
     render json: @teams
   end
 

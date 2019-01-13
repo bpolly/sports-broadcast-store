@@ -7,6 +7,7 @@ import './styles/font-awesome-4.7.0/css/font-awesome.min.css'
 import './App.scss'
 import Dashboard from './components/Dashboard'
 import EmailVerification from './components/EmailVerification'
+import EmailUnsubscribe from './components/EmailUnsubscribe'
 import Login from './components/Login'
 import Navbar from './components/Navbar'
 import NotificationCenter from './components/NotificationCenter'
@@ -65,6 +66,7 @@ class App extends Component {
                   />}
             />
             <Route path="/verify" component={EmailVerification} />
+            <Route path="/unsubscribe" component={EmailUnsubscribe} />
             <Route path="/login" component={Login}/>
             <Route path="/signup" component={Signup}/>
             <Route
