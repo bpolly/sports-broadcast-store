@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { Link, RouteComponentProps } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
 import '../styles/email_unsubscribe.scss'
-const queryString = require('query-string')
+import queryString from 'query-string'
 import { titleCase } from '../utilities'
 
-class EmailUnsubscribe extends Component<RouteComponentProps<any>> {
+interface State {
+  emailAddress: string | string[] | undefined,
+  preferenceId: string | string[] | undefined,
+  requestSent: boolean,
+  requestSuccess: boolean,
+  message: string,
+  selectedOption: string,
+  teamName: string
+}
+
+class EmailUnsubscribe extends Component<RouteComponentProps<any>, State> {
   state = {
     emailAddress: '',
     preferenceId: '0',
@@ -44,12 +53,11 @@ class EmailUnsubscribe extends Component<RouteComponentProps<any>> {
   }
 
   handleSubmit = () => {
-    let body = {}
+    const body: object = {}
     body['email_address'] = this.state.emailAddress
     if(this.state.preferenceId != '') body['preferenceId'] = this.state.preferenceId
     axios.post('/unsubscribe_email', body)
-    .then(response => {
-      console.log('success')
+    .then(() => {
       this.setState({
         requestSent: true,
         requestSuccess: true,
@@ -57,7 +65,6 @@ class EmailUnsubscribe extends Component<RouteComponentProps<any>> {
       })
     })
     .catch(error => {
-      console.log(error.response)
       this.setState({
         requestSent: true,
         requestSuccess: false,

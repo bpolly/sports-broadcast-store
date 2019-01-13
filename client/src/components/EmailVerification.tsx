@@ -1,13 +1,21 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
-import { NavLink, RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
 import EmailVerificationResend from './EmailVerificationResend'
 import '../styles/email_verification.scss'
-const queryString = require('query-string')
+import queryString from 'query-string'
 
-class EmailVerification extends Component<RouteComponentProps<any>> {
+interface State {
+  emailAddress: string | string[] | undefined,
+  verificationCode: string | string[] | undefined,
+  verificationSent: boolean,
+  verificationSuccess: boolean,
+  message: string
+}
+
+class EmailVerification extends Component<RouteComponentProps<any>, State> {
   state = {
     emailAddress: '',
     verificationCode: '',
@@ -31,8 +39,7 @@ class EmailVerification extends Component<RouteComponentProps<any>> {
       email_address: this.state.emailAddress,
       verification_code: this.state.verificationCode
     })
-    .then(response => {
-      console.log('success')
+    .then(() => {
       this.setState({
         verificationSent: true,
         verificationSuccess: true,
@@ -40,7 +47,6 @@ class EmailVerification extends Component<RouteComponentProps<any>> {
       })
     })
     .catch(error => {
-      console.log(error.response)
       this.setState({
         verificationSent: true,
         verificationSuccess: false,
