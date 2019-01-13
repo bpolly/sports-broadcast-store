@@ -58,7 +58,6 @@ class Dashboard extends Component<any, State> {
     }
 
     this.setState((prevState) => ({
-      ...prevState,
       filters: {
         ...prevState.filters,
         [name]: value,
