@@ -40,6 +40,10 @@ class UserNotificationPreferencesController < ApplicationController
     end
   end
 
+  def show
+    render json: UserNotificationPreference.find(params[:id]), status: :ok
+  end
+
   private
 
   def notification_params

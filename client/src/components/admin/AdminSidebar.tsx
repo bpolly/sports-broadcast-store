@@ -24,9 +24,6 @@ class AdminSidebar extends Component {
           </p>
           <ul className="menu-list">
             <li>
-              <NavLink to="/admin/payments" activeClassName="is-active">User Notifications</NavLink>
-            </li>
-            <li>
               <NavLink to="/admin/upcoming_notifications" activeClassName="is-active">Upcoming Notifications</NavLink>
             </li>
             <li>

@@ -17,13 +17,14 @@ Rails.application.routes.draw do
   post '/retrieve_zip',          to: 'user_zip_codes#show'
   post '/update_favorite_teams', to: 'user_favorite_teams#update_all'
   post '/verify_email',          to: 'user_emails#verify'
+  post '/unsubscribe_email',     to: 'user_emails#unsubscribe'
 
   resources :games
   resources :users, only: [:create]
   resources :teams do
     resources :nicknames
   end
-  resources :user_notification_preferences, only: [:index, :create, :destroy, :update]
+  resources :user_notification_preferences, only: [:index, :create, :destroy, :update, :show]
   resources  :user_favorite_teams
   namespace :admin do
     resources :users

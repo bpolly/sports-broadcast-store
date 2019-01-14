@@ -13,7 +13,7 @@ export default class AuthService {
     login(email, password) {
       return axios.post('/login', {
         user: {
-          email: email,                                
+          email: email,
           password: password
         }
       }).then(response => {
@@ -40,7 +40,7 @@ export default class AuthService {
     isLoggedIn() {
         // Checks if there is a saved token and it's still valid
         const token = this.getToken() // GEtting token from localstorage
-        return !!token && !this.isTokenExpired(token) // handwaiving here
+        return !!token && !this.isTokenExpired(token) && this.getUserEmailVerificationStatus()
     }
 
     isAdmin() {
@@ -77,18 +77,19 @@ export default class AuthService {
     }
 
     getUserData() {
-        // Using jwt-decode npm package to decode the token
         return decode(this.getToken())
     }
 
     getUserId() {
-        // Using jwt-decode npm package to decode the token
-        return decode(this.getToken())['user_id']
+        return this.getUserData()['user_id']
     }
 
     getUserEmail() {
-        // Using jwt-decode npm package to decode the token
-        return decode(this.getToken())['user_email']
+        return this.getUserData()['user_email']
+    }
+
+    getUserEmailVerificationStatus() {
+        return this.getUserData()['email_verified']
     }
 
     fetch(url, options) {

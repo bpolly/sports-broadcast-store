@@ -1,4 +1,5 @@
 export function titleCase(str) {
+  if(str.length == 0) return '' 
   return str.toLowerCase().split(' ').map(word=>word[0].toUpperCase()+word.slice(1)).join(' ');
 }
 
@@ -19,4 +20,12 @@ export function generatePhoneNumberOptions(phoneNumber) {
     tmp['label'] = phoneNumber.number
     return tmp;
   });
+}
+
+export function chunkArrayInGroups(arr: any[], size: number) {
+  let myArray:any[] = [];
+  for(var i = 0; i < arr.length; i += size) {
+    myArray.push(arr.slice(i, i+size));
+  }
+  return myArray;
 }

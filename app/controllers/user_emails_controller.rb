@@ -21,12 +21,23 @@ class UserEmailsController < ApplicationController
   end
 
   def resend_verification_code
-    user_email = UserEmail.find_by!(address: params[:email_address])
+    user_email = User.find(params[:user_id]).email
     if user_email.generate_new_verification_code
       head :ok
     else
       render json: user_email.errors.full_messages, status: :bad
     end
+  end
+
+  def unsubscribe
+    user = UserEmail.find_by!(address: params[:email_address]).user
+    if(params[:preference_id])
+      preference = user.notification_preferences.email.find_by(id: params[:preference_id])
+      preference.update(email: false)
+    else
+      user.notification_preferences.email.each { |p| p.update(email: false) }
+    end
+    head :ok
   end
 
   private

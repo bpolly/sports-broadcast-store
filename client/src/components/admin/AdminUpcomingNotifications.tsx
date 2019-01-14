@@ -3,6 +3,7 @@ import '../../styles/admin/users.scss'
 import axios from 'axios'
 import moment from 'moment-timezone'
 import AuthService from '../AuthService'
+import { chunkArrayInGroups } from '../../utilities'
 
 interface State {
   gamesWithNotifications: GameWithNotifications[],
@@ -40,6 +41,54 @@ class AdminUpcomingNotifications extends Component<any, State> {
     )
   }
 
+  getDateClass = (game: GameWithNotifications) => {
+    let gameDate = moment(game.date).tz(moment.tz.guess())
+    let todayDate = moment().tz(moment.tz.guess())
+    let tomorrowDate = moment().tz(moment.tz.guess()).add(1, 'day')
+    if(gameDate.isSame(todayDate, 'day')){
+      return "is-warning"
+    }
+    else if (gameDate.isSame(tomorrowDate, 'day')){
+      return "is-primary"
+    }
+    else {
+      return "is-info"
+    }
+  }
+
+
+  notificationTable = (game: GameWithNotifications) => {
+    if(game.notifications.length == 0){
+      return(
+        <div>No notifications.</div>
+      )
+    }
+    else {
+      return(
+        <table className="table" style={{backgroundColor: 'transparent'}}>
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Email?</th>
+              <th>Phone?</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              game.notifications.map((notification: Preference) =>
+                <tr key={ notification.id }>
+                  <td>{ notification.user.id }</td>
+                  <td>{ notification.email ? "Yes": "No" }</td>
+                  <td>{ notification.phone ? "Yes": "No" }</td>
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
+      )
+    }
+  }
+
   render() {
     const { gamesWithNotifications } = this.state
     return(
@@ -53,53 +102,28 @@ class AdminUpcomingNotifications extends Component<any, State> {
           <p className="help">Current Count: { gamesWithNotifications.length }</p>
         </div>
 
-
         {
-          gamesWithNotifications.map((game: GameWithNotifications) =>
-            <div className="box">
-              <div className="columns">
-                <div className="column">
-                  { moment(game.date).tz(moment.tz.guess()).format('h:mma') }
-                </div>
-                <div className="column capitalize">
-                  { game.away_team } at { game.home_team }
-                </div>
-                <div className="column">
-                  { game.tv_networks }
-                </div>
-                <div className="column">
-                  { game.league.toUpperCase() }
-                </div>
+            chunkArrayInGroups(gamesWithNotifications, 3).map((gameChunk: GameWithNotifications[], index) =>
+              <div className="columns" key={ index }>
+                {
+                  gameChunk.map((game: GameWithNotifications) =>
+                    <div className="column is-4" key={ game.id }>
+                      <article className={`message ${this.getDateClass(game)}`}>
+                        <div className="message-header" style={{display: 'flow-root'}}>
+                          <p>
+                          <span className="has-text-weight-semibold is-pulled-left">{ moment(game.date).tz(moment.tz.guess()).format('h:mma') }</span>
+                          <span className="is-pulled-right capitalize">{ game.away_team } at { game.home_team }</span>
+                          </p>
+                        </div>
+                        <div className="message-body">
+                          { this.notificationTable(game) }
+                        </div>
+                      </article>
+                    </div>
+                  )
+                }
               </div>
-
-              <div className="columns">
-                <div className="column">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>User ID</th>
-                        <th>Email?</th>
-                        <th>Phone?</th>
-                        <th>User Type</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        game.notifications.map((notification: Preference) =>
-                          <tr key={ notification.id }>
-                            <td>{ notification.user.id }</td>
-                            <td>{ notification.email ? "Yes": "No" }</td>
-                            <td>{ notification.phone ? "Yes": "No" }</td>
-                            <td>{ notification.team && notification.team.name }</td>
-                          </tr>
-                        )
-                      }
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          )
+            )
         }
       </div>
     )

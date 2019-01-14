@@ -3,5 +3,4 @@ class UserNotificationPreferenceSerializer < ActiveModel::Serializer
 
   has_one :team
   has_one :user
-
 end

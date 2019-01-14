@@ -1,14 +1,15 @@
 class UserNotificationPreference < ApplicationRecord
   belongs_to :user
   belongs_to :team
-  belongs_to :user_phone
-  belongs_to :user_email
+  has_one :user_phone, through: :user
+  has_one :user_email, through: :user
   validates :team_id, presence: true
   validates :callback_url, url: { allow_nil: true, no_local: true  }
   validate :all_are_not_blank, :on => :create
   before_update :delete_if_blank
 
-  scope :sms, -> { where.not(user_phone: nil) }
+  scope :sms, -> { where(phone: true) }
+  scope :email, -> { where(email: true) }
 
   private
 

@@ -4,7 +4,7 @@ module NotificationFinder
   end
 
   def self.teams_playing_in(minutes: 10)
-    Team.where(id: games_in(minutes: 10).map(&:teams).flatten).distinct
+    Team.where(id: games_in(minutes: minutes).map(&:teams).flatten).distinct
   end
 end
 
