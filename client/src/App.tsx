@@ -24,6 +24,43 @@ import { faEnvelope, faLock, faCheckCircle, faTimesCircle, faCheckSquare, faUser
 
 library.add(faEnvelope, faLock, faCheckCircle, faTimesCircle, faSquare, faCheckSquare, faUserCircle, faSpinner)
 
+const PrivateRoute = ({ component: Component, path, ...rest }) => (
+  <Route
+    path={path}
+    render={props =>
+      new AuthService().isLoggedIn() ? (
+        <Component {...props} {...rest} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/login",
+          }}
+        />
+      )
+    }
+  />
+);
+
+const AdminRoute = ({ component:Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      new AuthService().isAdmin() ? (
+        <AdminLayout>
+          <Component {...props} />
+        </AdminLayout>
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/login",
+          }}
+        />
+      )
+    }
+  />
+);
+
+
 class App extends Component {
   state = {
     favoriteTeams: []
@@ -69,55 +106,27 @@ class App extends Component {
             <Route path="/unsubscribe" component={EmailUnsubscribe} />
             <Route path="/login" component={Login}/>
             <Route path="/signup" component={Signup}/>
-            <Route
-              exact path="/notifications"
-              render={() =>
-                !this.auth.isLoggedIn() ? (
-                  <Redirect to="/login" />
-                ) : (
-                    <NotificationCenter
-                      handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-                      favoriteTeams={favoriteTeams}
-                    />
-                )
-              }
+            <PrivateRoute
+              path="/notifications"
+              component={NotificationCenter}
+              handleFavoriteTeamChange={this.handleFavoriteTeamChange}
+              favoriteTeams={favoriteTeams}
+              />
             />
-            <Route
+            <AdminRoute
               exact
               path="/admin"
-              render={() =>
-                !this.auth.isAdmin() ? (
-                  <Redirect to="/login" />
-                ) : (
-                  <AdminLayout>
-                    <AdminDashboard />
-                  </AdminLayout>
-                )
-              }
+              component={AdminDashboard}
             />
-            <Route
+            <AdminRoute
+              exact
               path="/admin/users"
-              render={() =>
-                !this.auth.isAdmin() ? (
-                  <Redirect to="/login" />
-                ) : (
-                  <AdminLayout>
-                    <AdminUsers />
-                  </AdminLayout>
-                )
-              }
+              component={AdminUsers}
             />
-            <Route
+            <AdminRoute
+              exact
               path="/admin/upcoming_notifications"
-              render={() =>
-                !this.auth.isAdmin() ? (
-                  <Redirect to="/login" />
-                ) : (
-                  <AdminLayout>
-                    <AdminUpcomingNotifications />
-                  </AdminLayout>
-                )
-              }
+              component={AdminUpcomingNotifications}
             />
             <Route render={() => (<div>
                 Sorry, this page does not exist.
