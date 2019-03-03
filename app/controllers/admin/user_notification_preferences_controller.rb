@@ -17,15 +17,18 @@ class Admin::UserNotificationPreferencesController < ApplicationController
   end
 
   def upcoming_games_with_notifications
-    NotificationFinder.games_in(minutes: minute_threshold).includes(:home_team, :away_team).order(:date).map do |game|
-      GameSerializer.new(game).serializable_hash.merge(
-        'notifications' => game
-                            .user_notifications(limit: user_notification_limit)
-                            .map do |notification|
-                              UserNotificationPreferenceSerializer.new(notification).serializable_hash
-                            end
-      )
-    end
+    NotificationFinder
+      .games_in(minutes: minute_threshold)
+      .includes(:home_team, :away_team).order(:date)
+      .map do |game|
+        GameSerializer.new(game).serializable_hash.merge(
+          'notifications' => game
+                              .user_notifications(limit: user_notification_limit)
+                              .map do |notification|
+                                UserNotificationPreferenceSerializer.new(notification).serializable_hash
+                              end
+        )
+    end.group_by{ |g| g[:date].to_date.to_s(:db)}
   end
 
   def user_notification_limit
