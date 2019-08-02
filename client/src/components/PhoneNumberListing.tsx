@@ -3,7 +3,7 @@ import PhoneNumberForm from './PhoneNumberForm'
 import '../styles/phone_number_listing.scss'
 
 type Props = {
-  phoneNumber: PhoneNumber
+  phoneNumber: PhoneNumber | null
   deletePhoneNumber: () => void
   fetchPhoneNumber: () => void
 }
@@ -14,12 +14,12 @@ class PhoneNumberListing extends Component<Props> {
   }
 
   handleDeleteClick = () => {
-    if (!window.confirm(`Are you sure you wish to delete phone number ${this.props.phoneNumber.number}?`)) return
+    if (!window.confirm(`Are you sure you wish to delete phone number ${this.props.phoneNumber && this.props.phoneNumber.number}?`)) return
     this.props.deletePhoneNumber()
   }
 
   verificationStatusTag = () => {
-    if(this.props.phoneNumber.verified) {
+    if (this.props.phoneNumber && this.props.phoneNumber.verified) {
       return (
         <span></span>
       )
@@ -46,7 +46,7 @@ class PhoneNumberListing extends Component<Props> {
         <div className="level">
           <div className="level-left">
             <div className="level-item">
-              { phoneNumber.number }
+              {phoneNumber && phoneNumber.number }
             </div>
           </div>
           <div className="level-right">

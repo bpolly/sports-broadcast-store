@@ -3,12 +3,12 @@ import { withRouter } from 'react-router'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import axios from 'axios'
 import '../styles/email_unsubscribe.scss'
-import queryString from 'query-string'
+import queryString, { ParsedQuery } from 'query-string'
 import { titleCase } from '../utilities'
 
 interface State {
-  emailAddress: string | string[] | undefined,
-  preferenceId: string | string[] | undefined,
+  emailAddress: string | string[] | null | undefined,
+  preferenceId: string | string[] | null | undefined,
   requestSent: boolean,
   requestSuccess: boolean,
   message: string,
@@ -28,7 +28,7 @@ class EmailUnsubscribe extends Component<RouteComponentProps<any>, State> {
   }
 
   componentDidMount(){
-    const params = queryString.parse(this.props.location.search)
+    const params: ParsedQuery = queryString.parse(this.props.location.search)
     console.log(params)
     this.setState({
       emailAddress: params.email_address,

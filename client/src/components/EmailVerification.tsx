@@ -8,8 +8,8 @@ import '../styles/email_verification.scss'
 import queryString from 'query-string'
 
 interface State {
-  emailAddress: string | string[] | undefined,
-  verificationCode: string | string[] | undefined,
+  emailAddress: string | string[] | undefined | null,
+  verificationCode: string | string[] | undefined | null,
   verificationSent: boolean,
   verificationSuccess: boolean,
   message: string
