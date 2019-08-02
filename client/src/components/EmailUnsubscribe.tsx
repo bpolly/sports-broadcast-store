@@ -7,8 +7,8 @@ import queryString from 'query-string'
 import { titleCase } from '../utilities'
 
 interface State {
-  emailAddress: string | string[] | undefined,
-  preferenceId: string | string[] | undefined,
+  emailAddress: string | string[] | undefined | null,
+  preferenceId: string | string[] | undefined | null,
   requestSent: boolean,
   requestSuccess: boolean,
   message: string,
@@ -29,6 +29,7 @@ class EmailUnsubscribe extends Component<RouteComponentProps<any>, State> {
 
   componentDidMount(){
     const params = queryString.parse(this.props.location.search)
+    console.log('hi')
     console.log(params)
     this.setState({
       emailAddress: params.email_address,

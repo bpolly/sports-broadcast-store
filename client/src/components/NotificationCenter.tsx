@@ -74,7 +74,7 @@ class NotificationCenter extends Component<Props, State> {
 
   phoneNumberList = () => {
     const { phoneNumber } = this.state
-    if(phoneNumber) {
+    if(phoneNumber != null) {
       return(
         <PhoneNumberListing
           phoneNumber={phoneNumber}

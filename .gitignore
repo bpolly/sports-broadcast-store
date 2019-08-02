@@ -51,3 +51,4 @@ client/node_modules
 client/build
 
 .DS_Store
+sports-broadcast-store-pg.dump
