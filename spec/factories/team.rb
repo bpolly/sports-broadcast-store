@@ -7,11 +7,11 @@ FactoryBot.define do
     end
 
     trait :nba do
-      league 'nba'
+      league { 'nba' }
     end
 
     trait :nfl do
-      league 'nfl'
+      league { 'nfl' }
     end
   end # factory :team
 end # FactoryBot.define
