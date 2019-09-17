@@ -20,6 +20,10 @@ class User < ApplicationRecord
     user_type == UserType.admin
   end
 
+  def verified?
+    email&.verified_at&.present? || false
+  end
+
   private
 
   def assign_default_user_type
