@@ -19,7 +19,7 @@ gem 'turbolinks'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'dotenv-rails', :groups => [:development, :test]
+gem 'dotenv-rails', '~> 2.7', :groups => [:development, :test]
 gem 'haml-rails'
 gem 'nokogiri'
 gem 'httparty'
@@ -33,7 +33,6 @@ gem 'bcrypt'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'watir'
 gem 'puma'
-gem 'pry-byebug'
 gem 'timezone', '~> 1.0'
 gem 'jwt'
 gem 'validate_url'

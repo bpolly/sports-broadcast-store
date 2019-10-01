@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module SportsBroadcastStore
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.0
+    config.load_defaults Rails::VERSION::STRING.to_f
 
     config.eager_load_paths += %W(#{config.root}/lib)
 
