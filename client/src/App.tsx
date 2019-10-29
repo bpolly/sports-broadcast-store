@@ -41,7 +41,7 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => (
   />
 );
 
-const AdminRoute = ({ component:Component, ...rest }) => (
+const AdminRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
@@ -75,7 +75,8 @@ class App extends Component {
     })
   }
 
-  handleFavoriteTeamChange = (teams) => {
+  handleFavoriteTeamChange = (teams: TeamSelectOption[]) => {
+    console.log(teams)
     axios.post('/update_favorite_teams',
       { teams: teams.map((team) => team['value']) },
       {
