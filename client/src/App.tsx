@@ -1,5 +1,8 @@
+/// <reference path="./types/global.d.ts" />
 /// <reference path="./types/sportcast_types.d.ts" />
-import React, { Component } from 'react'
+import { RouteProps } from "react-router";
+import React from 'react'
+import { Component } from 'react'
 import { Redirect } from 'react-router'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './styles/bulma.css'
@@ -24,12 +27,12 @@ import { faEnvelope, faLock, faCheckCircle, faTimesCircle, faCheckSquare, faUser
 
 library.add(faEnvelope, faLock, faCheckCircle, faTimesCircle, faSquare, faCheckSquare, faUserCircle, faSpinner)
 
-const PrivateRoute = ({ component: Component, path, ...rest }) => (
+const PrivateRoute = ({ component: CustomComponent, path, ...rest } : any) => (
   <Route
     path={path}
     render={props =>
       new AuthService().isLoggedIn() ? (
-        <Component {...props} {...rest} />
+        <CustomComponent {...props} {...rest} />
       ) : (
         <Redirect
           to={{
@@ -41,7 +44,7 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => (
   />
 );
 
-const AdminRoute = ({ component: Component, ...rest }) => (
+const AdminRoute = ({ component: CustomComponent, ...rest } : any) => (
   <Route
     {...rest}
     render={props =>

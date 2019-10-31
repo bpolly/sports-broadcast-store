@@ -128,7 +128,7 @@ class AdminUpcomingNotifications extends Component<any, State> {
   }
 
   render() {
-    const { gameListByDate } = this.state
+    const { gameListByDate} : { gameListByDate: any } = this.state
     return (
       <div id="admin-users">
         <h3 className="title is-3">Upcoming Notifications</h3>

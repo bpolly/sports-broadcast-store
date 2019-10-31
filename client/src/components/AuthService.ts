@@ -1,6 +1,15 @@
+/// <reference types="axios" />
 import decode from 'jwt-decode'
-import cookie from 'react-cookies'
+
 import axios from 'axios'
+import { AxiosResponse } from 'axios'
+declare module "react-cookies";
+import cookie from 'react-cookies'
+
+interface JwtToken {
+    exp: number,
+    [key: string]: any
+}
 
 export default class AuthService {
     // Initializing important variables
@@ -10,7 +19,7 @@ export default class AuthService {
         this.getUserData = this.getUserData.bind(this)
     }
 
-    login(email, password) {
+    login(email: string, password: string) {
       return axios.post('/login', {
         user: {
           email: email,
@@ -22,7 +31,7 @@ export default class AuthService {
         })
     }
 
-    createUser(email, password, passwordConfirmation) {
+    createUser(email: string, password: string, passwordConfirmation: string) {
       return axios.post('/users', {
         user: {
           password: password,
@@ -44,12 +53,13 @@ export default class AuthService {
     }
 
     isAdmin() {
-        return this.isLoggedIn() && decode(this.getToken())['admin']
+        const decoded: JwtToken = decode(this.getToken())
+        return this.isLoggedIn() && decoded['admin']
     }
 
-    isTokenExpired(token) {
+    isTokenExpired(token: string) {
         try {
-            const decoded = decode(token)
+            const decoded: JwtToken = decode(token)
             if (decoded.exp < Date.now() / 1000) { // Checking if token is expired. N
                 return true
             }
@@ -61,7 +71,7 @@ export default class AuthService {
         }
     }
 
-    setToken(token) {
+    setToken(token: string) {
         // Saves user token to cookie
         cookie.save('user-auth-token', token, { path: '/' })
     }
@@ -76,7 +86,7 @@ export default class AuthService {
         cookie.remove('user-auth-token')
     }
 
-    getUserData() {
+    getUserData(): JwtToken {
         return decode(this.getToken())
     }
 
@@ -92,9 +102,9 @@ export default class AuthService {
         return this.getUserData()['email_verified']
     }
 
-    fetch(url, options) {
+    fetch(url: string, options: object) {
         // performs api calls sending the required authentication headers
-        const headers = {
+        const headers: any = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
@@ -113,7 +123,7 @@ export default class AuthService {
             .then(response => response.json())
     }
 
-    _checkStatus(response) {
+    _checkStatus(response: any) {
         // raises an error in case response status is not a success
         if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
             return response

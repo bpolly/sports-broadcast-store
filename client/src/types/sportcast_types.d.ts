@@ -61,6 +61,7 @@ interface TeamSelectOption {
 }
 
 interface User {
+  [key: string]: any
   created_at: string
   email: Email
   id: number
