@@ -28,7 +28,11 @@ class Dashboard extends Component<any, State> {
     this.fetchGames(null)
   }
 
-  fetchGames = (_endDate) => {
+  getCurrentDate(): moment.Moment {
+    return moment();
+  }
+
+  fetchGames = (_endDate: moment.Moment | null) => {
     this.setState({ loading: true })
     axios.get(`/games${_endDate ? `?end_date=${_endDate}` : ''}`)
     .then(response => {
@@ -39,18 +43,18 @@ class Dashboard extends Component<any, State> {
     })
   }
 
-  handleDateChange = (event) => {
+  handleDateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target
     const dateValue = value.match(/(\d)-(\w+)/)
-    if(value.length !== 0){
-      let numUnits = parseInt(dateValue[1], 10)
-      let unitName = dateValue[2]
-      const targetDate = moment().add(numUnits, unitName).subtract(1, 'day').endOf('day')
+    if((value.length !== 0) && (dateValue != null)){
+      let numUnits: any = parseInt(dateValue[1], 10)
+      let unitName: any = dateValue[2]
+      const targetDate = this.getCurrentDate().add(numUnits, unitName).subtract(1, 'day').endOf('day')
       this.fetchGames(targetDate)
     }
   }
 
-  handleFilterChange = (event) => {
+  handleFilterChange = (event: any) => {
     const { name } = event.target
     let { value } = event.target
     if(name === 'favorite-teams-only') {
@@ -68,11 +72,11 @@ class Dashboard extends Component<any, State> {
   favoriteTeamSlugs = () => {
     console.log(this.props.favoriteTeams)
     console.log(this.props.favoriteTeams.length)
-    return this.props.favoriteTeams.map((team) => team['slug'])
+    return this.props.favoriteTeams.map((team: Team) => team['slug'])
   }
 
   filteredGames = () => {
-    const { games, filters } = this.state
+    const { games, filters }: { games: Game[], filters: any} = this.state
 
     return Object.keys(filters).reduce((games, filterName) => {
       return games.filter((game: Game) => {

@@ -20,13 +20,13 @@ class Login extends Component<any, State> {
   }
   auth = new AuthService()
 
-  handleChange = (e) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       [e.target.type]: e.target.value
     } as any)
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     this.setState({ loading: true })
     this.auth.login(this.state.email, this.state.password)

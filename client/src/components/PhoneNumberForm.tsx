@@ -20,8 +20,8 @@ class PhoneNumberForm extends Component<Props> {
   }
   auth = new AuthService()
 
-  handleChange = (e) => {
-    let change = {}
+  handleChange = (e: any) => {
+    let change: any = {}
     change[e.target.name] = e.target.value.toUpperCase()
     this.setState(change)
   }

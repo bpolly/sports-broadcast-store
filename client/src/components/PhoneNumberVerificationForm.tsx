@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { AxiosError } from 'axios'
 import AuthService from './AuthService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../styles/animate.css'
@@ -20,8 +21,8 @@ class PhoneNumberVerificationForm extends Component<Props> {
   }
   auth = new AuthService()
 
-  handleChange = (e) => {
-    let change = {}
+  handleChange = (e: any) => {
+    let change: any = {}
     change[e.target.name] = e.target.value.toUpperCase()
     this.setState(change)
   }
@@ -64,7 +65,7 @@ class PhoneNumberVerificationForm extends Component<Props> {
     setTimeout(this.props.closePhoneFormModal, 1500)
   }
 
-  handleVerificationFailure = (error) => {
+  handleVerificationFailure = (error: any) => {
     this.setState({
       verificationCodeChecked: true,
       verificationSuccess: false,

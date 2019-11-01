@@ -33,7 +33,7 @@ class Signup extends Component<any, State> {
     } as any)
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = (e: any) => {
     e.preventDefault()
     this.setState({ loading: true, signupSent: true })
 

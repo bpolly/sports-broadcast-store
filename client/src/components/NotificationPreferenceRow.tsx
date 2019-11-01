@@ -10,7 +10,7 @@ interface Props {
   favoriteTeams: Team[]
   phoneNumber: PhoneNumber | null
   preference: Preference
-  deleteNotification: (Preference) => Promise<void>
+  deleteNotification: (Preference: Preference) => Promise<void>
 }
 
 interface State {
@@ -72,8 +72,8 @@ class NotificationPreferenceRow extends Component<Props, State> {
     this.props.deleteNotification(this.props.preference)
   }
 
-  handleChange = (e) => {
-    const change = {}
+  handleChange = (e: any) => {
+    const change: any = {}
     change[e.target.name] = e.target.value
     this.setState(change)
   }

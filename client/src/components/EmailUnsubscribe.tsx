@@ -53,7 +53,7 @@ class EmailUnsubscribe extends Component<RouteComponentProps<any>, State> {
   }
 
   handleSubmit = () => {
-    const body: object = {}
+    const body: any = {}
     body['email_address'] = this.state.emailAddress
     if(this.state.preferenceId != '') body['preferenceId'] = this.state.preferenceId
     axios.post('/unsubscribe_email', body)

@@ -1,11 +1,11 @@
-export function titleCase(str) {
+export function titleCase(str: string) {
   if(str.length == 0) return '' 
   return str.toLowerCase().split(' ').map(word=>word[0].toUpperCase()+word.slice(1)).join(' ');
 }
 
-export function generateTeamOptions(teams) {
+export function generateTeamOptions(teams: Team[]) {
   return teams.map(function(team) {
-    let tmp = {}
+    let tmp: any = {}
     tmp['value'] = team.slug;
     tmp['label'] = titleCase(team.name);
     tmp['className'] = 'favorite-team-option'
@@ -13,14 +13,14 @@ export function generateTeamOptions(teams) {
   });
 }
 
-export function generatePhoneNumberOptions(phoneNumber) {
-  return phoneNumber.filter(phoneNumber => phoneNumber.verified).map(function(phoneNumber) {
-    let tmp = {}
-    tmp['value'] = phoneNumber.id
-    tmp['label'] = phoneNumber.number
-    return tmp;
-  });
-}
+// export function generatePhoneNumberOptions(phoneNumber: PhoneNumber) {
+//   return phoneNumber.filter(phoneNumber => phoneNumber.verified).map(function(phoneNumber) {
+//     let tmp = {}
+//     tmp['value'] = phoneNumber.id
+//     tmp['label'] = phoneNumber.number
+//     return tmp;
+//   });
+// }
 
 export function chunkArrayInGroups(arr: any[], size: number) {
   let myArray:any[] = [];

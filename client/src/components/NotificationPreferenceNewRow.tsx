@@ -7,7 +7,7 @@ import '../styles/notification_preference_row.scss'
 
 interface Props {
   favoriteTeams: Team[]
-  saveNewNotification: (object) => Promise<any>
+  saveNewNotification: (object: Object) => Promise<any>
   phoneNumber: PhoneNumber | null
 }
 
@@ -80,8 +80,8 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
     })
   }
 
-  handleChange = (e) => {
-    let change = {}
+  handleChange = (e: any) => {
+    let change: any = {}
     change[e.target.name] = e.target.value
     this.setState(change)
   }

@@ -10,6 +10,7 @@ interface Email {
 }
 
 interface Game {
+  [key: string]: any
   away_team: Team
   date: string
   home_team: Team
