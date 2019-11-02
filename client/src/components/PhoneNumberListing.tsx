@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import PhoneNumberForm from './PhoneNumberForm'
 import '../styles/phone_number_listing.scss'
 
@@ -9,7 +9,7 @@ type Props = {
 }
 
 const PhoneNumberListing: React.FC<Props> = (props) => {
-  const [showPhoneForm, setShowPhoneForm] = React.useState(false)
+  const [showPhoneForm, setShowPhoneForm] = useState<boolean>(false)
 
   const handleDeleteClick = () => {
     if (!window.confirm(`Are you sure you wish to delete phone number ${props.phoneNumber && props.phoneNumber.number}?`)) return

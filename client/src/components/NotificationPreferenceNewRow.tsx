@@ -7,7 +7,7 @@ import '../styles/notification_preference_row.scss'
 
 interface Props {
   favoriteTeams: Team[]
-  saveNewNotification: (object: Object) => Promise<any>
+  saveNewNotification: (object: object) => Promise<any>
   phoneNumber: PhoneNumber | null
 }
 

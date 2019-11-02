@@ -6,21 +6,19 @@ interface Props {
   children: ReactChild
 }
 
-class AdminLayout extends Component<Props> {
-  render() {
-    return(
-      <div id="admin-layout" className="container is-fluid">
-        <div className="columns">
-          <div className="column is-one-fifth">
-            <AdminSidebar />
-          </div>
-          <div className="column">
-          { this.props.children }
-          </div>
+const AdminLayout: React.FC<Props> = (props) => {
+  return(
+    <div id="admin-layout" className="container is-fluid">
+      <div className="columns">
+        <div className="column is-one-fifth">
+          <AdminSidebar />
+        </div>
+        <div className="column">
+        { props.children }
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default AdminLayout

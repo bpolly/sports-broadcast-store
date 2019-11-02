@@ -6,7 +6,7 @@ import AuthService from '../AuthService'
 import { chunkArrayInGroups } from '../../utilities'
 
 interface State {
-  gameListByDate: Object,
+  gameListByDate: object,
   upcomingThresholdValue: string
 }
 
@@ -118,7 +118,7 @@ class AdminUpcomingNotifications extends Component<any, State> {
   dateGroup = (date: string, gameList: GameWithNotifications[]) => {
     return (
       <section className="section" key={date}>
-        <div className="container">
+        <div className="container is-fluid" style={{marginLeft: 0}}>
           <h1 className="title is-3">{moment(date).format('MMMM Do')}</h1>
           <h2 className="subtitle is-4">{moment(date).format('dddd')}</h2>
           {this.gameRows(gameList)}

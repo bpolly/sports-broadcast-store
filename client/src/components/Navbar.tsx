@@ -5,31 +5,29 @@ import '../styles/navbar.scss'
 import NavbarUserItem from './NavbarUserItem'
 import stripes from '../images/color-stripes.svg'
 
-class Navbar extends Component {
-  render() {
-    return (
-      <nav className="navbar" aria-label="main navigation">
-        <div className="navbar-brand">
-          <img src={stripes} className="navbar-stripes" alt="stripes" />
-          <Link to="/" className="navbar-item">
-            <img id="logo" src={logo} alt="Logo" />
-          </Link>
+const Navbar: React.FC = () => {
+  return (
+    <nav className="navbar" aria-label="main navigation">
+      <div className="navbar-brand">
+        <img src={stripes} className="navbar-stripes" alt="stripes" />
+        <Link to="/" className="navbar-item">
+          <img id="logo" src={logo} alt="Logo" />
+        </Link>
 
-          <button className="button navbar-burger">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
+        <button className="button navbar-burger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
 
-        <div className="navbar-menu">
-          <div className="navbar-end">
-            <NavbarUserItem />
-          </div>
+      <div className="navbar-menu">
+        <div className="navbar-end">
+          <NavbarUserItem />
         </div>
-      </nav>
-    )
-  }
+      </div>
+    </nav>
+  )
 }
 
 export default Navbar

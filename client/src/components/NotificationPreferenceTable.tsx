@@ -32,7 +32,7 @@ class NotificationPreferenceTable extends Component<Props, State> {
     })
   }
 
-  saveNewNotification = async (params: Object) => {
+  saveNewNotification = async (params: object) => {
     try {
       let response = await axios.post('/user_notification_preferences', params,
         {

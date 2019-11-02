@@ -44,7 +44,7 @@ const PrivateRoute = ({ component: CustomComponent, path, ...rest } : any) => (
   />
 );
 
-const AdminRoute = ({ component: CustomComponent, ...rest } : any) => (
+const AdminRoute = ({ component: Component, ...rest } : any) => (
   <Route
     {...rest}
     render={props =>
