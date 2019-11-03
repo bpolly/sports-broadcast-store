@@ -1,47 +1,35 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import '../../styles/admin/users.scss'
 import axios from 'axios'
 import moment from 'moment-timezone'
 import AuthService from '../AuthService'
 import { chunkArrayInGroups } from '../../utilities'
 
-interface State {
-  gameListByDate: object,
-  upcomingThresholdValue: string
-}
+const AdminUpcomingNotifications: React.FC = () => {
+  const [gameListByDate, setGameListByDate] = useState<GameWithNotificationsList>({})
+  const [upcomingThresholdValue, setupcomingThresholdValue] = useState<string>('120')
+  const auth = new AuthService()
 
-class AdminUpcomingNotifications extends Component<any, State> {
-  state = {
-    gameListByDate: {},
-    upcomingThresholdValue: '120'
-  }
-  auth = new AuthService()
+  useEffect(() => {
+    fetchUpcomingNotifications()
+  }, [upcomingThresholdValue])
 
-  componentWillMount() {
-    this.fetchUpcomingNotifications()
-  }
-
-  fetchUpcomingNotifications = () => {
+  const fetchUpcomingNotifications = () => {
     axios.get('/admin/upcoming_notifications',
       {
-        params: { minute_threshold: this.state.upcomingThresholdValue },
-        headers: { Authorization: this.auth.getToken() }
+        params: { minute_threshold: upcomingThresholdValue },
+        headers: { Authorization: auth.getToken() }
       }
     ).then(response => {
-      this.setState({
-        gameListByDate: response.data
-      })
+      setGameListByDate(response.data)
     })
   }
 
-  handleThresholdChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState(
-      { upcomingThresholdValue: e.currentTarget.value },
-      this.fetchUpcomingNotifications
-    )
+  const handleThresholdChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setupcomingThresholdValue(e.currentTarget.value)
   }
 
-  getDateClass = (game: GameWithNotifications) => {
+  const getDateClass = (game: GameWithNotifications) => {
     let gameDate = moment(game.date).tz(moment.tz.guess())
     let todayDate = moment().tz(moment.tz.guess())
     let tomorrowDate = moment().tz(moment.tz.guess()).add(1, 'day')
@@ -57,7 +45,7 @@ class AdminUpcomingNotifications extends Component<any, State> {
   }
 
 
-  notificationTable = (game: GameWithNotifications) => {
+  const notificationTable = (game: GameWithNotifications) => {
     if (game.notifications.length == 0) {
       return (
         <div>No notifications.</div>
@@ -89,65 +77,65 @@ class AdminUpcomingNotifications extends Component<any, State> {
     }
   }
 
-  gameRows = (gameList: GameWithNotifications[]) => {
+  const singleGameElement = (game: GameWithNotifications) => {
+    return(
+      <div className="column is-4" key={game.id}>
+        <article className={`message ${getDateClass(game)}`}>
+          <div className="message-header" style={{ display: 'flow-root' }}>
+            <p>
+              <span className="has-text-weight-semibold is-pulled-left">{moment(game.date).tz(moment.tz.guess()).format('h:mma')}</span>
+              <span className="is-pulled-right capitalize">{game.away_team} at {game.home_team}</span>
+            </p>
+          </div>
+          <div className="message-body">
+            {notificationTable(game)}
+          </div>
+        </article>
+      </div>
+
+    )
+  }
+
+  const gameRows = (gameList: GameWithNotifications[]) => {
     return (
       chunkArrayInGroups(gameList, 3).map((gameChunk: GameWithNotifications[], index) =>
         <div className="columns" key={index}>
-          {
-            gameChunk.map((game: GameWithNotifications) =>
-              <div className="column is-4" key={game.id}>
-                <article className={`message ${this.getDateClass(game)}`}>
-                  <div className="message-header" style={{ display: 'flow-root' }}>
-                    <p>
-                      <span className="has-text-weight-semibold is-pulled-left">{moment(game.date).tz(moment.tz.guess()).format('h:mma')}</span>
-                      <span className="is-pulled-right capitalize">{game.away_team} at {game.home_team}</span>
-                    </p>
-                  </div>
-                  <div className="message-body">
-                    {this.notificationTable(game)}
-                  </div>
-                </article>
-              </div>
-            )
-          }
+          { gameChunk.map((game: GameWithNotifications) => singleGameElement(game)) }
         </div>
       )
     )
   }
 
-  dateGroup = (date: string, gameList: GameWithNotifications[]) => {
+  const dateGroup = (date: string, gameList: GameWithNotifications[]) => {
     return (
       <section className="section" key={date}>
         <div className="container is-fluid" style={{marginLeft: 0}}>
           <h1 className="title is-3">{moment(date).format('MMMM Do')}</h1>
           <h2 className="subtitle is-4">{moment(date).format('dddd')}</h2>
-          {this.gameRows(gameList)}
+          {gameRows(gameList)}
         </div>
       </section>
     )
   }
 
-  render() {
-    const { gameListByDate} : { gameListByDate: any } = this.state
-    return (
-      <div id="admin-users">
-        <h3 className="title is-3">Upcoming Notifications</h3>
-        <div className="field">
-          <label className="label">Minute Threshold</label>
-          <div className="control">
-            <input type="text" value={this.state.upcomingThresholdValue} onChange={this.handleThresholdChange} />
-          </div>
-          <p className="help">Current Count: {Object.keys(gameListByDate).length}</p>
+  return (
+    <div id="admin-users">
+      <h3 className="title is-3">Upcoming Notifications</h3>
+      <div className="field">
+        <label className="label">Minute Threshold</label>
+        <div className="control">
+          <input type="text" value={upcomingThresholdValue} onChange={handleThresholdChange} />
         </div>
-
-        {
-          Object.keys(gameListByDate).map((date: string, index) => {
-            return (this.dateGroup(date, gameListByDate[date]))
-          })
-        }
+        <p className="help">Current Count: {Object.keys(gameListByDate).length}</p>
       </div>
-    )
-  }
+
+      {
+        Object.keys(gameListByDate).map((date: string, index) => {
+          return (dateGroup(date, gameListByDate[date]))
+        })
+      }
+    </div>
+  )
 }
 
 export default AdminUpcomingNotifications

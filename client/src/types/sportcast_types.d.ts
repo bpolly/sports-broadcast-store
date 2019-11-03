@@ -19,7 +19,6 @@ interface Game {
   tv_networks: string
 }
 
-
 interface GameWithNotifications {
   away_team: Team
   date: string
@@ -28,6 +27,11 @@ interface GameWithNotifications {
   league: string
   tv_networks: string
   notifications: Preference[]
+}
+
+// { "2019-11-03": [] }
+interface GameWithNotificationsList {
+  [key: string]: GameWithNotifications[]
 }
 
 interface PhoneNumber {

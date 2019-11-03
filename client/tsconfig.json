@@ -9,7 +9,6 @@
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
@@ -17,7 +16,8 @@
     "lib": [
       "dom",
       "es7"
-    ]
+    ],
+    "resolveJsonModule": true
   },
   "include": [
     "src"
