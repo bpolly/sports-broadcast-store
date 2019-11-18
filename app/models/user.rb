@@ -14,15 +14,10 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :user_email
 
-  before_create :assign_default_user_type
+  attribute :user_type_id, default: -> { UserType.regular.id }
 
   def admin?
     user_type == UserType.admin
   end
 
-  private
-
-  def assign_default_user_type
-    self.user_type = UserType.regular
-  end
 end
