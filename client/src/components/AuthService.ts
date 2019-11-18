@@ -8,7 +8,11 @@ import cookie from 'react-cookies'
 
 interface JwtToken {
     exp: number,
-    [key: string]: any
+    user_id: number,
+    user_email: string,
+    admin: boolean,
+    email_verified: boolean
+
 }
 
 export default class AuthService {

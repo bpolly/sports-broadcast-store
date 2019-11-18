@@ -13,10 +13,11 @@ const FavoriteTeamSelect: React.FC<Props> = (props) => {
   const [teams, setTeams] = useState<Team[]>([])
 
   useEffect(() => {
-    axios.get('/teams')
-      .then(response => {
-        setTeams(response.data || [])
-      })
+    const getTeams = async () => {
+      let fetchedTeams = await axios.get('/teams')
+      setTeams(fetchedTeams.data || [])
+    }
+    getTeams()
   }, [])
 
   const { favoriteTeams, handleFavoriteTeamChange } = props
