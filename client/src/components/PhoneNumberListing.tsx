@@ -8,67 +8,63 @@ type Props = {
   fetchPhoneNumber: () => void
 }
 
-class PhoneNumberListing extends Component<Props> {
-  state = {
-    showPhoneForm: false
+const PhoneNumberListing: React.FC<Props> = (props) => {
+  const [showPhoneForm, setShowPhoneForm] = React.useState(false)
+
+  const handleDeleteClick = () => {
+    if (!window.confirm(`Are you sure you wish to delete phone number ${props.phoneNumber && props.phoneNumber.number}?`)) return
+    props.deletePhoneNumber()
   }
 
-  handleDeleteClick = () => {
-    if (!window.confirm(`Are you sure you wish to delete phone number ${this.props.phoneNumber && this.props.phoneNumber.number}?`)) return
-    this.props.deletePhoneNumber()
-  }
-
-  verificationStatusTag = () => {
-    if (this.props.phoneNumber && this.props.phoneNumber.verified) {
+  const verificationStatusTag = () => {
+    if (props.phoneNumber && props.phoneNumber.verified) {
       return (
         <span></span>
       )
     } else {
       return (
-        <button className="button is-warning is-small" onClick={this.showPhoneFormModal}>verify</button>
+        <button className="button is-warning is-small" onClick={showPhoneFormModal}>verify</button>
       )
     }
   }
 
-  showPhoneFormModal = () => {
-    this.setState({ showPhoneForm: true })
+  const showPhoneFormModal = () => {
+    setShowPhoneForm(true)
   }
 
-  closePhoneFormModal = () => {
-    this.setState({ showPhoneForm: false })
+  const closePhoneFormModal = () => {
+    setShowPhoneForm(false)
   }
 
-  render() {
-    const { phoneNumber } = this.props
+  const phoneNumber = props.phoneNumber;
 
-    return(
-      <div className="box phone-number-listing">
-        <div className="level">
-          <div className="level-left">
-            <div className="level-item">
-              {phoneNumber && phoneNumber.number }
-            </div>
-          </div>
-          <div className="level-right">
-            <div className="level-item">
-              { this.verificationStatusTag() }
-            </div>
-            <div className="level-item">
-              <a className="delete is-small"
-                onClick={this.handleDeleteClick}>
-              </a>
-            </div>
+  return(
+    <div className="box phone-number-listing">
+      <div className="level">
+        <div className="level-left">
+          <div className="level-item">
+            {phoneNumber && phoneNumber.number }
           </div>
         </div>
-        <PhoneNumberForm
-          hidden={!this.state.showPhoneForm}
-          closePhoneFormModal={this.closePhoneFormModal}
-          phoneNumber={phoneNumber}
-          fetchPhoneNumber={this.props.fetchPhoneNumber}
-        />
+        <div className="level-right">
+          <div className="level-item">
+            { verificationStatusTag() }
+          </div>
+          <div className="level-item">
+            <a className="delete is-small"
+              onClick={handleDeleteClick}>
+            </a>
+          </div>
+        </div>
       </div>
-    )
-  }
+      <PhoneNumberForm
+        hidden={!showPhoneForm}
+        closePhoneFormModal={closePhoneFormModal}
+        phoneNumber={phoneNumber}
+        fetchPhoneNumber={props.fetchPhoneNumber}
+      />
+    </div>
+  )
 }
 
 export default PhoneNumberListing

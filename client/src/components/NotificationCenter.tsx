@@ -9,7 +9,7 @@ import '../styles/notification_center.scss'
 
 interface Props {
   favoriteTeams: Team[]
-  handleFavoriteTeamChange: (teams: Team[]) => void
+  handleFavoriteTeamChange: (teams: TeamSelectOption[]) => void
 }
 
 interface State {

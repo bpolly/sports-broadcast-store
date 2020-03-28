@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby "2.4.0"
+ruby "2.5.6"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 6.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.20'
 # Use SCSS for stylesheets
@@ -19,7 +19,7 @@ gem 'turbolinks'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'dotenv-rails', :groups => [:development, :test]
+gem 'dotenv-rails', '~> 2.7', :groups => [:development, :test]
 gem 'haml-rails'
 gem 'nokogiri'
 gem 'httparty'
@@ -33,7 +33,6 @@ gem 'bcrypt'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'watir'
 gem 'puma'
-gem 'pry-byebug'
 gem 'timezone', '~> 1.0'
 gem 'jwt'
 gem 'validate_url'

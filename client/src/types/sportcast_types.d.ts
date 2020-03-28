@@ -57,6 +57,7 @@ interface Team {
 interface TeamSelectOption {
   label: string
   value: string
+  className: string
 }
 
 interface User {

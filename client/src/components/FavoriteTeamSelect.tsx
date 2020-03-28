@@ -10,7 +10,7 @@ interface State {
 
 interface Props {
   favoriteTeams: Team[]
-  handleFavoriteTeamChange: (teams: Team[]) => void
+  handleFavoriteTeamChange: (teams: TeamSelectOption[]) => void
 }
 
 class FavoriteTeamSelect extends Component<Props, State> {
