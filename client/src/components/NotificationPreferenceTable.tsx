@@ -75,7 +75,7 @@ class NotificationPreferenceTable extends Component<Props, State> {
   }
 
   render() {
-    let preferences = this.state.currentNotificationPreferences
+    let preferences: Preference[] = this.state.currentNotificationPreferences
     const { favoriteTeams, phoneNumber } = this.props
     return(
       <div className="">
@@ -89,12 +89,13 @@ class NotificationPreferenceTable extends Component<Props, State> {
             </tr>
           </thead>
           <tbody>
-            { preferences.map(function(prefTable: NotificationPreferenceTable, preference: Preference){
+            // @ts-ignore
+            { preferences.map(function(preference: Preference){
                         return <NotificationPreferenceRow
                                   favoriteTeams={favoriteTeams}
                                   phoneNumber={phoneNumber}
                                   preference={preference}
-                                  deleteNotification={prefTable.deleteNotification} />
+                                  deleteNotification={this.deleteNotification} />
                       }, this)}
             <NotificationPreferenceNewRow
               favoriteTeams={favoriteTeams}

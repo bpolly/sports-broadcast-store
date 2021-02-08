@@ -21,6 +21,7 @@ class Login extends Component<any, State> {
   auth = new AuthService()
 
   handleChange = (e) => {
+    // @ts-ignore
     this.setState({
       [e.target.type]: e.target.value
     })
