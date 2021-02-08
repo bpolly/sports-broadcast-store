@@ -8,7 +8,8 @@ RUN apk --no-cache --virtual build-dependencies add \
     yarn \
     g++ \
     && yarn install \
-    && yarn global add react-scripts typescript \
+    && yarn global add react-scripts \
+    && yarn add react-scripts typescript \
     && apk del build-dependencies
 
 ENV PATH /app/node_modules/.bin:$PATH
