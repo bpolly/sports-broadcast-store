@@ -2,6 +2,7 @@
 FROM node:15.8.0-alpine as build
 WORKDIR /app
 RUN apk --no-cache --virtual build-dependencies add \
+    python \
     python2 \
     make \
     yarn \
