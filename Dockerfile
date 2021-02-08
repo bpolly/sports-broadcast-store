@@ -8,14 +8,15 @@ RUN apk --no-cache --virtual build-dependencies add \
     yarn \
     g++ \
     && yarn install \
+    && yarn global add react-scripts typescript \
     && apk del build-dependencies
 
 ENV PATH /app/node_modules/.bin:$PATH
 COPY client/package.json ./
 # COPY client/package-lock.json ./
 # RUN npm install
-RUN yarn global add react-scripts typescript
-RUN yarn add typescript
+# RUN yarn global add react-scripts typescript
+# RUN yarn add typescript
 COPY client/ ./
 RUN yarn build
 
