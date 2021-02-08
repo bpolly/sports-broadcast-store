@@ -1,6 +1,7 @@
 # build React app
 FROM node:15.8.0-alpine as build
 WORKDIR /app
+COPY client/package.json ./
 RUN apk --no-cache --virtual build-dependencies add \
     python \
     python2 \
@@ -13,7 +14,6 @@ RUN apk --no-cache --virtual build-dependencies add \
     && apk del build-dependencies
 
 ENV PATH /app/node_modules/.bin:$PATH
-COPY client/package.json ./
 # COPY client/package-lock.json ./
 # RUN npm install
 # RUN yarn global add react-scripts typescript
