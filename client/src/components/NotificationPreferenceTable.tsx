@@ -6,12 +6,12 @@ import AuthService from './AuthService'
 import '../styles/notification_center.scss'
 
 interface Props {
-  favoriteTeams: Team[]
-  phoneNumber: PhoneNumber | null
+  favoriteTeams: Team[];
+  phoneNumber: PhoneNumber | null;
 }
 
 interface State {
-  currentNotificationPreferences: any[]
+  currentNotificationPreferences: any[];
 }
 
 class NotificationPreferenceTable extends Component<Props, State> {
@@ -89,12 +89,12 @@ class NotificationPreferenceTable extends Component<Props, State> {
             </tr>
           </thead>
           <tbody>
-            { preferences.map(function(this: NotificationPreferenceTable, preference: Preference){
+            { preferences.map(function(prefTable: NotificationPreferenceTable, preference: Preference){
                         return <NotificationPreferenceRow
                                   favoriteTeams={favoriteTeams}
                                   phoneNumber={phoneNumber}
                                   preference={preference}
-                                  deleteNotification={this.deleteNotification} />
+                                  deleteNotification={prefTable.deleteNotification} />
                       }, this)}
             <NotificationPreferenceNewRow
               favoriteTeams={favoriteTeams}

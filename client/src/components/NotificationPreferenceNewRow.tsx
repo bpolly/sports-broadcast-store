@@ -6,18 +6,18 @@ import AuthService from './AuthService'
 import '../styles/notification_preference_row.scss'
 
 interface Props {
-  favoriteTeams: Team[]
-  saveNewNotification: (object) => Promise<any>
-  phoneNumber: PhoneNumber | null
+  favoriteTeams: Team[];
+  saveNewNotification: (object) => Promise<any>;
+  phoneNumber: PhoneNumber | null;
 }
 
 interface State {
-  editing: boolean
-  saving: boolean
-  selectedTeamSlug: string
-  callbackUrl: string
-  useEmail: boolean
-  usePhone: boolean
+  editing: boolean;
+  saving: boolean;
+  selectedTeamSlug: string;
+  callbackUrl: string;
+  useEmail: boolean;
+  usePhone: boolean;
 }
 
 class NotificationPreferenceNewRow extends Component<Props, State> {

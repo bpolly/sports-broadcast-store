@@ -7,19 +7,19 @@ import axios from 'axios'
 import Select from 'react-select'
 
 interface Props {
-  favoriteTeams: Team[]
-  phoneNumber: PhoneNumber | null
-  preference: Preference
-  deleteNotification: (Preference) => Promise<void>
+  favoriteTeams: Team[];
+  phoneNumber: PhoneNumber | null;
+  preference: Preference;
+  deleteNotification: (Preference) => Promise<void>;
 }
 
 interface State {
-  editing: boolean
-  saving: boolean
-  selectedTeamSlug: string
-  callback_url: string
-  useEmail: boolean
-  usePhone: boolean
+  editing: boolean;
+  saving: boolean;
+  selectedTeamSlug: string;
+  callback_url: string;
+  useEmail: boolean;
+  usePhone: boolean;
 }
 
 class NotificationPreferenceRow extends Component<Props, State> {

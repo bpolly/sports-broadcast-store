@@ -3,10 +3,10 @@ import FavoriteTeamSelect from './FavoriteTeamSelect'
 import '../styles/game_filter_form.scss'
 
 interface Props {
-  favoriteTeams: Team[]
-  handleFavoriteTeamChange: (teams: Team[]) => void
-  handleFilterChange: (event: any) => void
-  handleDateChange: (event: any) => void
+  favoriteTeams: Team[];
+  handleFavoriteTeamChange: (teams: Team[]) => void;
+  handleFilterChange: (event: any) => void;
+  handleDateChange: (event: any) => void;
 }
 
 class GameFilterForm extends Component<Props> {

@@ -8,14 +8,14 @@ import AuthService from './AuthService'
 import '../styles/notification_center.scss'
 
 interface Props {
-  favoriteTeams: Team[]
-  handleFavoriteTeamChange: (teams: Team[]) => void
+  favoriteTeams: Team[];
+  handleFavoriteTeamChange: (teams: Team[]) => void;
 }
 
 interface State {
-  phoneNumber: PhoneNumber | null
-  emailObjects: any[]
-  showPhoneForm: boolean
+  phoneNumber: PhoneNumber | null;
+  emailObjects: any[];
+  showPhoneForm: boolean;
 }
 
 class NotificationCenter extends Component<Props, State> {

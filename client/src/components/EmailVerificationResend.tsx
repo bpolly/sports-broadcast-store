@@ -4,8 +4,8 @@ import '../styles/email_verification.scss'
 import AuthService from './AuthService'
 
 interface State {
-  emailResendAttempted: boolean
-  message: string
+  emailResendAttempted: boolean;
+  message: string;
 }
 
 class EmailVerificationResend extends Component<any, State> {

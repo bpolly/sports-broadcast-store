@@ -6,10 +6,10 @@ import '../styles/animate.css'
 import '../styles/phone_number_form.scss'
 
 interface Props {
-  phoneNumber?: PhoneNumber | null
-  closePhoneFormModal: () => void
-  fetchPhoneNumber: () => void
-  hidden: boolean
+  phoneNumber?: PhoneNumber | null;
+  closePhoneFormModal: () => void;
+  fetchPhoneNumber: () => void;
+  hidden: boolean;
 }
 
 class PhoneNumberForm extends Component<Props> {

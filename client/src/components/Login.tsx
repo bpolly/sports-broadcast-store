@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import EmailVerificationResend from './EmailVerificationResend'
 
 interface State {
-  email: string
-  password: string
-  loading: boolean
-  loginStatus: object
+  email: string;
+  password: string;
+  loading: boolean;
+  loginStatus: object;
 }
 
 class Login extends Component<any, State> {
@@ -23,7 +23,7 @@ class Login extends Component<any, State> {
   handleChange = (e) => {
     this.setState({
       [e.target.type]: e.target.value
-    } as any)
+    })
   }
 
   handleSubmit = (e) => {

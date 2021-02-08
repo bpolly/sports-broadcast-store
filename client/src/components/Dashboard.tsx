@@ -6,15 +6,15 @@ import axios from 'axios'
 import moment from 'moment-timezone'
 
 interface State {
-  games: Game[]
-  filters: object
-  loading: boolean
+  games: Game[];
+  filters: object;
+  loading: boolean;
 }
 
 interface FilterType {
-  league?: string
-  team?: string
-  tv_networks?: string
+  league?: string;
+  team?: string;
+  tv_networks?: string;
 }
 
 class Dashboard extends Component<any, State> {

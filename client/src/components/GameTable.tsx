@@ -5,9 +5,9 @@ import Loading from './Loading'
 import moment from 'moment-timezone'
 
 interface Props {
-  games: Game[]
-  favoriteTeamSlugs: string[]
-  loading: boolean
+  games: Game[];
+  favoriteTeamSlugs: string[];
+  loading: boolean;
 }
 
 

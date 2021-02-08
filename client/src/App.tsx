@@ -111,7 +111,6 @@ class App extends Component {
               component={NotificationCenter}
               handleFavoriteTeamChange={this.handleFavoriteTeamChange}
               favoriteTeams={favoriteTeams}
-              />
             />
             <AdminRoute
               exact
