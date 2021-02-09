@@ -1,9 +1,9 @@
 GIT
-  remote: git://github.com/eddiezane/sendgrid-actionmailer.git
-  revision: 9df77dd5299b056bbacf12ab9589857f35247b46
+  remote: https://github.com/eddiezane/sendgrid-actionmailer.git
+  revision: c310fd3c98016d8099c18c5d46ac2ebfe5409e83
   specs:
-    sendgrid-actionmailer (2.4.0)
-      mail (~> 2.5)
+    sendgrid-actionmailer (3.1.1)
+      mail (~> 2.7)
       sendgrid-ruby (~> 6.0)
 
 GEM
@@ -90,7 +90,7 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     fastercsv (1.5.5)
-    ffi (1.11.1)
+    ffi (1.14.2)
     foreman (0.85.0)
       thor (~> 0.19.1)
     globalid (0.4.2)
@@ -121,10 +121,9 @@ GEM
     json (1.8.6)
     jsonapi-renderer (0.2.2)
     jwt (2.2.1)
-    listen (3.1.5)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-      ruby_dep (~> 1.2)
+    listen (3.4.1)
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -189,8 +188,8 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
     rake (12.3.3)
-    rb-fsevent (0.10.3)
-    rb-inotify (0.10.0)
+    rb-fsevent (0.10.4)
+    rb-inotify (0.10.1)
       ffi (~> 1.0)
     rdoc (4.3.0)
     regexp_parser (1.6.0)
@@ -211,7 +210,6 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.2)
-    ruby_dep (1.5.0)
     ruby_http_client (3.3.0)
     ruby_parser (3.13.1)
       sexp_processor (~> 4.9)
@@ -313,7 +311,7 @@ DEPENDENCIES
   watir
 
 RUBY VERSION
-   ruby 2.4.0p0
+   ruby 3.0.0p0
 
 BUNDLED WITH
-   1.16.3
+   2.2.3
