@@ -1,3 +1,4 @@
 Timezone::Lookup.config(:google) do |c|
-   c.api_key = ENV['GOOGLE_API_KEY']
+   c.api_key = 'stub'
+   # c.api_key = ENV['GOOGLE_API_KEY']
 end
