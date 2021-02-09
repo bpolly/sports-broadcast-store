@@ -15,7 +15,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 #     && apk del build-dependencies
 
 # COPY client/package-lock.json ./
-# RUN npm install
+RUN yarn install
 # RUN yarn global add react-scripts typescript
 # RUN yarn add typescript
 COPY client/ ./
