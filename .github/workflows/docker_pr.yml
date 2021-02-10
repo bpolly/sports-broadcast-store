@@ -31,7 +31,7 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: bpolly/rubycounter:${{ github.head_ref }}
+          tags: bpolly/sports-broadcast-store:${{ github.head_ref }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
