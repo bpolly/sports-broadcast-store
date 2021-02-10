@@ -15,7 +15,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 #     && apk del build-dependencies
 
 # COPY client/package-lock.json ./
-RUN yarn install
+RUN yarn install --frozen-lockfile --verbose
 COPY client/ ./
 RUN yarn build
 
