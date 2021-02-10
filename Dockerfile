@@ -28,8 +28,9 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
+RUN rm -f public/index.html
 RUN rm -rf public/static
-COPY --from=build /app/build/* public/
+COPY --from=build /app/build /app/public
 
 COPY . /app/
 
