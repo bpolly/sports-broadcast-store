@@ -94,7 +94,9 @@ class Dashboard extends Component<any, State> {
 
           return teamNames.includes(filterText)
         }
-        else if (filters['favorite-teams-only'] === true) {
+        else if (filterName == 'favorite-teams-only') {
+          if(filters['favorite-teams-only'] === false) { return true }
+
           let gameTeams = [game.home_team.slug, game.away_team.slug]
           let favoriteTeams = this.favoriteTeamSlugs()
 
