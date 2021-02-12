@@ -66,6 +66,7 @@ class Dashboard extends Component<any, State> {
   }
 
   favoriteTeamSlugs = () => {
+    console.log('== favoriteTeamSlugs() ==')
     console.log(this.props.favoriteTeams)
     console.log(this.props.favoriteTeams.length)
     return this.props.favoriteTeams.map((team) => team['slug'])
@@ -76,23 +77,32 @@ class Dashboard extends Component<any, State> {
 
     return Object.keys(filters).reduce((games, filterName) => {
       return games.filter((game: Game) => {
-        if (filters[filterName]) {
-          if (typeof game[filterName] === 'string' || filterName === 'team') {
-            let gameAttrText = ''
-            let filterText = filters[filterName].toLowerCase()
-            if(filterName === 'team'){
-              gameAttrText = (game['home_team']['name'] + ' ' + game['away_team']['name']).toLowerCase()
-            } else {
-              gameAttrText = game[filterName].toLowerCase()
-            }
+        // if filterName is an attribute of game
+        // or filterName is "team"
+        if (['league', 'tv_networks'].includes(filterName)) {
+          let filterText = filters[filterName].toLowerCase()
+          let gameAttrText = game[filterName].toLowerCase()
 
-            return gameAttrText.indexOf(filterText) !== -1
-          }
-          else if (filters['favorite-teams-only'] === true) {
-            return (this.favoriteTeamSlugs().includes(game.home_team.slug) || this.favoriteTeamSlugs().includes(game.away_team.slug))
-          } else {
-            return game[filterName] === filters[filterName]
-          }
+          return gameAttrText.includes(filterText)
+        }
+        else if (filterName === 'team') {
+          let filterText = filters[filterName].toLowerCase()
+          let teamNames = [
+            game['home_team']['name'],
+            game['away_team']['name']
+          ].join(' ').toLowerCase()
+
+          return teamNames.includes(filterText)
+        }
+        else if (filters['favorite-teams-only'] === true) {
+          let gameTeams = [game.home_team.slug, game.away_team.slug]
+          let favoriteTeams = this.favoriteTeamSlugs()
+
+          // true if either game team are a favorite team
+          return gameTeams.some(t => favoriteTeams.includes(t))
+        } else {
+          console.log('is this needed?')
+          return game[filterName] === filters[filterName]
         }
 
         return true
