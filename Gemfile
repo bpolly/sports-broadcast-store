@@ -43,7 +43,6 @@ gem 'sendgrid-actionmailer', github: 'eddiezane/sendgrid-actionmailer'
 gem 'bootsnap', require: false
 
 group :development, :test do
-  gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_bot_rails'
 end

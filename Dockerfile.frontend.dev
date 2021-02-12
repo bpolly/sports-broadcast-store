@@ -1,0 +1,11 @@
+# build React app
+FROM node:15.8.0 as build
+WORKDIR /app
+COPY client/package.json ./
+ENV PATH /app/node_modules/.bin:$PATH
+
+RUN yarn install
+
+EXPOSE 3005
+
+CMD ["yarn", "start"]
