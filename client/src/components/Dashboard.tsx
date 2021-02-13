@@ -7,7 +7,7 @@ import moment from 'moment-timezone'
 
 interface State {
   games: Game[];
-  filters: object;
+  filters: FilterType;
   loading: boolean;
 }
 
@@ -18,7 +18,7 @@ interface FilterType {
 }
 
 class Dashboard extends Component<any, State> {
-  state = {
+  state: State = {
     games: [],
     filters: {},
     loading: false
@@ -77,17 +77,15 @@ class Dashboard extends Component<any, State> {
 
     return Object.keys(filters).reduce((games, filterName) => {
       return games.filter((game: Game) => {
-        // if filterName is an attribute of game
-        // or filterName is "team"
         if (['league', 'tv_networks'].includes(filterName)) {
-          let filterText = filters[filterName].toLowerCase()
-          let gameAttrText = game[filterName].toLowerCase()
+          const filterText = filters[filterName].toLowerCase()
+          const gameAttrText = game[filterName].toLowerCase()
 
           return gameAttrText.includes(filterText)
         }
-        else if (filterName === 'team') {
-          let filterText = filters[filterName].toLowerCase()
-          let teamNames = [
+        else if (filterName === 'team' && filters.team) {
+          const filterText = filters.team.toLowerCase()
+          const teamNames = [
             game['home_team']['name'],
             game['away_team']['name']
           ].join(' ').toLowerCase()
@@ -97,13 +95,12 @@ class Dashboard extends Component<any, State> {
         else if (filterName == 'favorite-teams-only') {
           if(filters['favorite-teams-only'] === false) { return true }
 
-          let gameTeams = [game.home_team.slug, game.away_team.slug]
-          let favoriteTeams = this.favoriteTeamSlugs()
+          const gameTeams = [game.home_team.slug, game.away_team.slug]
+          const favoriteTeams = this.favoriteTeamSlugs()
 
           // true if either game team are a favorite team
           return gameTeams.some(t => favoriteTeams.includes(t))
         } else {
-          console.log('is this needed?')
           return game[filterName] === filters[filterName]
         }
 

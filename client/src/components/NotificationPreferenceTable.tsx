@@ -89,7 +89,6 @@ class NotificationPreferenceTable extends Component<Props, State> {
             </tr>
           </thead>
           <tbody>
-            // @ts-ignore
             { preferences.map(function(preference: Preference){
                         return <NotificationPreferenceRow
                                   favoriteTeams={favoriteTeams}

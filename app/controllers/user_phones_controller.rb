@@ -18,7 +18,7 @@ class UserPhonesController < ApplicationController
     if user_phone.save
       render json: user_phone, status: :created
     else
-      render json: user_phone.errors, status: :bad
+      render json: user_phone.errors, status: :bad_request
     end
   end
 
@@ -28,7 +28,7 @@ class UserPhonesController < ApplicationController
     if user_phone.verify(params[:verification_code])
       render json: user_phone, status: :created
     else
-      render json: user_phone.errors.full_messages, status: :bad
+      render json: user_phone.errors.full_messages, status: :bad_request
     end
   end
 
@@ -38,7 +38,7 @@ class UserPhonesController < ApplicationController
     if user_phone.destroy
       head :ok
     else
-      render json: user_phone.errors, status: :bad
+      render json: user_phone.errors, status: :bad_request
     end
   end
 
@@ -48,7 +48,7 @@ class UserPhonesController < ApplicationController
     if user_phone.generate_new_verification_code
       head :ok
     else
-      render json: user_phone.errors, status: :bad
+      render json: user_phone.errors, status: :bad_request
     end
   end
 
