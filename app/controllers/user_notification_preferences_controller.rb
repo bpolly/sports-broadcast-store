@@ -50,7 +50,6 @@ class UserNotificationPreferencesController < ApplicationController
     given_params = params[:user_notification_preference].reject {|_, v| v.blank? }
     {
       team_id: Team.find_by(slug: params[:team_slug]).try(&:id),
-      callback_url: given_params[:callback_url],
       phone: params[:use_phone],
       email: params[:use_email]
     }

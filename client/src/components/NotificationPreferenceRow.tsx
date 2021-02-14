@@ -17,14 +17,12 @@ interface State {
   editing: boolean;
   saving: boolean;
   selectedTeamSlug: string;
-  callback_url: string;
   useEmail: boolean;
   usePhone: boolean;
 }
 
 class NotificationPreferenceRow extends Component<Props, State> {
   state = {
-    callback_url: this.props.preference.callback_url || '',
     editing: false,
     saving: false,
     selectedTeamSlug: this.props.preference.team.slug || '',
@@ -42,7 +40,6 @@ class NotificationPreferenceRow extends Component<Props, State> {
     setTimeout(() => {}, 500)
     axios.patch('/user_notification_preferences/' + this.props.preference.id,
       {
-        callback_url: this.state.callback_url,
         team_slug: this.state.selectedTeamSlug,
         use_email: this.state.useEmail,
         use_phone: this.state.usePhone,
@@ -60,7 +57,6 @@ class NotificationPreferenceRow extends Component<Props, State> {
 
   handleDiscardChangesClick = () => {
     this.setState({
-      callback_url: this.props.preference.callback_url || '',
       editing: false,
       selectedTeamSlug: this.props.preference.team.slug || '',
       useEmail: !!this.props.preference.email || false,
@@ -119,7 +115,7 @@ class NotificationPreferenceRow extends Component<Props, State> {
 
   render() {
     const { favoriteTeams, phoneNumber } = this.props
-    const { editing, selectedTeamSlug, callback_url, useEmail, usePhone } = this.state
+    const { editing, selectedTeamSlug, useEmail, usePhone } = this.state
     const teamOptions: Array<{value: string, label: string, className: string}> = generateTeamOptions(favoriteTeams)
 
     return(
@@ -142,16 +138,6 @@ class NotificationPreferenceRow extends Component<Props, State> {
           isChecked={ usePhone }
           isDisabled={ !editing || !phoneNumber }
         />
-        </td>
-        <td>
-          <input
-            className="input callback-url-input"
-            type="text"
-            value={ callback_url }
-            disabled={ !editing }
-            onChange={ this.handleChange }
-            name="callback_url"
-          />
         </td>
         <td>
           <Checkbox

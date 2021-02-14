@@ -18,7 +18,7 @@ class UserNotificationPreference < ApplicationRecord
   end
 
   def contact_info_exists?
-    phone || email || callback_url
+    phone || email
   end
 
   def delete_if_blank

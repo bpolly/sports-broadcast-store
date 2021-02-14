@@ -41,7 +41,6 @@ interface PhoneNumber {
 }
 
 interface Preference {
-  callback_url: string
   email: boolean
   id: number
   phone: boolean

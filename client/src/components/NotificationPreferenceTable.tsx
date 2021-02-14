@@ -84,7 +84,6 @@ class NotificationPreferenceTable extends Component<Props, State> {
             <tr>
               <th className="team-input">Team</th>
               <th className="phone-input">Phone</th>
-              <th className="callback-url-input">Callback URL</th>
               <th className="email-input">Email</th>
             </tr>
           </thead>
