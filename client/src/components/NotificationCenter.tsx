@@ -91,9 +91,6 @@ class NotificationCenter extends Component<Props, State> {
   render() {
     const { phoneNumber } = this.state
     const { favoriteTeams } = this.props
-    const starStyling: CSSProperties = {
-      color: '#fc6066'
-    }
 
     return(
       <div className="container">
@@ -107,8 +104,8 @@ class NotificationCenter extends Component<Props, State> {
           <div className="columns">
             <div className="column is-one-half">
               <h3 className="subtitle">
+                <i className="fa fa-star mr-2" style={{color: '#fc6066'}}></i>
                 Favorite Teams
-                <i className="fa fa-star" style={starStyling}></i>
               </h3>
               <FavoriteTeamSelect
                 favoriteTeams={this.props.favoriteTeams}
@@ -119,6 +116,7 @@ class NotificationCenter extends Component<Props, State> {
                 <div className="level">
                   <div className="level-left">
                     <div className="level-item">
+                      <i className="fa fa-phone mr-2"></i>
                       <h3 className="subtitle">Phone Numbers</h3>
                     </div>
                   </div>

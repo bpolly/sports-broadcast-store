@@ -38,7 +38,7 @@ class NavbarLoggedInItem extends Component<RouteComponentProps<any>> {
         <a className="navbar-link" href="#" >
           { userEmail }
         </a>
-        <div className="navbar-dropdown is-boxed">
+        <div className="navbar-dropdown is-boxed is-right">
           { this.notificationPrefsLink() }
           { this.adminLink() }
 

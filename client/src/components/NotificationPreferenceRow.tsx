@@ -65,6 +65,9 @@ class NotificationPreferenceRow extends Component<Props, State> {
   }
 
   handleDeleteClick = () => {
+    const msg = 'Are you sure you wish to delete this notification preference?'
+    if (!window.confirm(msg)) return
+
     this.props.deleteNotification(this.props.preference)
   }
 
