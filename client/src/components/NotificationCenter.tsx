@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, CSSProperties } from 'react'
 import FavoriteTeamSelect from './FavoriteTeamSelect'
 import NotificationPreferenceTable from './NotificationPreferenceTable'
 import PhoneNumberForm from './PhoneNumberForm'
@@ -91,6 +91,9 @@ class NotificationCenter extends Component<Props, State> {
   render() {
     const { phoneNumber } = this.state
     const { favoriteTeams } = this.props
+    const starStyling: CSSProperties = {
+      color: '#fc6066'
+    }
 
     return(
       <div className="container">
@@ -103,7 +106,10 @@ class NotificationCenter extends Component<Props, State> {
         <hr />
           <div className="columns">
             <div className="column is-one-half">
-              <h3 className="subtitle">Favorite Teams</h3>
+              <h3 className="subtitle">
+                Favorite Teams
+                <i className="fa fa-star" style={starStyling}></i>
+              </h3>
               <FavoriteTeamSelect
                 favoriteTeams={this.props.favoriteTeams}
                 handleFavoriteTeamChange={this.props.handleFavoriteTeamChange} />
