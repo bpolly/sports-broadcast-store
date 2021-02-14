@@ -4,6 +4,7 @@ import GameTable from './GameTable'
 import GameFilterForm from './GameFilterForm'
 import axios from 'axios'
 import moment from 'moment-timezone'
+import { dashboardTourGuide } from '../tourGuides'
 
 interface State {
   games: Game[];
@@ -111,10 +112,12 @@ class Dashboard extends Component<any, State> {
 
   render() {
     const { loading } = this.state
+
     return (
       <div className="dashboard-container">
         <div className="columns">
           <div className="column is-one-quarter">
+            { dashboardTourGuide() }
             <GameFilterForm
               handleFilterChange={this.handleFilterChange}
               handleDateChange={this.handleDateChange}

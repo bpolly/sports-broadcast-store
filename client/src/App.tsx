@@ -88,7 +88,8 @@ class App extends Component {
 
   render() {
     const { favoriteTeams } = this.state
-
+       steps: [
+       ]
     return (
       <BrowserRouter >
         <div>

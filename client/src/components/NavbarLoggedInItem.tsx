@@ -11,6 +11,24 @@ class NavbarLoggedInItem extends Component<RouteComponentProps<any>> {
     this.props.history.push('/')
   }
 
+  notificationPrefsLink = () => {
+    return(
+      <NavLink className="navbar-item" to="/notifications">
+        Notification Preferences
+      </NavLink>
+    )
+  }
+
+  adminLink = () => {
+    if(!this.auth.isAdmin()) { return null}
+
+    return(
+      <NavLink className="navbar-item" to="/admin">
+        Admin
+      </NavLink>
+    )
+  }
+
   render() {
     const userEmail = this.auth.getUserEmail()
     const emailIsVerified = this.auth.getUserEmailVerificationStatus()
@@ -21,12 +39,9 @@ class NavbarLoggedInItem extends Component<RouteComponentProps<any>> {
           { userEmail }
         </a>
         <div className="navbar-dropdown is-boxed">
-          <NavLink className="navbar-item" to="/notifications">
-            Notification Preferences
-          </NavLink>
-          <NavLink className="navbar-item" to="/admin">
-            Admin
-          </NavLink>
+          { this.notificationPrefsLink() }
+          { this.adminLink() }
+
           <hr className="navbar-divider" />
           <a className="navbar-item" onClick={this.handleLogout}>
             Logout

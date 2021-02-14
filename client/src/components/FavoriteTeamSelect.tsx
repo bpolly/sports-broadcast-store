@@ -34,7 +34,7 @@ class FavoriteTeamSelect extends Component<Props, State> {
     const favoriteTeamSlugs = generateTeamOptions(favoriteTeams)
 
     return(
-      <div id="favorite-team-select-container flex-grow">
+      <div id="favorite-team-select-container" className="flex-grow">
         <Select
           className="favorite-team-select-multiple"
           name="favorite-team-multiselect"
