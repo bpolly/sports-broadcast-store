@@ -31,4 +31,4 @@ COPY . /app/
 # EXPOSE 3000
 
 # CMD ["bundle", "exec", "rails", "server", "--port", "3000", "--binding", "0.0.0.0"]
-CMD ["bundle", "exec", "puma", "-C" "config/puma.rb"]
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
