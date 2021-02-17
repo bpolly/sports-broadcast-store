@@ -25,7 +25,7 @@ const dashboardTourGuide = () => {
     return(
       <ReactJoyride
         steps={stepsMe}
-        run={true}
+        run={false} // disable for now
         continuous={true}
         showProgress
         showSkipButton={true}
