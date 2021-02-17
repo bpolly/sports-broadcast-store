@@ -21,6 +21,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Login to Heroku Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: registry.heroku.com
+          username: _
+          password: ${{ secrets.HEROKU_API_KEY }}
+      -
         name: Build and push with branch name tag
         id: docker_build
         uses: docker/build-push-action@v2
@@ -28,7 +35,9 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: bpolly/sports-broadcast-store:${{ github.head_ref }}
+          tags: |
+            bpolly/sports-broadcast-store:${{ github.head_ref }}
+            registry.heroku.com/sports-broadcasts/web
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
