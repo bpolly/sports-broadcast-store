@@ -7,7 +7,7 @@ class NbcScraper
 
     Team.nfl.each do |team|
       team_schedule = "http://scores.nbcsports.com/fb/teamstats.asp?tm=#{team.nbc_team_id}&type=schedules"
-      doc = Nokogiri::HTML(open(team_schedule))
+      doc = Nokogiri::HTML(URI.open(team_schedule))
 
       # season = doc.css('.shsYearNav strong').text
       # year_one = season.split('-')[0]
@@ -83,7 +83,7 @@ class NbcScraper
       season_months[starting_month..-1].each do |month|
         team_schedule = "http://scores.nbcsports.com/nba/teamstats.asp?teamno=#{team.nbc_team_id}&type=schedule&year=#{Time.now.year}&month=#{month}"
         month = month.to_i
-        doc = Nokogiri::HTML(open(team_schedule))
+        doc = Nokogiri::HTML(URI.open(team_schedule))
 
         season = doc.css('.shsYearNav strong').text
         year_one = season.split('-')[0]
@@ -167,7 +167,7 @@ class NbcScraper
       season_months[starting_month..-1].each do |month|
         team_schedule = "http://scores.nbcsports.com/mlb/teamstats.asp?teamno=#{team.nbc_team_id}&type=schedule&year=#{Time.now.year}&month=#{month}"
         month = month.to_i
-        doc = Nokogiri::HTML(open(team_schedule))
+        doc = Nokogiri::HTML(URI.open(team_schedule))
 
         current_year = Date.today.year
         # Double check to make sure the calendar is on the right month
