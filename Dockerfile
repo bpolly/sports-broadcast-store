@@ -28,6 +28,7 @@ COPY --from=build /app/build /app/public
 # copy in rest of source code
 COPY . /app/
 
-EXPOSE 3000
+# EXPOSE 3000
 
-CMD ["bundle", "exec", "rails", "server", "--port", "3000", "--binding", "0.0.0.0"]
+# CMD ["bundle", "exec", "rails", "server", "--port", "3000", "--binding", "0.0.0.0"]
+CMD ["bundle", "exec", "puma", "-C" "config/puma.rb"]
