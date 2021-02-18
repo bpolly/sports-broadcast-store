@@ -11,7 +11,7 @@ RUN yarn build
 
 # production environment
 FROM ruby:2.7.2
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client less
 WORKDIR /app
 
 ENV RAILS_ENV production
