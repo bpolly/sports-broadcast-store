@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :team do
-    sequence(:name) { |n| "Team " + n }
+    sequence(:name) { |n| "Team #{n}" }
+    league { ['nba', 'nfl', 'mlb'].sample }
 
     after :create do |team|
       team.nicknames.find_or_create_by(name: ('a'..'z').to_a.shuffle[0,8].join)

@@ -4,7 +4,7 @@ FactoryBot.define do
     password_digest { 'myPass' }
     
     after(:create) do |user, _evaluator|
-      FactoryBot.create(:user_email, user: user)
+      create(:user_email, user: user)
     end
   end
 end

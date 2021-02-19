@@ -11,7 +11,7 @@ RSpec.describe 'user favorite teams', type: :request do
     end
 
     context 'when there is a current user' do
-      let(:user) { FactoryBot.create(:user) }
+      let(:user) { create(:user) }
       let(:team) { Team.all.sample }
 
       before do
