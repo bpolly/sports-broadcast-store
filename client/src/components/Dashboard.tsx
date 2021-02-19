@@ -5,6 +5,7 @@ import GameFilterForm from './GameFilterForm'
 import axios from 'axios'
 import moment from 'moment-timezone'
 import { dashboardTourGuide } from '../tourGuides'
+import { debounce } from 'lodash-es'
 
 interface State {
   games: Game[];
@@ -57,19 +58,22 @@ class Dashboard extends Component<any, State> {
     if(name === 'favorite-teams-only') {
       value = event.target.checked
     }
+    const updateState = () => {
+      this.setState((prevState) => ({
+        filters: {
+          ...prevState.filters,
+          [name]: value,
+        },
+      }))
+    }
 
-    this.setState((prevState) => ({
-      filters: {
-        ...prevState.filters,
-        [name]: value,
-      },
-    }))
+    debounce(updateState, 500, {
+      'leading': true,
+      'trailing': false
+    })()
   }
 
   favoriteTeamSlugs = () => {
-    console.log('== favoriteTeamSlugs() ==')
-    console.log(this.props.favoriteTeams)
-    console.log(this.props.favoriteTeams.length)
     return this.props.favoriteTeams.map((team) => team['slug'])
   }
 
