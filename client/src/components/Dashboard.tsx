@@ -88,7 +88,7 @@ class Dashboard extends Component<any, State> {
 
           return gameAttrText.includes(filterText)
         }
-        else if (filterName === 'team' && filters.team) {
+        else if (filterName === 'team' && filters.team && filters.team.length > 0) {
           const filterText = filters.team.toLowerCase()
           const teamNames = [
             game['home_team']['name'],
@@ -105,7 +105,7 @@ class Dashboard extends Component<any, State> {
 
           // true if either game team are a favorite team
           return gameTeams.some(t => favoriteTeams.includes(t))
-        } else {
+        } else if (filters[filterName].length > 0) {
           return game[filterName] === filters[filterName]
         }
 
