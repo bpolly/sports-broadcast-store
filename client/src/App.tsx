@@ -68,6 +68,12 @@ class App extends Component {
   auth = new AuthService()
 
   componentDidMount() {
+    if(this.auth.isLoggedIn()) {
+      this.fetchUserFavoriteTeams()
+    }
+  }
+
+  fetchUserFavoriteTeams = () => {
     axios.get('/user_favorite_teams',
       { headers: { Authorization: this.auth.getToken() } }
     ).then(response => {
@@ -88,8 +94,7 @@ class App extends Component {
 
   render() {
     const { favoriteTeams } = this.state
-       steps: [
-       ]
+
     return (
       <BrowserRouter >
         <div>
