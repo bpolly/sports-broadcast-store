@@ -1,0 +1,258 @@
+---
+teams:
+  -
+    name: atlanta hawks
+    slug: nba-atl
+    nbc_team_id: 1
+    nicknames:
+      - atlanta hawks
+      - atlanta
+      - hawks
+  -
+    name: boston celtics
+    slug: nba-bos
+    nbc_team_id: 2
+    nicknames:
+      - boston celtics
+      - boston
+      - celtics
+  -
+    name: brooklyn nets
+    slug: nba-bk
+    nbc_team_id: 17
+    nicknames:
+      - brooklyn nets
+      - brooklyn
+      - new jersey
+      - nets
+  -
+    name: charlotte hornets
+    slug: nba-cha
+    nbc_team_id: 30
+    nicknames:
+      - charlotte hornets
+      - charlotte
+      - hornets
+  -
+    name: chicago bulls
+    slug: nba-chi
+    nbc_team_id: 4
+    nicknames:
+      - chicago bulls
+      - chicago
+      - bulls
+  -
+    name: cleveland cavaliers
+    slug: nba-cle
+    nbc_team_id: 5
+    nicknames:
+      - cleveland cavaliers
+      - cleveland
+      - cavs
+      - cavaliers
+  -
+    name: dallas mavericks
+    slug: nba-dal
+    nbc_team_id: 6
+    nicknames:
+      - dallas mavericks
+      - dallas
+      - mavs
+      - mavericks
+  -
+    name: denver nuggets
+    slug: nba-den
+    nbc_team_id: 7
+    nicknames:
+      - denver nuggets
+      - denver
+      - nugs
+      - nuggets
+  -
+    name: detroit pistons
+    slug: nba-det
+    nbc_team_id: 8
+    nicknames:
+      - detroit pistons
+      - detroit
+      - pistons
+  -
+    name: golden state warriors
+    slug: nba-gs
+    nbc_team_id: 9
+    nicknames:
+      - golden state warriors
+      - golden state
+      - dubs
+      - warriors
+  -
+    name: houston rockets
+    slug: nba-hou
+    nbc_team_id: 10
+    nicknames:
+      - houston rockets
+      - houston
+      - rockets
+  -
+    name: indiana pacers
+    slug: nba-ind
+    nbc_team_id: 11
+    nicknames:
+      - indiana pacers
+      - indiana
+      - pacers
+  -
+    name: los angeles clippers
+    slug: nba-lac
+    nbc_team_id: 12
+    nicknames:
+      - los angeles clippers
+      - clippers
+      - clips
+      - la
+  -
+    name: los angeles lakers
+    slug: nba-lal
+    nbc_team_id: 13
+    nicknames:
+      - los angeles lakers
+      - lakers
+      - la
+  -
+    name: memphis grizzlies
+    slug: nba-mem
+    nbc_team_id: 29
+    nicknames:
+      - memphis grizzlies
+      - memphis
+      - grizz
+      - grizzlies
+
+  -
+    name: miami heat
+    slug: nba-mia
+    nbc_team_id: 14
+    nicknames:
+      - miami heat
+      - miami
+      - heat
+  -
+    name: milwaukee bucks
+    slug: nba-mil
+    nbc_team_id: 15
+    nicknames:
+      - milwaukee bucks
+      - milwaukee
+      - bucks
+  -
+    name: minnesota timberwolves
+    slug: nba-min
+    nbc_team_id: 16
+    nicknames:
+      - minnesota timberwolves
+      - minnesota
+      - wolves
+      - timberwolves
+  -
+    name: new orleans pelicans
+    slug: nba-no
+    nbc_team_id: 3
+    nicknames:
+      - new orleans pelicans
+      - new orleans
+      - pelicans
+  -
+    name: new york knicks
+    slug: nba-ny
+    nbc_team_id: 18
+    nicknames:
+      - new york knicks
+      - new york
+      - knickerbockers
+      - knicks
+  -
+    name: oklahoma city thunder
+    slug: nba-okc
+    nbc_team_id: 25
+    nicknames:
+      - oklahoma city thunder
+      - oklahoma
+      - okc
+      - sonics
+      - oklahoma city
+      - thunder
+  -
+    name: orlando magic
+    slug: nba-orl
+    nbc_team_id: 19
+    nicknames:
+      - orlando magic
+      - orlando
+      - magic
+  -
+    name: philadelphia sixers
+    slug: nba-phi
+    nbc_team_id: 20
+    nicknames:
+      - philadelphia sixers
+      - philadelphia
+      - sixers
+  -
+    name: phoenix suns
+    slug: nba-pho
+    nbc_team_id: 21
+    nicknames:
+      - phoenix suns
+      - phoenix
+      - suns
+  -
+    name: portland trail blazers
+    slug: nba-por
+    nbc_team_id: 22
+    nicknames:
+      - portland trail blazers
+      - portland
+      - blazers
+      - fourth seed
+      - trail blazers
+  -
+    name: sacramento kings
+    slug: nba-sac
+    nbc_team_id: 23
+    nicknames:
+      - sacramento kings
+      - sacramento
+      - kings
+  -
+    name: san antonio spurs
+    slug: nba-sa
+    nbc_team_id: 24
+    nicknames:
+      - san antonio spurs
+      - san antonio
+      - spurs
+  -
+    name: toronto raptors
+    slug: nba-tor
+    nbc_team_id: 28
+    nicknames:
+      - toronto raptors
+      - toronto
+      - raps
+      - raptors
+  -
+    name: utah jazz
+    slug: nba-uta
+    nbc_team_id: 26
+    nicknames:
+      - utah jazz
+      - utah
+      - jazz
+  -
+    name: washington wizards
+    slug: nba-was
+    nbc_team_id: 27
+    nicknames:
+      - washington wizards
+      - washington
+      - wizards
