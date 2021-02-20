@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  skip_before_action :authenticate_user, only: [:index, :show]
 
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 

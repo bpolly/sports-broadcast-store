@@ -1,7 +1,6 @@
 class UserEmailsController < ApplicationController
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
-  before_action :logged_in, except: [:resend_verification_code]
 
   def show
     return unless current_user && current_user.id == params[:user_id].to_i
@@ -46,11 +45,5 @@ class UserEmailsController < ApplicationController
 
   def user_email_params
     params.require(:user_email).permit(:address)
-  end
-
-  def logged_in
-    return if current_user.present?
-
-    render json: {}, status: 401
   end
 end

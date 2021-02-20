@@ -1,7 +1,6 @@
 class UserNotificationPreferencesController < ApplicationController
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
-  before_action :logged_in
 
   def index
     render json: current_user.user_notification_preferences, status: :ok
@@ -50,11 +49,5 @@ class UserNotificationPreferencesController < ApplicationController
       phone: params[:use_phone],
       email: params[:use_email]
     }
-  end
-
-  def logged_in
-    return if current_user.present?
-
-    render json: {}, status: 401
   end
 end

@@ -3,10 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
-
-  def current_user
-    ApiRequestAuthorizer.new(request.headers).get_user
-  end
+  include Authenticatable
 
   def not_found(_e)
     render json: _e.to_s, status: :not_found
@@ -15,4 +12,5 @@ class ApplicationController < ActionController::Base
   def fallback_index_html
     render :file => 'public/index.html'
   end
+
 end
