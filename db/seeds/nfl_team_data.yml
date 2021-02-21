@@ -1,0 +1,257 @@
+---
+nfl:
+  -
+    name: arizona cardinals
+    slug: nfl-ari
+    nbc_team_id: 22
+    nicknames:
+      - arizona cardinals
+      - arizona
+      - cardinals
+  -
+    name: atlanta falcons
+    slug: nfl-atl
+    nbc_team_id: 1
+    nicknames:
+      - atlanta falcons
+      - atlanta
+      - falcons
+  -
+    name: baltimore ravens
+    slug: nfl-bal
+    nbc_team_id: 33
+    nicknames:
+      - baltimore ravens
+      - baltimore
+      - ravens
+  -
+    name: buffalo bills
+    slug: nfl-buf
+    nbc_team_id: 2
+    nicknames:
+      - buffalo bills
+      - buffalo
+      - bills
+  -
+    name: carolina panthers
+    slug: nfl-car
+    nbc_team_id: 29
+    nicknames:
+      - carolina panthers
+      - carolina
+      - panthers
+  -
+    name: chicago bears
+    slug: nfl-chi
+    nbc_team_id: 3
+    nicknames:
+      - chicago bears
+      - chicago
+      - bears
+  -
+    name: cincinnati bengals
+    slug: nfl-cin
+    nbc_team_id: 4
+    nicknames:
+      - cincinnati bengals
+      - cincinnati
+      - bengals
+  -
+    name: cleveland browns
+    slug: nfl-cle
+    nbc_team_id: 5
+    nicknames:
+      - cleveland browns
+      - cleveland
+      - browns
+  -
+    name: dallas cowboys
+    slug: nfl-dal
+    nbc_team_id: 6
+    nicknames:
+      - dallas cowboys
+      - dallas
+      - cowboys
+  -
+    name: denver broncos
+    slug: nfl-den
+    nbc_team_id: 7
+    nicknames:
+      - denver broncos
+      - denver
+      - broncos
+  -
+    name: detroit lions
+    slug: nfl-det
+    nbc_team_id: 8
+    nicknames:
+      - detroit lions
+      - detroit
+      - lions
+  -
+    name: green bay packers
+    slug: nfl-gb
+    nbc_team_id: 9
+    nicknames:
+      - green bay packers
+      - green bay
+      - packers
+  -
+    name: houston texans
+    slug: nfl-hou
+    nbc_team_id: 34
+    nicknames:
+      - houston texans
+      - houston
+      - texans
+  -
+    name: indianapolis colts
+    slug: nfl-ind
+    nbc_team_id: 11
+    nicknames:
+      - indianapolis colts
+      - indianapolis
+      - colts
+  -
+    name: jacksonville jaguars
+    slug: nfl-jac
+    nbc_team_id: 30
+    nicknames:
+      - jacksonville jaguars
+      - jacksonville
+      - jaguars
+  -
+    name: kansas city chiefs
+    slug: nfl-kc
+    nbc_team_id: 12
+    nicknames:
+      - kansas city chiefs
+      - kansas city
+      - chiefs
+  -
+    name: miami dolphins
+    slug: nfl-mia
+    nbc_team_id: 15
+    nicknames:
+      - miami dolphins
+      - miami
+      - dolphins
+  -
+    name: minnesota vikings
+    slug: nfl-min
+    nbc_team_id: 16
+    nicknames:
+      - minnesota vikings
+      - minnesota
+      - vikings
+  -
+    name: new england patriots
+    slug: nfl-ne
+    nbc_team_id: 17
+    nicknames:
+      - new england patriots
+      - new england
+      - patriots
+  -
+    name: new orleans saints
+    slug: nfl-no
+    nbc_team_id: 18
+    nicknames:
+      - new orleans saints
+      - new orleans
+      - saints
+  -
+    name: new york giants
+    slug: nfl-nyg
+    nbc_team_id: 19
+    nicknames:
+      - new york giants
+      - giants
+  -
+    name: new york jets
+    slug: nfl-nyj
+    nbc_team_id: 20
+    nicknames:
+      - new york jets
+      - jets
+  -
+    name: oakland raiders
+    slug: nfl-oak
+    nbc_team_id: 13
+    nicknames:
+      - oakland raiders
+      - oakland
+      - raiders
+  -
+    name: philadelphia eagles
+    slug: nfl-phi
+    nbc_team_id: 21
+    nicknames:
+      - philadelphia eagles
+      - philadelphia
+      - eagles
+  -
+    name: pittsburgh steelers
+    slug: nfl-pit
+    nbc_team_id: 23
+    nicknames:
+      - pittsburgh steelers
+      - pittsburgh
+      - steelers
+  -
+    name: san diego chargers
+    slug: nfl-sd
+    nbc_team_id: 24
+    nicknames:
+      - san diego chargers
+      - san diego
+      - chargers
+  -
+    name: san francisco 49ers
+    slug: nfl-sf
+    nbc_team_id: 25
+    nicknames:
+      - san francisco 49ers
+      - san francisco
+      - 49ers
+  -
+    name: seattle seahawks
+    slug: nfl-sea
+    nbc_team_id: 26
+    nicknames:
+      - seattle seahawks
+      - seattle
+      - seahawks
+  -
+    name: los angeles rams
+    slug: nfl-la
+    nbc_team_id: 14
+    nicknames:
+      - los angeles rams
+      - los angeles
+      - rams
+      - la
+  -
+    name: tampa bay buccaneers
+    slug: nfl-tb
+    nbc_team_id: 27
+    nicknames:
+      - tampa bay buccaneers
+      - tampa bay
+      - buccaneers
+  -
+    name: tennessee titans
+    slug: nfl-ten
+    nbc_team_id: 10
+    nicknames:
+      - tennessee titans
+      - tennessee
+      - titans
+  -
+    name: washington redskins
+    slug: nfl-was
+    nbc_team_id: 28
+    nicknames:
+      - washington redskins
+      - washington
+      - redskins

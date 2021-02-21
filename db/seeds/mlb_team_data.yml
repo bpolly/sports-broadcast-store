@@ -1,0 +1,273 @@
+---
+mlb:
+  -
+    name: arizona diamondbacks
+    slug: mlb-ari
+    timezone: mst
+    nbc_team_id: 29
+    nicknames:
+      - arizona diamondbacks
+      - arizona
+      - diamondbacks
+  -
+    name: atlanta braves
+    slug: mlb-atl
+    timezone: et
+    nbc_team_id: 15
+    nicknames:
+      - atlanta braves
+      - atlanta
+      - braves
+  -
+    name: baltimore orioles
+    slug: mlb-bal
+    timezone: et
+    nbc_team_id: 1
+    nicknames:
+      - baltimore orioles
+      - baltimore
+      - orioles
+  -
+    name: boston red sox
+    slug: mlb-bos
+    timezone: et
+    nbc_team_id: 2
+    nicknames:
+      - boston red sox
+      - boston
+      - red sox
+  -
+    name: chicago cubs
+    slug: mlb-chc
+    timezone: ct
+    nbc_team_id: 16
+    nicknames:
+      - chicago cubs
+      - chicago
+      - cubs
+  -
+    name: chicago white sox
+    slug: mlb-chw
+    timezone: ct
+    nbc_team_id: 4
+    nicknames:
+      - chicago white sox
+      - chicago
+      - white sox
+  -
+    name: cincinnati reds
+    slug: mlb-cin
+    timezone: et
+    nbc_team_id: 17
+    nicknames:
+      - cincinnati reds
+      - cincinnati
+      - reds
+  -
+    name: cleveland indians
+    slug: mlb-cle
+    timezone: et
+    nbc_team_id: 5
+    nicknames:
+      - cleveland indians
+      - cleveland
+      - tribe
+      - indians
+  -
+    name: colorado rockies
+    slug: mlb-col
+    timezone: mst
+    nbc_team_id: 27
+    nicknames:
+      - colorado rockies
+      - colorado
+      - rockies
+  -
+    name: detroit tigers
+    slug: mlb-det
+    timezone: et
+    nbc_team_id: 6
+    nicknames:
+      - detroit tigers
+      - detroit 
+      - tigers
+  -
+    name: houston astros
+    slug: mlb-hou
+    timezone: ct
+    nbc_team_id: 18
+    nicknames:
+      - houston astros
+      - houston 
+      - astros
+  -
+    name: kansas city royals
+    slug: mlb-kc
+    timezone: ct
+    nbc_team_id: 7
+    nicknames:
+      - kansas city royals
+      - kansas city
+      - royals
+  -
+    name: los angeles angels
+    slug: mlb-laa
+    timezone: pt
+    nbc_team_id: 3
+    nicknames:
+      - los angeles angels
+      - anaheim angels
+      - angels
+  -
+    name: los angeles dodgers
+    slug: mlb-la
+    timezone: pt
+    nbc_team_id: 19
+    nicknames:
+      - los angeles dodgers
+      - dodgers
+      - los angeles
+      - la
+      - l.a. dodgers
+  -
+    name: miami marlins
+    slug: mlb-mia
+    timezone: et
+    nbc_team_id: 28
+    nicknames:
+      - miami marlins
+      - miami
+      - marlins
+  -
+    name: milwaukee brewers
+    slug: mlb-mil
+    timezone: ct
+    nbc_team_id: 8
+    nicknames:
+      - milwaukee brewers
+      - milwaukee
+      - brewers
+  -
+    name: minnesota twins
+    slug: mlb-min
+    timezone: ct
+    nbc_team_id: 9
+    nicknames:
+      - minnesota twins
+      - minnesota
+      - twins
+  -
+    name: new york mets
+    slug: mlb-nym
+    timezone: et
+    nbc_team_id: 21
+    nicknames:
+      - new york mets
+      - mets
+  -
+    name: new york yankees
+    slug: mlb-nyy
+    timezone: et
+    nbc_team_id: 10
+    nicknames:
+      - new york yankees
+      - yankees
+  -
+    name: oakland athletics
+    slug: mlb-oak
+    timezone: pt
+    nbc_team_id: 11
+    nicknames:
+      - oakland athletics
+      - oakland
+      - athletics
+  -
+    name: philadelphia phillies
+    slug: mlb-phi
+    timezone: et
+    nbc_team_id: 22
+    nicknames:
+      - philadelphia phillies
+      - philadelphia
+      - phillies
+  -
+    name: pittsburgh pirates
+    slug: mlb-pit
+    timezone: et
+    nbc_team_id: 23
+    nicknames:
+      - pittsburgh pirates
+      - pittsburgh
+      - pirates
+  -
+    name: san diego padres
+    slug: mlb-sd
+    timezone: pt
+    nbc_team_id: 25
+    nicknames:
+      - san diego padres
+      - san diego
+      - padres
+  -
+    name: san francisco giants
+    slug: mlb-sf
+    timezone: pt
+    nbc_team_id: 26
+    nicknames:
+      - san francisco giants
+      - san francisco
+      - giants
+  -
+    name: seattle mariners
+    slug: mlb-sea
+    timezone: pt
+    nbc_team_id: 12
+    nicknames:
+      - seattle mariners
+      - seattle
+      - mariners
+  -
+    name: st. louis cardinals
+    slug: mlb-stl
+    timezone: ct
+    nbc_team_id: 24
+    nicknames:
+      - st. louis cardinals
+      - st. louis
+      - cardinals
+  -
+    name: tampa bay rays
+    slug: mlb-tb
+    timezone: et
+    nbc_team_id: 30
+    nicknames:
+      - tampa bay rays
+      - tampa bay
+      - rays
+  -
+    name: texas rangers
+    slug: mlb-tex
+    timezone: ct
+    nbc_team_id: 13
+    nicknames:
+      - texas rangers
+      - texas
+      - rangers
+  -
+    name: toronto blue jays
+    slug: mlb-tor
+    timezone: et
+    nbc_team_id: 14
+    nicknames:
+      - toronto blue jays
+      - toronto
+      - blue jays
+  -
+    name: washington nationals
+    slug: mlb-was
+    timezone: et
+    nbc_team_id: 20
+    nicknames:
+      - washington nationals
+      - washington
+      - nationals
