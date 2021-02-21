@@ -7,4 +7,14 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Load all files from /seeds directory
-Dir[File.join(Rails.root, 'db', 'seeds', '*.rb')].sort.each { |seed| load seed }
+Dir[File.join(Rails.root, 'db', 'seeds', 'team_seeds.rb')].sort.each { |seed| load seed }
+
+
+# User Types
+# [
+#   { name: 'Regular', description: 'Regular users' },
+#   { name: 'Admin', description: 'Administrators' }
+# ].each do |user_type|
+#   UserType.find_or_create_by(name: user_type[:name], description: user_type[:description])
+# end
+
