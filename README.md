@@ -2,10 +2,14 @@
 Database + API for Sports Game Broadcasts
 
 ## Usage
-`rake db:setup` to create database and run migrations/seeds. This will populate all of
-the teams as well as their accompanying nicknames.
+The app is setup to run via Docker-Compose. To get your environment running:
+```
+docker-compose up -d
+docker-compose run backend rails db:setup
+```
 
 ```Rails
+# to scrape for new games
 NbcScraper.new.scrape_nba
 NbcScraper.new.scrape_mlb
 NbcScraper.new.scrape_nfl
