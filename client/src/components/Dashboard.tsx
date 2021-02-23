@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 // import '../styles/dashboard.scss'
 import GameTable from './GameTable'
 import GameFilterForm from './GameFilterForm'
@@ -7,11 +7,11 @@ import moment from 'moment-timezone'
 import { dashboardTourGuide } from '../tourGuides'
 import { debounce } from 'lodash-es'
 
-interface State {
-  games: Game[];
-  filters: FilterType;
-  loading: boolean;
-}
+// interface State {
+//   games: Game[];
+//   filters: FilterType;
+//   loading: boolean;
+// }
 
 interface FilterType {
   league?: string;
@@ -19,52 +19,66 @@ interface FilterType {
   tv_networks?: string;
 }
 
-class Dashboard extends Component<any, State> {
-  state: State = {
-    games: [],
-    filters: {},
-    loading: false
-  }
+// class Dashboard extends Component<any, State> {
+function Dashboard(props) {
+  let initialFilters: FilterType = {}
+  let initialGames: Game[] = []
 
-  componentDidMount() {
-    this.fetchGames(null)
-  }
+  const [games,   setGames]   = useState(initialGames)
+  const [filters, setFilters] = useState(initialFilters)
+  const [loading, setLoading] = useState(false)
 
-  fetchGames = (_endDate) => {
-    this.setState({ loading: true })
+  // state: State = {
+  //   games: [],
+  //   filters: {},
+  //   loading: false
+  // }
+
+  useEffect(() => {
+    fetchGames(null)
+  }, [])
+
+  // componentDidMount() {
+  //   fetchGames(null)
+  // }
+
+  const fetchGames = (_endDate) => {
+    setLoading(true)
     axios.get(`/games${_endDate ? `?end_date=${_endDate}` : ''}`)
     .then(response => {
-      this.setState({
-        games: (response.data || []),
-        loading: false
-      })
+      setGames(response.data || [])
+      setLoading(false)
     })
   }
 
-  handleDateChange = (event) => {
+  const handleDateChange = (event) => {
     const { value } = event.target
     const dateValue = value.match(/(\d)-(\w+)/)
     if(value.length !== 0){
       let numUnits = parseInt(dateValue[1], 10)
       let unitName = dateValue[2]
       const targetDate = moment().add(numUnits, unitName).subtract(1, 'day').endOf('day')
-      this.fetchGames(targetDate)
+      fetchGames(targetDate)
     }
   }
 
-  handleFilterChange = (event) => {
+  const handleFilterChange = (event) => {
     const { name } = event.target
     let { value } = event.target
     if(name === 'favorite-teams-only') {
       value = event.target.checked
     }
     const updateState = () => {
-      this.setState((prevState) => ({
-        filters: {
-          ...prevState.filters,
-          [name]: value,
-        },
-      }))
+      setFilters({
+        ...filters,
+        [name]: value,
+      })
+      // setState((prevState) => ({
+      //   filters: {
+      //     ...prevState.filters,
+      //     [name]: value,
+      //   },
+      // }))
     }
 
     debounce(updateState, 500, {
@@ -73,12 +87,11 @@ class Dashboard extends Component<any, State> {
     })()
   }
 
-  favoriteTeamSlugs = () => {
-    return this.props.favoriteTeams.map((team) => team['slug'])
+  const favoriteTeamSlugs = () => {
+    return props.favoriteTeams.map((team) => team['slug'])
   }
 
-  filteredGames = () => {
-    const { games, filters } = this.state
+  const filteredGames = () => {
 
     return Object.keys(filters).reduce((games, filterName) => {
       return games.filter((game: Game) => {
@@ -101,7 +114,7 @@ class Dashboard extends Component<any, State> {
           if(filters['favorite-teams-only'] === false) { return true }
 
           const gameTeams = [game.home_team.slug, game.away_team.slug]
-          const favoriteTeams = this.favoriteTeamSlugs()
+          const favoriteTeams = favoriteTeamSlugs()
 
           // true if either game team are a favorite team
           return gameTeams.some(t => favoriteTeams.includes(t))
@@ -114,8 +127,8 @@ class Dashboard extends Component<any, State> {
     }, games)
   }
 
-  render() {
-    const { loading } = this.state
+  // render() {
+    // const { loading } = state
 
     return (
       <div className="dashboard-container">
@@ -123,21 +136,21 @@ class Dashboard extends Component<any, State> {
           <div className="column is-one-quarter">
             { dashboardTourGuide() }
             <GameFilterForm
-              handleFilterChange={this.handleFilterChange}
-              handleDateChange={this.handleDateChange}
-              handleFavoriteTeamChange={this.props.handleFavoriteTeamChange}
-              favoriteTeams={this.props.favoriteTeams}/>
+              handleFilterChange={handleFilterChange}
+              handleDateChange={handleDateChange}
+              handleFavoriteTeamChange={props.handleFavoriteTeamChange}
+              favoriteTeams={props.favoriteTeams}/>
           </div>
           <div className="column">
             <GameTable
-              games={this.filteredGames()}
-              favoriteTeamSlugs={this.favoriteTeamSlugs()}
+              games={filteredGames()}
+              favoriteTeamSlugs={favoriteTeamSlugs()}
               loading={loading}/>
           </div>
         </div>
       </div>
     )
-  }
+  // }
 }
 
 export default Dashboard
