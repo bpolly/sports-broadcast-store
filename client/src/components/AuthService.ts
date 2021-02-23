@@ -44,12 +44,16 @@ export default class AuthService {
     }
 
     isAdmin() {
+        if(!this.isLoggedIn()) { return false }
+
+        console.log('Decode: isAdmin')
         const decoded = jwtDecode<JwtPayload>(this.getToken())
         return this.isLoggedIn() && decoded['admin']
     }
 
     isTokenExpired(token) {
         try {
+            console.log('Decode: isTokenExpired')
             const decoded = jwtDecode<JwtPayload>(token)
             // @ts-ignore
             if (decoded.exp < Date.now() / 1000) { // Checking if token is expired. N
@@ -80,7 +84,13 @@ export default class AuthService {
     }
 
     getUserData() {
-        return jwtDecode<JwtPayload>(this.getToken())
+        console.log('Decode: getUserData')
+        const token = this.getToken()
+        if(token) {
+            return jwtDecode<JwtPayload>(token)
+        } else {
+            return {}
+        }
     }
 
     getUserId() {
