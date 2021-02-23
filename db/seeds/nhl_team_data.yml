@@ -1,0 +1,213 @@
+---
+teams:
+  nhl:
+    -
+      name: anaheim ducks
+      slug: nhl-ana
+      nicknames:
+        - anaheim ducks
+        - anaheim
+        - ducks
+    -
+      name: arizona coyotes
+      slug: nhl-ari
+      nicknames:
+        - arizona coyotes
+        - arizona
+        - coyotes
+    -
+      name: boston bruins
+      slug: nhl-bos
+      nicknames:
+        - boston bruins
+        - boston
+        - bruins
+    -
+      name: buffalo sabres
+      slug: nhl-buf
+      nicknames:
+        - buffalo sabres
+        - buffalo
+        - sabres
+    -
+      name: calgary flames
+      slug: nhl-cal
+      nicknames:
+        - calgary flames
+        - calgary
+        - flames
+    -
+      name: carolina hurricanes
+      slug: nhl-car
+      nicknames:
+        - carolina hurricanes
+        - carolina
+        - hurricanes
+    -
+      name: chicago blackhawks
+      slug: nhl-chi
+      nicknames:
+        - chicago blackhawks
+        - chicago
+        - blackhawks
+    -
+      name: colorado avalanche
+      slug: nhl-col
+      nicknames:
+        - colorado avalanche
+        - colorado
+        - avalanche
+    -
+      name: columbus blue jackets
+      slug: nhl-clb
+      nicknames:
+        - columbus blue jackets
+        - columbus
+        - blue jackets
+    -
+      name: dallas stars
+      slug: nhl-dal
+      nicknames:
+        - dallas stars
+        - dallas
+        - stars
+    -
+      name: detroit red wings
+      slug: nhl-det
+      nicknames:
+        - detroit red wings
+        - detroit
+        - red wings
+    -
+      name: edmonton oilers
+      slug: nhl-edm
+      nicknames:
+        - edmonton oilers
+        - edmonton
+        - oilers
+    -
+      name: florida panthers
+      slug: nhl-fla
+      nicknames:
+        - florida panthers
+        - florida
+        - panthers
+    -
+      name: los angeles kings
+      slug: nhl-la
+      nicknames:
+        - los angeles kings
+        - los angeles
+        - kings
+    -
+      name: minnesota wild
+      slug: nhl-min
+      nicknames:
+        - minnesota wild
+        - minnesota
+        - wild
+    -
+      name: montreal canadiens
+      slug: nhl-mon
+      nicknames:
+        - montreal canadiens
+        - montreal
+        - canadiens
+    -
+      name: nashville predators
+      slug: nhl-nas
+      nicknames:
+        - nashville predators
+        - nashville
+        - predators
+    -
+      name: new jersey devils
+      slug: nhl-nj
+      nicknames:
+        - new jersey devils
+        - new jersey
+        - devils
+    -
+      name: new york islanders
+      slug: nhl-nyi
+      nicknames:
+        - new york islanders
+        - new york
+        - islanders
+    -
+      name: new york rangers
+      slug: nhl-nyr
+      nicknames:
+        - new york rangers
+        - new york
+        - rangers
+    -
+      name: ottawa senators
+      slug: nhl-ott
+      nicknames:
+        - ottawa senators
+        - ottawa
+        - senators
+    -
+      name: philadelphia flyers
+      slug: nhl-phi
+      nicknames:
+        - philadelphia flyers
+        - philadelphia
+        - flyers
+    -
+      name: pittsburgh penguins
+      slug: nhl-pit
+      nicknames:
+        - pittsburgh penguins
+        - pittsburgh
+        - penguins
+    -
+      name: san jose sharks
+      slug: nhl-sj
+      nicknames:
+        - san jose sharks
+        - san jose
+        - sharks
+    -
+      name: st. louis blues
+      slug: nhl-stl
+      nicknames:
+        - st. louis blues
+        - st. louis
+        - blues
+    -
+      name: tampa bay lightning
+      slug: nhl-tb
+      nicknames:
+        - tampa bay lightning
+        - tampa bay
+        - lightning
+    -
+      name: toronto maple leafs
+      slug: nhl-tor
+      nicknames:
+        - toronto maple leafs
+        - toronto
+        - maple leafs
+    -
+      name: vancouver canucks
+      slug: nhl-van
+      nicknames:
+        - vancouver canucks
+        - vancouver
+        - canucks
+    -
+      name: washington capitals
+      slug: nhl-was
+      nicknames:
+        - washington capitals
+        - washington
+        - capitals
+    -
+      name: winnipeg jets
+      slug: nhl-win
+      nicknames:
+        - winnipeg jets
+        - winnipeg
+        - jets

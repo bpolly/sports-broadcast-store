@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "2.4.0"
+ruby "2.7.2"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2'
 # Use postgresql as the database for Active Record
@@ -16,8 +16,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'dotenv-rails', :groups => [:development, :test]
 gem 'haml-rails'
@@ -43,7 +41,6 @@ gem 'sendgrid-actionmailer', github: 'eddiezane/sendgrid-actionmailer'
 gem 'bootsnap', require: false
 
 group :development, :test do
-  gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_bot_rails'
 end

@@ -4,6 +4,7 @@ class UserEmailsController < ApplicationController
 
   def show
     return unless current_user && current_user.id == params[:user_id].to_i
+
     if current_user.email
       render json: current_user.email, status: :ok
     else

@@ -1,18 +1,54 @@
 import React, { Component } from 'react'
 import FavoriteTeamSelect from './FavoriteTeamSelect'
 import '../styles/game_filter_form.scss'
+import AuthService from './AuthService'
 
 interface Props {
-  favoriteTeams: Team[]
-  handleFavoriteTeamChange: (teams: Team[]) => void
-  handleFilterChange: (event: any) => void
-  handleDateChange: (event: any) => void
+  favoriteTeams: Team[];
+  handleFavoriteTeamChange: (teams: Team[]) => void;
+  handleFilterChange: (event: any) => void;
+  handleDateChange: (event: any) => void;
 }
 
 class GameFilterForm extends Component<Props> {
-  render() {
-    const { favoriteTeams, handleFavoriteTeamChange } = this.props
+  auth = new AuthService()
 
+  showFavoriteTeams = (): boolean => {
+    return this.auth.isLoggedIn()
+  }
+
+  favoriteTeamSelectComponent = () => {
+    if(!this.showFavoriteTeams()) { return null }
+
+    const { favoriteTeams, handleFavoriteTeamChange } = this.props
+    return(
+      <>
+        <label className="label">Favorite Teams</label>
+        <FavoriteTeamSelect
+          favoriteTeams={favoriteTeams}
+          handleFavoriteTeamChange={handleFavoriteTeamChange} />
+      </>
+    )
+  }
+
+  favoriteTeamOnlyCheckboxComponent = () => {
+    if(!this.showFavoriteTeams()) { return null }
+
+    return(
+      <>
+        <div className="field flex-no-grow">
+          <div className="control">
+            <label className="checkbox">
+              <input type="checkbox" name="favorite-teams-only" onChange={this.props.handleFilterChange} style={{marginRight: "10px"}} />
+              Show only favorite teams
+            </label>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  render() {
     return(
       <div id="game-filter-form">
         <div className="field flex-no-grow">
@@ -59,19 +95,9 @@ class GameFilterForm extends Component<Props> {
           </div>
         </div>
 
-        <div className="field flex-no-grow">
-          <div className="control">
-            <label className="checkbox">
-              <input type="checkbox" name="favorite-teams-only" onChange={this.props.handleFilterChange} style={{marginRight: "10px"}} />
-              Show only favorite teams
-            </label>
-          </div>
-        </div>
+        { this.favoriteTeamOnlyCheckboxComponent() }
 
-        <label className="label">Favorite Teams</label>
-        <FavoriteTeamSelect
-          favoriteTeams={favoriteTeams}
-          handleFavoriteTeamChange={handleFavoriteTeamChange} />
+        { this.favoriteTeamSelectComponent() }
       </div>
     )
   }

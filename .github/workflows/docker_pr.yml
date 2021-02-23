@@ -1,0 +1,31 @@
+name: Docker PR Build
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  pr-build:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout source code
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push with branch name tag
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: bpolly/sports-broadcast-store:${{ github.head_ref }}

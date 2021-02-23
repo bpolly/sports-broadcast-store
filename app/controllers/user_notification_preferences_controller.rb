@@ -3,11 +3,7 @@ class UserNotificationPreferencesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    if current_user
-      render json: current_user.user_notification_preferences, status: :ok
-    else
-      render json: { message: 'Cannot find user' }, status: :not_found
-    end
+    render json: current_user.user_notification_preferences, status: :ok
   end
 
   def create
@@ -50,7 +46,6 @@ class UserNotificationPreferencesController < ApplicationController
     given_params = params[:user_notification_preference].reject {|_, v| v.blank? }
     {
       team_id: Team.find_by(slug: params[:team_slug]).try(&:id),
-      callback_url: given_params[:callback_url],
       phone: params[:use_phone],
       email: params[:use_email]
     }

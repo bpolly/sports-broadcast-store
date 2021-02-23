@@ -4,21 +4,23 @@ import GameTable from './GameTable'
 import GameFilterForm from './GameFilterForm'
 import axios from 'axios'
 import moment from 'moment-timezone'
+import { dashboardTourGuide } from '../tourGuides'
+import { debounce } from 'lodash-es'
 
 interface State {
-  games: Game[]
-  filters: object
-  loading: boolean
+  games: Game[];
+  filters: FilterType;
+  loading: boolean;
 }
 
 interface FilterType {
-  league?: string
-  team?: string
-  tv_networks?: string
+  league?: string;
+  team?: string;
+  tv_networks?: string;
 }
 
 class Dashboard extends Component<any, State> {
-  state = {
+  state: State = {
     games: [],
     filters: {},
     loading: false
@@ -56,18 +58,22 @@ class Dashboard extends Component<any, State> {
     if(name === 'favorite-teams-only') {
       value = event.target.checked
     }
+    const updateState = () => {
+      this.setState((prevState) => ({
+        filters: {
+          ...prevState.filters,
+          [name]: value,
+        },
+      }))
+    }
 
-    this.setState((prevState) => ({
-      filters: {
-        ...prevState.filters,
-        [name]: value,
-      },
-    }))
+    debounce(updateState, 500, {
+      'leading': true,
+      'trailing': false
+    })()
   }
 
   favoriteTeamSlugs = () => {
-    console.log(this.props.favoriteTeams)
-    console.log(this.props.favoriteTeams.length)
     return this.props.favoriteTeams.map((team) => team['slug'])
   }
 
@@ -76,23 +82,31 @@ class Dashboard extends Component<any, State> {
 
     return Object.keys(filters).reduce((games, filterName) => {
       return games.filter((game: Game) => {
-        if (filters[filterName]) {
-          if (typeof game[filterName] === 'string' || filterName === 'team') {
-            let gameAttrText = ''
-            let filterText = filters[filterName].toLowerCase()
-            if(filterName === 'team'){
-              gameAttrText = (game['home_team']['name'] + ' ' + game['away_team']['name']).toLowerCase()
-            } else {
-              gameAttrText = game[filterName].toLowerCase()
-            }
+        if (['league', 'tv_networks'].includes(filterName)) {
+          const filterText = filters[filterName].toLowerCase()
+          const gameAttrText = game[filterName].toLowerCase()
 
-            return gameAttrText.indexOf(filterText) !== -1
-          }
-          else if (filters['favorite-teams-only'] === true) {
-            return (this.favoriteTeamSlugs().includes(game.home_team.slug) || this.favoriteTeamSlugs().includes(game.away_team.slug))
-          } else {
-            return game[filterName] === filters[filterName]
-          }
+          return gameAttrText.includes(filterText)
+        }
+        else if (filterName === 'team' && filters.team && filters.team.length > 0) {
+          const filterText = filters.team.toLowerCase()
+          const teamNames = [
+            game['home_team']['name'],
+            game['away_team']['name']
+          ].join(' ').toLowerCase()
+
+          return teamNames.includes(filterText)
+        }
+        else if (filterName == 'favorite-teams-only') {
+          if(filters['favorite-teams-only'] === false) { return true }
+
+          const gameTeams = [game.home_team.slug, game.away_team.slug]
+          const favoriteTeams = this.favoriteTeamSlugs()
+
+          // true if either game team are a favorite team
+          return gameTeams.some(t => favoriteTeams.includes(t))
+        } else if (filters[filterName].length > 0) {
+          return game[filterName] === filters[filterName]
         }
 
         return true
@@ -102,10 +116,12 @@ class Dashboard extends Component<any, State> {
 
   render() {
     const { loading } = this.state
+
     return (
       <div className="dashboard-container">
         <div className="columns">
           <div className="column is-one-quarter">
+            { dashboardTourGuide() }
             <GameFilterForm
               handleFilterChange={this.handleFilterChange}
               handleDateChange={this.handleDateChange}

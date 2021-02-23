@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   protect_from_forgery with: :null_session
+  skip_before_action :authenticate_user
 
   def create
     user = UserEmail.find_by(address: params[:user][:email].downcase).try(:user)

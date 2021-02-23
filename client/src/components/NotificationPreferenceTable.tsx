@@ -6,12 +6,12 @@ import AuthService from './AuthService'
 import '../styles/notification_center.scss'
 
 interface Props {
-  favoriteTeams: Team[]
-  phoneNumber: PhoneNumber | null
+  favoriteTeams: Team[];
+  phoneNumber: PhoneNumber | null;
 }
 
 interface State {
-  currentNotificationPreferences: any[]
+  currentNotificationPreferences: any[];
 }
 
 class NotificationPreferenceTable extends Component<Props, State> {
@@ -75,7 +75,7 @@ class NotificationPreferenceTable extends Component<Props, State> {
   }
 
   render() {
-    let preferences = this.state.currentNotificationPreferences
+    let preferences: Preference[] = this.state.currentNotificationPreferences
     const { favoriteTeams, phoneNumber } = this.props
     return(
       <div className="">
@@ -84,12 +84,11 @@ class NotificationPreferenceTable extends Component<Props, State> {
             <tr>
               <th className="team-input">Team</th>
               <th className="phone-input">Phone</th>
-              <th className="callback-url-input">Callback URL</th>
               <th className="email-input">Email</th>
             </tr>
           </thead>
           <tbody>
-            { preferences.map(function(this: NotificationPreferenceTable, preference: Preference){
+            { preferences.map(function(preference: Preference){
                         return <NotificationPreferenceRow
                                   favoriteTeams={favoriteTeams}
                                   phoneNumber={phoneNumber}

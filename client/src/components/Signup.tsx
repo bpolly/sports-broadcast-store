@@ -6,13 +6,13 @@ import axios from 'axios'
 import '../styles/signup.scss'
 
 type State = {
-  email: string
-  password: string
-  passwordConfirmation: string
-  loading: boolean
-  errors: string
-  signupSent: boolean
-  signupSuccessful: boolean
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+  loading: boolean;
+  errors: string;
+  signupSent: boolean;
+  signupSuccessful: boolean;
 }
 
 class Signup extends Component<any, State> {
@@ -29,8 +29,9 @@ class Signup extends Component<any, State> {
 
   handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     this.setState({
+      ...this.state,
       [e.currentTarget.name]: e.currentTarget.value
-    } as any)
+    })
   }
 
   handleSubmit = (e) => {

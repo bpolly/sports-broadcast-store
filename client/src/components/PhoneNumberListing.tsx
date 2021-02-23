@@ -3,9 +3,9 @@ import PhoneNumberForm from './PhoneNumberForm'
 import '../styles/phone_number_listing.scss'
 
 type Props = {
-  phoneNumber: PhoneNumber | null
-  deletePhoneNumber: () => void
-  fetchPhoneNumber: () => void
+  phoneNumber: PhoneNumber | null;
+  deletePhoneNumber: () => void;
+  fetchPhoneNumber: () => void;
 }
 
 class PhoneNumberListing extends Component<Props> {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, CSSProperties } from 'react'
 import FavoriteTeamSelect from './FavoriteTeamSelect'
 import NotificationPreferenceTable from './NotificationPreferenceTable'
 import PhoneNumberForm from './PhoneNumberForm'
@@ -8,14 +8,14 @@ import AuthService from './AuthService'
 import '../styles/notification_center.scss'
 
 interface Props {
-  favoriteTeams: Team[]
-  handleFavoriteTeamChange: (teams: Team[]) => void
+  favoriteTeams: Team[];
+  handleFavoriteTeamChange: (teams: Team[]) => void;
 }
 
 interface State {
-  phoneNumber: PhoneNumber | null
-  emailObjects: any[]
-  showPhoneForm: boolean
+  phoneNumber: PhoneNumber | null;
+  emailObjects: any[];
+  showPhoneForm: boolean;
 }
 
 class NotificationCenter extends Component<Props, State> {
@@ -103,7 +103,10 @@ class NotificationCenter extends Component<Props, State> {
         <hr />
           <div className="columns">
             <div className="column is-one-half">
-              <h3 className="subtitle">Favorite Teams</h3>
+              <h3 className="subtitle">
+                <i className="fa fa-star mr-2" style={{color: '#fc6066'}}></i>
+                Favorite Teams
+              </h3>
               <FavoriteTeamSelect
                 favoriteTeams={this.props.favoriteTeams}
                 handleFavoriteTeamChange={this.props.handleFavoriteTeamChange} />
@@ -113,6 +116,7 @@ class NotificationCenter extends Component<Props, State> {
                 <div className="level">
                   <div className="level-left">
                     <div className="level-item">
+                      <i className="fa fa-phone mr-2"></i>
                       <h3 className="subtitle">Phone Numbers</h3>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-class CreateUserZipCodes < ActiveRecord::Migration
+class CreateUserZipCodes < ActiveRecord::Migration[5.2]
   def change
     create_table :user_zip_codes do |t|
       t.string :amz_id

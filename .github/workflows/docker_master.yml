@@ -1,0 +1,62 @@
+name: Docker Master Build
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  master-build:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout source code
+        uses: actions/checkout@v2
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Login to Heroku Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: registry.heroku.com
+          username: _
+          password: ${{ secrets.HEROKU_API_KEY }}
+      -
+        name: Build and push latest image
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            bpolly/sports-broadcast-store:latest
+            registry.heroku.com/sports-broadcasts/web
+      -
+        name: "Create .netrc for Heroku Auth"
+        shell: bash
+        run: |
+          `cat >~/.netrc <<EOF
+          machine api.heroku.com
+              login $EMAIL
+              password $HEROKU_AUTH_TOKEN
+          machine git.heroku.com
+              login $EMAIL
+              password $HEROKU_AUTH_TOKEN
+          EOF`
+        env:
+          EMAIL: ${{ secrets.HEROKU_EMAIL }}
+          HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_API_KEY }}
+      -
+        name: 'Create Heroku release'
+        shell: bash
+        run: heroku container:release web -a sports-broadcasts

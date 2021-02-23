@@ -6,18 +6,17 @@ import AuthService from './AuthService'
 import '../styles/notification_preference_row.scss'
 
 interface Props {
-  favoriteTeams: Team[]
-  saveNewNotification: (object) => Promise<any>
-  phoneNumber: PhoneNumber | null
+  favoriteTeams: Team[];
+  saveNewNotification: (object) => Promise<any>;
+  phoneNumber: PhoneNumber | null;
 }
 
 interface State {
-  editing: boolean
-  saving: boolean
-  selectedTeamSlug: string
-  callbackUrl: string
-  useEmail: boolean
-  usePhone: boolean
+  editing: boolean;
+  saving: boolean;
+  selectedTeamSlug: string;
+  useEmail: boolean;
+  usePhone: boolean;
 }
 
 class NotificationPreferenceNewRow extends Component<Props, State> {
@@ -25,7 +24,6 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
     editing: false,
     saving: false,
     selectedTeamSlug: '',
-    callbackUrl: '',
     useEmail: false,
     usePhone: false
   }
@@ -44,7 +42,6 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
     setTimeout(function() {}, 500)
     let saveParams = {
       team_slug: this.state.selectedTeamSlug,
-      callback_url: this.state.callbackUrl,
       use_email: this.state.useEmail,
       use_phone: this.state.usePhone
     }
@@ -54,7 +51,6 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
           editing: false,
           saving: false,
           selectedTeamSlug: '',
-          callbackUrl: '',
           useEmail: false,
           usePhone: false
         })
@@ -67,7 +63,6 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
   handleDiscardChangesClick = () => {
     this.setState({
       selectedTeamSlug: '',
-      callbackUrl: '',
       useEmail: false,
       usePhone: false,
       editing: false
@@ -94,7 +89,6 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
     return !!(this.state.selectedTeamSlug &&
         (
           !!this.state.usePhone ||
-          !!this.state.callbackUrl ||
           !!this.state.useEmail
         )
       )
@@ -132,7 +126,7 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
   }
 
   formRow = () => {
-    const { selectedTeamSlug, callbackUrl, useEmail, usePhone } = this.state
+    const { selectedTeamSlug, useEmail, usePhone } = this.state
     const { favoriteTeams, phoneNumber } = this.props
     let teamOptions: Array<TeamSelectOption> = generateTeamOptions(favoriteTeams)
 
@@ -154,15 +148,6 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
             label={ phoneNumber ? phoneNumber.number : 'Add a phone number below!' }
             isChecked={usePhone}
             isDisabled={!phoneNumber}/>
-        </td>
-        <td>
-          <input
-            className="input callback-url-input"
-            type="text"
-            value={ callbackUrl }
-            onChange={ this.handleChange }
-            name="callbackUrl"
-          />
         </td>
         <td>
           <Checkbox

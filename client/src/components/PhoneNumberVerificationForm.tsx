@@ -6,8 +6,8 @@ import '../styles/animate.css'
 import '../styles/phone_number_form.scss'
 
 interface Props {
-  closePhoneFormModal: () => void
-  fetchPhoneNumber: () => void
+  closePhoneFormModal: () => void;
+  fetchPhoneNumber: () => void;
 }
 
 class PhoneNumberVerificationForm extends Component<Props> {

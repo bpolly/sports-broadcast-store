@@ -3,9 +3,9 @@ require 'spec_helper'
 RSpec.describe GamesController do
   describe 'retrieve_given_params' do
     let(:amz_id) { 'es30resf' } # junk
-    let(:team_one) { FactoryBot.create(:team, :nba)}
-    let(:team_two) { FactoryBot.create(:team, :nba)}
-    let(:game) { FactoryBot.create(:game, home_team_id: team_one.id, away_team_id: team_two.id)}
+    let(:team_one) { create(:team, :nba)}
+    let(:team_two) { create(:team, :nba)}
+    let(:game) { create(:game, home_team_id: team_one.id, away_team_id: team_two.id)}
     context 'given just a team name' do
       it 'finds that teams next game' do
         # do something

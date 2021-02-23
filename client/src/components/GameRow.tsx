@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, CSSProperties } from 'react'
 import moment from 'moment-timezone'
 
 interface Props {
-  game: Game
-  favoriteTeamSlugs: string[]
+  game: Game;
+  favoriteTeamSlugs: string[];
 }
 
 class GameRow extends Component<Props> {
@@ -32,10 +32,10 @@ class GameRow extends Component<Props> {
     const { game } = this.props
     const dateCol = this.getDateColumn()
 
-    const starStyling = {
+    const starStyling: CSSProperties = {
       visibility: this.isFavoriteTeam(game) ? 'visible' : 'hidden',
       color: '#fc6066'
-    } as React.CSSProperties
+    }
 
     return (
       <tr>

@@ -9,7 +9,7 @@ class UserFavoriteTeamsController < ApplicationController
   def update_all
     raise unless current_user
     given_team_slugs = params[:teams]
-    current_team_slugs = current_user.user_favorite_teams.map(&:team_slug)
+    current_team_slugs = current_user.user_favorite_teams.includes(:team).map(&:team_slug)
     newly_added_team_slugs = given_team_slugs - current_team_slugs
     removed_team_slugs = current_team_slugs - given_team_slugs
 
