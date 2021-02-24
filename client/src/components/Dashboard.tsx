@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 // import '../styles/dashboard.scss'
 import GameTable from './GameTable'
 import GameFilterForm from './GameFilterForm'
@@ -7,40 +7,20 @@ import moment from 'moment-timezone'
 import { dashboardTourGuide } from '../tourGuides'
 import { debounce } from 'lodash-es'
 
-// interface State {
-//   games: Game[];
-//   filters: FilterType;
-//   loading: boolean;
-// }
-
 interface FilterType {
   league?: string;
   team?: string;
   tv_networks?: string;
 }
 
-// class Dashboard extends Component<any, State> {
 function Dashboard(props) {
-  let initialFilters: FilterType = {}
-  let initialGames: Game[] = []
-
-  const [games,   setGames]   = useState(initialGames)
-  const [filters, setFilters] = useState(initialFilters)
+  const [games,   setGames]   = useState<Game[]>([])
+  const [filters, setFilters] = useState<FilterType>({})
   const [loading, setLoading] = useState(false)
-
-  // state: State = {
-  //   games: [],
-  //   filters: {},
-  //   loading: false
-  // }
 
   useEffect(() => {
     fetchGames(null)
   }, [])
-
-  // componentDidMount() {
-  //   fetchGames(null)
-  // }
 
   const fetchGames = (_endDate) => {
     setLoading(true)
@@ -73,12 +53,6 @@ function Dashboard(props) {
         ...filters,
         [name]: value,
       })
-      // setState((prevState) => ({
-      //   filters: {
-      //     ...prevState.filters,
-      //     [name]: value,
-      //   },
-      // }))
     }
 
     debounce(updateState, 500, {
@@ -92,7 +66,6 @@ function Dashboard(props) {
   }
 
   const filteredGames = () => {
-
     return Object.keys(filters).reduce((games, filterName) => {
       return games.filter((game: Game) => {
         if (['league', 'tv_networks'].includes(filterName)) {
@@ -127,30 +100,26 @@ function Dashboard(props) {
     }, games)
   }
 
-  // render() {
-    // const { loading } = state
-
-    return (
-      <div className="dashboard-container">
-        <div className="columns">
-          <div className="column is-one-quarter">
-            { dashboardTourGuide() }
-            <GameFilterForm
-              handleFilterChange={handleFilterChange}
-              handleDateChange={handleDateChange}
-              handleFavoriteTeamChange={props.handleFavoriteTeamChange}
-              favoriteTeams={props.favoriteTeams}/>
-          </div>
-          <div className="column">
-            <GameTable
-              games={filteredGames()}
-              favoriteTeamSlugs={favoriteTeamSlugs()}
-              loading={loading}/>
-          </div>
+  return (
+    <div className="dashboard-container">
+      <div className="columns">
+        <div className="column is-one-quarter">
+          { dashboardTourGuide() }
+          <GameFilterForm
+            handleFilterChange={handleFilterChange}
+            handleDateChange={handleDateChange}
+            handleFavoriteTeamChange={props.handleFavoriteTeamChange}
+            favoriteTeams={props.favoriteTeams}/>
+        </div>
+        <div className="column">
+          <GameTable
+            games={filteredGames()}
+            favoriteTeamSlugs={favoriteTeamSlugs()}
+            loading={loading}/>
         </div>
       </div>
-    )
-  // }
+    </div>
+  )
 }
 
 export default Dashboard
