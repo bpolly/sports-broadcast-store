@@ -1,17 +1,21 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import { withRouter } from 'react-router'
 import { NavLink, RouteComponentProps } from 'react-router-dom'
 import AuthService from './AuthService'
+import UserContext from '../contexts/User'
 
-class NavbarLoggedInItem extends Component<RouteComponentProps<any>> {
-  auth = new AuthService()
+// class NavbarLoggedInItem extends Component<RouteComponentProps<any>> {
+function NavbarLoggedInItem(props: RouteComponentProps<any>) {
+  const auth = new AuthService()
+  const { setLoggedIn } = useContext(UserContext)
 
-  handleLogout = () => {
-    this.auth.logout()
-    this.props.history.push('/')
+  const handleLogout = () => {
+    auth.logout()
+    setLoggedIn(false)
+    props.history.push('/')
   }
 
-  notificationPrefsLink = () => {
+  const notificationPrefsLink = () => {
     return(
       <NavLink className="navbar-item" to="/notifications">
         Notification Preferences
@@ -19,8 +23,8 @@ class NavbarLoggedInItem extends Component<RouteComponentProps<any>> {
     )
   }
 
-  adminLink = () => {
-    if(!this.auth.isAdmin()) { return null}
+  const adminLink = () => {
+    if(!auth.isAdmin()) { return null}
 
     return(
       <NavLink className="navbar-item" to="/admin">
@@ -29,27 +33,25 @@ class NavbarLoggedInItem extends Component<RouteComponentProps<any>> {
     )
   }
 
-  render() {
-    const userEmail = this.auth.getUserEmail()
-    const emailIsVerified = this.auth.getUserEmailVerificationStatus()
+  const userEmail = auth.getUserEmail()
+  const emailIsVerified = auth.getUserEmailVerificationStatus()
 
-    return(
-      <div className="navbar-item has-dropdown is-hoverable dropdown-right" id="navbar-email-dropdown">
-        <a className="navbar-link" href="#" >
-          { userEmail }
+  return(
+    <div className="navbar-item has-dropdown is-hoverable dropdown-right" id="navbar-email-dropdown">
+      <a className="navbar-link" href="#" >
+        { userEmail }
+      </a>
+      <div className="navbar-dropdown is-boxed is-right">
+        { notificationPrefsLink() }
+        { adminLink() }
+
+        <hr className="navbar-divider" />
+        <a className="navbar-item" onClick={handleLogout}>
+          Logout
         </a>
-        <div className="navbar-dropdown is-boxed is-right">
-          { this.notificationPrefsLink() }
-          { this.adminLink() }
-
-          <hr className="navbar-divider" />
-          <a className="navbar-item" onClick={this.handleLogout}>
-            Logout
-          </a>
-        </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default withRouter(NavbarLoggedInItem)

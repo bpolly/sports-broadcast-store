@@ -1,55 +1,55 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import '../styles/login.scss'
 import AuthService from './AuthService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import EmailVerificationResend from './EmailVerificationResend'
+import UserContext from '../contexts/User'
 
-interface State {
-  email: string;
-  password: string;
-  loading: boolean;
-  loginStatus: object;
-}
+function Login(props) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [loginStatus, setLoginStatus] = useState({ code: 0, message: ''})
 
-class Login extends Component<any, State> {
-  state = {
-    email: "",
-    password: "",
-    loading: false,
-    loginStatus: { code: 0, message: '' }
+  const auth = new AuthService()
+  const { setLoggedIn } = useContext(UserContext)
+
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    switch(e.target.type) {
+      case 'email':
+        setEmail(e.target.value)
+        break
+      case 'password':
+        setPassword(e.target.value)
+        break
+    }
   }
-  auth = new AuthService()
 
-  handleChange = (e) => {
-    // @ts-ignore
-    this.setState({
-      [e.target.type]: e.target.value
-    })
-  }
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    this.setState({ loading: true })
-    this.auth.login(this.state.email, this.state.password)
+    setLoading(true)
+    auth.login(email, password)
       .then(response =>{
-        this.setState(
-          { loginStatus: { code: 200, message: 'OK' }},
-          () => (setTimeout(() => { this.props.history.push('/') }, 1000))
-        )
+        setLoginStatus({ code: 200, message: 'OK' })
+        setLoggedIn(true)
+        setTimeout(() => { props.history.push('/') }, 1000)
+        // setState(
+        //   { loginStatus: { code: 200, message: 'OK' }},
+        //   () => (setTimeout(() => { props.history.push('/') }, 1000))
+        // )
       })
       .catch(error =>{
-        this.setState({
-          loginStatus: {
-            code: error.response.status,
-            message: error.response.data.message
-          }
+        setLoginStatus({
+          code: error.response.status,
+          message: error.response.data.message
         })
       })
   }
 
-  successMessage = () => { return(<p>Success! Redirecting home...</p>) }
-  defaultErrorMessage = (message: string) => { return( <p>{ message }</p> )}
-  emailNotVerifiedMessage = () => {
+  const successMessage = () => { return(<p>Success! Redirecting home...</p>) }
+  const defaultErrorMessage = (message: string) => { return( <p>{ message }</p> )}
+  const emailNotVerifiedMessage = () => {
     return(
       <div>
         <p>Login successful - however this email has not been verified yet.</p>
@@ -59,27 +59,26 @@ class Login extends Component<any, State> {
     )
   }
 
-  loginResultMessage = () => {
-    const { loginStatus } = this.state
+  const loginResultMessage = () => {
     switch(loginStatus.code){
       case 0: return;
-      case 200: return this.successMessage();
-      case 403: return this.emailNotVerifiedMessage();
-      default: return this.defaultErrorMessage(loginStatus.message)
+      case 200: return successMessage();
+      case 403: return emailNotVerifiedMessage();
+      default: return defaultErrorMessage(loginStatus.message)
     }
   }
 
-  formContent = () => {
+  const formContent = () => {
     return(
-      <form className="login-form" onSubmit={this.handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit}>
         <div className="field">
           <p className="control has-icons-left has-icons-right">
             <input
               className="input"
               type="email"
               placeholder="Email"
-              value={this.state.email}
-              onChange={this.handleChange}
+              value={email}
+              onChange={handleChange}
             />
             <span className="icon is-small is-left">
               <FontAwesomeIcon icon={['fas', 'envelope']} />
@@ -92,8 +91,8 @@ class Login extends Component<any, State> {
               className="input"
               type="password"
               placeholder="Password"
-              value={this.state.password}
-              onChange={this.handleChange}
+              value={password}
+              onChange={handleChange}
             />
             <span className="icon is-small is-left">
               <FontAwesomeIcon icon={['fas', 'lock']} />
@@ -108,30 +107,27 @@ class Login extends Component<any, State> {
           </p>
         </div>
         <div className="field">
-          { this.loginResultMessage() }
+          { loginResultMessage() }
         </div>
       </form>
     )
   }
+  return (
+    <div className="container container-login">
+      <div className="box">
+        <span id="signup-icon-header">
+          <FontAwesomeIcon
+            icon={['fas', 'user-circle']}
+            color="#fb5f66"
+            size="4x"
+          />
+        </span>
 
-  render() {
-    return (
-      <div className="container container-login">
-        <div className="box">
-          <span id="signup-icon-header">
-            <FontAwesomeIcon
-              icon={['fas', 'user-circle']}
-              color="#fb5f66"
-              size="4x"
-            />
-          </span>
+        { formContent() }
 
-          { this.formContent() }
-
-        </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default Login

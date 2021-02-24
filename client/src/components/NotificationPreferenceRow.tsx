@@ -71,7 +71,7 @@ class NotificationPreferenceRow extends Component<Props, State> {
     this.props.deleteNotification(this.props.preference)
   }
 
-  handleChange = (e) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const change = {}
     change[e.target.name] = e.target.value
     this.setState(change)

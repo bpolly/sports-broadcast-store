@@ -20,7 +20,7 @@ class PhoneNumberForm extends Component<Props> {
   }
   auth = new AuthService()
 
-  handleChange = (e) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let change = {}
     change[e.target.name] = e.target.value.toUpperCase()
     this.setState(change)
