@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../styles/checkbox.scss'
 
@@ -9,9 +8,9 @@ interface Props {
   label: string;
 }
 
-class Checkbox extends Component<Props> {
-  icon = () => {
-    if(this.props.isChecked){
+function Checkbox(props: Props) {
+  const icon = () => {
+    if(props.isChecked){
       return(
         <FontAwesomeIcon
           icon={['fas', 'check-square']}
@@ -30,22 +29,17 @@ class Checkbox extends Component<Props> {
     }
   }
 
-  clickOverride = () => {
-    if(this.props.isDisabled) return
-    this.props.handleClick()
+  const clickOverride = () => {
+    if(props.isDisabled) return
+    props.handleClick()
   }
 
-  render() {
-    const { isDisabled, label } = this.props
-
-    return(
-      <div className={`button email-checkbox ${isDisabled ? 'disabled' : ''}`} onClick={this.clickOverride}>
-        { this.icon() }
-        <span className="email-checkbox-address">{label}</span>
-      </div>
-    )
-  }
-
+  return(
+    <div className={`button email-checkbox ${props.isDisabled ? 'disabled' : ''}`} onClick={clickOverride}>
+      { icon() }
+      <span className="email-checkbox-address">{props.label}</span>
+    </div>
+  )
 }
 
 export default Checkbox

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { generateTeamOptions } from '../utilities'
 import axios from 'axios'
 import Select from 'react-select'
@@ -19,9 +19,8 @@ function FavoriteTeamSelect(props: Props) {
     })
   }, [])
 
-  const { favoriteTeams, handleFavoriteTeamChange } = props
   const teamOptions = generateTeamOptions(teams)
-  const favoriteTeamSlugs = generateTeamOptions(favoriteTeams)
+  const favoriteTeamSlugs = generateTeamOptions(props.favoriteTeams)
 
   return(
     <div id="favorite-team-select-container" className="flex-grow">
@@ -29,7 +28,7 @@ function FavoriteTeamSelect(props: Props) {
         className="favorite-team-select-multiple"
         name="favorite-team-multiselect"
         value={ favoriteTeamSlugs }
-        onChange={ handleFavoriteTeamChange }
+        onChange={ props.handleFavoriteTeamChange }
         options={ teamOptions }
         isMulti={true}
         isClearable={false}

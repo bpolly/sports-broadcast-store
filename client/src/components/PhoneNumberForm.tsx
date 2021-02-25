@@ -14,7 +14,7 @@ interface Props {
 
 class PhoneNumberForm extends Component<Props> {
   state = {
-    phoneNumber: (this.props.phoneNumber && this.props.phoneNumber.number) || null,
+    phoneNumber: (this.props.phoneNumber && this.props.phoneNumber.number) || '',
     verificationSent: false,
     phoneNumberID: (this.props.phoneNumber && this.props.phoneNumber.id) || null,
   }

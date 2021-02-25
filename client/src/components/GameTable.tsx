@@ -1,4 +1,3 @@
-import React from 'react'
 import '../styles/game_table.scss'
 import GameRow from './GameRow'
 import Loading from './Loading'
