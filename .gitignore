@@ -51,3 +51,6 @@ client/node_modules
 client/build
 
 .DS_Store
+
+# Ignore ctags for IDEs
+tags

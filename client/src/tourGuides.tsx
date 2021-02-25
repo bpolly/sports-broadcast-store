@@ -3,7 +3,7 @@ import ReactJoyride, { Placement } from 'react-joyride'
 const topPlacement: Placement = 'top'
 const leftPlacement: Placement = 'left'
 
-const dashboardTourGuide = () => {
+const dashboardTourGuide = (): ReactElement => {
     const stepsMe = [
       {
         target: 'body',

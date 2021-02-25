@@ -2,7 +2,7 @@ import React from 'react'
 
 const UserContext = React.createContext({
     loggedIn: false,
-    setLoggedIn: (val: Boolean) => {}
+    setLoggedIn: (_val: boolean) => { return null }
   })
 
 export default UserContext
