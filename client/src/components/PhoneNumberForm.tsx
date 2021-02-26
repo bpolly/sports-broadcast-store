@@ -14,13 +14,13 @@ interface Props {
 
 class PhoneNumberForm extends Component<Props> {
   state = {
-    phoneNumber: (this.props.phoneNumber && this.props.phoneNumber.number) || null,
+    phoneNumber: (this.props.phoneNumber && this.props.phoneNumber.number) || '',
     verificationSent: false,
     phoneNumberID: (this.props.phoneNumber && this.props.phoneNumber.id) || null,
   }
   auth = new AuthService()
 
-  handleChange = (e) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let change = {}
     change[e.target.name] = e.target.value.toUpperCase()
     this.setState(change)

@@ -75,7 +75,7 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
     })
   }
 
-  handleChange = (e) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let change = {}
     change[e.target.name] = e.target.value
     this.setState(change)

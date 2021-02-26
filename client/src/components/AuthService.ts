@@ -44,6 +44,8 @@ export default class AuthService {
     }
 
     isAdmin() {
+        if(!this.isLoggedIn()) { return false }
+
         const decoded = jwtDecode<JwtPayload>(this.getToken())
         return this.isLoggedIn() && decoded['admin']
     }
@@ -80,7 +82,12 @@ export default class AuthService {
     }
 
     getUserData() {
-        return jwtDecode<JwtPayload>(this.getToken())
+        const token = this.getToken()
+        if(token) {
+            return jwtDecode<JwtPayload>(token)
+        } else {
+            return {}
+        }
     }
 
     getUserId() {

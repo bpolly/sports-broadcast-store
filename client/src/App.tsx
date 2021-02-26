@@ -17,6 +17,7 @@ import AdminLayout from './components/admin/AdminLayout'
 import AdminDashboard from './components/admin/AdminDashboard'
 import AdminUsers from './components/admin/AdminUsers'
 import AdminUpcomingNotifications from './components/admin/AdminUpcomingNotifications'
+import UserContext from './contexts/User'
 import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSquare  } from '@fortawesome/free-regular-svg-icons'
@@ -63,14 +64,20 @@ const AdminRoute = ({ component:Component, ...rest }) => (
 
 class App extends Component {
   state = {
-    favoriteTeams: []
+    favoriteTeams: [],
+    loggedIn: false
   }
   auth = new AuthService()
 
   componentDidMount() {
     if(this.auth.isLoggedIn()) {
+      this.setLoggedIn(true)
       this.fetchUserFavoriteTeams()
     }
+  }
+
+  setLoggedIn = (val: Boolean) => {
+    this.setState({loggedIn: val})
   }
 
   fetchUserFavoriteTeams = () => {
@@ -81,7 +88,7 @@ class App extends Component {
     })
   }
 
-  handleFavoriteTeamChange = (teams) => {
+  handleFavoriteTeamChange = (teams: Team[]) => {
     axios.post('/update_favorite_teams',
       { teams: teams.map((team) => team['value']) },
       {
@@ -93,51 +100,54 @@ class App extends Component {
   }
 
   render() {
-    const { favoriteTeams } = this.state
+    const { favoriteTeams, loggedIn } = this.state
+    const setLoggedIn = this.setLoggedIn
 
     return (
       <BrowserRouter >
-        <div>
-          <Navbar />
-          <Switch>
-            <Route
-              exact path="/"
-              render={() =>
-                  <Dashboard
-                    handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-                    favoriteTeams={favoriteTeams}
-                  />}
-            />
-            <Route path="/verify" component={EmailVerification} />
-            <Route path="/unsubscribe" component={EmailUnsubscribe} />
-            <Route path="/login" component={Login}/>
-            <Route path="/signup" component={Signup}/>
-            <PrivateRoute
-              path="/notifications"
-              component={NotificationCenter}
-              handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-              favoriteTeams={favoriteTeams}
-            />
-            <AdminRoute
-              exact
-              path="/admin"
-              component={AdminDashboard}
-            />
-            <AdminRoute
-              exact
-              path="/admin/users"
-              component={AdminUsers}
-            />
-            <AdminRoute
-              exact
-              path="/admin/upcoming_notifications"
-              component={AdminUpcomingNotifications}
-            />
-            <Route render={() => (<div>
-                Sorry, this page does not exist.
-              </div>)}/>
-          </Switch>
-        </div>
+        <UserContext.Provider value={{ loggedIn, setLoggedIn }}>
+          <div>
+            <Navbar />
+            <Switch>
+              <Route
+                exact path="/"
+                render={() =>
+                    <Dashboard
+                      handleFavoriteTeamChange={this.handleFavoriteTeamChange}
+                      favoriteTeams={favoriteTeams}
+                    />}
+              />
+              <Route path="/verify" component={EmailVerification} />
+              <Route path="/unsubscribe" component={EmailUnsubscribe} />
+              <Route path="/login" component={Login}/>
+              <Route path="/signup" component={Signup}/>
+              <PrivateRoute
+                path="/notifications"
+                component={NotificationCenter}
+                handleFavoriteTeamChange={this.handleFavoriteTeamChange}
+                favoriteTeams={favoriteTeams}
+              />
+              <AdminRoute
+                exact
+                path="/admin"
+                component={AdminDashboard}
+              />
+              <AdminRoute
+                exact
+                path="/admin/users"
+                component={AdminUsers}
+              />
+              <AdminRoute
+                exact
+                path="/admin/upcoming_notifications"
+                component={AdminUpcomingNotifications}
+              />
+              <Route render={() => (<div>
+                  Sorry, this page does not exist.
+                </div>)}/>
+            </Switch>
+          </div>
+        </UserContext.Provider>
       </BrowserRouter>
     )
   }

@@ -1,4 +1,4 @@
-import React, { Component, CSSProperties } from 'react'
+import React, { useState, useEffect, CSSProperties } from 'react'
 import FavoriteTeamSelect from './FavoriteTeamSelect'
 import NotificationPreferenceTable from './NotificationPreferenceTable'
 import PhoneNumberForm from './PhoneNumberForm'
@@ -12,74 +12,66 @@ interface Props {
   handleFavoriteTeamChange: (teams: Team[]) => void;
 }
 
-interface State {
-  phoneNumber: PhoneNumber | null;
-  emailObjects: any[];
-  showPhoneForm: boolean;
-}
+function NotificationCenter(props: Props) {
+  const [phoneNumber, setPhoneNumber] = useState<PhoneNumber | null>(null)
+  const [emailObjects, setEmailObjects] = useState<any[]>([])
+  const [showPhoneForm, setShowPhoneForm] = useState<boolean>(false)
 
-class NotificationCenter extends Component<Props, State> {
-  state = {
-    phoneNumber: null,
-    emailObjects: [],
-    showPhoneForm: false
-  }
-  auth = new AuthService()
+  const auth = new AuthService()
 
-  componentDidMount(){
-    this.fetchPhoneNumber()
-    this.fetchEmails()
-  }
+  useEffect(() => {
+    fetchPhoneNumber()
+    fetchEmails()
+  }, [])
 
-  fetchPhoneNumber = () => {
-    let user_id = this.auth.getUserId()
+  const fetchPhoneNumber = () => {
+    let user_id = auth.getUserId()
     axios.get(`/users/${user_id}/phone`,
-      { headers: { Authorization: this.auth.getToken() } }
+      { headers: { Authorization: auth.getToken() } }
     ).then(response => {
       let phoneNumberResponse: PhoneNumber = response.data
-      this.setState({ phoneNumber: phoneNumberResponse })
+      setPhoneNumber(phoneNumberResponse)
     })
   }
 
-  fetchEmails = () => {
-    let user_id = this.auth.getUserId()
+  const fetchEmails = () => {
+    let user_id = auth.getUserId()
     axios.get(`/users/${user_id}/email`,
-      { headers: { Authorization: this.auth.getToken() } }
+      { headers: { Authorization: auth.getToken() } }
     ).then(response => {
-      this.setState({ emailObjects: response.data })
+      setEmailObjects(response.data)
     })
   }
 
-  showPhoneFormModal = () => {
-    this.setState({ showPhoneForm: true })
+  const showPhoneFormModal = () => {
+    setShowPhoneForm(true)
   }
 
-  closePhoneFormModal = () => {
-    this.setState({ showPhoneForm: false })
+  const closePhoneFormModal = () => {
+    setShowPhoneForm(false)
   }
 
-  deletePhoneNumber = () => {
-    let user_id = this.auth.getUserId()
+  const deletePhoneNumber = () => {
+    let user_id = auth.getUserId()
     return axios.delete(`/users/${user_id}/phone/`,
       {
-        headers: { Authorization: this.auth.getToken() }
+        headers: { Authorization: auth.getToken() }
       }
     ).then(response => {
-      this.setState({phoneNumber: null})
+      setPhoneNumber(null)
     })
     .catch(error =>{
       // do something with error
     })
   }
 
-  phoneNumberList = () => {
-    const { phoneNumber } = this.state
+  const phoneNumberList = () => {
     if(phoneNumber) {
       return(
         <PhoneNumberListing
           phoneNumber={phoneNumber}
-          deletePhoneNumber={this.deletePhoneNumber}
-          fetchPhoneNumber={this.fetchPhoneNumber}
+          deletePhoneNumber={deletePhoneNumber}
+          fetchPhoneNumber={fetchPhoneNumber}
         />
       )
     }
@@ -88,60 +80,57 @@ class NotificationCenter extends Component<Props, State> {
     }
   }
 
-  render() {
-    const { phoneNumber } = this.state
-    const { favoriteTeams } = this.props
+  const { favoriteTeams } = props
 
-    return(
-      <div className="container">
-        <h1 className="title">Notification Center</h1>
-        <h3 className="subtitle">Team Alerts</h3>
-        <NotificationPreferenceTable
-          favoriteTeams={favoriteTeams}
-          phoneNumber={phoneNumber}
-        />
-        <hr />
-          <div className="columns">
-            <div className="column is-one-half">
-              <h3 className="subtitle">
-                <i className="fa fa-star mr-2" style={{color: '#fc6066'}}></i>
-                Favorite Teams
-              </h3>
-              <FavoriteTeamSelect
-                favoriteTeams={this.props.favoriteTeams}
-                handleFavoriteTeamChange={this.props.handleFavoriteTeamChange} />
-            </div>
-            <div className="column">
-              <div className="phone-list">
-                <div className="level">
-                  <div className="level-left">
-                    <div className="level-item">
-                      <i className="fa fa-phone mr-2"></i>
-                      <h3 className="subtitle">Phone Numbers</h3>
-                    </div>
-                  </div>
-                  <div className="level-right">
-                    <div className="level-item">
-                      <button
-                        className={`button is-small is-outlined is-primary ${ phoneNumber == null ? ''  : 'is-invisible'}`}
-                        onClick={this.showPhoneFormModal}>Add New</button>
-                    </div>
+  return(
+    <div className="container">
+      <h1 className="title">Notification Center</h1>
+      <h3 className="subtitle">Team Alerts</h3>
+      <NotificationPreferenceTable
+        favoriteTeams={favoriteTeams}
+        phoneNumber={phoneNumber}
+      />
+      <hr />
+        <div className="columns">
+          <div className="column is-one-half">
+            <h3 className="subtitle">
+              <i className="fa fa-star mr-2" style={{color: '#fc6066'}}></i>
+              Favorite Teams
+            </h3>
+            <FavoriteTeamSelect
+              favoriteTeams={props.favoriteTeams}
+              handleFavoriteTeamChange={props.handleFavoriteTeamChange} />
+          </div>
+          <div className="column">
+            <div className="phone-list">
+              <div className="level">
+                <div className="level-left">
+                  <div className="level-item">
+                    <i className="fa fa-phone mr-2"></i>
+                    <h3 className="subtitle">Phone Numbers</h3>
                   </div>
                 </div>
-
-                { this.phoneNumberList() }
-
-                <PhoneNumberForm
-                  hidden={!this.state.showPhoneForm}
-                  closePhoneFormModal={this.closePhoneFormModal}
-                  fetchPhoneNumber={this.fetchPhoneNumber}
-                />
+                <div className="level-right">
+                  <div className="level-item">
+                    <button
+                      className={`button is-small is-outlined is-primary ${ phoneNumber == null ? ''  : 'is-invisible'}`}
+                      onClick={showPhoneFormModal}>Add New</button>
+                  </div>
+                </div>
               </div>
+
+              { phoneNumberList() }
+
+              <PhoneNumberForm
+                hidden={!showPhoneForm}
+                closePhoneFormModal={closePhoneFormModal}
+                fetchPhoneNumber={fetchPhoneNumber}
+              />
             </div>
           </div>
-      </div>
-    )
-  }
+        </div>
+    </div>
+  )
 }
 
 export default NotificationCenter
