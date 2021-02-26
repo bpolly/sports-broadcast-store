@@ -1,5 +1,5 @@
 interface Email {
-  address: any
+  address: any // eslint-disable-line
   created_at: string
   id: number
   last_code_generated_at: string
@@ -18,7 +18,6 @@ interface Game {
   tv_networks: string
 }
 
-
 interface GameWithNotifications {
   away_team: Team
   date: string
@@ -33,7 +32,7 @@ interface PhoneNumber {
   created_at: string
   id: number
   last_code_generated_at: string
-  number: any
+  number: any // eslint-disable-line
   updated_at: string
   user_id: number
   verified_at: string

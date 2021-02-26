@@ -56,7 +56,6 @@ class AdminUpcomingNotifications extends Component<any, State> {
     }
   }
 
-
   notificationTable = (game: GameWithNotifications) => {
     if (game.notifications.length == 0) {
       return (
