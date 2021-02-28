@@ -8,13 +8,13 @@ import { dashboardTourGuide } from '../tourGuides'
 import { debounce } from 'lodash-es'
 
 interface FilterType {
-  league?: string;
-  team?: string;
-  tv_networks?: string;
+  league?: string,
+  team?: string,
+  tv_networks?: string
 }
 
 function Dashboard(props) {
-  const [games,   setGames]   = useState<Game[]>([])
+  const [games, setGames] = useState<Game[]>([])
   const [filters, setFilters] = useState<FilterType>({})
   const [loading, setLoading] = useState(false)
 
@@ -24,20 +24,24 @@ function Dashboard(props) {
 
   const fetchGames = (_endDate) => {
     setLoading(true)
-    axios.get(`/games${_endDate ? `?end_date=${_endDate}` : ''}`)
-    .then(response => {
-      setGames(response.data || [])
-      setLoading(false)
-    })
+    axios
+      .get(`/games${_endDate ? `?end_date=${_endDate}` : ''}`)
+      .then((response) => {
+        setGames(response.data || [])
+        setLoading(false)
+      })
   }
 
   const handleDateChange = (event) => {
     const { value } = event.target
     const dateValue = value.match(/(\d)-(\w+)/)
-    if(value.length !== 0){
+    if (value.length !== 0) {
       let numUnits = parseInt(dateValue[1], 10)
       let unitName = dateValue[2]
-      const targetDate = moment().add(numUnits, unitName).subtract(1, 'day').endOf('day')
+      const targetDate = moment()
+        .add(numUnits, unitName)
+        .subtract(1, 'day')
+        .endOf('day')
       fetchGames(targetDate)
     }
   }
@@ -45,7 +49,7 @@ function Dashboard(props) {
   const handleFilterChange = (event) => {
     const { name } = event.target
     let { value } = event.target
-    if(name === 'favorite-teams-only') {
+    if (name === 'favorite-teams-only') {
       value = event.target.checked
     }
     const updateState = () => {
@@ -56,8 +60,8 @@ function Dashboard(props) {
     }
 
     debounce(updateState, 500, {
-      'leading': true,
-      'trailing': false
+      leading: true,
+      trailing: false,
     })()
   }
 
@@ -73,24 +77,30 @@ function Dashboard(props) {
           const gameAttrText = game[filterName].toLowerCase()
 
           return gameAttrText.includes(filterText)
-        }
-        else if (filterName === 'team' && filters.team && filters.team.length > 0) {
+        } else if (
+          filterName === 'team' &&
+          filters.team &&
+          filters.team.length > 0
+        ) {
           const filterText = filters.team.toLowerCase()
           const teamNames = [
             game['home_team']['name'],
-            game['away_team']['name']
-          ].join(' ').toLowerCase()
+            game['away_team']['name'],
+          ]
+            .join(' ')
+            .toLowerCase()
 
           return teamNames.includes(filterText)
-        }
-        else if (filterName == 'favorite-teams-only') {
-          if(filters['favorite-teams-only'] === false) { return true }
+        } else if (filterName == 'favorite-teams-only') {
+          if (filters['favorite-teams-only'] === false) {
+            return true
+          }
 
           const gameTeams = [game.home_team.slug, game.away_team.slug]
           const favoriteTeams = favoriteTeamSlugs()
 
           // true if either game team are a favorite team
-          return gameTeams.some(t => favoriteTeams.includes(t))
+          return gameTeams.some((t) => favoriteTeams.includes(t))
         } else if (filters[filterName].length > 0) {
           return game[filterName] === filters[filterName]
         }
@@ -104,18 +114,20 @@ function Dashboard(props) {
     <div className="dashboard-container">
       <div className="columns">
         <div className="column is-one-quarter">
-          { dashboardTourGuide() }
+          {dashboardTourGuide()}
           <GameFilterForm
             handleFilterChange={handleFilterChange}
             handleDateChange={handleDateChange}
             handleFavoriteTeamChange={props.handleFavoriteTeamChange}
-            favoriteTeams={props.favoriteTeams}/>
+            favoriteTeams={props.favoriteTeams}
+          />
         </div>
         <div className="column">
           <GameTable
             games={filteredGames()}
             favoriteTeamSlugs={favoriteTeamSlugs()}
-            loading={loading}/>
+            loading={loading}
+          />
         </div>
       </div>
     </div>

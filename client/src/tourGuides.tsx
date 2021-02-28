@@ -1,9 +1,10 @@
+import React from 'react'
 import ReactJoyride, { Placement } from 'react-joyride'
 
 const topPlacement: Placement = 'top'
 const leftPlacement: Placement = 'left'
 
-const dashboardTourGuide = (): ReactElement => {
+const dashboardTourGuide = (): React.ReactElement => {
   const stepsMe = [
     {
       target: 'body',

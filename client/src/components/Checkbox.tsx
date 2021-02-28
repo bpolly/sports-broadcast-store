@@ -2,10 +2,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../styles/checkbox.scss'
 
 interface Props {
-  handleClick: () => void;
-  isChecked: boolean;
-  isDisabled: boolean;
-  label: string;
+  handleClick: () => void,
+  isChecked: boolean,
+  isDisabled: boolean,
+  label: string
 }
 
 function Checkbox(props: Props) {

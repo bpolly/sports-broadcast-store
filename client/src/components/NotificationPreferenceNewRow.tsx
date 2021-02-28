@@ -128,7 +128,7 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
   formRow = () => {
     const { selectedTeamSlug, useEmail, usePhone } = this.state
     const { favoriteTeams, phoneNumber } = this.props
-    let teamOptions: Array<TeamSelectOption> = generateTeamOptions(favoriteTeams)
+    let teamOptions: TeamSelectOption[] = generateTeamOptions(favoriteTeams)
 
     return(
       <tr>

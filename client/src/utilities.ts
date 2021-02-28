@@ -7,13 +7,13 @@ export function titleCase(str: string): string {
     .join(' ')
 }
 
-export function generateTeamOptions(teams: Team[]): string[] {
+export function generateTeamOptions(teams: Team[]): TeamSelectOption[] {
   return teams.map(function (team) {
-    const tmp = {}
-    tmp['value'] = team.slug
-    tmp['label'] = titleCase(team.name)
-    tmp['className'] = 'favorite-team-option'
-    return tmp
+    return {
+      value: team.slug,
+      label: titleCase(team.name),
+      className: 'favorite-team-option'
+    }
   })
 }
 
@@ -26,7 +26,6 @@ export function generateTeamOptions(teams: Team[]): string[] {
 //   });
 // }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export function chunkArrayInGroups(arr: any[], size: number): any[] {
   const myArray: any[] = []
   for (let i = 0; i < arr.length; i += size) {
@@ -34,4 +33,3 @@ export function chunkArrayInGroups(arr: any[], size: number): any[] {
   }
   return myArray
 }
-/* eslint-enable @typescript-eslint/no-explicit-any */
