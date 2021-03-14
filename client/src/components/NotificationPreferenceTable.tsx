@@ -6,12 +6,12 @@ import AuthService from './AuthService'
 import '../styles/notification_center.scss'
 
 interface Props {
-  favoriteTeams: Team[];
-  phoneNumber: PhoneNumber | null;
+  favoriteTeams: Team[]
+  phoneNumber: PhoneNumber | null
 }
 
 interface State {
-  currentNotificationPreferences: any[];
+  currentNotificationPreferences: any[]
 }
 
 class NotificationPreferenceTable extends Component<Props, State> {
@@ -25,24 +25,33 @@ class NotificationPreferenceTable extends Component<Props, State> {
   }
 
   fetchNotificationPreferences = () => {
-    axios.get('/user_notification_preferences',
-      { headers: { Authorization: this.auth.getToken() } }
-    ).then(response => {
-      this.setState({ currentNotificationPreferences: response.data })
-    })
+    axios
+      .get('/user_notification_preferences', {
+        headers: { Authorization: this.auth.getToken() },
+      })
+      .then((response) => {
+        this.setState({ currentNotificationPreferences: response.data })
+      })
   }
 
   saveNewNotification = async (params) => {
     try {
-      let response = await axios.post('/user_notification_preferences', params,
+      const response = await axios.post(
+        '/user_notification_preferences',
+        params,
         {
-          headers: { Authorization: this.auth.getToken() }
+          headers: { Authorization: this.auth.getToken() },
         }
       )
-      let newPreference = response.data
+      const newPreference = response.data
       newPreference['key'] = newPreference['id']
-      this.setState({ currentNotificationPreferences: [...this.state.currentNotificationPreferences, newPreference] })
-    } catch(error) {
+      this.setState({
+        currentNotificationPreferences: [
+          ...this.state.currentNotificationPreferences,
+          newPreference,
+        ],
+      })
+    } catch (error) {
       // do something with error
     }
 
@@ -61,23 +70,25 @@ class NotificationPreferenceTable extends Component<Props, State> {
   }
 
   deleteNotification = (preference: Preference): Promise<void> => {
-    return axios.delete('/user_notification_preferences/' + preference.id,
-      {
-        headers: { Authorization: this.auth.getToken() }
-      }
-    ).then(response => {
-      let filteredArray = this.state.currentNotificationPreferences.filter(item => item !== preference)
-      this.setState({currentNotificationPreferences: filteredArray})
-    })
-    .catch(error =>{
-      // do something with error
-    })
+    return axios
+      .delete('/user_notification_preferences/' + preference.id, {
+        headers: { Authorization: this.auth.getToken() },
+      })
+      .then((response) => {
+        const filteredArray = this.state.currentNotificationPreferences.filter(
+          (item) => item !== preference
+        )
+        this.setState({ currentNotificationPreferences: filteredArray })
+      })
+      .catch((error) => {
+        // do something with error
+      })
   }
 
   render() {
-    let preferences: Preference[] = this.state.currentNotificationPreferences
+    const preferences: Preference[] = this.state.currentNotificationPreferences
     const { favoriteTeams, phoneNumber } = this.props
-    return(
+    return (
       <div className="">
         <table className="table is-fullwidth">
           <thead>
@@ -88,13 +99,16 @@ class NotificationPreferenceTable extends Component<Props, State> {
             </tr>
           </thead>
           <tbody>
-            { preferences.map(function(preference: Preference){
-                        return <NotificationPreferenceRow
-                                  favoriteTeams={favoriteTeams}
-                                  phoneNumber={phoneNumber}
-                                  preference={preference}
-                                  deleteNotification={this.deleteNotification} />
-                      }, this)}
+            {preferences.map(function (preference: Preference) {
+              return (
+                <NotificationPreferenceRow
+                  favoriteTeams={favoriteTeams}
+                  phoneNumber={phoneNumber}
+                  preference={preference}
+                  deleteNotification={this.deleteNotification}
+                />
+              )
+            }, this)}
             <NotificationPreferenceNewRow
               favoriteTeams={favoriteTeams}
               phoneNumber={phoneNumber}

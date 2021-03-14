@@ -4,18 +4,16 @@ import Loading from './Loading'
 import moment from 'moment-timezone'
 
 interface Props {
-  games: Game[];
-  favoriteTeamSlugs: string[];
-  loading: boolean;
+  games: Game[]
+  favoriteTeamSlugs: string[]
+  loading: boolean
 }
 
 function GameTable(props: Props) {
   const { games, favoriteTeamSlugs, loading } = props
 
-  if(!games || loading) {
-    return(
-      <Loading />
-    )
+  if (!games || loading) {
+    return <Loading />
   }
 
   return (
@@ -32,7 +30,13 @@ function GameTable(props: Props) {
         </tr>
       </thead>
       <tbody>
-        { games.map(game => <GameRow key={game.id} game={game} favoriteTeamSlugs={favoriteTeamSlugs}/>) }
+        {games.map((game) => (
+          <GameRow
+            key={game.id}
+            game={game}
+            favoriteTeamSlugs={favoriteTeamSlugs}
+          />
+        ))}
       </tbody>
     </table>
   )

@@ -8,13 +8,10 @@ function NavbarUserItem() {
   const auth = new AuthService()
   const { loggedIn } = useContext(UserContext)
 
-  if(loggedIn) {
-    return(
-      <NavbarLoggedInItem />
-    )
-  }
-  else {
-    return(
+  if (loggedIn) {
+    return <NavbarLoggedInItem />
+  } else {
+    return (
       <React.Fragment>
         <div className="navbar-item">
           <Link to="/login">Login</Link>
@@ -23,10 +20,8 @@ function NavbarUserItem() {
           <Link to="/signup">Signup</Link>
         </div>
       </React.Fragment>
-
     )
   }
 }
-
 
 export default NavbarUserItem

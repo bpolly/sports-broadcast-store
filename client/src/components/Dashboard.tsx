@@ -8,8 +8,8 @@ import { dashboardTourGuide } from '../tourGuides'
 import { debounce } from 'lodash-es'
 
 interface FilterType {
-  league?: string,
-  team?: string,
+  league?: string
+  team?: string
   tv_networks?: string
 }
 
@@ -36,8 +36,8 @@ function Dashboard(props) {
     const { value } = event.target
     const dateValue = value.match(/(\d)-(\w+)/)
     if (value.length !== 0) {
-      let numUnits = parseInt(dateValue[1], 10)
-      let unitName = dateValue[2]
+      const numUnits = parseInt(dateValue[1], 10)
+      const unitName = dateValue[2]
       const targetDate = moment()
         .add(numUnits, unitName)
         .subtract(1, 'day')

@@ -3,8 +3,8 @@ import '../../styles/admin/dashboard.scss'
 
 class AdminDashboard extends Component {
   render() {
-    return(
-      <div id="admin-dashboard" style={{"background": '#bbbbbb'}}>
+    return (
+      <div id="admin-dashboard" style={{ background: '#bbbbbb' }}>
         Some metrics will go here
       </div>
     )

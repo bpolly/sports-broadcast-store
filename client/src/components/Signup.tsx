@@ -6,31 +6,31 @@ import axios from 'axios'
 import '../styles/signup.scss'
 
 type State = {
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-  loading: boolean;
-  errors: string;
-  signupSent: boolean;
-  signupSuccessful: boolean;
+  email: string
+  password: string
+  passwordConfirmation: string
+  loading: boolean
+  errors: string
+  signupSent: boolean
+  signupSuccessful: boolean
 }
 
 class Signup extends Component<any, State> {
   state = {
-    email: "",
-    password: "",
-    passwordConfirmation: "",
+    email: '',
+    password: '',
+    passwordConfirmation: '',
     loading: false,
-    errors: "",
+    errors: '',
     signupSent: false,
-    signupSuccessful: false
+    signupSuccessful: false,
   }
   auth = new AuthService()
 
   handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     this.setState({
       ...this.state,
-      [e.currentTarget.name]: e.currentTarget.value
+      [e.currentTarget.name]: e.currentTarget.value,
     })
   }
 
@@ -38,25 +38,31 @@ class Signup extends Component<any, State> {
     e.preventDefault()
     this.setState({ loading: true, signupSent: true })
 
-    return axios.post('/users', {
-      user: {
-        password: this.state.password,
-        password_confirmation: this.state.passwordConfirmation,
-        user_email_attributes: {
-          address: this.state.email
-        }
-      }
-    }).then(response => {
-        this.setState({ loading: false, signupSuccessful: true  })
+    return axios
+      .post('/users', {
+        user: {
+          password: this.state.password,
+          password_confirmation: this.state.passwordConfirmation,
+          user_email_attributes: {
+            address: this.state.email,
+          },
+        },
       })
-      .catch(error => {
-        this.setState({ loading: false, signupSuccessful: false, errors: error.response.data })
+      .then((response) => {
+        this.setState({ loading: false, signupSuccessful: true })
+      })
+      .catch((error) => {
+        this.setState({
+          loading: false,
+          signupSuccessful: false,
+          errors: error.response.data,
+        })
       })
   }
 
   formContent = () => {
-    if(!this.state.signupSuccessful) {
-      return(
+    if (!this.state.signupSuccessful) {
+      return (
         <form className="login-form" onSubmit={this.handleSubmit}>
           <div className="field">
             <p className="control has-icons-left has-icons-right">
@@ -104,17 +110,14 @@ class Signup extends Component<any, State> {
           </div>
           <div className="field">
             <p className="control">
-              <button className="button is-success">
-                Signup
-              </button>
-              { this.state.errors }
+              <button className="button is-success">Signup</button>
+              {this.state.errors}
             </p>
           </div>
         </form>
       )
-    }
-    else {
-      return(
+    } else {
+      return (
         <strong>
           {`Signup successful! We have sent an email to ${this.state.email} with instructions on verifying your account.`}
         </strong>
@@ -129,21 +132,23 @@ class Signup extends Component<any, State> {
           <div className="column signup-info-column">
             <div className="card">
               <header className="card-header">
-                <p className="card-header-title is-size-4">
-                  Join Today!
-                </p>
+                <p className="card-header-title is-size-4">Join Today!</p>
               </header>
               <div className="card-content">
                 <div className="content">
                   Users get access to these features:
                   <ul>
-                    <li>Save favorite teams for syncing across multiple devices</li>
-                    <li>Signup for text and email alerts for your favorite teams!</li>
+                    <li>
+                      Save favorite teams for syncing across multiple devices
+                    </li>
+                    <li>
+                      Signup for text and email alerts for your favorite teams!
+                    </li>
                   </ul>
                 </div>
               </div>
             </div>
-        </div>
+          </div>
           <div className="column signup-form-column">
             <div className="box">
               <span id="signup-icon-header">
@@ -154,12 +159,10 @@ class Signup extends Component<any, State> {
                 />
               </span>
 
-              { this.formContent() }
-
+              {this.formContent()}
             </div>
           </div>
         </div>
-
       </div>
     )
   }

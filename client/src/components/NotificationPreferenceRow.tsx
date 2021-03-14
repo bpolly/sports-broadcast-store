@@ -7,18 +7,18 @@ import axios from 'axios'
 import Select from 'react-select'
 
 interface Props {
-  favoriteTeams: Team[];
-  phoneNumber: PhoneNumber | null;
-  preference: Preference;
-  deleteNotification: (Preference) => Promise<void>;
+  favoriteTeams: Team[]
+  phoneNumber: PhoneNumber | null
+  preference: Preference
+  deleteNotification: (Preference) => Promise<void>
 }
 
 interface State {
-  editing: boolean;
-  saving: boolean;
-  selectedTeamSlug: string;
-  useEmail: boolean;
-  usePhone: boolean;
+  editing: boolean
+  saving: boolean
+  selectedTeamSlug: string
+  useEmail: boolean
+  usePhone: boolean
 }
 
 class NotificationPreferenceRow extends Component<Props, State> {
@@ -38,21 +38,24 @@ class NotificationPreferenceRow extends Component<Props, State> {
   handleSaveClick = () => {
     this.setState({ saving: true })
     setTimeout(() => {}, 500)
-    axios.patch('/user_notification_preferences/' + this.props.preference.id,
-      {
-        team_slug: this.state.selectedTeamSlug,
-        use_email: this.state.useEmail,
-        use_phone: this.state.usePhone,
-      },
-      {
-        headers: { Authorization: this.auth.getToken() }
-      },
-    ).then(() => {
-      this.setState({ editing: false, saving: false })
-    })
-    .catch(() =>{
-      this.setState({ editing: true, saving: false })
-    })
+    axios
+      .patch(
+        '/user_notification_preferences/' + this.props.preference.id,
+        {
+          team_slug: this.state.selectedTeamSlug,
+          use_email: this.state.useEmail,
+          use_phone: this.state.usePhone,
+        },
+        {
+          headers: { Authorization: this.auth.getToken() },
+        }
+      )
+      .then(() => {
+        this.setState({ editing: false, saving: false })
+      })
+      .catch(() => {
+        this.setState({ editing: true, saving: false })
+      })
   }
 
   handleDiscardChangesClick = () => {
@@ -82,25 +85,34 @@ class NotificationPreferenceRow extends Component<Props, State> {
   }
 
   handlePhoneCheckboxClick = () => {
-    if (!this.state.editing) { return }
-    this.setState( (state) => ({ usePhone : !state.usePhone }) )
+    if (!this.state.editing) {
+      return
+    }
+    this.setState((state) => ({ usePhone: !state.usePhone }))
   }
 
   handleEmailCheckboxClick = () => {
-    if (!this.state.editing) { return }
-    this.setState( (state) => ({ useEmail : !state.useEmail }) )
+    if (!this.state.editing) {
+      return
+    }
+    this.setState((state) => ({ useEmail: !state.useEmail }))
   }
 
   actionButton = () => {
     if (this.state.editing) {
       return (
         <div>
-          <button className="button" onClick={ this.handleDiscardChangesClick }>Cancel</button>
+          <button className="button" onClick={this.handleDiscardChangesClick}>
+            Cancel
+          </button>
           <button
-            className={ `button is-success ${this.state.saving ? 'is-loading' : ''}` }
-            onClick={ this.handleSaveClick }
-            disabled={ !(this.state.useEmail || this.state.usePhone) }
-          >Save
+            className={`button is-success ${
+              this.state.saving ? 'is-loading' : ''
+            }`}
+            onClick={this.handleSaveClick}
+            disabled={!(this.state.useEmail || this.state.usePhone)}
+          >
+            Save
           </button>
         </div>
       )
@@ -108,8 +120,15 @@ class NotificationPreferenceRow extends Component<Props, State> {
       return (
         <div className="field is-grouped">
           <p className="control">
-            <button className="button" onClick={ this.handleEditClick }>Edit</button>
-            <button className="button is-danger is-link" onClick={ this.handleDeleteClick }>Delete</button>
+            <button className="button" onClick={this.handleEditClick}>
+              Edit
+            </button>
+            <button
+              className="button is-danger is-link"
+              onClick={this.handleDeleteClick}
+            >
+              Delete
+            </button>
           </p>
         </div>
       )
@@ -119,44 +138,49 @@ class NotificationPreferenceRow extends Component<Props, State> {
   render() {
     const { favoriteTeams, phoneNumber } = this.props
     const { editing, selectedTeamSlug, useEmail, usePhone } = this.state
-    const teamOptions: Array<{value: string, label: string, className: string}> = generateTeamOptions(favoriteTeams)
+    const teamOptions: Array<{
+      value: string
+      label: string
+      className: string
+    }> = generateTeamOptions(favoriteTeams)
 
-    return(
+    return (
       <tr>
         <td>
           <Select
             className="favorite-team-select-single team-input"
             name="favorite-team-select"
-            value={ teamOptions.find(option => option.value === selectedTeamSlug) }
-            onChange={ this.handleTeamChange }
-            options={ generateTeamOptions(favoriteTeams) }
-            closeOnSelect={ true }
-            isDisabled={ !editing }
+            value={teamOptions.find(
+              (option) => option.value === selectedTeamSlug
+            )}
+            onChange={this.handleTeamChange}
+            options={generateTeamOptions(favoriteTeams)}
+            closeOnSelect={true}
+            isDisabled={!editing}
           />
-        </td>
-        <td>
-        <Checkbox
-          handleClick={ this.handlePhoneCheckboxClick }
-          label={ phoneNumber ? phoneNumber.number : 'Add a phone number below!' }
-          isChecked={ usePhone }
-          isDisabled={ !editing || !phoneNumber }
-        />
         </td>
         <td>
           <Checkbox
-            handleClick={ this.handleEmailCheckboxClick }
-            label={ this.auth.getUserEmail() }
-            isChecked={ useEmail }
-            isDisabled={ !editing }
+            handleClick={this.handlePhoneCheckboxClick}
+            label={
+              phoneNumber ? phoneNumber.number : 'Add a phone number below!'
+            }
+            isChecked={usePhone}
+            isDisabled={!editing || !phoneNumber}
           />
         </td>
         <td>
-          { this.actionButton() }
+          <Checkbox
+            handleClick={this.handleEmailCheckboxClick}
+            label={this.auth.getUserEmail()}
+            isChecked={useEmail}
+            isDisabled={!editing}
+          />
         </td>
+        <td>{this.actionButton()}</td>
       </tr>
     )
   }
-
 }
 
 export default NotificationPreferenceRow

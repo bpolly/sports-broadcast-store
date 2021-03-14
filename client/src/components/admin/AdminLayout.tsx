@@ -8,15 +8,13 @@ interface Props {
 
 class AdminLayout extends Component<Props> {
   render() {
-    return(
+    return (
       <div id="admin-layout" className="container is-fluid">
         <div className="columns">
           <div className="column is-one-fifth">
             <AdminSidebar />
           </div>
-          <div className="column">
-          { this.props.children }
-          </div>
+          <div className="column">{this.props.children}</div>
         </div>
       </div>
     )

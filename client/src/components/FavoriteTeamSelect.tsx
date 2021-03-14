@@ -5,7 +5,7 @@ import Select from 'react-select'
 import '../styles/favorite_team_select.scss'
 
 interface Props {
-  favoriteTeams: Team[],
+  favoriteTeams: Team[]
   handleFavoriteTeamChange: (teams: Team[]) => void
 }
 
