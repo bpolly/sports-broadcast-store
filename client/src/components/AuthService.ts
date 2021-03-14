@@ -1,6 +1,14 @@
-import jwtDecode, { JwtPayload } from 'jwt-decode'
+import jwtDecode from 'jwt-decode'
 import cookie from 'react-cookies'
 import axios from 'axios'
+
+interface SessionPayload {
+  user_id: string
+  user_email: string
+  admin: boolean
+  email_verified: boolean
+  exp: number
+}
 
 export default class AuthService {
   // Initializing important variables
@@ -56,13 +64,13 @@ export default class AuthService {
       return false
     }
 
-    const decoded = jwtDecode<JwtPayload>(this.getToken())
+    const decoded = jwtDecode<SessionPayload>(this.getToken())
     return this.isLoggedIn() && decoded['admin']
   }
 
   isTokenExpired(token) {
     try {
-      const decoded = jwtDecode<JwtPayload>(token)
+      const decoded = jwtDecode<SessionPayload>(token)
       if (decoded.exp < Date.now() / 1000) {
         // Checking if token is expired. N
         return true
@@ -92,7 +100,7 @@ export default class AuthService {
   getUserData() {
     const token = this.getToken()
     if (token) {
-      return jwtDecode<JwtPayload>(token)
+      return jwtDecode<SessionPayload>(token)
     } else {
       return {}
     }
