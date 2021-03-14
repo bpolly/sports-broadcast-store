@@ -1,11 +1,9 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import NavbarLoggedInItem from './NavbarLoggedInItem'
-import AuthService from './AuthService'
 import UserContext from '../contexts/User'
 
 function NavbarUserItem() {
-  const auth = new AuthService()
   const { loggedIn } = useContext(UserContext)
 
   if (loggedIn) {

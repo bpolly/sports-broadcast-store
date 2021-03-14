@@ -1,4 +1,4 @@
-import React, { useState, useEffect, CSSProperties } from 'react'
+import React, { useState, useEffect } from 'react'
 import FavoriteTeamSelect from './FavoriteTeamSelect'
 import NotificationPreferenceTable from './NotificationPreferenceTable'
 import PhoneNumberForm from './PhoneNumberForm'
@@ -14,14 +14,14 @@ interface Props {
 
 function NotificationCenter(props: Props) {
   const [phoneNumber, setPhoneNumber] = useState<PhoneNumber | null>(null)
-  const [emailObjects, setEmailObjects] = useState<any[]>([])
+  // const [emailObjects, setEmailObjects] = useState<any[]>([])
   const [showPhoneForm, setShowPhoneForm] = useState<boolean>(false)
 
   const auth = new AuthService()
 
   useEffect(() => {
     fetchPhoneNumber()
-    fetchEmails()
+    // fetchEmails()
   }, [])
 
   const fetchPhoneNumber = () => {
@@ -36,16 +36,16 @@ function NotificationCenter(props: Props) {
       })
   }
 
-  const fetchEmails = () => {
-    const user_id = auth.getUserId()
-    axios
-      .get(`/users/${user_id}/email`, {
-        headers: { Authorization: auth.getToken() },
-      })
-      .then((response) => {
-        setEmailObjects(response.data)
-      })
-  }
+  // const fetchEmails = () => {
+  //   const user_id = auth.getUserId()
+  //   axios
+  //     .get(`/users/${user_id}/email`, {
+  //       headers: { Authorization: auth.getToken() },
+  //     })
+  //     .then((response) => {
+  //       setEmailObjects(response.data)
+  //     })
+  // }
 
   const showPhoneFormModal = () => {
     setShowPhoneForm(true)
@@ -61,10 +61,10 @@ function NotificationCenter(props: Props) {
       .delete(`/users/${user_id}/phone/`, {
         headers: { Authorization: auth.getToken() },
       })
-      .then((response) => {
+      .then(() => {
         setPhoneNumber(null)
       })
-      .catch((error) => {
+      .catch(() => {
         // do something with error
       })
   }

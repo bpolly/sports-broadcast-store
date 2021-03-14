@@ -45,13 +45,13 @@ class EmailVerificationResend extends Component<any, State> {
           headers: { Authorization: this.auth.getToken() },
         }
       )
-      .then((response) => {
+      .then(() => {
         console.log('success')
         this.setState({
           emailResendAttempted: true,
         })
       })
-      .catch((error) => {
+      .catch(() => {
         this.setState({
           emailResendAttempted: false,
         })

@@ -63,7 +63,6 @@ export default class AuthService {
   isTokenExpired(token) {
     try {
       const decoded = jwtDecode<JwtPayload>(token)
-      // @ts-ignore
       if (decoded.exp < Date.now() / 1000) {
         // Checking if token is expired. N
         return true

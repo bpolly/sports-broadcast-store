@@ -37,7 +37,9 @@ class NotificationPreferenceRow extends Component<Props, State> {
 
   handleSaveClick = () => {
     this.setState({ saving: true })
-    setTimeout(() => {}, 500)
+    setTimeout(() => {
+      // simply wait half a second
+    }, 500)
     axios
       .patch(
         '/user_notification_preferences/' + this.props.preference.id,

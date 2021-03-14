@@ -48,7 +48,7 @@ class Signup extends Component<any, State> {
           },
         },
       })
-      .then((response) => {
+      .then((_response) => {
         this.setState({ loading: false, signupSuccessful: true })
       })
       .catch((error) => {

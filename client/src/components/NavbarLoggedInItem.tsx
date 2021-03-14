@@ -36,7 +36,6 @@ function NavbarLoggedInItem(props: RouteComponentProps<any>) {
   }
 
   const userEmail = auth.getUserEmail()
-  const emailIsVerified = auth.getUserEmailVerificationStatus()
 
   return (
     <div

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import '../styles/login.scss'
 import AuthService from './AuthService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,7 +8,7 @@ import UserContext from '../contexts/User'
 function Login(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const [loginStatus, setLoginStatus] = useState({ code: 0, message: '' })
 
   const auth = new AuthService()
@@ -27,10 +27,10 @@ function Login(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setLoading(true)
+    // setLoading(true)
     auth
       .login(email, password)
-      .then((response) => {
+      .then(() => {
         setLoginStatus({ code: 200, message: 'OK' })
         setLoggedIn(true)
         setTimeout(() => {

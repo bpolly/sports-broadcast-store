@@ -85,10 +85,10 @@ class PhoneNumberVerificationForm extends Component<Props> {
           headers: { Authorization: this.auth.getToken() },
         }
       )
-      .then((response) => {
+      .then(() => {
         this.setState({ verificationMessage: 'New verification code sent!' })
       })
-      .catch((error) => {
+      .catch(() => {
         this.setState({
           verificationMessage: 'Verification code resend failed.',
         })

@@ -48,7 +48,7 @@ class PhoneNumberForm extends Component<Props> {
         })
         this.props.fetchPhoneNumber()
       })
-      .catch((error) => {
+      .catch(() => {
         // do something with error
       })
   }

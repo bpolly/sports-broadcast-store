@@ -1,4 +1,4 @@
-import React, { Component, CSSProperties } from 'react'
+import React, { CSSProperties } from 'react'
 import moment from 'moment-timezone'
 
 interface Props {

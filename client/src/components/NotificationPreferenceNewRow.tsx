@@ -39,7 +39,9 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
       return null
     }
     this.setState({ saving: true })
-    setTimeout(function () {}, 500)
+    setTimeout(function () {
+      // simply wait half a second
+    }, 500)
     const saveParams = {
       team_slug: this.state.selectedTeamSlug,
       use_email: this.state.useEmail,
@@ -47,7 +49,7 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
     }
     this.props
       .saveNewNotification(saveParams)
-      .then((response) => {
+      .then(() => {
         this.setState({
           editing: false,
           saving: false,
@@ -56,7 +58,7 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
           usePhone: false,
         })
       })
-      .catch((error) => {
+      .catch(() => {
         this.setState({ editing: true, saving: false })
       })
   }
