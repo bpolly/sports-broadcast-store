@@ -3,3 +3,5 @@ node_modules
 
 # think this came from create-react-app
 registerServiceWorker.js
+
+.eslintrc.js

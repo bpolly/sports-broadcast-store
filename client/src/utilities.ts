@@ -12,7 +12,7 @@ export function generateTeamOptions(teams: Team[]): TeamSelectOption[] {
     return {
       value: team.slug,
       label: titleCase(team.name),
-      className: 'favorite-team-option'
+      className: 'favorite-team-option',
     }
   })
 }
