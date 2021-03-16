@@ -16,7 +16,7 @@ function NavbarLoggedInItem(props: RouteComponentProps<any>) {
   }
 
   const notificationPrefsLink = () => {
-    return(
+    return (
       <NavLink className="navbar-item" to="/notifications">
         Notification Preferences
       </NavLink>
@@ -24,9 +24,11 @@ function NavbarLoggedInItem(props: RouteComponentProps<any>) {
   }
 
   const adminLink = () => {
-    if(!auth.isAdmin()) { return null}
+    if (!auth.isAdmin()) {
+      return null
+    }
 
-    return(
+    return (
       <NavLink className="navbar-item" to="/admin">
         Admin
       </NavLink>
@@ -34,16 +36,18 @@ function NavbarLoggedInItem(props: RouteComponentProps<any>) {
   }
 
   const userEmail = auth.getUserEmail()
-  const emailIsVerified = auth.getUserEmailVerificationStatus()
 
-  return(
-    <div className="navbar-item has-dropdown is-hoverable dropdown-right" id="navbar-email-dropdown">
-      <a className="navbar-link" href="#" >
-        { userEmail }
+  return (
+    <div
+      className="navbar-item has-dropdown is-hoverable dropdown-right"
+      id="navbar-email-dropdown"
+    >
+      <a className="navbar-link" href="#">
+        {userEmail}
       </a>
       <div className="navbar-dropdown is-boxed is-right">
-        { notificationPrefsLink() }
-        { adminLink() }
+        {notificationPrefsLink()}
+        {adminLink()}
 
         <hr className="navbar-divider" />
         <a className="navbar-item" onClick={handleLogout}>

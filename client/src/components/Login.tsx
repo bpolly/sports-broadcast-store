@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import '../styles/login.scss'
 import AuthService from './AuthService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,15 +8,14 @@ import UserContext from '../contexts/User'
 function Login(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [loginStatus, setLoginStatus] = useState({ code: 0, message: ''})
+  // const [loading, setLoading] = useState(false)
+  const [loginStatus, setLoginStatus] = useState({ code: 0, message: '' })
 
   const auth = new AuthService()
   const { setLoggedIn } = useContext(UserContext)
 
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    switch(e.target.type) {
+    switch (e.target.type) {
       case 'email':
         setEmail(e.target.value)
         break
@@ -28,29 +27,36 @@ function Login(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setLoading(true)
-    auth.login(email, password)
-      .then(response =>{
+    // setLoading(true)
+    auth
+      .login(email, password)
+      .then(() => {
         setLoginStatus({ code: 200, message: 'OK' })
         setLoggedIn(true)
-        setTimeout(() => { props.history.push('/') }, 1000)
+        setTimeout(() => {
+          props.history.push('/')
+        }, 1000)
         // setState(
         //   { loginStatus: { code: 200, message: 'OK' }},
         //   () => (setTimeout(() => { props.history.push('/') }, 1000))
         // )
       })
-      .catch(error =>{
+      .catch((error) => {
         setLoginStatus({
           code: error.response.status,
-          message: error.response.data.message
+          message: error.response.data.message,
         })
       })
   }
 
-  const successMessage = () => { return(<p>Success! Redirecting home...</p>) }
-  const defaultErrorMessage = (message: string) => { return( <p>{ message }</p> )}
+  const successMessage = () => {
+    return <p>Success! Redirecting home...</p>
+  }
+  const defaultErrorMessage = (message: string) => {
+    return <p>{message}</p>
+  }
   const emailNotVerifiedMessage = () => {
-    return(
+    return (
       <div>
         <p>Login successful - however this email has not been verified yet.</p>
         <p>Please check your email for the verification link.</p>
@@ -60,16 +66,20 @@ function Login(props) {
   }
 
   const loginResultMessage = () => {
-    switch(loginStatus.code){
-      case 0: return;
-      case 200: return successMessage();
-      case 403: return emailNotVerifiedMessage();
-      default: return defaultErrorMessage(loginStatus.message)
+    switch (loginStatus.code) {
+      case 0:
+        return
+      case 200:
+        return successMessage()
+      case 403:
+        return emailNotVerifiedMessage()
+      default:
+        return defaultErrorMessage(loginStatus.message)
     }
   }
 
   const formContent = () => {
-    return(
+    return (
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="field">
           <p className="control has-icons-left has-icons-right">
@@ -101,14 +111,10 @@ function Login(props) {
         </div>
         <div className="field">
           <p className="control">
-            <button className="button is-success">
-              Login
-            </button>
+            <button className="button is-success">Login</button>
           </p>
         </div>
-        <div className="field">
-          { loginResultMessage() }
-        </div>
+        <div className="field">{loginResultMessage()}</div>
       </form>
     )
   }
@@ -123,8 +129,7 @@ function Login(props) {
           />
         </span>
 
-        { formContent() }
-
+        {formContent()}
       </div>
     </div>
   )

@@ -4,32 +4,31 @@ import '../styles/email_verification.scss'
 import AuthService from './AuthService'
 
 interface State {
-  emailResendAttempted: boolean;
-  message: string;
+  emailResendAttempted: boolean
+  message: string
 }
 
 class EmailVerificationResend extends Component<any, State> {
   state = {
     emailResendAttempted: false,
-    message: ''
+    message: '',
   }
   auth = new AuthService()
 
   resendVerificationLink = () => {
-    return(
+    return (
       <div>
-      Misplace the email or your code has expired?
-      <a onClick={this.resendVerificationEmail}> Click here to resend!</a>
+        Misplace the email or your code has expired?
+        <a onClick={this.resendVerificationEmail}> Click here to resend!</a>
       </div>
     )
   }
 
   message = () => {
-    if(this.state.emailResendAttempted){
-      return(<p>Email verification sent!</p>)
-    }
-    else {
-      return(
+    if (this.state.emailResendAttempted) {
+      return <p>Email verification sent!</p>
+    } else {
+      return (
         <a onClick={this.resendVerificationEmail}> Click here to resend!</a>
       )
     }
@@ -37,30 +36,33 @@ class EmailVerificationResend extends Component<any, State> {
 
   resendVerificationEmail = () => {
     this.setState({ emailResendAttempted: true })
-    let user_id = this.auth.getUserId()
-    axios.post(`/users/${user_id}/email/resend_verification_code`, {},
-      {
-        headers: { Authorization: this.auth.getToken() }
-      }
-    )
-    .then(response => {
-      console.log('success')
-      this.setState({
-        emailResendAttempted: true,
+    const user_id = this.auth.getUserId()
+    axios
+      .post(
+        `/users/${user_id}/email/resend_verification_code`,
+        {},
+        {
+          headers: { Authorization: this.auth.getToken() },
+        }
+      )
+      .then(() => {
+        console.log('success')
+        this.setState({
+          emailResendAttempted: true,
+        })
       })
-    })
-    .catch(error => {
-      this.setState({
-        emailResendAttempted: false
+      .catch(() => {
+        this.setState({
+          emailResendAttempted: false,
+        })
       })
-    })
   }
 
   render() {
-    return(
+    return (
       <div>
-      Misplace the email or your code has expired?
-      { this.message() }
+        Misplace the email or your code has expired?
+        {this.message()}
       </div>
     )
   }

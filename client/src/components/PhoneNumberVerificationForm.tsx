@@ -6,8 +6,8 @@ import '../styles/animate.css'
 import '../styles/phone_number_form.scss'
 
 interface Props {
-  closePhoneFormModal: () => void;
-  fetchPhoneNumber: () => void;
+  closePhoneFormModal: () => void
+  fetchPhoneNumber: () => void
 }
 
 class PhoneNumberVerificationForm extends Component<Props> {
@@ -16,42 +16,45 @@ class PhoneNumberVerificationForm extends Component<Props> {
     verificationSuccess: false,
     verificationCodeChecked: false,
     verificationCodeCheckInProgress: false,
-    verificationMessage: ''
+    verificationMessage: '',
   }
   auth = new AuthService()
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let change = {}
+    const change = {}
     change[e.target.name] = e.target.value.toUpperCase()
     this.setState(change)
   }
 
   checkForAllCodeCharacters = () => {
-    if(this.state.verificationCode.length < 4){
+    if (this.state.verificationCode.length < 4) {
       this.setState({ verificationCodeChecked: false, verificationMessage: '' })
     }
-    if(this.state.verificationCode.length !== 4) return
+    if (this.state.verificationCode.length !== 4) return
     this.initiateVerificationCheck()
   }
 
   initiateVerificationCheck = () => {
     this.setState({ verificationCodeCheckInProgress: true })
 
-    let user_id = this.auth.getUserId()
-    axios.post(`/users/${user_id}/phone/verify`,
-      {
-        verification_code: this.state.verificationCode
-      },
-      {
-        headers: { Authorization: this.auth.getToken() }
-      }
-    ).then(this.handleVerificationSuccess)
-    .catch(error => {
-      this.handleVerificationFailure(error)
-    })
-    .then(() => {
-          this.setState({ verificationCodeCheckInProgress: false })
-    })
+    const user_id = this.auth.getUserId()
+    axios
+      .post(
+        `/users/${user_id}/phone/verify`,
+        {
+          verification_code: this.state.verificationCode,
+        },
+        {
+          headers: { Authorization: this.auth.getToken() },
+        }
+      )
+      .then(this.handleVerificationSuccess)
+      .catch((error) => {
+        this.handleVerificationFailure(error)
+      })
+      .then(() => {
+        this.setState({ verificationCodeCheckInProgress: false })
+      })
   }
 
   handleVerificationSuccess = () => {
@@ -59,7 +62,7 @@ class PhoneNumberVerificationForm extends Component<Props> {
     this.setState({
       verificationCodeChecked: true,
       verificationSuccess: true,
-      verificationMessage: 'Success! Redirecting...'
+      verificationMessage: 'Success! Redirecting...',
     })
     setTimeout(this.props.closePhoneFormModal, 1500)
   }
@@ -68,28 +71,38 @@ class PhoneNumberVerificationForm extends Component<Props> {
     this.setState({
       verificationCodeChecked: true,
       verificationSuccess: false,
-      verificationMessage: error.response.data })
+      verificationMessage: error.response.data,
+    })
   }
 
   resendNewCode = () => {
-    let user_id = this.auth.getUserId()
-    axios.post(`/users/${user_id}/phone/resend_verification_code`,
-      {},
-      {
-        headers: { Authorization: this.auth.getToken() }
-      }
-    ).then(response => {
-      this.setState({ verificationMessage: 'New verification code sent!' })
-    })
-    .catch(error => {
-      this.setState({ verificationMessage: 'Verification code resend failed.' })
-    })
+    const user_id = this.auth.getUserId()
+    axios
+      .post(
+        `/users/${user_id}/phone/resend_verification_code`,
+        {},
+        {
+          headers: { Authorization: this.auth.getToken() },
+        }
+      )
+      .then(() => {
+        this.setState({ verificationMessage: 'New verification code sent!' })
+      })
+      .catch(() => {
+        this.setState({
+          verificationMessage: 'Verification code resend failed.',
+        })
+      })
   }
 
   resultIcon = () => {
-    const { verificationSuccess, verificationCodeChecked, verificationCodeCheckInProgress } = this.state
-    if(verificationCodeCheckInProgress) {
-      return(
+    const {
+      verificationSuccess,
+      verificationCodeChecked,
+      verificationCodeCheckInProgress,
+    } = this.state
+    if (verificationCodeCheckInProgress) {
+      return (
         <FontAwesomeIcon
           icon="spinner"
           color="#6DB65B"
@@ -97,9 +110,8 @@ class PhoneNumberVerificationForm extends Component<Props> {
           className="verification-code-success-icon fa-spin"
         />
       )
-    }
-    else if(verificationCodeChecked && verificationSuccess) {
-      return(
+    } else if (verificationCodeChecked && verificationSuccess) {
+      return (
         <FontAwesomeIcon
           icon="check-circle"
           color="#6DB65B"
@@ -107,9 +119,8 @@ class PhoneNumberVerificationForm extends Component<Props> {
           className="verification-code-success-icon"
         />
       )
-    }
-    else if(verificationCodeChecked && !verificationSuccess) {
-      return(
+    } else if (verificationCodeChecked && !verificationSuccess) {
+      return (
         <FontAwesomeIcon
           icon="times-circle"
           color="#f4425c"
@@ -123,7 +134,7 @@ class PhoneNumberVerificationForm extends Component<Props> {
   render() {
     const { verificationCode, verificationMessage } = this.state
 
-    return(
+    return (
       <div className="box animated fadeInDown">
         <div className="field" style={{ textAlign: 'center' }}>
           <label className="label">Enter Verification Code</label>
@@ -140,12 +151,13 @@ class PhoneNumberVerificationForm extends Component<Props> {
           />
           {this.resultIcon()}
         </div>
-        <div className="field">
-          { verificationMessage }
-        </div>
+        <div className="field">{verificationMessage}</div>
         <button
           className="verification-code-resend-btn button is-small"
-          onClick={this.resendNewCode}>Resend</button>
+          onClick={this.resendNewCode}
+        >
+          Resend
+        </button>
       </div>
     )
   }

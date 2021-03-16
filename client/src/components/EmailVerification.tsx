@@ -8,10 +8,10 @@ import '../styles/email_verification.scss'
 import queryString from 'query-string'
 
 interface State {
-  emailAddress: string | string[] | undefined | null,
-  verificationCode: string | string[] | undefined | null,
-  verificationSent: boolean,
-  verificationSuccess: boolean,
+  emailAddress: string | string[] | undefined | null
+  verificationCode: string | string[] | undefined | null
+  verificationSent: boolean
+  verificationSuccess: boolean
   message: string
 }
 
@@ -21,50 +21,52 @@ class EmailVerification extends Component<RouteComponentProps<any>, State> {
     verificationCode: '',
     verificationSent: false,
     verificationSuccess: false,
-    message: ''
+    message: '',
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const params = queryString.parse(this.props.location.search)
     console.log(params)
-    this.setState({
-      emailAddress: params.email_address,
-      verificationCode: params.code,
-    }, this.attemptVerification)
+    this.setState(
+      {
+        emailAddress: params.email_address,
+        verificationCode: params.code,
+      },
+      this.attemptVerification
+    )
   }
 
   attemptVerification = () => {
     console.log(this.state)
-    axios.post('/verify_email', {
-      email_address: this.state.emailAddress,
-      verification_code: this.state.verificationCode
-    })
-    .then(() => {
-      this.setState({
-        verificationSent: true,
-        verificationSuccess: true,
-        message: 'Success! Please login.'
+    axios
+      .post('/verify_email', {
+        email_address: this.state.emailAddress,
+        verification_code: this.state.verificationCode,
       })
-    })
-    .catch(error => {
-      this.setState({
-        verificationSent: true,
-        verificationSuccess: false,
-        message: error.response.data
+      .then(() => {
+        this.setState({
+          verificationSent: true,
+          verificationSuccess: true,
+          message: 'Success! Please login.',
+        })
       })
-    })
+      .catch((error) => {
+        this.setState({
+          verificationSent: true,
+          verificationSuccess: false,
+          message: error.response.data,
+        })
+      })
   }
 
   resendVerificationLink = () => {
-    if(this.state.verificationSuccess) return
-    return(
-      <EmailVerificationResend />
-    )
+    if (this.state.verificationSuccess) return
+    return <EmailVerificationResend />
   }
 
   render() {
     const { message, verificationSuccess, emailAddress } = this.state
-    return(
+    return (
       <div className="container has-text-centered">
         <div className="box box-small">
           <span id="signup-icon-header">
@@ -78,11 +80,16 @@ class EmailVerification extends Component<RouteComponentProps<any>, State> {
           <p>{`Verifying ${emailAddress}`}</p>
           <p>...</p>
 
-          <p className={verificationSuccess ? 'message-success' : 'message-failure'}>{ message }</p>
+          <p
+            className={
+              verificationSuccess ? 'message-success' : 'message-failure'
+            }
+          >
+            {message}
+          </p>
 
           <hr />
-        { this.resendVerificationLink() }
-
+          {this.resendVerificationLink()}
         </div>
       </div>
     )

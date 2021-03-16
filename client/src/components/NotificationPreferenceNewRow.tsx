@@ -6,17 +6,17 @@ import AuthService from './AuthService'
 import '../styles/notification_preference_row.scss'
 
 interface Props {
-  favoriteTeams: Team[];
-  saveNewNotification: (object) => Promise<any>;
-  phoneNumber: PhoneNumber | null;
+  favoriteTeams: Team[]
+  saveNewNotification: (object) => Promise<any>
+  phoneNumber: PhoneNumber | null
 }
 
 interface State {
-  editing: boolean;
-  saving: boolean;
-  selectedTeamSlug: string;
-  useEmail: boolean;
-  usePhone: boolean;
+  editing: boolean
+  saving: boolean
+  selectedTeamSlug: string
+  useEmail: boolean
+  usePhone: boolean
 }
 
 class NotificationPreferenceNewRow extends Component<Props, State> {
@@ -25,7 +25,7 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
     saving: false,
     selectedTeamSlug: '',
     useEmail: false,
-    usePhone: false
+    usePhone: false,
   }
   auth = new AuthService()
 
@@ -34,30 +34,33 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
   }
 
   handleSaveClick = () => {
-    if(!this.validForm()){
+    if (!this.validForm()) {
       console.log('Save failed')
       return null
     }
     this.setState({ saving: true })
-    setTimeout(function() {}, 500)
-    let saveParams = {
+    setTimeout(function () {
+      // simply wait half a second
+    }, 500)
+    const saveParams = {
       team_slug: this.state.selectedTeamSlug,
       use_email: this.state.useEmail,
-      use_phone: this.state.usePhone
+      use_phone: this.state.usePhone,
     }
-    this.props.saveNewNotification(saveParams)
-      .then(response => {
+    this.props
+      .saveNewNotification(saveParams)
+      .then(() => {
         this.setState({
           editing: false,
           saving: false,
           selectedTeamSlug: '',
           useEmail: false,
-          usePhone: false
+          usePhone: false,
         })
       })
-    .catch(error =>{
-      this.setState({ editing: true, saving: false })
-    })
+      .catch(() => {
+        this.setState({ editing: true, saving: false })
+      })
   }
 
   handleDiscardChangesClick = () => {
@@ -65,18 +68,18 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
       selectedTeamSlug: '',
       useEmail: false,
       usePhone: false,
-      editing: false
+      editing: false,
     })
   }
 
   handleNewNotificationClick = () => {
     this.setState({
-      editing: true
+      editing: true,
     })
   }
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let change = {}
+    const change = {}
     change[e.target.name] = e.target.value
     this.setState(change)
   }
@@ -86,41 +89,47 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
   }
 
   validForm = () => {
-    return !!(this.state.selectedTeamSlug &&
-        (
-          !!this.state.usePhone ||
-          !!this.state.useEmail
-        )
-      )
+    return !!(
+      this.state.selectedTeamSlug &&
+      (!!this.state.usePhone || !!this.state.useEmail)
+    )
   }
 
   handlePhoneCheckboxClick = () => {
     console.log('hi')
-    if(!this.state.editing) return
-    this.setState( (state) => ({ usePhone : !state.usePhone }) )
+    if (!this.state.editing) return
+    this.setState((state) => ({ usePhone: !state.usePhone }))
   }
 
   handleEmailCheckboxClick = () => {
     console.log('hi23')
-    if(!this.state.editing) return
-    this.setState( (state) => ({ useEmail : !state.useEmail }) )
+    if (!this.state.editing) return
+    this.setState((state) => ({ useEmail: !state.useEmail }))
   }
 
   actionButton = () => {
-    if(this.state.editing){
+    if (this.state.editing) {
       return (
         <div>
           <button
-            className={`button is-success ${this.state.saving ? 'is-loading' : ''}`}
+            className={`button is-success ${
+              this.state.saving ? 'is-loading' : ''
+            }`}
             onClick={this.handleSaveClick}
-            disabled={!this.validForm()}>Save</button>
-          <button className="button" onClick={this.handleDiscardChangesClick}>Cancel</button>
+            disabled={!this.validForm()}
+          >
+            Save
+          </button>
+          <button className="button" onClick={this.handleDiscardChangesClick}>
+            Cancel
+          </button>
         </div>
       )
-    }
-    else {
+    } else {
       return (
-        <button className="button" onClick={this.handleEditClick}>Edit</button>
+        <button className="button" onClick={this.handleEditClick}>
+          Edit
+        </button>
       )
     }
   }
@@ -128,61 +137,65 @@ class NotificationPreferenceNewRow extends Component<Props, State> {
   formRow = () => {
     const { selectedTeamSlug, useEmail, usePhone } = this.state
     const { favoriteTeams, phoneNumber } = this.props
-    let teamOptions: Array<TeamSelectOption> = generateTeamOptions(favoriteTeams)
+    const teamOptions: TeamSelectOption[] = generateTeamOptions(favoriteTeams)
 
-    return(
+    return (
       <tr>
         <td>
           <Select
             className="favorite-team-select-single team-input"
             name="favorite-team-select"
-            value={teamOptions.find(option => option.value === selectedTeamSlug)}
-            onChange={ this.handleTeamChange }
-            options={ teamOptions }
+            value={teamOptions.find(
+              (option) => option.value === selectedTeamSlug
+            )}
+            onChange={this.handleTeamChange}
+            options={teamOptions}
             closeOnSelect={true}
           />
         </td>
         <td>
           <Checkbox
             handleClick={this.handlePhoneCheckboxClick}
-            label={ phoneNumber ? phoneNumber.number : 'Add a phone number below!' }
+            label={
+              phoneNumber ? phoneNumber.number : 'Add a phone number below!'
+            }
             isChecked={usePhone}
-            isDisabled={!phoneNumber}/>
+            isDisabled={!phoneNumber}
+          />
         </td>
         <td>
           <Checkbox
             handleClick={this.handleEmailCheckboxClick}
             label={this.auth.getUserEmail()}
             isChecked={useEmail}
-            isDisabled={false}/>
+            isDisabled={false}
+          />
         </td>
-        <td>
-          {this.actionButton()}
-        </td>
+        <td>{this.actionButton()}</td>
       </tr>
     )
   }
 
   buttonRow = () => {
-    return(
+    return (
       <tr>
-        <td colSpan={5} style={{"textAlign": 'center'}}>
-          <button className="button" onClick={this.handleNewNotificationClick}>Add New</button>
+        <td colSpan={5} style={{ textAlign: 'center' }}>
+          <button className="button" onClick={this.handleNewNotificationClick}>
+            Add New
+          </button>
         </td>
       </tr>
     )
   }
 
-  render(){
+  render() {
     const { editing } = this.state
-    if(editing) {
+    if (editing) {
       return this.formRow()
-    }
-    else {
+    } else {
       return this.buttonRow()
     }
   }
-
 }
 
 export default NotificationPreferenceNewRow

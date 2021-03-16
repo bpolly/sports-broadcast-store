@@ -6,62 +6,70 @@ import '../styles/animate.css'
 import '../styles/phone_number_form.scss'
 
 interface Props {
-  phoneNumber?: PhoneNumber | null;
-  closePhoneFormModal: () => void;
-  fetchPhoneNumber: () => void;
-  hidden: boolean;
+  phoneNumber?: PhoneNumber | null
+  closePhoneFormModal: () => void
+  fetchPhoneNumber: () => void
+  hidden: boolean
 }
 
 class PhoneNumberForm extends Component<Props> {
   state = {
-    phoneNumber: (this.props.phoneNumber && this.props.phoneNumber.number) || '',
+    phoneNumber:
+      (this.props.phoneNumber && this.props.phoneNumber.number) || '',
     verificationSent: false,
-    phoneNumberID: (this.props.phoneNumber && this.props.phoneNumber.id) || null,
+    phoneNumberID:
+      (this.props.phoneNumber && this.props.phoneNumber.id) || null,
   }
   auth = new AuthService()
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let change = {}
+    const change = {}
     change[e.target.name] = e.target.value.toUpperCase()
     this.setState(change)
   }
 
   handleSaveClick = () => {
     this.setState({ verificationSent: true })
-    let user_id = this.auth.getUserId()
-    axios.post(`/users/${user_id}/phone`,
-      {
-        number: this.state.phoneNumber
-      },
-      {
-        headers: { Authorization: this.auth.getToken() }
-      }
-    ).then(response => {
-      this.setState({ verificationSent: true, phoneNumberID: response.data['id'] })
-      this.props.fetchPhoneNumber()
-    })
-    .catch(error =>{
-      // do something with error
-    })
+    const user_id = this.auth.getUserId()
+    axios
+      .post(
+        `/users/${user_id}/phone`,
+        {
+          number: this.state.phoneNumber,
+        },
+        {
+          headers: { Authorization: this.auth.getToken() },
+        }
+      )
+      .then((response) => {
+        this.setState({
+          verificationSent: true,
+          phoneNumberID: response.data['id'],
+        })
+        this.props.fetchPhoneNumber()
+      })
+      .catch(() => {
+        // do something with error
+      })
   }
 
   PhoneNumberVerificationForm = () => {
     const { phoneNumberID } = this.state
-    if(phoneNumberID) return(
-      <PhoneNumberVerificationForm
-        closePhoneFormModal={this.props.closePhoneFormModal}
-        fetchPhoneNumber={this.props.fetchPhoneNumber}
-      />
-    )
+    if (phoneNumberID)
+      return (
+        <PhoneNumberVerificationForm
+          closePhoneFormModal={this.props.closePhoneFormModal}
+          fetchPhoneNumber={this.props.fetchPhoneNumber}
+        />
+      )
   }
-
 
   render() {
     const { hidden } = this.props
     const { phoneNumber } = this.state
 
-    return(
-      <div className={`modal ${hidden ? '' : 'is-active'}`} >
+    return (
+      <div className={`modal ${hidden ? '' : 'is-active'}`}>
         <div className="modal-background"></div>
         <div className="modal-card">
           <header className="modal-card-head">
@@ -69,11 +77,10 @@ class PhoneNumberForm extends Component<Props> {
             <button
               className="delete"
               aria-label="close"
-              onClick={this.props.closePhoneFormModal}>
-            </button>
+              onClick={this.props.closePhoneFormModal}
+            ></button>
           </header>
           <section className="modal-card-body">
-
             <div className="field">
               <div className="control">
                 <input
@@ -82,16 +89,22 @@ class PhoneNumberForm extends Component<Props> {
                   type="text"
                   placeholder=""
                   value={phoneNumber}
-                  onChange={this.handleChange}/>
+                  onChange={this.handleChange}
+                />
               </div>
               <p className="help">Enter without punctuation</p>
             </div>
             <div className="field">
               <div className="control">
-                <button className="button is-primary" onClick={this.handleSaveClick}>Submit</button>
+                <button
+                  className="button is-primary"
+                  onClick={this.handleSaveClick}
+                >
+                  Submit
+                </button>
               </div>
             </div>
-            { this.PhoneNumberVerificationForm() }
+            {this.PhoneNumberVerificationForm()}
           </section>
         </div>
       </div>

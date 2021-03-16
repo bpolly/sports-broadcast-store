@@ -20,32 +20,49 @@ import AdminUpcomingNotifications from './components/admin/AdminUpcomingNotifica
 import UserContext from './contexts/User'
 import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSquare  } from '@fortawesome/free-regular-svg-icons'
-import { faEnvelope, faLock, faCheckCircle, faTimesCircle, faCheckSquare, faUserCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSquare } from '@fortawesome/free-regular-svg-icons'
+import {
+  faEnvelope,
+  faLock,
+  faCheckCircle,
+  faTimesCircle,
+  faCheckSquare,
+  faUserCircle,
+  faSpinner,
+} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faEnvelope, faLock, faCheckCircle, faTimesCircle, faSquare, faCheckSquare, faUserCircle, faSpinner)
+library.add(
+  faEnvelope,
+  faLock,
+  faCheckCircle,
+  faTimesCircle,
+  faSquare,
+  faCheckSquare,
+  faUserCircle,
+  faSpinner
+)
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => (
   <Route
     path={path}
-    render={props =>
+    render={(props) =>
       new AuthService().isLoggedIn() ? (
         <Component {...props} {...rest} />
       ) : (
         <Redirect
           to={{
-            pathname: "/login",
+            pathname: '/login',
           }}
         />
       )
     }
   />
-);
+)
 
-const AdminRoute = ({ component:Component, ...rest }) => (
+const AdminRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
+    render={(props) =>
       new AuthService().isAdmin() ? (
         <AdminLayout>
           <Component {...props} />
@@ -53,50 +70,54 @@ const AdminRoute = ({ component:Component, ...rest }) => (
       ) : (
         <Redirect
           to={{
-            pathname: "/login",
+            pathname: '/login',
           }}
         />
       )
     }
   />
-);
-
+)
 
 class App extends Component {
   state = {
     favoriteTeams: [],
-    loggedIn: false
+    loggedIn: false,
   }
   auth = new AuthService()
 
   componentDidMount() {
-    if(this.auth.isLoggedIn()) {
+    if (this.auth.isLoggedIn()) {
       this.setLoggedIn(true)
       this.fetchUserFavoriteTeams()
     }
   }
 
-  setLoggedIn = (val: Boolean) => {
-    this.setState({loggedIn: val})
+  setLoggedIn = (val: boolean) => {
+    this.setState({ loggedIn: val })
   }
 
   fetchUserFavoriteTeams = () => {
-    axios.get('/user_favorite_teams',
-      { headers: { Authorization: this.auth.getToken() } }
-    ).then(response => {
-      this.setState({ favoriteTeams: response.data })
-    })
+    axios
+      .get('/user_favorite_teams', {
+        headers: { Authorization: this.auth.getToken() },
+      })
+      .then((response) => {
+        this.setState({ favoriteTeams: response.data })
+      })
   }
 
   handleFavoriteTeamChange = (teams: Team[]) => {
-    axios.post('/update_favorite_teams',
-      { teams: teams.map((team) => team['value']) },
-      {
-        headers: { Authorization: this.auth.getToken() }
-      }
-    ).then(response => {
-      this.setState({ favoriteTeams: response.data })
-    })
+    axios
+      .post(
+        '/update_favorite_teams',
+        { teams: teams.map((team) => team['value']) },
+        {
+          headers: { Authorization: this.auth.getToken() },
+        }
+      )
+      .then((response) => {
+        this.setState({ favoriteTeams: response.data })
+      })
   }
 
   render() {
@@ -104,47 +125,41 @@ class App extends Component {
     const setLoggedIn = this.setLoggedIn
 
     return (
-      <BrowserRouter >
+      <BrowserRouter>
         <UserContext.Provider value={{ loggedIn, setLoggedIn }}>
           <div>
             <Navbar />
             <Switch>
               <Route
-                exact path="/"
-                render={() =>
-                    <Dashboard
-                      handleFavoriteTeamChange={this.handleFavoriteTeamChange}
-                      favoriteTeams={favoriteTeams}
-                    />}
+                exact
+                path="/"
+                render={() => (
+                  <Dashboard
+                    handleFavoriteTeamChange={this.handleFavoriteTeamChange}
+                    favoriteTeams={favoriteTeams}
+                  />
+                )}
               />
               <Route path="/verify" component={EmailVerification} />
               <Route path="/unsubscribe" component={EmailUnsubscribe} />
-              <Route path="/login" component={Login}/>
-              <Route path="/signup" component={Signup}/>
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
               <PrivateRoute
                 path="/notifications"
                 component={NotificationCenter}
                 handleFavoriteTeamChange={this.handleFavoriteTeamChange}
                 favoriteTeams={favoriteTeams}
               />
-              <AdminRoute
-                exact
-                path="/admin"
-                component={AdminDashboard}
-              />
-              <AdminRoute
-                exact
-                path="/admin/users"
-                component={AdminUsers}
-              />
+              <AdminRoute exact path="/admin" component={AdminDashboard} />
+              <AdminRoute exact path="/admin/users" component={AdminUsers} />
               <AdminRoute
                 exact
                 path="/admin/upcoming_notifications"
                 component={AdminUpcomingNotifications}
               />
-              <Route render={() => (<div>
-                  Sorry, this page does not exist.
-                </div>)}/>
+              <Route
+                render={() => <div>Sorry, this page does not exist.</div>}
+              />
             </Switch>
           </div>
         </UserContext.Provider>
