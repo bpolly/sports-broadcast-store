@@ -13,6 +13,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
+    "quotes": ["error", "single"],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "@typescript-eslint/explicit-module-boundary-types": "off",
